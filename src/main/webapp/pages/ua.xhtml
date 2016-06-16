@@ -9,6 +9,9 @@
 	<title>UA - Listagem</title>
 </h:head>
 <h:body>
+
+<p:growl id="mensagem"/>
+  
 	<h:form>
 		<p:panel header="UA - Listagem">
 			<p:dataTable emptyMessage="Nenhum registro encontrado."
@@ -85,7 +88,8 @@
 			</h:panelGrid>
 			
 			<h:panelGrid columns="3">
-				<p:commandButton value="Salvar" />
+				<p:commandButton value="Salvar" actionListener="#{uaBean.salvar}"
+				update=":mensagem" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()" />
 			</h:panelGrid>
 
