@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; UTF-8" />
+	<title>Cadastro UA</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:panel header="UA - Listagem">
+			<p:dataTable emptyMessage="Nenhum registro encontrado."
+				paginator="true">
+				<f:facet name="footer">
+					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
+				</f:facet>
+				<p:column headerText="Ano">
+				</p:column>
+				<p:column headerText="Janeiro">
+				</p:column>
+				<p:column headerText="Fevereiro">
+				</p:column>
+				<p:column headerText="Março">
+				</p:column>
+				<p:column headerText="Abril">
+				</p:column>
+				<p:column headerText="Maio">
+				</p:column>
+				<p:column headerText="Junho">
+				</p:column>
+				<p:column headerText="Julho">
+				</p:column>
+				<p:column headerText="Agosto">
+				</p:column>
+				<p:column headerText="Setembro">
+				</p:column>
+				<p:column headerText="Outubro">
+				</p:column>
+				<p:column headerText="Novembro">
+				</p:column>
+				<p:column headerText="Dezembro">
+				</p:column>
+				<p:column headerText="Outorgante">
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+
+	<p:dialog header="Ua Cadastro" widgetVar="dialogo" draggable="false"
+		resizable="false" modal="true" closable="false">
+		<h:form>
+
+			<h:panelGrid columns="12">
+
+				<p:outputLabel value="Numero UA: " />
+				<p:inputText maxlength="50" size="10" />
+				<p:outputLabel value="Ano UA: " />
+				<p:inputText maxlength="50" size="10" />
+				<p:outputLabel value="Janeiro: " />
+				<p:inputText maxlength="50" size="10" />
+				<p:outputLabel value="Fevereiro: " />
+				<p:inputText maxlength="50" size="10" />
+				<p:outputLabel value="Março: " />
+				<p:inputText maxlength="50" size="10" />
+				<p:outputLabel value="Abril: " />
+				<p:inputText maxlength="50" size="10" />
+				<p:outputLabel value="Maio: " />
+				<p:inputText maxlength="50" size="10" />
+				<p:outputLabel value="Junho: " />
+				<p:inputText maxlength="50" size="10" />
+				<p:outputLabel value="Julho: " />
+				<p:inputText maxlength="50" size="10" />
+				<p:outputLabel value="Agosto: " />
+				<p:inputText maxlength="50" size="10" />
+				<p:outputLabel value="Setembro: " />
+				<p:inputText maxlength="50" size="10" />
+				<p:outputLabel value="Outubro: " />
+				<p:inputText maxlength="50" size="10" />
+				<p:outputLabel value="Novembro: " />
+				<p:inputText maxlength="50" size="10" />
+				<p:outputLabel value="Dezembro: " />
+				<p:inputText maxlength="50" size="10" />
+			</h:panelGrid>
+			
+			<h:panelGrid columns="3">
+				<p:commandButton value="Salvar" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()" />
+			</h:panelGrid>
+
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>
