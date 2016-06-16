@@ -7,7 +7,7 @@
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Cadastro de Usuario</title>
+	<title>Usuário - Listagem</title>
 </h:head>
 <h:body>
 	<h:form>
@@ -35,31 +35,37 @@
 	<p:dialog header="Cadastro Usuário" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true" closable="false">
 		<h:form>
-			<h:panelGrid columns="6">
-				<p:outputPanel value="Login" />
-				<p:inputText maxlength="50" size="20" />
+			<h:panelGrid columns="2">
 
-				<p:outputPanel value="Senha" />
-				<p:inputText maxlength="50" size="10" />
+				<p:outputLabel value="Login" />
+				<p:inputText maxlength="32" size="20" />
 
-				<p:outputPanel value="Login" />
+				<p:outputLabel value="Senha" />
+				<p:password maxlength="32" size="20"/>
+
+				<p:outputLabel value="Login" />
 				<p:selectOneMenu filter="true">
 					<f:selectItem itemValue="" itemLabel="Seleciona uma pessoa" />
 				</p:selectOneMenu>
 
-				<p:outputPanel value="Tipo" />
-				<p:inputText maxlength="50" size="10" />
+				<p:outputLabel value="Tipo" />
+				<p:selectOneRadio>
+				   <f:selectItem itemValue="A" itemLabel="Administrador"/>
+				    <f:selectItem itemValue="U" itemLabel="Usuário"/>
+				</p:selectOneRadio>
 
-				<p:outputPanel value="Ativo" />
-				<p:inputText maxlength="50" size="10" />
+				<p:outputLabel value="Ativo" /> 
+				<p:selectBooleanCheckbox/>
+			</h:panelGrid>
+              
+              	
+            
+			<h:panelGrid columns="3">
+				<p:commandButton value="Salvar" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 
-			<h:panelGrid columns="3"></h:panelGrid>
-			<p:commandButton value="Salvar" />
-			<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"></p:commandButton>
-
-
-		</h:form>
+	</h:form>
 
 
 
