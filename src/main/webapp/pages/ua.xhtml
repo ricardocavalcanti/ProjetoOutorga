@@ -5,7 +5,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<meta http-equiv="Content-Type" content="text/html; UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>UA - Listagem</title>
 </h:head>
 <h:body>
@@ -17,7 +17,8 @@
 			<p:dataTable emptyMessage="Nenhum registro encontrado."
 				paginator="true">
 				<f:facet name="footer">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
+					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
+					actionListener="#{uaBean.novo}" />
 				</f:facet>
 				<p:column headerText="Ano">
 				</p:column>
@@ -58,33 +59,33 @@
 			<h:panelGrid columns="12">
 
 				<p:outputLabel value="Numero UA: " />
-				<p:inputText maxlength="50" size="10" />
+				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.numeroUa}" />
 				<p:outputLabel value="Ano UA: " />
-				<p:inputText maxlength="50" size="10" />
+				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.ano}" />
 				<p:outputLabel value="Janeiro: " />
-				<p:inputText maxlength="50" size="10" />
+				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.jan}" />
 				<p:outputLabel value="Fevereiro: " />
-				<p:inputText maxlength="50" size="10" />
+				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.fev}" />
 				<p:outputLabel value="Março: " />
-				<p:inputText maxlength="50" size="10" />
+				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.mar}" />
 				<p:outputLabel value="Abril: " />
-				<p:inputText maxlength="50" size="10" />
+				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.abr}"/>
 				<p:outputLabel value="Maio: " />
-				<p:inputText maxlength="50" size="10" />
+				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.mai}" />
 				<p:outputLabel value="Junho: " />
-				<p:inputText maxlength="50" size="10" />
+				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.jun}" />
 				<p:outputLabel value="Julho: " />
-				<p:inputText maxlength="50" size="10" />
+				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.jul}"/>
 				<p:outputLabel value="Agosto: " />
-				<p:inputText maxlength="50" size="10" />
+				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.ago}"/>
 				<p:outputLabel value="Setembro: " />
-				<p:inputText maxlength="50" size="10" />
+				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.set}" />
 				<p:outputLabel value="Outubro: " />
-				<p:inputText maxlength="50" size="10" />
+				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.out}"/>
 				<p:outputLabel value="Novembro: " />
-				<p:inputText maxlength="50" size="10" />
+				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.nov}"/>
 				<p:outputLabel value="Dezembro: " />
-				<p:inputText maxlength="50" size="10" />
+				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.dez}" />
 			</h:panelGrid>
 			
 			<h:panelGrid columns="3">
