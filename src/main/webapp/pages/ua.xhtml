@@ -18,8 +18,10 @@
 				paginator="true">
 				<f:facet name="footer">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-					actionListener="#{uaBean.novo}" />
+					actionListener="#{uaBean.novo}" 
+					update=":formCadastro:painel"/>
 				</f:facet>
+				
 				<p:column headerText="Ano">
 				</p:column>
 				<p:column headerText="Janeiro">
@@ -54,9 +56,10 @@
 
 	<p:dialog header="Ua Cadastro" widgetVar="dialogo" draggable="false"
 		resizable="false" modal="true" closable="false">
-		<h:form>
+		
+		<h:form id="formCadastro">
 
-			<h:panelGrid columns="12">
+			<h:panelGrid id="painel" columns="12">
 
 				<p:outputLabel value="Numero UA: " />
 				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.numeroUa}" />
@@ -90,7 +93,7 @@
 			
 			<h:panelGrid columns="3">
 				<p:commandButton value="Salvar" actionListener="#{uaBean.salvar}"
-				update=":mensagem" />
+				update=":mensagem"  />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()" />
 			</h:panelGrid>
 
