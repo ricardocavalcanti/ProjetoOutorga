@@ -93,7 +93,7 @@
 			
 			<h:panelGrid columns="3">
 				<p:commandButton value="Salvar" actionListener="#{uaBean.salvar}"
-				update=":mensagem"  />
+				update=":mensagem :formCadastro:painel"  />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()" />
 			</h:panelGrid>
 
