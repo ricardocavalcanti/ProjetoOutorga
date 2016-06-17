@@ -6,20 +6,20 @@ import javax.persistence.Entity;
 @SuppressWarnings("serial")
 @Entity
 public class Pessoa extends GenericDomain {
-	
-	@Column(length=50, nullable=false)
+
+	@Column(length = 50, nullable = false)
 	private String nome;
-	@Column(length=50, nullable=false)
-	private String cpf;
-	@Column(length=50, nullable=false)
+	@Column(length = 50, nullable = false)
+	private String matricula;
+	@Column(length = 50, nullable = false)
 	private String telefone;
-	@Column(length=50, nullable=false)
+	@Column(length = 50, nullable = false)
 	private String setor;
-	@Column(length=50, nullable=false)
+	@Column(length = 50, nullable = false)
 	private String email;
-	
-	public Pessoa(){
-		
+
+	public Pessoa() {
+
 	}
 
 	public String getNome() {
@@ -30,12 +30,12 @@ public class Pessoa extends GenericDomain {
 		this.nome = nome;
 	}
 
-	public String getCpf() {
-		return cpf;
+	public String getMatricula() {
+		return matricula;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
 	}
 
 	public String getTelefone() {
@@ -62,6 +62,6 @@ public class Pessoa extends GenericDomain {
 		this.email = email;
 	}
 	
-	
+
 
 }

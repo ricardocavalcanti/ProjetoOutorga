@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -10,14 +10,19 @@
 </h:head>
 <h:body>
 
+<p:growl id="mensagem" />
+
 	<h:form>
 
 		<p:panel header="Pessoa - Listagem">
 			<p:dataTable emptyMessage="Nenhum registro encontrado"
 				paginator="true">
 				<f:facet name="footer">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
+					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" 
+					actionListener="#{pessoaBean.novo}"
+				update=":formCadastro:painel" />		
 				</f:facet>
+				
 				<p:column headerText="Nome">
 				</p:column>
 				<p:column headerText="Email">
@@ -26,7 +31,7 @@
 				</p:column>
 				<p:column headerText="Telefone">
 				</p:column>
-				<p:column headerText="CPF">
+				<p:column headerText="Matricula">
 				</p:column>
 			</p:dataTable>
 		</p:panel>
@@ -34,29 +39,31 @@
 
 	<p:dialog header="Cadastro Pessoa" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true" closable="false">
-		<h:form>
-			<h:panelGrid columns="6">
+		
+			<h:form id="formCadastro">
+		
+		<h:panelGrid id="painel" columns="6">
 
 				<p:outputLabel value="Nome" />
-				<p:inputText maxlength="50" size="40" />
+				<p:inputText maxlength="50" size="40" value="#{pessoaBean.pessoa.nome}" />
 
 				<p:outputLabel value="Email" />
-				<p:inputText maxlength="50" size="30" />
+				<p:inputText maxlength="50" size="30" value="#{pessoaBean.pessoa.email}" />
 
 				<p:outputLabel value="Setor" />
-				<p:inputText maxlength="50" size="10" />
+				<p:inputText maxlength="50" size="10" value="#{pessoaBean.pessoa.setor}" />
 
 				<p:outputLabel value="Telefone" />
-				<p:inputText maxlength="50" size="10" />
+				<p:inputText maxlength="50" size="10" value="#{pessoaBean.pessoa.telefone}"/>
 
-				<p:outputLabel value="CPF" />
-				<p:inputText maxlength="50" size="15"></p:inputText>
+				<p:outputLabel value="Matricula" />
+				<p:inputText maxlength="50" size="15" value="#{pessoaBean.pessoa.matricula}"/>
 			</h:panelGrid>
 
 			<h:panelGrid columns="3">
-				<p:commandButton value="Salvar" />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo).hide();" />
-
+				<p:commandButton value="Salvar" actionListener="#{pessoaBean.salvar}"
+			update=":mensagem :formCadastro:painel" /> <!-- Cuidado ao indicar o caminho. formCadastro e painel devem ficar juntos -->
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()" />
 			</h:panelGrid>
 
 		</h:form>

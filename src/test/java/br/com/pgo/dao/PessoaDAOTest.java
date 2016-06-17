@@ -9,11 +9,11 @@ import br.com.pgo.domain.Pessoa;
 
 public class PessoaDAOTest {
 	@Test
-	//@Ignore
+	@Ignore
 	public void salvar() {
 
 		Pessoa pessoa = new Pessoa();
-		pessoa.setCpf("050.122.354.10");
+		pessoa.setMatricula("050.122.354.10");
 		pessoa.setEmail("Bob@email");
 		pessoa.setNome("Bob");
 		pessoa.setSetor("Financeiro");
@@ -33,7 +33,7 @@ public class PessoaDAOTest {
 
 		for (Pessoa pessoa : resultado) {
 
-			System.out.println("CPF: " + pessoa.getCpf());
+			System.out.println("CPF: " + pessoa.getMatricula());
 			System.out.println("E-MAIL: " + pessoa.getEmail());
 			System.out.println("NOME: " + pessoa.getNome());
 			System.out.println("SETOR: " + pessoa.getSetor());
@@ -55,7 +55,7 @@ public class PessoaDAOTest {
 			System.out.println("Pessoa não encontrada");
 		} else {
 
-			System.out.println("CPF: " + pessoa.getCpf());
+			System.out.println("CPF: " + pessoa.getMatricula());
 			System.out.println("E-MAIL: " + pessoa.getEmail());
 			System.out.println("NOME: " + pessoa.getNome());
 			System.out.println("SETOR: " + pessoa.getSetor());
