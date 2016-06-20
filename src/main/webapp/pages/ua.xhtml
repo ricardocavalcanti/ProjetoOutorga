@@ -10,53 +10,81 @@
 </h:head>
 <h:body>
 
-<p:growl id="mensagem"/>
-  
+	<p:growl id="mensagem" />
+
 	<h:form>
 		<p:panel header="UA - Listagem">
 			<p:dataTable emptyMessage="Nenhum registro encontrado."
-				paginator="true">
+				paginator="true" value="#{uaBean.listaUa}" var="listaUas" rows="5"> <!-- rows: Informa a paginação -->
+
 				<f:facet name="footer">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-					actionListener="#{uaBean.novo}" 
-					update=":formCadastro:painel"/>
+						actionListener="#{uaBean.novo}" update=":formCadastro:painel" />
 				</f:facet>
 				
-				<p:column headerText="Ano">
+				<p:column headerText="Numero UA" sortBy="#{listaUas.numeroUa}" filterBy="#{listaUas.numeroUa}"> <!-- sortBy: Ordenação dos dados -->
+					<h:outputText value="#{listaUas.numeroUa}" />                                              <!-- filterBy: Filtar dados      -->   
 				</p:column>
+
+				<p:column headerText="Ano" >
+					<h:outputText value="#{listaUas.ano}" />
+				</p:column>				
+
 				<p:column headerText="Janeiro">
+					<h:outputText value="#{listaUas.jan}" />
 				</p:column>
+
 				<p:column headerText="Fevereiro">
+					<h:outputText value="#{listaUas.fev}" />
 				</p:column>
+
 				<p:column headerText="Março">
+					<h:outputText value="#{listaUas.mar}" />
 				</p:column>
+
 				<p:column headerText="Abril">
+					<h:outputText value="#{listaUas.abr}" />
 				</p:column>
+
 				<p:column headerText="Maio">
+					<h:outputText value="#{listaUas.mai}" />
 				</p:column>
+
 				<p:column headerText="Junho">
+					<h:outputText value="#{listaUas.jun}" />
 				</p:column>
+
 				<p:column headerText="Julho">
+					<h:outputText value="#{listaUas.jul}" />
 				</p:column>
+
 				<p:column headerText="Agosto">
+					<h:outputText value="#{listaUas.ago}" />
 				</p:column>
+
 				<p:column headerText="Setembro">
+					<h:outputText value="#{listaUas.set}" />
 				</p:column>
+
 				<p:column headerText="Outubro">
+					<h:outputText value="#{listaUas.out}" />
 				</p:column>
+
 				<p:column headerText="Novembro">
+					<h:outputText value="#{listaUas.nov}" />
 				</p:column>
+
 				<p:column headerText="Dezembro">
+					<h:outputText value="#{listaUas.dez}" />
 				</p:column>
-				<p:column headerText="Outorgante">
-				</p:column>
+
 			</p:dataTable>
 		</p:panel>
 	</h:form>
 
 	<p:dialog header="Ua Cadastro" widgetVar="dialogo" draggable="false"
 		resizable="false" modal="true" closable="false">
-		
+
 		<h:form id="formCadastro">
 
 			<h:panelGrid id="painel" columns="12">
@@ -72,28 +100,28 @@
 				<p:outputLabel value="Março: " />
 				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.mar}" />
 				<p:outputLabel value="Abril: " />
-				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.abr}"/>
+				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.abr}" />
 				<p:outputLabel value="Maio: " />
 				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.mai}" />
 				<p:outputLabel value="Junho: " />
 				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.jun}" />
 				<p:outputLabel value="Julho: " />
-				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.jul}"/>
+				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.jul}" />
 				<p:outputLabel value="Agosto: " />
-				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.ago}"/>
+				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.ago}" />
 				<p:outputLabel value="Setembro: " />
 				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.set}" />
 				<p:outputLabel value="Outubro: " />
-				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.out}"/>
+				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.out}" />
 				<p:outputLabel value="Novembro: " />
-				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.nov}"/>
+				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.nov}" />
 				<p:outputLabel value="Dezembro: " />
 				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.dez}" />
 			</h:panelGrid>
-			
+
 			<h:panelGrid columns="3">
 				<p:commandButton value="Salvar" actionListener="#{uaBean.salvar}"
-				update=":mensagem :formCadastro:painel" />
+					update=":mensagem :formCadastro:painel" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()" />
 			</h:panelGrid>
 

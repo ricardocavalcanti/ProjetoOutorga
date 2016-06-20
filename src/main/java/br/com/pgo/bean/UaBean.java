@@ -1,7 +1,9 @@
 package br.com.pgo.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -16,6 +18,7 @@ import br.com.pgo.domain.Ua;
 public class UaBean implements Serializable {
 
 	private Ua ua;
+	private List<Ua> listaUa;
 
 	public Ua getUa() {
 		return ua;
@@ -25,9 +28,20 @@ public class UaBean implements Serializable {
 		this.ua = ua;
 	}
 
+	
+
+	public List<Ua> getListaUa() {
+		return listaUa;
+	}
+
+	public void setListaUa(List<Ua> listaUa) {
+		this.listaUa = listaUa;
+	}
+
 	public void novo() {
 
 		ua = new Ua();
+	
 	}
 
 	public void salvar() {
@@ -44,6 +58,20 @@ public class UaBean implements Serializable {
 
 			Messages.addGlobalInfo("Erro ao cadastrar UA!");
 			erro.printStackTrace();
+
+		}
+
+	}
+    @PostConstruct
+	public void listar() {
+
+		try {
+			UaDAO uaDAO = new UaDAO();
+			listaUa = uaDAO.listar();
+
+		} catch (RuntimeException erro) {
+
+			Messages.addGlobalInfo("Erro ao listar UA!");
 
 		}
 
