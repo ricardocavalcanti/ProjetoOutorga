@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
@@ -28,8 +29,6 @@ public class UaBean implements Serializable {
 		this.ua = ua;
 	}
 
-	
-
 	public List<Ua> getListaUa() {
 		return listaUa;
 	}
@@ -41,8 +40,7 @@ public class UaBean implements Serializable {
 	public void novo() {
 
 		ua = new Ua();
-		
-	
+
 	}
 
 	public void salvar() {
@@ -63,7 +61,8 @@ public class UaBean implements Serializable {
 		}
 
 	}
-    @PostConstruct
+
+	@PostConstruct
 	public void listar() {
 
 		try {
@@ -78,4 +77,25 @@ public class UaBean implements Serializable {
 
 	}
 
+	public void excluir(ActionEvent evento) {
+		
+		evento.getComponent().getAttributes().get("uaSelecionada");
+
+		try {
+
+			UaDAO uaDAO = new UaDAO();
+			uaDAO.excluir(ua);
+			
+			Messages.addGlobalInfo("UA excluida com sucesso!");
+
+		} catch (RuntimeException erro) {
+			
+			Messages.addGlobalInfo("Erro ao excluir UA!");
+			
+
+		}
+	}
+	
 }
+
+

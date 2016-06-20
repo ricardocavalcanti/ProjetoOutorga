@@ -30,55 +30,79 @@
 					<h:outputText value="#{listaUas.ano}" />
 				</p:column>				
 
-				<p:column headerText="Janeiro">
+				<p:column headerText="Jan">
 					<h:outputText value="#{listaUas.jan}" />
 				</p:column>
 
-				<p:column headerText="Fevereiro">
+				<p:column headerText="Fev">
 					<h:outputText value="#{listaUas.fev}" />
 				</p:column>
 
-				<p:column headerText="Março">
+				<p:column headerText="Mar">
 					<h:outputText value="#{listaUas.mar}" />
 				</p:column>
 
-				<p:column headerText="Abril">
+				<p:column headerText="Abr">
 					<h:outputText value="#{listaUas.abr}" />
 				</p:column>
 
-				<p:column headerText="Maio">
+				<p:column headerText="Mai">
 					<h:outputText value="#{listaUas.mai}" />
 				</p:column>
 
-				<p:column headerText="Junho">
+				<p:column headerText="Jun">
 					<h:outputText value="#{listaUas.jun}" />
 				</p:column>
 
-				<p:column headerText="Julho">
+				<p:column headerText="Jul">
 					<h:outputText value="#{listaUas.jul}" />
 				</p:column>
 
-				<p:column headerText="Agosto">
+				<p:column headerText="Ago">
 					<h:outputText value="#{listaUas.ago}" />
 				</p:column>
 
-				<p:column headerText="Setembro">
+				<p:column headerText="Set">
 					<h:outputText value="#{listaUas.set}" />
 				</p:column>
 
-				<p:column headerText="Outubro">
+				<p:column headerText="Out">
 					<h:outputText value="#{listaUas.out}" />
 				</p:column>
 
-				<p:column headerText="Novembro">
+				<p:column headerText="Nov">
 					<h:outputText value="#{listaUas.nov}" />
 				</p:column>
 
-				<p:column headerText="Dezembro">
+				<p:column headerText="Dez">
 					<h:outputText value="#{listaUas.dez}" />
+				</p:column>
+				
+				<p:column headerText="Opções">
+				
+					<p:commandButton icon="ui-icon-trash">					
+					<p:confirm header="Apagar dados" message="Você tem certeza?" 
+					icon="ui-icon-alert"/>	
+					
+					<f:attribute name="uaSelecionada" var="#{listaUas}"/>
+									
+					</p:commandButton>
+					
 				</p:column>
 
 			</p:dataTable>
+			
+			<p:confirmDialog global="true">
+			
+			     <p:commandButton  value="Sim" type="button" 
+			     styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			      
+			     <p:commandButton value="Não" type="button"
+			     styleClass="ui-confirmdialog-ues" icon="ui-icon-close"/>			  
+			
+			</p:confirmDialog>
+			
+			
 		</p:panel>
 	</h:form>
 
