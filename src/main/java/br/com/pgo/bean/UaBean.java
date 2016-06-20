@@ -41,6 +41,7 @@ public class UaBean implements Serializable {
 	public void novo() {
 
 		ua = new Ua();
+		
 	
 	}
 
