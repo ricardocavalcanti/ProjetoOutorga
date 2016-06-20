@@ -79,21 +79,23 @@ public class UaBean implements Serializable {
 
 	public void excluir(ActionEvent evento) {
 		
-		evento.getComponent().getAttributes().get("uaSelecionada");
+		ua = (Ua) evento.getComponent().getAttributes().get("uaSelecionada");
+        Messages.addGlobalInfo("Numero da UA: "+ua.getNumeroUa()); 
+		
+		
+		//try {
 
-		try {
-
-			UaDAO uaDAO = new UaDAO();
-			uaDAO.excluir(ua);
+			//UaDAO uaDAO = new UaDAO();
+			//uaDAO.excluir(ua);
 			
-			Messages.addGlobalInfo("UA excluida com sucesso!");
+			//Messages.addGlobalInfo("UA excluida com sucesso!");
 
-		} catch (RuntimeException erro) {
+		//} catch (RuntimeException erro) {
 			
-			Messages.addGlobalInfo("Erro ao excluir UA!");
+			//Messages.addGlobalInfo("Erro ao excluir UA!");
 			
 
-		}
+		//}
 	}
 	
 }

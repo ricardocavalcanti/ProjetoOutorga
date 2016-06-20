@@ -80,11 +80,12 @@
 				
 				<p:column headerText="Opções">
 				
-					<p:commandButton icon="ui-icon-trash">					
+					<p:commandButton icon="ui-icon-trash" actionListener="#{uaBean.excluir}"
+					update=":mensagem">					
 					<p:confirm header="Apagar dados" message="Você tem certeza?" 
 					icon="ui-icon-alert"/>	
 					
-					<f:attribute name="uaSelecionada" var="#{listaUas}"/>
+					<f:attribute name="uaSelecionada" value="#{listaUas}"/>
 									
 					</p:commandButton>
 					
@@ -98,7 +99,7 @@
 			     styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 			      
 			     <p:commandButton value="Não" type="button"
-			     styleClass="ui-confirmdialog-ues" icon="ui-icon-close"/>			  
+			     styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>			  
 			
 			</p:confirmDialog>
 			
