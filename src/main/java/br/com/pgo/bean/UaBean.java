@@ -51,6 +51,8 @@ public class UaBean implements Serializable {
 
 			novo();
 
+			listaUa = uaDAO.listar();
+
 			Messages.addGlobalInfo("UA salva com sucesso!");
 
 		} catch (RuntimeException erro) {
@@ -72,32 +74,28 @@ public class UaBean implements Serializable {
 		} catch (RuntimeException erro) {
 
 			Messages.addGlobalInfo("Erro ao listar UA!");
-
+			erro.printStackTrace();
 		}
 
 	}
 
 	public void excluir(ActionEvent evento) {
-		
-		ua = (Ua) evento.getComponent().getAttributes().get("uaSelecionada");
-        Messages.addGlobalInfo("Numero da UA: "+ua.getNumeroUa()); 
-		
-		
-		//try {
 
-			//UaDAO uaDAO = new UaDAO();
-			//uaDAO.excluir(ua);
-			
-			//Messages.addGlobalInfo("UA excluida com sucesso!");
+		try {
 
-		//} catch (RuntimeException erro) {
-			
-			//Messages.addGlobalInfo("Erro ao excluir UA!");
-			
+			ua = (Ua) evento.getComponent().getAttributes().get("uaSelecionada");
+			Messages.addGlobalInfo("Numero da UA: " + ua.getNumeroUa());
 
-		//}
+			UaDAO uaDAO = new UaDAO();
+			uaDAO.excluir(ua);
+			listaUa = uaDAO.listar();
+			Messages.addGlobalInfo("UA excluida com sucesso!");
+
+		} catch (RuntimeException erro) {
+
+			Messages.addGlobalInfo("Erro ao excluir UA!");
+			erro.printStackTrace();
+		}
 	}
-	
+
 }
-
-

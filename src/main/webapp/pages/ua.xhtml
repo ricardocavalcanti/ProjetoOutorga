@@ -12,9 +12,9 @@
 
 	<p:growl id="mensagem" />
 
-	<h:form>
+	<h:form id="formListagem">
 		<p:panel header="UA - Listagem">
-			<p:dataTable emptyMessage="Nenhum registro encontrado."
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
 				paginator="true" value="#{uaBean.listaUa}" var="listaUas" rows="5"> <!-- rows: Informa a paginação -->
 
 				<f:facet name="footer">
@@ -81,7 +81,7 @@
 				<p:column headerText="Opções">
 				
 					<p:commandButton icon="ui-icon-trash" actionListener="#{uaBean.excluir}"
-					update=":mensagem">					
+					update=":mensagem :formListagem:tabela">					
 					<p:confirm header="Apagar dados" message="Você tem certeza?" 
 					icon="ui-icon-alert"/>	
 					
@@ -146,7 +146,7 @@
 
 			<h:panelGrid columns="3">
 				<p:commandButton value="Salvar" actionListener="#{uaBean.salvar}"
-					update=":mensagem :formCadastro:painel" />
+					update=":mensagem :formCadastro:painel :formListagem:tabela" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()" />
 			</h:panelGrid>
 
