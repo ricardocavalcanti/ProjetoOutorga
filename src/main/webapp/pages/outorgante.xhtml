@@ -15,7 +15,7 @@
 	<h:form>
 		<p:panel header="Outorgante - Listagem">
 			<p:dataTable emptyMessage="Nenhum registro encontrado."
-				paginator="true">
+				paginator="true" value="#{outorganteBean.listaOutorgante}">
 				<f:facet name="footer">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
 						actionListener="#{outorganteBean.novo}"
