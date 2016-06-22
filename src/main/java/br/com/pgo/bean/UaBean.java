@@ -47,7 +47,7 @@ public class UaBean implements Serializable {
 
 		try {
 			UaDAO uaDAO = new UaDAO();
-			uaDAO.salvar(ua);
+			uaDAO.merge(ua);
 
 			novo();
 
@@ -94,6 +94,24 @@ public class UaBean implements Serializable {
 		} catch (RuntimeException erro) {
 
 			Messages.addGlobalInfo("Erro ao excluir UA!");
+			erro.printStackTrace();
+		}
+	}
+	
+	public void editar (ActionEvent evento){
+		
+		try{
+		
+		ua = (Ua) evento.getComponent().getAttributes().get("uaSelecionada");
+		Messages.addGlobalInfo("Edição UA: " + ua.getNumeroUa());
+		UaDAO uaDAO = new UaDAO();
+		uaDAO.editar(ua);
+		
+		
+		
+		}catch (RuntimeException erro){
+			
+			Messages.addGlobalInfo("Erro ao editar UA!");
 			erro.printStackTrace();
 		}
 	}

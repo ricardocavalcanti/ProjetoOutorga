@@ -22,7 +22,7 @@
 						actionListener="#{uaBean.novo}" update=":formCadastro:painel" />
 				</f:facet>
 				
-				<p:column headerText="Numero UA" sortBy="#{listaUas.numeroUa}" filterBy="#{listaUas.numeroUa}"> <!-- sortBy: Ordenação dos dados -->
+				<p:column headerText="UA" sortBy="#{listaUas.numeroUa}" filterBy="#{listaUas.numeroUa}"> <!-- sortBy: Ordenação dos dados -->
 					<h:outputText value="#{listaUas.numeroUa}" />                                              <!-- filterBy: Filtar dados      -->   
 				</p:column>
 
@@ -87,6 +87,11 @@
 					
 					<f:attribute name="uaSelecionada" value="#{listaUas}"/>
 									
+					</p:commandButton>
+					
+					<p:commandButton icon="ui-icon-pencil" actionListener="#{uaBean.editar}"
+					update=":mensagem :formCadastro:painel" oncomplete="PF('dialogo').show()"> 
+					     <f:attribute name="uaSelecionada" value="#{listaUas}"/>
 					</p:commandButton>
 					
 				</p:column>
