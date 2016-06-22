@@ -15,21 +15,26 @@
 	<h:form>
 		<p:panel header="Outorgante - Listagem">
 			<p:dataTable emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{outorganteBean.listaOutorgante}">
+				paginator="true" value="#{outorganteBean.listaOutorgante}" var="listaOutorgantes" rows="3">
 				<f:facet name="footer">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
 						actionListener="#{outorganteBean.novo}"
 						update=":formCadastro:painel" />
 				</f:facet>
-				<p:column headerText="Processo">
+				<p:column headerText="Processo" sortBy="#{listaOutorgantes.processo}" filterBy="#{listaOutorgantes.processo}">
+				  <h:outputText value="#{listaOutorgantes.processo}"/>
 				</p:column>
 				<p:column headerText="Numero UA">
+				  <h:outputText value="#{listaOutorgantes.ua.numeroUa}"/>
 				</p:column>
 				<p:column headerText="Demanda Pontual">
+				  <h:outputText value="#{listaOutorgantes.demandaPontual}"/>
 				</p:column>
 				<p:column headerText="Vencimento">
+				 <h:outputText value="#{listaOutorgantes.vencimento}"/>
 				</p:column>
 				<p:column headerText="Liberado">
+				 <h:outputText value="#{listaOutorgantes.liberado}"/>
 				</p:column>
 			</p:dataTable>
 		</p:panel>
@@ -40,19 +45,23 @@
 		
 		<h:form id="formCadastro" >
 
-			<h:panelGrid columns="9">
+			<h:panelGrid id="painel" columns="9">
 
 				<p:outputLabel value="Processo" />
-				<p:inputText maxlength="50" size="10" value="outorgante.Bean.outorgante.Processo"/>
+				<p:inputText maxlength="50" size="10" value="#{outorganteBean.outorgante.processo}"/>
 
 				<p:outputLabel value="Numero UA" /> 
+				
 				<!-- Criar chave estrangeira na tela -->
-				<p:selectOneMenu filter="true">
+				<p:selectOneMenu filter="true" value="#{outorganteBean.outorgante.numeroUa}">
 					<f:selectItem itemValue="" itemLabel="Selecione uma UA" />
+					<f:selectItems  value="#{outorganteBean.listaNumeroUa}" var="listaNumeroUas"
+					itemValue="#{listaNumeroUas}" itemLabel="#{listaNumeroUas.numeroUa}" />
+					
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Demanda Pontual" />
-				<p:inputText maxlength="50" size="10" value="outorganteBean.outorgante.DemandaPontual" />
+				<p:inputText maxlength="50" size="10" value="#{outorganteBean.outorgante.demandaPontual}" />
 
 				<p:outputLabel value="Vencimento:" />
 				<p:calendar />
@@ -63,8 +72,8 @@
 			</h:panelGrid>
 
 			<h:panelGrid columns="3">
-				<p:commandButton value="Salvar"
-				update=":mensagem :formCadastro:painel" />
+				<p:commandButton value="Salvar" actionListener="#{outorganteBean.salvar}"
+					update=":mensagem :formCadastro:painel" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()" />
 			</h:panelGrid>
 

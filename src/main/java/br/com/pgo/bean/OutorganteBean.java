@@ -3,13 +3,16 @@ package br.com.pgo.bean;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import org.omnifaces.util.Messages;
 
 import br.com.pgo.dao.OutorganteDAO;
+import br.com.pgo.dao.UaDAO;
 import br.com.pgo.domain.Outorgante;
+import br.com.pgo.domain.Ua;
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -18,6 +21,7 @@ public class OutorganteBean implements Serializable {
 
 	private Outorgante outorgante;
 	private List<Outorgante> listaOutorgante;
+	private List<Ua> listaNumeroUa;
 
 	public Outorgante getOutorgante() {
 		return outorgante;
@@ -35,13 +39,31 @@ public class OutorganteBean implements Serializable {
 		this.listaOutorgante = listaOutorgante;
 	}
 
-	public void novo() {
-
-		outorgante = new Outorgante();
-
+	public List<Ua> getListaNumeroUa() {
+		return listaNumeroUa;
 	}
 
-	public void Salvar() {
+	public void setListaNumeroUa(List<Ua> listaNumeroUa) {
+		this.listaNumeroUa = listaNumeroUa;
+	}
+
+	public void novo() {
+
+		try {
+
+			outorgante = new Outorgante();
+			UaDAO uaDAO = new UaDAO();
+			listaNumeroUa = uaDAO.listar();
+
+		} catch (RuntimeException erro) {
+
+			Messages.addGlobalInfo("Erro ao gerar numero UA !");
+			erro.printStackTrace();
+
+		}
+	}
+
+	public void salvar() {
 
 		try {
 
@@ -58,15 +80,18 @@ public class OutorganteBean implements Serializable {
 
 	}
 
+	@PostConstruct
 	public void listar() {
 
 		try {
 
+			OutorganteDAO outorganteDAO = new OutorganteDAO();
+			listaOutorgante = outorganteDAO.listar();
+
 		} catch (RuntimeException erro) {
 
+			Messages.addGlobalInfo("Erro ao listar Outorgante !");
 			erro.printStackTrace();
-
 		}
-
 	}
 }
