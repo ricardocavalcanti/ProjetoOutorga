@@ -12,10 +12,10 @@
 
 	<p:growl id="mensagem" />
 	
-	<h:form>
+	<h:form id="formListagem">
 		<p:panel header="Outorgante - Listagem">
-			<p:dataTable emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{outorganteBean.listaOutorgante}" var="listaOutorgantes" rows="3">
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+				paginator="true" value="#{outorganteBean.listaOutorgante}" var="listaOutorgantes" rows="5">
 				<f:facet name="footer">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
 						actionListener="#{outorganteBean.novo}"
@@ -25,7 +25,8 @@
 				  <h:outputText value="#{listaOutorgantes.processo}"/>
 				</p:column>
 				<p:column headerText="Numero UA">
-				  <h:outputText value="#{listaOutorgantes.ua.numeroUa}"/>
+				  <h:outputText value="#{listaOutorgantes.numeroUa.numeroUa}"/>
+				
 				</p:column>
 				<p:column headerText="Demanda Pontual">
 				  <h:outputText value="#{listaOutorgantes.demandaPontual}"/>
@@ -53,8 +54,11 @@
 				<p:outputLabel value="Numero UA" /> 
 				
 				<!-- Criar chave estrangeira na tela -->
-				<p:selectOneMenu filter="true" value="#{outorganteBean.outorgante.numeroUa}">
-					<f:selectItem itemValue="" itemLabel="Selecione uma UA" />
+				<!-- SelectItemsConverter converter valores chaves estrangeira
+				para corrigir erro de conversão da tela, "SEMPRE QUE USAR SelectOneMenu-->
+				<p:selectOneMenu filter="true" value="#{outorganteBean.outorgante.numeroUa}"
+				converter="omnifaces.SelectItemsConverter">
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione uma UA" />
 					<f:selectItems  value="#{outorganteBean.listaNumeroUa}" var="listaNumeroUas"
 					itemValue="#{listaNumeroUas}" itemLabel="#{listaNumeroUas.numeroUa}" />
 					
@@ -64,17 +68,17 @@
 				<p:inputText maxlength="50" size="10" value="#{outorganteBean.outorgante.demandaPontual}" />
 
 				<p:outputLabel value="Vencimento:" />
-				<p:calendar />
+				<p:calendar value="#{outorganteBean.outorgante.vencimento}" />
 
 				<p:outputLabel value="Liberado"></p:outputLabel>
-				<p:selectBooleanCheckbox />
+				<p:selectBooleanCheckbox value="#{outorganteBean.outorgante.liberado}"/>
 
 			</h:panelGrid>
 
 			<h:panelGrid columns="3">
 				<p:commandButton value="Salvar" actionListener="#{outorganteBean.salvar}"
-					update=":mensagem :formCadastro:painel" />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()" />
+					update=":mensagem :formCadastro:painel :formListagem:tabela" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()" />				
 			</h:panelGrid>
 
 

@@ -68,13 +68,18 @@ public class OutorganteBean implements Serializable {
 		try {
 
 			OutorganteDAO outorganteDAO = new OutorganteDAO();
-			outorganteDAO.salvar(outorgante);
+			outorganteDAO.merge(outorgante);
+			outorgante = new Outorgante();
+			listaOutorgante = outorganteDAO.listar();
+ 
+			UaDAO uaDAO = new UaDAO();
+			listaNumeroUa = uaDAO.listar();
 
-			novo();
+		
 			Messages.addFlashGlobalInfo("Outorgante salvo com sucesso!");
 
 		} catch (RuntimeException erro) {
-			Messages.addFlashGlobalInfo("Outorgante salvo com sucesso!");
+			Messages.addFlashGlobalInfo("Erro ao salvar outorgante!");
 			erro.printStackTrace();
 		}
 

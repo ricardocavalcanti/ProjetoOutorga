@@ -15,17 +15,17 @@ public class Outorgante extends GenericDomain {
 
 	@Column(length = 50, nullable = false)
 	private double demandaPontual; /* mesma coisa de drenagem??? */
-	
+
 	@Column(length = 50, nullable = false)
 	private int processo;
-	
+
 	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)	
+	@Temporal(TemporalType.DATE)
 	private Date vencimento;
-	
-	@Column(nullable = false)	
+
+	@Column(nullable = false)
 	private Boolean liberado;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Ua numeroUa;
