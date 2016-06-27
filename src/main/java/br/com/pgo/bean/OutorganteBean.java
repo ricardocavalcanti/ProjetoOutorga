@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
@@ -71,11 +72,10 @@ public class OutorganteBean implements Serializable {
 			outorganteDAO.merge(outorgante);
 			outorgante = new Outorgante();
 			listaOutorgante = outorganteDAO.listar();
- 
+
 			UaDAO uaDAO = new UaDAO();
 			listaNumeroUa = uaDAO.listar();
 
-		
 			Messages.addFlashGlobalInfo("Outorgante salvo com sucesso!");
 
 		} catch (RuntimeException erro) {
@@ -96,6 +96,50 @@ public class OutorganteBean implements Serializable {
 		} catch (RuntimeException erro) {
 
 			Messages.addGlobalInfo("Erro ao listar Outorgante !");
+			erro.printStackTrace();
+		}
+	}
+
+	public void excluir(ActionEvent evento) {
+
+		try {
+
+			outorgante = (Outorgante) evento.getComponent().getAttributes().get("outorganteSelecionado");
+			
+			Messages.addGlobalInfo("Numero da Outorgante: " + outorgante.getProcesso());
+
+			OutorganteDAO outorganteDAO = new OutorganteDAO();
+			outorganteDAO.excluir(outorgante);
+
+			listaOutorgante = outorganteDAO.listar();
+			Messages.addGlobalInfo("Outorgante excluido com sucesso!");
+
+		} catch (RuntimeException erro) {
+
+			Messages.addGlobalInfo("Erro ao excluir Outorgante!");
+			erro.printStackTrace();
+
+		}
+
+	}
+
+	public void editar(ActionEvent evento) {
+
+		try {
+
+			outorgante = (Outorgante) evento.getComponent().getAttributes().get("outorganteSelecionado");
+			
+			UaDAO uaDAO = new UaDAO();
+			listaNumeroUa = uaDAO.listar();
+			
+			Messages.addGlobalInfo("Edição processo: " + outorgante.getProcesso());
+			
+			/**OutorganteDAO outorganteDAO = new OutorganteDAO();
+			outorganteDAO.editar(outorgante);**/
+
+		} catch (RuntimeException erro) {
+
+			Messages.addGlobalInfo("Erro ao editar Processo!");
 			erro.printStackTrace();
 		}
 	}
