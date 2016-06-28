@@ -11,103 +11,117 @@
 <h:body>
 
 	<p:growl id="mensagem" />
-	
+
 	<h:form id="formListagem">
 		<p:panel header="Outorgante - Listagem">
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{outorganteBean.listaOutorgante}" var="listaOutorgantes" rows="5">
+				paginator="true" value="#{outorganteBean.listaOutorgante}"
+				var="listaOutorgantes" rows="5">
 				<f:facet name="footer">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{outorganteBean.novo}" update=":formCadastro:painel" />
+						actionListener="#{outorganteBean.novo}"
+						update=":formCadastro:painel" />
 				</f:facet>
-				<p:column headerText="Processo" sortBy="#{listaOutorgantes.processo}" filterBy="#{listaOutorgantes.processo}">
-				  <h:outputText value="#{listaOutorgantes.processo}"/>
+				<p:column headerText="Processo"
+					sortBy="#{listaOutorgantes.processo}"
+					filterBy="#{listaOutorgantes.processo}">
+					<h:outputText value="#{listaOutorgantes.processo}" />
 				</p:column>
 				<p:column headerText="Numero UA">
-				  <h:outputText value="#{listaOutorgantes.numeroUa.numeroUa}"/>
-				
+					<h:outputText value="#{listaOutorgantes.numeroUa.numeroUa}" />
+
 				</p:column>
 				<p:column headerText="Demanda Pontual">
-				  <h:outputText value="#{listaOutorgantes.demandaPontual}"/>
+					<h:outputText value="#{listaOutorgantes.demandaPontual}" />
 				</p:column>
 				<p:column headerText="Vencimento">
-				 <h:outputText value="#{listaOutorgantes.vencimento}"/>
+					<h:outputText value="#{listaOutorgantes.vencimento}" />
 				</p:column>
 				<p:column headerText="Liberado">
-				 <h:outputText value="#{listaOutorgantes.liberado}"/>
+					<h:outputText value="#{listaOutorgantes.liberado}" />
 				</p:column>
 				<p:column headerText="Opções">
-				
-					<p:commandButton icon="ui-icon-trash" actionListener="#{outorganteBean.excluir}"
-					update=":mensagem :formListagem:tabela">					
-					<p:confirm header="Apagar dados" message="Você tem certeza?" 
-					icon="ui-icon-alert"/>	
-					
-					<f:attribute name="outorganteSelecionado" value="#{listaOutorgantes}"/>
-									
+
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{outorganteBean.excluir}"
+						update=":mensagem :formListagem:tabela">
+						<p:confirm header="Apagar dados" message="Você tem certeza?"
+							icon="ui-icon-alert" />
+
+						<f:attribute name="outorganteSelecionado"
+							value="#{listaOutorgantes}" />
+
 					</p:commandButton>
-					
-					<p:commandButton icon="ui-icon-pencil" actionListener="#{outorganteBean.editar}"
-					update=":mensagem :formCadastro:painel" oncomplete="PF('dialogo').show()"> 
-					     <f:attribute name="outorganteSelecionado" value="#{listaOutorgantes}"/>
+
+					<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{outorganteBean.editar}"
+						update=":mensagem :formCadastro:painel"
+						oncomplete="PF('dialogo').show()">
+						<f:attribute name="outorganteSelecionado"
+							value="#{listaOutorgantes}" />
 					</p:commandButton>
-					
+
 				</p:column>
 			</p:dataTable>
-			
+
 			<p:confirmDialog global="true">
-			
-			     <p:commandButton  value="Sim" type="button" 
-			     styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-			      
-			     <p:commandButton value="Não" type="button"
-			     styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>			  
-			
+
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+
 			</p:confirmDialog>
-			
+
 		</p:panel>
 	</h:form>
 
 	<p:dialog header="Cadastro Outorgante" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true" closable="false">
-		
-		<h:form id="formCadastro" >
+
+		<h:form id="formCadastro">
 
 			<h:panelGrid id="painel" columns="9">
 
-				<p:outputLabel value="Processo" />
-				<p:inputText maxlength="50" size="10" value="#{outorganteBean.outorgante.processo}" required="true" 
-				requiredMessage="O campo 'Processo' é obrigatório!" />
+				<p:outputLabel for="processo" value="Processo" />
+				<p:inputText id="processo" label="Processo" maxlength="50" size="10" value="#{outorganteBean.outorgante.processo}" 
+				required="true"	requiredMessage="O campo 'Processo' é obrigatório!" />
 
-				<p:outputLabel value="Numero UA" /> 
-				
+				<p:outputLabel for="numeroUa" value="Numero UA" />
+
 				<!-- Criar chave estrangeira na tela -->
 				<!-- SelectItemsConverter converter valores chaves estrangeira
 				para corrigir erro de conversão da tela, "SEMPRE QUE USAR SelectOneMenu-->
-				<p:selectOneMenu filter="true" value="#{outorganteBean.outorgante.numeroUa}"
-				converter="omnifaces.SelectItemsConverter">
+				<p:selectOneMenu filter="true" id="numeroUa"
+					value="#{outorganteBean.outorgante.numeroUa}"
+					converter="omnifaces.SelectItemsConverter" requiredMessage="O campo 'Numero UA' é obrigatório!" required="true">
 					<f:selectItem noSelectionOption="true" itemLabel="Selecione uma UA" />
-					<f:selectItems  value="#{outorganteBean.listaNumeroUa}" var="listaNumeroUas"
-					itemValue="#{listaNumeroUas}" itemLabel="#{listaNumeroUas.numeroUa}" />
-					
+					<f:selectItems value="#{outorganteBean.listaNumeroUa}"
+						var="listaNumeroUas" itemValue="#{listaNumeroUas}"
+						itemLabel="#{listaNumeroUas.numeroUa}" />
+
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Demanda Pontual" />
-				<p:inputText maxlength="50" size="10" value="#{outorganteBean.outorgante.demandaPontual}" required="true"
-				requiredMessage="Campo Demanda Pontual obrigatório" />
+				<p:outputLabel for="demandaPontual" value="Demanda Pontual" />
+				<p:inputText id="demandaPontual" maxlength="50" size="10"
+					value="#{outorganteBean.outorgante.demandaPontual}" required="true"
+					requiredMessage="Campo Demanda Pontual obrigatório" />
 
-				<p:outputLabel value="Vencimento:" />
+				<p:outputLabel  value="Vencimento:" />
 				<p:calendar value="#{outorganteBean.outorgante.vencimento}" />
 
 				<p:outputLabel value="Liberado"></p:outputLabel>
-				<p:selectBooleanCheckbox value="#{outorganteBean.outorgante.liberado}"/>
+				<p:selectBooleanCheckbox
+					value="#{outorganteBean.outorgante.liberado}" />
 
 			</h:panelGrid>
 
 			<h:panelGrid columns="3">
-				<p:commandButton value="Salvar" actionListener="#{outorganteBean.salvar}"
+				<p:commandButton value="Salvar"
+					actionListener="#{outorganteBean.salvar}"
 					update=":mensagem :formCadastro:painel :formListagem:tabela" />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()" />				
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()" />
 			</h:panelGrid>
 
 

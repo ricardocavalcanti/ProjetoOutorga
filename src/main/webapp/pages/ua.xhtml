@@ -15,7 +15,7 @@
 	<h:form id="formListagem">
 		<p:panel header="UA - Listagem">
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{uaBean.listaUa}" var="listaUas" rows="5"> <!-- rows: Informa a paginação -->
+				paginator="true" value="#{uaBean.listaUa}" var="listaUas" rows="10"> <!-- rows: Informa a paginação -->
 
 				<f:facet name="footer">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
@@ -120,7 +120,7 @@
 			<h:panelGrid id="painel" columns="12">
 
 				<p:outputLabel value="Numero UA: " />
-				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.numeroUa}" />
+				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.numeroUa}" required="true"	requiredMessage="O campo 'Numero UA' é obrigatório!" />
 				<p:outputLabel value="Ano UA: " />
 				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.ano}" />
 				<p:outputLabel value="Janeiro: " />
