@@ -20,7 +20,9 @@
 				<f:facet name="footer">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" 
 					actionListener="#{pessoaBean.novo}"
-				update=":formCadastro:painel" />		
+				update=":formCadastro:painel" > 
+				     <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />	 <!--Código para limpar os campos vermelhor da validação -->			    
+				</p:commandButton>		
 				</f:facet>
 				
 				<p:column headerText="Nome">
@@ -37,7 +39,7 @@
 		</p:panel>
 	</h:form>
 
-	<p:dialog header="Cadastro Pessoa" widgetVar="dialogo"
+	<p:dialog header="Cadastro Pessoa" widgetVar="dialogo"> <!--  Dialogo para cadastro -->
 		draggable="false" resizable="false" modal="true" closable="false">
 		
 			<h:form id="formCadastro">

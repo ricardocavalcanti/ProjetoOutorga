@@ -20,7 +20,9 @@
 				<f:facet name="footer">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
 						actionListener="#{outorganteBean.novo}"
-						update=":formCadastro:painel" />
+						update=":formCadastro:painel"> 
+						   <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> <!-- Código para limpar validação vermelha nos campos ao cadastrar -->
+						</p:commandButton>
 				</f:facet>
 				<p:column headerText="Processo"
 					sortBy="#{listaOutorgantes.processo}"
@@ -59,6 +61,7 @@
 						oncomplete="PF('dialogo').show()">
 						<f:attribute name="outorganteSelecionado"
 							value="#{listaOutorgantes}" />
+							   <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> <!-- Código para limpar validação vermelha nos campos ao editar -->
 					</p:commandButton>
 
 				</p:column>
