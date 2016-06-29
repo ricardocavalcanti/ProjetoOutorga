@@ -42,8 +42,9 @@
 				<p:column headerText="Liberado">
 					<h:outputText value="#{listaOutorgantes.liberado}" />
 				</p:column>
+				
 				<p:column headerText="Opções">
-
+								
 					<p:commandButton icon="ui-icon-trash"
 						actionListener="#{outorganteBean.excluir}"
 						update=":mensagem :formListagem:tabela">

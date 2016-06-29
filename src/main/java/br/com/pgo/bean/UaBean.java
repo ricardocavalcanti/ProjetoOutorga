@@ -105,9 +105,7 @@ public class UaBean implements Serializable {
 		ua = (Ua) evento.getComponent().getAttributes().get("uaSelecionada");
 		Messages.addGlobalInfo("Edição UA: " + ua.getNumeroUa());
 		UaDAO uaDAO = new UaDAO();
-		uaDAO.editar(ua);
-		
-		
+		uaDAO.editar(ua);		
 		
 		}catch (RuntimeException erro){
 			
