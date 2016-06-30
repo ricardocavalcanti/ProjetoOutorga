@@ -13,7 +13,9 @@
 <p:growl id="mensagem"/>
 
 	<h:form id="formListagem">
+	
 		<p:panel header="Pessoa - Listagem">
+		
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
 				paginator="true" value="#{pessoaBean.listaPessoa}" var="listaPessoas" rows="10">
 				
@@ -26,20 +28,20 @@
 				  <h:outputText value="#{listaPessoas.nome}"/>
 				</p:column>
 				
-				<p:column headerText="Email">
-				 <h:outputText value="#{listaPessoas.email}"/>
-				</p:column>
-				
-				<p:column headerText="Setor">
-				 <h:outputText value="#{listaPessoas.setor}"/>
+				<p:column headerText="Matricula">
+				 <h:outputText value="#{listaPessoas.matricula}"/>
 				</p:column>
 				
 				<p:column headerText="Telefone">
 				 <h:outputText value="#{listaPessoas.telefone}"/>
 				</p:column>
 				
-				<p:column headerText="Matricula">
-				<h:outputText value="#{listaPessoas.matricula}"/>
+				<p:column headerText="Setor">
+				 <h:outputText value="#{listaPessoas.setor}"/>
+				</p:column>
+				
+				<p:column headerText="Email">
+				<h:outputText value="#{listaPessoas.email}"/>
 				</p:column>
 				
 				<p:column headerText="Opções">			
@@ -53,10 +55,10 @@
 
 					</p:commandButton>
 
-					<p:commandButton icon="ui-icon-pencil" actionListener="#{pesssoaBean.editar}"
-						update=":mensagem :formCadastro:painel" oncomplete="PF('dialogo').show()">
+					<p:commandButton icon="ui-icon-pencil" actionListener="#{pessoaBean.editar}" update=":mensagem :formCadastro:painel" oncomplete="PF('dialogo').show()">
 						<f:attribute name="pessoaSelecionada" value="#{listaPessoas}" />							  
 					</p:commandButton>
+					
 				</p:column>
 				
 			</p:dataTable>		
@@ -76,7 +78,7 @@
 	<p:dialog header="Cadastro Pessoa" widgetVar="dialogo" draggable="false" 
 	    resizable="false" modal="true" closable="false"> <!--  Dialogo para cadastro -->
 		
-			<h:form id="formCadastro">
+		<h:form id="formCadastro">
 		
 		<h:panelGrid id="painel" columns="6">
 
@@ -101,9 +103,9 @@
 					requiredMessage="Campo 'Matricula' obrigatório"/>
 			</h:panelGrid>
 
-			<h:panelGrid columns="3">
+		<h:panelGrid columns="3">
 				<p:commandButton value="Salvar" actionListener="#{pessoaBean.salvar}"
-			update=":mensagem :formCadastro:painel" /> <!-- Cuidado ao indicar o caminho. formCadastro e painel devem ficar juntos -->
+					update=":mensagem :formCadastro:painel :formListagem:tabela" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()" />
 			</h:panelGrid>
 

@@ -3,6 +3,7 @@ package br.com.pgo.bean;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
@@ -61,7 +62,7 @@ public class PessoaBean implements Serializable {
 		
 		
 	}
-	
+	@PostConstruct
 	public void listar(){
 		
 		try {
