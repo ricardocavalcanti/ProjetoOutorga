@@ -11,48 +11,81 @@
 </h:head>
 <h:body>
 
-           <p:growl id="mensagem"/>
+    <p:growl id="mensagem"/>
    
-	<h:form>
+	<h:form id="formListagem">
 		<p:panel header="Usuário - Listagem">
-			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
 				paginator="true" value="#{usuarioBean.listaUsuario}" var="listaUsuarios" rows="10">
 				<f:facet name="footer">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-					actionListener="#{usuarioBean.novo}" update=":formCadastro:painel" />
+					actionListener="#{usuarioBean.novo}" update=":formCadastro:painel">
+					<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> <!-- Código para limpar validação vermelha nos campos ao cadastrar -->
+					</p:commandButton>
 				</f:facet>
 
 				<p:column headerText="Pessoa" sortBy="#{listaUsuarios.pessoa}" filterBy="#{listaUsuarios.pessoa}">
+				   <h:outputText value="{listaUsuarios.pessoa}"/>
 				</p:column>
+				
 				<p:column headerText="Login">
 				   <h:outputText value="#{listaUsuarios.login}"/>
 				</p:column>
+				
 				<p:column headerText="Senha">
 				  <h:outputText value="#{listaUsuarios.senha}"/>
-				</p:column>				
+				</p:column>		
+						
 				<p:column headerText="Tipo">
 				  <h:outputText value="#{listaUsuarios.tipo}"/>
 				</p:column>
+				
 				<p:column headerText="Ativo">
 				  <h:outputText value="#{listaUsuarios.ativo}"/>
-				</p:column>				
-			</p:dataTable>						
+				</p:column>	
+				
+				<p:column headerText="Opções">
+				    
+				        <p:commandButton icon="ui-icon.trash" actionListener="#{usuarioBean.excluir}"
+				        update=":mensagem :formlistagem:tabela">
+				            <p:confirm header="Apagar dados" message="Você tem certeza?" icon="ui-icon-alert"/>	
+				            <f:attribute name="usuarioSelecionado" value="#{usuarioSelecionado}"/>	  				        
+				        </p:commandButton>
+				        
+		<p:commandButton icon="ui-icon-pencil" actionListener="#{usuarioBean.editar}" update=":mesagem :formCadastro:painel"
+				       oncomplete="PF('dialogo').show()">
+				       <f:attribute name="usuarioSelecionado" value="#{listaUsuarios}"/>
+				         <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> <!-- Código para limpar validação vermelha nos campos ao editar -->
+				        </p:commandButton>
+				        				
+				</p:column>	
+						
+			</p:dataTable>	
+			<p:confirmDialog global="true">	
+			           <p:commandButton value="sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+			           <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>			           
+			</p:confirmDialog>				     			
 		</p:panel>
-	</h:form>
-	<p:dialog header="Cadastro Usuário" widgetVar="dialogo"
-		draggable="false" resizable="false" modal="true" closable="false">
+	</h:form> 
+	<p:dialog header="Cadastro Usuário" widgetVar="dialogo" draggable="false" resizable="false" modal="true" closable="false">
 		<h:form id="formCadastro">
 		
 			<h:panelGrid id="painel" columns="2">
-
+			
 				<p:outputLabel value="Login" />
 				<p:inputText maxlength="32" size="20" value="#{usuarioBean.usuario.login}" />
 
 				<p:outputLabel value="Senha" />
 				<p:password maxlength="32" size="20" value="#{usuarioBean.usuario.senha}"/>
-								
-				<p:selectOneMenu filter="true">
-					<f:selectItem itemValue="" itemLabel="Seleciona uma pessoa" />
+				
+				<!-- Criar chave estrangeira na tela -->
+				<!-- SelectItemsConverter converter valores chaves estrangeira
+				para corrigir erro de conversão da tela, "SEMPRE QUE USAR SelectOneMenu-->				
+				<p:selectOneMenu filter="true" id="pessoa" value="#{usuarioBean.usuario.pessoa}" converter="omnifaces.SelectItemsConverter" 
+				requiredMessage="O campo 'Pessoa' é obrigatório!" required="true">
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione uma Pessoa"/>
+					<f:selectItems value="#{usuarioBean.listaUsuario}" var="listaUsuarios" itemValue="#{listaUsuarios}"
+					itemLabel="#{listaUsuarios.pessoa}"/>
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Tipo" />
@@ -65,17 +98,11 @@
 				<p:selectBooleanCheckbox/>
 			</h:panelGrid>           
 			<h:panelGrid columns="3">
-				<p:commandButton value="Salvar" />
+				<p:commandButton value="Salvar" actionListener="#{usuarioBean.salvar}" update=":mensagem :formCadastro:painel
+				 :formListagem:tabela"/>
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
-
 	</h:form>
-
-
-
-	</p:dialog>
-
-
-
+</p:dialog>
 </h:body>
 </html>
