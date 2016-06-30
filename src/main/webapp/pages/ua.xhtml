@@ -120,34 +120,73 @@
 
 			<h:panelGrid id="painel" columns="12">
 
-				<p:outputLabel value="Numero UA: " />
-				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.numeroUa}" required="true"	requiredMessage="O campo 'Numero UA' é obrigatório!" />
-				<p:outputLabel value="Ano UA: " />
-				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.ano}" />
-				<p:outputLabel value="Janeiro: " />
-				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.jan}" />
-				<p:outputLabel value="Fevereiro: " />
-				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.fev}" />
-				<p:outputLabel value="Março: " />
-				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.mar}" />
-				<p:outputLabel value="Abril: " />
-				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.abr}" />
-				<p:outputLabel value="Maio: " />
-				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.mai}" />
-				<p:outputLabel value="Junho: " />
-				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.jun}" />
-				<p:outputLabel value="Julho: " />
-				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.jul}" />
-				<p:outputLabel value="Agosto: " />
-				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.ago}" />
-				<p:outputLabel value="Setembro: " />
-				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.set}" />
-				<p:outputLabel value="Outubro: " />
-				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.out}" />
-				<p:outputLabel value="Novembro: " />
-				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.nov}" />
-				<p:outputLabel value="Dezembro: " />
-				<p:inputText maxlength="50" size="10" value="#{uaBean.ua.dez}" />
+				<p:outputLabel for="numeroUa" value="Numero UA: " />
+				<p:inputText id="numeroUa" maxlength="50" size="10" value="#{uaBean.ua.numeroUa}" 
+				required="true"	requiredMessage="O campo 'Numero UA' é obrigatório!" />
+				
+				<p:outputLabel for="anoUa" value="Ano UA: " />
+				<p:inputText id="anoUa" maxlength="50" size="10" value="#{uaBean.ua.ano}" 	required="true"	
+				requiredMessage="O campo 'Ano UA' é obrigatório!" />
+				
+				<p:outputLabel for="janeiro" value="Janeiro: " />
+				<p:inputText id="janeiro" maxlength="50" size="10" value="#{uaBean.ua.jan}" required="true"	
+				requiredMessage="O campo 'Janeiro' é obrigatório!" />			
+				
+				<p:outputLabel for="fevereiro" value="Fevereiro: " />
+				<p:inputText id="fevereiro" maxlength="50" size="10" value="#{uaBean.ua.fev}" required="true"	
+				requiredMessage="O campo 'Fevereiro' é obrigatório!" />
+				
+				
+				<p:outputLabel for="marco" value="Março: " />
+				<p:inputText id="marco" maxlength="50" size="10" value="#{uaBean.ua.mar}" required="true"	
+				requiredMessage="O campo 'Março' é obrigatório!" />
+				
+				
+				<p:outputLabel for="abril" value="Abril: " />
+				<p:inputText id="abril" maxlength="50" size="10" value="#{uaBean.ua.abr}" required="true"	
+				requiredMessage="O campo 'Abril' é obrigatório!" />
+				
+				
+				<p:outputLabel for="maio" value="Maio: " />
+				<p:inputText id="maio" maxlength="50" size="10" value="#{uaBean.ua.mai}" required="true"	
+				requiredMessage="O campo 'Maio' é obrigatório!" />
+				
+				
+				<p:outputLabel  for="junho" value="Junho: " />
+				<p:inputText id="junho" maxlength="50" size="10" value="#{uaBean.ua.jun}" required="true"	
+				requiredMessage="O campo 'Junho' é obrigatório!" />
+				
+				
+				<p:outputLabel for="julho" value="Julho: " />
+				<p:inputText id="julho" maxlength="50" size="10" value="#{uaBean.ua.jul}" required="true"	
+				requiredMessage="O campo 'Julho' é obrigatório!" />
+				
+				
+				<p:outputLabel for="agosto" value="Agosto: " />
+				<p:inputText id="agosto" maxlength="50" size="10" value="#{uaBean.ua.ago}" required="true"	
+				requiredMessage="O campo 'Agosto' é obrigatório!" />
+				
+				
+				<p:outputLabel for="setembro" value="Setembro: " />
+				<p:inputText id="setembro" maxlength="50" size="10" value="#{uaBean.ua.set}" required="true"	
+				requiredMessage="O campo 'Setembro' é obrigatório!" />
+				
+				
+				<p:outputLabel for="outubro" value="Outubro: " />
+				<p:inputText id="outubro" maxlength="50" size="10" value="#{uaBean.ua.out}" required="true"	
+				requiredMessage="O campo 'Outubro' é obrigatório!" />
+				
+				
+				<p:outputLabel for="novembro" value="Novembro: " />
+				<p:inputText id="novembro" maxlength="50" size="10" value="#{uaBean.ua.nov}" required="true"	
+				requiredMessage="O campo 'Novembro' é obrigatório!" />
+				
+				
+				<p:outputLabel for="dezembro" value="Dezembro: " />
+				<p:inputText id="dezembro" maxlength="50" size="10" value="#{uaBean.ua.dez}" required="true"	
+				requiredMessage="O campo 'Dezembro' é obrigatório!" />
+				
+				
 			</h:panelGrid>
 
 			<h:panelGrid columns="3">

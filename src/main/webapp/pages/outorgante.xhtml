@@ -18,9 +18,8 @@
 				paginator="true" value="#{outorganteBean.listaOutorgante}"
 				var="listaOutorgantes" rows="5">
 				<f:facet name="footer">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{outorganteBean.novo}"
-						update=":formCadastro:painel"> 
+					    <p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
+						actionListener="#{outorganteBean.novo}" update=":formCadastro:painel"> 
 						   <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> <!-- Código para limpar validação vermelha nos campos ao cadastrar -->
 						</p:commandButton>
 				</f:facet>

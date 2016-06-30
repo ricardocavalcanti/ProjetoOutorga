@@ -132,7 +132,7 @@ public class OutorganteBean implements Serializable {
 			UaDAO uaDAO = new UaDAO();
 			listaNumeroUa = uaDAO.listar();
 			
-			Messages.addGlobalInfo("Edição processo: " + outorgante.getProcesso());
+			Messages.addGlobalInfo("Edição processo: "+ outorgante.getProcesso());
 			
 			/**OutorganteDAO outorganteDAO = new OutorganteDAO();
 			outorganteDAO.editar(outorgante);**/

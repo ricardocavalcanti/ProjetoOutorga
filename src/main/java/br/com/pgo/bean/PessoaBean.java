@@ -51,6 +51,8 @@ public class PessoaBean implements Serializable {
 		
 		 novo();
 		 
+		 listaPessoa = pessoaDAO.listar();
+		 
 		 Messages.addGlobalInfo("Pessoa salva com sucesso!");
 		
 		} catch (RuntimeException erro) {

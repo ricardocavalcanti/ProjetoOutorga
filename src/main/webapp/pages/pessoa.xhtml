@@ -21,7 +21,9 @@
 				
 				<f:facet name="footer">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" 
-					actionListener="#{pessoaBean.novo}" update=":formCadastro:painel"/>					
+					actionListener="#{pessoaBean.novo}" update=":formCadastro:painel">
+					  <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> <!-- Código para limpar validação vermelha nos campos ao cadastrar -->		
+					  </p:commandButton>			
 				</f:facet>
 				
 				<p:column headerText="Nome" sortBy="#{listaPessoas.nome}" filterBy="#{listaPessoas.nome}">
@@ -55,8 +57,10 @@
 
 					</p:commandButton>
 
-					<p:commandButton icon="ui-icon-pencil" actionListener="#{pessoaBean.editar}" update=":mensagem :formCadastro:painel" oncomplete="PF('dialogo').show()">
-						<f:attribute name="pessoaSelecionada" value="#{listaPessoas}" />							  
+					<p:commandButton icon="ui-icon-pencil" actionListener="#{pessoaBean.editar}" 
+					update=":mensagem :formCadastro:painel" oncomplete="PF('dialogo').show()">
+						<f:attribute name="pessoaSelecionada" value="#{listaPessoas}"/>
+						  <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> <!-- Código para limpar validação vermelha nos campos ao cadastrar -->							  
 					</p:commandButton>
 					
 				</p:column>
