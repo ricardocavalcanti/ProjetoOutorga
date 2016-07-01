@@ -16,7 +16,7 @@
 		<p:panel header="Outorgante - Listagem">
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
 				paginator="true" value="#{outorganteBean.listaOutorgante}"
-				var="listaOutorgantes" rows="5">
+				var="listaOutorgantes" rows="10">
 				<f:facet name="footer">
 					    <p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
 						actionListener="#{outorganteBean.novo}" update=":formCadastro:painel"> 
@@ -68,11 +68,15 @@
 	<p:dialog header="Cadastro Outorgante" widgetVar="dialogo" draggable="false" resizable="false" modal="true" closable="false">
 		<h:form id="formCadastro">
 
-			<h:panelGrid id="painel" columns="9">
+			<h:panelGrid id="painel" columns="8">
 
 				<p:outputLabel for="processo" value="Processo" />
 				<p:inputText id="processo" label="Processo" maxlength="50" size="10" value="#{outorganteBean.outorgante.processo}" 
-				required="true"	requiredMessage="O campo 'Processo' é obrigatório!" />
+				required="true"	requiredMessage="O campo 'Processo' é obrigatório!" converterMessage="O valor informado no campo'Processo' é invalido"
+				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Processo' ">
+				<f:validateLongRange minimum="1" maximum="10000000"/>  
+				</p:inputText>
+				
 
 				<p:outputLabel for="numeroUa" value="Numero UA" />
 
@@ -81,16 +85,21 @@
 				para corrigir erro de conversão da tela, "SEMPRE QUE USAR SelectOneMenu-->
 				<p:selectOneMenu filter="true" id="numeroUa"
 					value="#{outorganteBean.outorgante.numeroUa}"
-					converter="omnifaces.SelectItemsConverter" requiredMessage="O campo 'Numero UA' é obrigatório!" required="true">
+					converter="omnifaces.SelectItemsConverter" requiredMessage="O campo 'Numero UA' é obrigatório!" required="true" 
+					converterMessage="O valor informado no campo'Numero UA' é invalido">
+					
 					<f:selectItem noSelectionOption="true" itemLabel="Selecione uma UA" />
 					<f:selectItems value="#{outorganteBean.listaNumeroUa}" var="listaNumeroUas" itemValue="#{listaNumeroUas}"
 						itemLabel="#{listaNumeroUas.numeroUa}" />
 				</p:selectOneMenu>
-
+                 
+                 <!-- Required não funciona nos tipos primitivos, só funciona nos tipos que podem valer nulo --> 
 				<p:outputLabel for="demandaPontual" value="Demanda Pontual" />
 				<p:inputText id="demandaPontual" maxlength="50" size="10"
-					value="#{outorganteBean.outorgante.demandaPontual}" required="true"
-					requiredMessage="Campo Demanda Pontual obrigatório" />
+					value="#{outorganteBean.outorgante.demandaPontual}" required="true" requiredMessage="Campo Demanda Pontual obrigatório" 
+					converterMessage="O valor informado no campo'Demanda Pontual' é invalido" validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Demanda Pontual' ">
+				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>	
+				</p:inputText>
 
 				<p:outputLabel  value="Vencimento:" />
 				<p:calendar value="#{outorganteBean.outorgante.vencimento}" />
