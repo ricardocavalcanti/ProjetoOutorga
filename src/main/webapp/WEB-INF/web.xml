@@ -32,6 +32,10 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
-
+	
+  <!-- Serve para registrar ouvintes no Tomcat "Carregar Hibernate"  -->
+  <listener>
+   <listener-class>br.com.pgo.util.HibernateContexto</listener-class>
+  </listener>
 
 </web-app>
