@@ -28,11 +28,13 @@
 					<h:outputText value="#{listaOutorgantes.processo}" />
 				</p:column>
 				<p:column headerText="Numero UA">
-					<h:outputText value="#{listaOutorgantes.numeroUa.numeroUa}" />
-
+					<h:outputText value="#{listaOutorgantes.numeroUa.numeroUa}"/>					 
 				</p:column>
 				<p:column headerText="Demanda Pontual">
-					<h:outputText value="#{listaOutorgantes.demandaPontual}" />
+					<h:outputText value="#{listaOutorgantes.demandaPontual}">
+					<!-- convertNumber serve para mudar para o padrão BR a emprego de virgula no padrão númerico -->
+					 <f:convertNumber locale="pt_BR" minFractionDigits="2"/>					
+					</h:outputText>
 				</p:column>
 				<p:column headerText="Vencimento">
 					<h:outputText value="#{listaOutorgantes.vencimento}" />
@@ -99,6 +101,8 @@
 					value="#{outorganteBean.outorgante.demandaPontual}" required="true" requiredMessage="Campo Demanda Pontual obrigatório" 
 					converterMessage="O valor informado no campo'Demanda Pontual' é invalido" validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Demanda Pontual' ">
 				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>	
+				<!-- convertNumber serve para mudar para o padrão BR a emprego de virgula no padrão númerico -->
+					 <f:convertNumber locale="pt_BR" minFractionDigits="2"/>				
 				</p:inputText>
 
 				<p:outputLabel  value="Vencimento:" />
@@ -107,7 +111,6 @@
 				<p:outputLabel value="Liberado"></p:outputLabel>
 				<p:selectBooleanCheckbox
 					value="#{outorganteBean.outorgante.liberado}" />
-
 			</h:panelGrid>
 
 			<h:panelGrid columns="3">
