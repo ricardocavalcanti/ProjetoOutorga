@@ -3,6 +3,7 @@ package br.com.pgo.dao;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -43,6 +44,26 @@ public class GenericDAO<Entidade> {
 
 		try {
 			Criteria consulta = sessao.createCriteria(classe);
+			List<Entidade> resultado = consulta.list();
+			return resultado;
+
+		} catch (RuntimeException erro) {
+
+			throw erro;
+
+		} finally {
+			sessao.close();
+		}
+
+	}
+	
+	@SuppressWarnings("unchecked")//Ordenação crescente
+	public List<Entidade> listar(String campoOrdenação) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+
+		try {
+			Criteria consulta = sessao.createCriteria(classe);
+			consulta.addOrder(Order.asc(campoOrdenação));
 			List<Entidade> resultado = consulta.list();
 			return resultado;
 

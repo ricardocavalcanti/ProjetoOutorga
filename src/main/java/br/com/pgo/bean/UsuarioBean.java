@@ -55,6 +55,7 @@ public class UsuarioBean implements Serializable {
 			usuario = new Usuario();
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			listaPessoa = pessoaDAO.listar();
+			
 
 		} catch (RuntimeException erro) {
 
