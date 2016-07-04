@@ -99,8 +99,8 @@
 					requiredMessage="Campo 'Setor' obrigatório" />
 
 				<p:outputLabel for="telefone" value="Telefone" />
-				<p:inputText id="telefone" maxlength="50" size="10" value="#{pessoaBean.pessoa.telefone}" required="true"
-					requiredMessage="Campo 'Telefone' obrigatório"/>
+				<p:inputMask id="telefone" mask="(99) 9 9999-9999" maxlength="80" size="15" value="#{pessoaBean.pessoa.telefone}" 
+				required="true" requiredMessage="Campo 'Telefone' obrigatório"/>
 
 				<p:outputLabel for="matricula" value="Matricula" />
 				<p:inputText id="matricula" maxlength="50" size="15" value="#{pessoaBean.pessoa.matricula}" required="true"

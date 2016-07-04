@@ -69,7 +69,7 @@ public class UaBean implements Serializable {
 
 		try {
 			UaDAO uaDAO = new UaDAO();
-			listaUa = uaDAO.listar("numeroUa");
+			listaUa = uaDAO.listar("numeroUa"); //Valor para ordenação da lista
 
 		} catch (RuntimeException erro) {
 
