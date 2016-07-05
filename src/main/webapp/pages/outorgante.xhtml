@@ -38,7 +38,9 @@
 					</h:outputText>
 				</p:column>
 				<p:column headerText="Vencimento">
-					<h:outputText value="#{listaOutorgantes.vencimento}" />
+					<h:outputText value="#{listaOutorgantes.vencimento}">
+					     <f:convertDateTime locale="pt_BR" />
+					</h:outputText>
 				</p:column>
 				<p:column headerText="Liberado">
 					<h:outputText value="#{listaOutorgantes.liberado}" />
@@ -57,7 +59,6 @@
 						<f:attribute name="outorganteSelecionado" value="#{listaOutorgantes}" />
 							   <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> <!-- Código para limpar validação vermelha nos campos ao editar -->
 					</p:commandButton>
-
 				</p:column>
 			</p:dataTable>
 
@@ -107,10 +108,9 @@
 				<p:calendar id="vencimento" value="#{outorganteBean.outorgante.vencimento}" required="true"
 				requiredMessage="O campo 'Vencimento é obrigatório" size="10" locale="pt_BR"/>
 
-				<p:outputLabel value="Liberado"></p:outputLabel>
-				<p:selectBooleanCheckbox
-					value="#{outorganteBean.outorgante.liberado}" />
-			</h:panelGrid>
+				<p:outputLabel for="liberado" value="Liberado:"/>
+				<p:selectBooleanCheckbox id="liberado" value="#{outorganteBean.outorgante.liberado}"/> 
+				</h:panelGrid>
 
 			<h:panelGrid columns="3">
 				<p:commandButton value="Salvar" actionListener="#{outorganteBean.salvar}"
