@@ -54,7 +54,7 @@ public class OutorganteBean implements Serializable {
 
 			outorgante = new Outorgante();
 			UaDAO uaDAO = new UaDAO();
-			listaNumeroUa = uaDAO.listar();
+			listaNumeroUa = uaDAO.listar("numeroUa");			
 
 		} catch (RuntimeException erro) {
 

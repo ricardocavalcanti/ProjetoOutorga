@@ -147,95 +147,86 @@
 			<h:panelGrid id="painel" columns="12">
 
 				<p:outputLabel for="numeroUa" value="Numero UA: " />
-				<p:inputText id="numeroUa" maxlength="50" size="10" value="#{uaBean.ua.numeroUa}" 
-				required="true"	requiredMessage="O campo 'Numero UA' é obrigatório!"/>
-			
+				<p:inputText id="numeroUa" maxlength="50" size="10" value="#{uaBean.ua.numeroUa}">
+				<f:validateLongRange minimum="1" maximum="10000000"/>
+				</p:inputText> 					
 				
 				<p:outputLabel for="anoUa" value="Ano UA: " />
-				<p:inputText id="anoUa" maxlength="50" size="10" value="#{uaBean.ua.ano}" 	required="true"	
-				requiredMessage="O campo 'Ano UA' é obrigatório!"/>
-				
+				<p:inputText id="anoUa" maxlength="50" size="10" value="#{uaBean.ua.ano}">
+				<f:validateLongRange minimum="1" maximum="10000000"/>
+				</p:inputText> 	
 				
 				<p:outputLabel for="janeiro" value="Janeiro: " />
-				<p:inputText id="janeiro" maxlength="50" size="10" value="#{uaBean.ua.jan}" required="true"	
-				requiredMessage="O campo 'Janeiro' é obrigatório!">
-				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>				
+				<p:inputText id="janeiro" maxlength="50" size="10" value="#{uaBean.ua.jan}">
+				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>	
+				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>			
 				</p:inputText>			
 				
 				<p:outputLabel for="fevereiro" value="Fevereiro: " />
-				<p:inputText id="fevereiro" maxlength="50" size="10" value="#{uaBean.ua.fev}" required="true"	
-				requiredMessage="O campo 'Fevereiro' é obrigatório!">
-				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>				
-				</p:inputText>
-				
+				<p:inputText id="fevereiro" maxlength="50" size="10" value="#{uaBean.ua.fev}"> 
+				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>	
+				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>			
+				</p:inputText>				
 				
 				<p:outputLabel for="marco" value="Março: " />
-				<p:inputText id="marco" maxlength="50" size="10" value="#{uaBean.ua.mar}" required="true"	
-				requiredMessage="O campo 'Março' é obrigatório!">
-				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>				
-				</p:inputText>
-				
+				<p:inputText id="marco" maxlength="50" size="10" value="#{uaBean.ua.mar}">
+				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>	
+				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>			
+				</p:inputText>				
 				
 				<p:outputLabel for="abril" value="Abril: " />
-				<p:inputText id="abril" maxlength="50" size="10" value="#{uaBean.ua.abr}" required="true"	
-				requiredMessage="O campo 'Abril' é obrigatório!">
-				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>				
-				</p:inputText>
-				
+				<p:inputText id="abril" maxlength="50" size="10" value="#{uaBean.ua.abr}"> 
+				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>
+				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>				
+				</p:inputText>				
 				
 				<p:outputLabel for="maio" value="Maio: " />
-				<p:inputText id="maio" maxlength="50" size="10" value="#{uaBean.ua.mai}" required="true"	
-				requiredMessage="O campo 'Maio' é obrigatório!">
-				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>				
-				</p:inputText>
-				
+				<p:inputText id="maio" maxlength="50" size="10" value="#{uaBean.ua.mai}">
+				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>	
+				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>			
+				</p:inputText>				
 				
 				<p:outputLabel  for="junho" value="Junho: " />
-				<p:inputText id="junho" maxlength="50" size="10" value="#{uaBean.ua.jun}" required="true"	
-				requiredMessage="O campo 'Junho' é obrigatório!">
-				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>				
-				</p:inputText>
-				
+				<p:inputText id="junho" maxlength="50" size="10" value="#{uaBean.ua.jun}">
+				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>	
+				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>			
+				</p:inputText>				
 				
 				<p:outputLabel for="julho" value="Julho: " />
-				<p:inputText id="julho" maxlength="50" size="10" value="#{uaBean.ua.jul}" required="true"	
-				requiredMessage="O campo 'Julho' é obrigatório!">
-				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>				
+				<p:inputText id="julho" maxlength="50" size="10" value="#{uaBean.ua.jul}">
+				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>
+				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>				
 				</p:inputText>
 				
 				
 				<p:outputLabel for="agosto" value="Agosto: " />
-				<p:inputText id="agosto" maxlength="50" size="10" value="#{uaBean.ua.ago}" required="true"	
-				requiredMessage="O campo 'Agosto' é obrigatório!">
-				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>				
-				</p:inputText>
-				
+				<p:inputText id="agosto" maxlength="50" size="10" value="#{uaBean.ua.ago}" required="true">				
+				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>	
+				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>			
+				</p:inputText>				
 				
 				<p:outputLabel for="setembro" value="Setembro: " />
-				<p:inputText id="setembro" maxlength="50" size="10" value="#{uaBean.ua.set}" required="true"	
-				requiredMessage="O campo 'Setembro' é obrigatório!">
-				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>				
-				</p:inputText>
-				
+				<p:inputText id="setembro" maxlength="50" size="10" value="#{uaBean.ua.set}" required="true">				
+				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>	
+				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>							
+				</p:inputText>				
 				
 				<p:outputLabel for="outubro" value="Outubro: " />
-				<p:inputText id="outubro" maxlength="50" size="10" value="#{uaBean.ua.out}" required="true"	
-				requiredMessage="O campo 'Outubro' é obrigatório!">
-				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>				
-				</p:inputText>
-				
+				<p:inputText id="outubro" maxlength="50" size="10" value="#{uaBean.ua.out}" required="true">			
+				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>	
+				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>			
+				</p:inputText>				
 				
 				<p:outputLabel for="novembro" value="Novembro: " />
-				<p:inputText id="novembro" maxlength="50" size="10" value="#{uaBean.ua.nov}" required="true"	
-				requiredMessage="O campo 'Novembro' é obrigatório!">
-				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>				
-				</p:inputText>
-				
+				<p:inputText id="novembro" maxlength="50" size="10" value="#{uaBean.ua.nov}" required="true">				
+				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>	
+				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>			
+				</p:inputText>				
 				
 				<p:outputLabel for="dezembro" value="Dezembro: " />
-				<p:inputText id="dezembro" maxlength="50" size="10" value="#{uaBean.ua.dez}" required="true"	
-				requiredMessage="O campo 'Dezembro' é obrigatório!">
-				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>				
+				<p:inputText id="dezembro" maxlength="50" size="10" value="#{uaBean.ua.dez}" required="true">				
+				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>
+				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>				
 				</p:inputText>
 				
 				
