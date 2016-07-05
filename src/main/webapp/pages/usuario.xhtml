@@ -37,7 +37,7 @@
 				</p:column>		
 						
 				<p:column headerText="Tipo">
-				  <h:outputText value="#{listaUsuarios.tipo}"/>
+				  <h:outputText value="#{listaUsuarios.tipoFormatado}"/>
 				</p:column>
 				
 				<p:column headerText="Ativo">
@@ -92,12 +92,13 @@
 
 				<p:outputLabel value="Tipo" />
 				<p:selectOneRadio>
-				   <f:selectItem itemValue="A" itemLabel="Administrador"/>
-				    <f:selectItem itemValue="U" itemLabel="Usuário"/>
+				   <f:selectItem itemValue="A" itemLabel="Administrador" value="#{listaPessoas.tipo}"/>
+				    <f:selectItem itemValue="U" itemLabel="Usuário" value="#{listaPessoas.tipo}"/>
 				</p:selectOneRadio>
-
-				<p:outputLabel value="Ativo" /> 
-				<p:selectBooleanCheckbox/>
+								
+				<p:outputLabel for="ativo" value="Ativo" /> 
+				<p:selectBooleanCheckbox id="ativo" value="#{listaPessoas.ativo}" />
+				
 			</h:panelGrid>           
 			<h:panelGrid columns="3">
 				<p:commandButton value="Salvar" actionListener="#{usuarioBean.salvar}" update=":mensagem :formCadastro:painel

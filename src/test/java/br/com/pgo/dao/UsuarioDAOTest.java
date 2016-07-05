@@ -20,7 +20,7 @@ public class UsuarioDAOTest {
 		usuario.setLogin("ricardo.cavalcanti");
 		usuario.setPessoa(pessoa);
 		usuario.setSenha("37eyrue");
-		usuario.setTipo("A");
+		usuario.setTipo('A');
 
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		usuarioDAO.salvar(usuario);
