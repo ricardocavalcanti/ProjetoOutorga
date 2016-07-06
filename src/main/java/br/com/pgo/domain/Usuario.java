@@ -49,7 +49,7 @@ public class Usuario extends GenericDomain {
 	public char getTipo() {
 		return tipo;
 	}
-    
+
 	@Transient
 	public String getTipoFormatado() {
 		String tipoFormatado = null;
@@ -61,7 +61,7 @@ public class Usuario extends GenericDomain {
 		} else if (tipo == 'G') {
 			tipoFormatado = "Gerente";
 		}
-         return tipoFormatado;
+		return tipoFormatado;
 	}
 
 	public void setTipo(char tipo) {
@@ -71,11 +71,16 @@ public class Usuario extends GenericDomain {
 	public boolean getAtivo() {
 		return ativo;
 	}
-	
+
 	@Transient
-	public getAtivoFormatado(){
+	public String getAtivoFormatado() {
+		String ativoFormatado = "Não";
+
+		if (ativo) {
+			ativoFormatado = "Sim";
+		}
 		
-		
+		return ativoFormatado;
 	}
 
 	public void setAtivo(boolean ativo) {

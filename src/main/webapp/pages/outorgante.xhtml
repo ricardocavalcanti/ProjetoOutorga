@@ -10,27 +10,27 @@
 	<h:outputScript library="js" name="scripts.js"/>
 </h:head>
 <h:body>
-
-	<p:growl id="mensagem" />
+	<p:growl id="mensagem"/>
 
 	<h:form id="formListagem">
+	
 		<p:panel header="Outorgante - Listagem">
-			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{outorganteBean.listaOutorgante}"
-				var="listaOutorgantes" rows="10">
+		
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado." paginator="true" value="#{outorganteBean.listaOutorgante}" var="listaOutorgantes" rows="10">
 				<f:facet name="footer">
-					    <p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{outorganteBean.novo}" update=":formCadastro:painel"> 
-						   <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> <!-- Código para limpar validação vermelha nos campos ao cadastrar -->
+					    <p:commandButton value="Novo" oncomplete="PF('dialogo').show();" actionListener="#{outorganteBean.novo}" update=":formCadastro:painel"> 
+						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> <!-- Código para limpar validação vermelha nos campos ao cadastrar -->
 						</p:commandButton>
 				</f:facet>
 				
 				<p:column headerText="Processo" sortBy="#{listaOutorgantes.processo}" filterBy="#{listaOutorgantes.processo}">
 					<h:outputText value="#{listaOutorgantes.processo}" />
 				</p:column>
+				
 				<p:column headerText="Numero UA">
 					<h:outputText value="#{listaOutorgantes.numeroUa.numeroUa}"/>					 
 				</p:column>
+				
 				<p:column headerText="Demanda Pontual">
 					<h:outputText value="#{listaOutorgantes.demandaPontual}">
 					<!-- convertNumber serve para mudar para o padrão BR a emprego de virgula no padrão númerico -->
