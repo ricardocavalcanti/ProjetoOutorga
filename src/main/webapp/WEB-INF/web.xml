@@ -25,7 +25,7 @@
 	<!-- Tema do PrimeFaces -->
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
-		<param-value>bluesky</param-value>
+		<param-value>redmond </param-value>
 	</context-param>
 
 	<!-- Configuração do JSF -->

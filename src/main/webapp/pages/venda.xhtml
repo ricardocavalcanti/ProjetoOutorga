@@ -1,14 +1,150 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-xmlns:h="http://xmlns.jcp.org/jsf/html"
-xmlns:f="http://xmlns.jcp.org/jsf/core"
-xmlns:p="http://primefaces.org/ui">
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Venda - Listagem</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Venda - Listagem</title>
 </h:head>
 <h:body>
+	<p:growl id="mensagem" />
+
+	<h:form>
+		<p:panel header="Selecione uma Unidade de Análise">
+				<p:dataTable  emptyMessage="Nenhum registro encontrado."
+				paginator="true" value="#{uaBean.listaUa}" var="listaUas" rows="3"> <!-- rows: Informa a paginação -->
+					
+				<p:column headerText="UA" sortBy="#{listaUas.numeroUa}" filterBy="#{listaUas.numeroUa}"> <!-- sortBy: Ordenação dos dados -->
+					<h:outputText value="#{listaUas.numeroUa}" />                                        <!-- filterBy: Filtar dados      -->   
+				</p:column>
+
+				<p:column headerText="Ano" >
+					<h:outputText value="#{listaUas.ano}"/>
+				</p:column>				
+
+				<p:column headerText="Jan">
+					<h:outputText value="#{listaUas.jan}">
+					<!-- convertNumber serve para mudar para o padrão BR a emprego de virgula no padrão númerico -->
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>					
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Fev">
+					<h:outputText value="#{listaUas.fev}">
+						<!-- convertNumber serve para mudar para o padrão BR a emprego de virgula no padrão númerico -->
+				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>					
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Mar">
+					<h:outputText value="#{listaUas.mar}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>					
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Abr">
+					<h:outputText value="#{listaUas.abr}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>					
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Mai">
+					<h:outputText value="#{listaUas.mai}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>					
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Jun">
+					<h:outputText value="#{listaUas.jun}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>					
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Jul">
+					<h:outputText value="#{listaUas.jul}">
+				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>					
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Ago">
+					<h:outputText value="#{listaUas.ago}">
+				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>					
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Set">
+					<h:outputText value="#{listaUas.set}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>					
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Out">
+					<h:outputText value="#{listaUas.out}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>					
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Nov">
+					<h:outputText value="#{listaUas.nov}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>					
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Dez">
+					<h:outputText value="#{listaUas.dez}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>					
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Opções">
+				  <p:commandButton icon="ui-icon-plus"/>
+				    <f:attribute name="uaSelecionada" value="#{listaVendas}"/>					
+				</p:column>
+
+			</p:dataTable>
+		</p:panel>
+		
+		<p:panel header="Dados Outorga">
+		<p:dataTable  emptyMessage="Nenhum registro encontrado." paginator="true" value="#{vendaBean.listaVenda}" 
+		var="listaVendas" rows="3">	
+		
+				<p:column headerText="Data Cadastro">
+					<h:outputText value="#{listaVendas.data}">
+					     <f:convertDateTime locale="pt_BR" />
+					</h:outputText>
+				</p:column>		
+				
+				<p:column headerText="Processo">
+					<h:outputText value="#{listaVendas.outorgante.processo}"/>
+				</p:column>
+				
+				<p:column headerText="Un Análise">
+					 <h:outputText value="#{listaVendas.outorgante.numeroUa.numeroUa}"/>
+				</p:column>									
+				
+				<p:column headerText="Demanda Pontual">
+					 <h:outputText value="#{listaVendas.outorgante.demandaPontual}"/>
+				</p:column>	
+				
+				<p:column headerText="Vencimento">
+					 <h:outputText value="#{listaVendas.outorgante.vencimento}"/>
+				</p:column>	
+				
+				<p:column headerText="Usuário">
+					 <h:outputText value="#{listaVendas.usuario.login}"/>
+				</p:column>			
+				
+				<p:column headerText="Opções">	
+								 	
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+		
+		<p:panel header="Ua Outorgada">
+		</p:panel>
+	</h:form>
 
 </h:body>
 </html>
