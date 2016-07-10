@@ -11,10 +11,10 @@
 <h:body>
 	<p:growl id="mensagem" />
 
-	<h:form>
+	<h:form id="formulario">
 		<p:panel header="Selecione uma Unidade de Análise">
-				<p:dataTable  emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{uaBean.listaUa}" var="listaUas" rows="3"> <!-- rows: Informa a paginação -->
+				<p:dataTable id="tabelaProduto"  emptyMessage="Nenhum registro encontrado."
+				paginator="true" value="#{vendaBean.listaUa}" var="listaUas" rows="3"> <!-- rows: Informa a paginação -->
 					
 				<p:column headerText="UA" sortBy="#{listaUas.numeroUa}" filterBy="#{listaUas.numeroUa}"> <!-- sortBy: Ordenação dos dados -->
 					<h:outputText value="#{listaUas.numeroUa}" />                                        <!-- filterBy: Filtar dados      -->   
@@ -98,53 +98,83 @@
 					</h:outputText>
 				</p:column>
 				
-				<p:column headerText="Opções">
-				  <p:commandButton icon="ui-icon-plus"/>
-				    <f:attribute name="uaSelecionada" value="#{listaVendas}"/>					
+				<p:column headerText="Opções"> 
+				
+				    <p:commandButton value="Calcular" oncomplete="PF('dialogo').show();"/>
+				   <p:commandButton value="Adiconar" actionListener="#{vendaBean.adicionar}" update=":formulario:tabelaCesta">
+				    <f:attribute name="uaSelecionada" value="#{listaUas}"/>
+				   </p:commandButton>	
+				   	
 				</p:column>
-
 			</p:dataTable>
 		</p:panel>
 		
 		<p:panel header="Dados Outorga">
-		<p:dataTable  emptyMessage="Nenhum registro encontrado." paginator="true" value="#{vendaBean.listaVenda}" 
+		<p:dataTable id="tabelaCesta" emptyMessage="Nenhum registro encontrado." paginator="true" value="#{vendaBean.listaVenda}" 
 		var="listaVendas" rows="3">	
 		
 				<p:column headerText="Data Cadastro">
-					<h:outputText value="#{listaVendas.data}">
-					     <f:convertDateTime locale="pt_BR" />
-					</h:outputText>
-				</p:column>		
+					<h:outputText value="#{listaVendas.dataCadastro}">	
+					 <f:convertDateTime locale="pt_BR"/>
+					</h:outputText>			
+				</p:column>					
 				
-				<p:column headerText="Processo">
-					<h:outputText value="#{listaVendas.outorgante.processo}"/>
-				</p:column>
 				
-				<p:column headerText="Un Análise">
-					 <h:outputText value="#{listaVendas.outorgante.numeroUa.numeroUa}"/>
+				<p:column headerText="Unidade de Análise">
+					 <h:outputText value="#{listaVendas.numeroUa.numeroUa}"/>
 				</p:column>									
 				
 				<p:column headerText="Demanda Pontual">
-					 <h:outputText value="#{listaVendas.outorgante.demandaPontual}"/>
+					 <h:outputText value=""/>
 				</p:column>	
 				
-				<p:column headerText="Vencimento">
-					 <h:outputText value="#{listaVendas.outorgante.vencimento}"/>
-				</p:column>	
-				
-				<p:column headerText="Usuário">
-					 <h:outputText value="#{listaVendas.usuario.login}"/>
+				<p:column headerText="Garantia da Vazão">
+					 <h:outputText value=""/>
 				</p:column>			
+							
 				
 				<p:column headerText="Opções">	
-								 	
+					<p:commandButton icon="ui-icon-minus"/>								 	
 				</p:column>
+				
 			</p:dataTable>
 		</p:panel>
 		
 		<p:panel header="Ua Outorgada">
 		</p:panel>
 	</h:form>
-
+	
+	<!-- Dialogo calculo de vazão -->
+	<p:dialog header="Calculo do Percentual da Vazão" widgetVar="dialogo" draggable="false" resizable="false" modal="true" closable="false">
+	<h:form id="calculo">
+	       <h:panelGrid id="calculoVazao" columns="2">
+	            <p:outputLabel for="demanda" value="Demanda pontual" /> 
+	            <p:inputText id="demanda" label="demanda" maxlength="10" size="15"/>
+	            
+	           <p:outputLabel for="garantia" value="Garantia de vazão" />
+	           <p:inputText id="garantia" label="Garantia" maxlength="10" size="15"/>
+	           
+	            <p:outputLabel for="dataCadastro" value="Data do cadastro" />
+	            <p:inputText id="dataCadastro" label="DataCadastro2" maxlength="10" size="15"/>
+	            
+	            <p:outputLabel for="unidadeAnalise" value="Unidade de analise" />
+	            <p:inputText id="unidadeAnalise" label="unidadeAnalise" maxlength="10" size="15"/>
+	            
+	            
+	
+	
+	</h:panelGrid>	
+<h:panelGrid columns="3">
+	
+ <p:commandButton value="Calcular"/>
+	    <p:commandButton value="Salvar"/>	
+	         <p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()" />	
+</h:panelGrid>
+	
+	</h:form>	
+	</p:dialog>
+	
+	
+		
 </h:body>
 </html>

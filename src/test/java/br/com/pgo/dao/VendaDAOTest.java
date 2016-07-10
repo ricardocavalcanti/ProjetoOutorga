@@ -22,7 +22,7 @@ public class VendaDAOTest {
 		OutorganteDAO outorganteDAO = new OutorganteDAO();
 		Outorgante processo = outorganteDAO.buscar(4L);
 
-		venda.setData(new Date());
+		venda.setDataCadastro(new Date());
 		venda.setProcesso(processo);
 		venda.setUsuario(usuario);
 
@@ -38,7 +38,7 @@ public class VendaDAOTest {
 		if (venda == null) {
 			System.out.println("Venda não encontrada!");
 		} else {
-			System.out.println(venda.getData());
+			System.out.println(venda.getDataCadastro());
 			System.out.println(venda.getProcesso());
 			System.out.println(venda.getUsuario());
 		}
@@ -69,7 +69,7 @@ public class VendaDAOTest {
 
 		for (Venda venda : resultado) {
 
-			System.out.println(venda.getData());
+			System.out.println(venda.getDataCadastro());
 			System.out.println(venda.getProcesso());
 			System.out.println(venda.getUsuario());
 		}

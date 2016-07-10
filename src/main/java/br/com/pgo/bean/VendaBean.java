@@ -1,6 +1,8 @@
 package br.com.pgo.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -20,6 +22,7 @@ import br.com.pgo.domain.Venda;
 public class VendaBean implements Serializable {
 
 	private List<Ua> listaUa;
+	private List<Ua> listaOutorgante;
 	private List<Venda> listaVenda;
 
 	public List<Ua> getListaUa() {
@@ -28,6 +31,14 @@ public class VendaBean implements Serializable {
 
 	public void setListaUa(List<Ua> listaUa) {
 		this.listaUa = listaUa;
+	}
+
+	public List<Ua> getListaOutorgante() {
+		return listaOutorgante;
+	}
+
+	public void setListaOutorgante(List<Ua> listaOutorgante) {
+		this.listaOutorgante = listaOutorgante;
 	}
 
 	public List<Venda> getListaVenda() {
@@ -45,6 +56,8 @@ public class VendaBean implements Serializable {
 			UaDAO uaDAO = new UaDAO();
 			listaUa = uaDAO.listar("numeroUa"); // Valor para ordenação da lista
 
+			listaVenda = new ArrayList<>();
+
 		} catch (RuntimeException erro) {
 
 			Messages.addGlobalInfo("Erro ao tentar carregar 'Seleção UA'");
@@ -55,8 +68,41 @@ public class VendaBean implements Serializable {
 
 	public void adicionar(ActionEvent evento) {
 
-		Venda venda = (Venda) evento.getComponent().getAttributes().get("produtoSelecionado");
+		Ua ua = (Ua) evento.getComponent().getAttributes().get("uaSelecionada");
+
+		Venda novaVenda = new Venda();	
+		
+		Date dataAtual = new Date();
+		
+		
+		
+		novaVenda.setDataCadastro(dataAtual);
+		
+		novaVenda.setNumeroUa(ua);
+		
+	
+		listaVenda.add(novaVenda);		
+		System.out.println(ua);
 
 	}
+	
+	public void calcular(ActionEvent evento) {
 
+		Ua ua = (Ua) evento.getComponent().getAttributes().get("uaSelecionada");
+
+		Venda novaVenda = new Venda();	
+		
+		Date dataAtual = new Date();
+		
+		
+		
+		novaVenda.setDataCadastro(dataAtual);
+		
+		novaVenda.setNumeroUa(ua);
+		
+	
+		listaVenda.add(novaVenda);		
+		System.out.println(ua);
+
+	}
 }
