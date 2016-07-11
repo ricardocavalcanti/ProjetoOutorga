@@ -55,7 +55,7 @@
 					</p:commandButton>
 
 					<p:commandButton icon="ui-icon-pencil" actionListener="#{outorganteBean.editar}" update=":mensagem :formCadastro:painel"
-						oncomplete="PF('dialogo').show()">
+						oncomplete="PF('dialogo').show()"> 
 						<f:attribute name="outorganteSelecionado" value="#{listaOutorgantes}" />
 							   <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> <!-- Código para limpar validação vermelha nos campos ao editar -->
 					</p:commandButton>

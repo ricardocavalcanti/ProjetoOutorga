@@ -19,7 +19,7 @@
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado." paginator="true" value="#{usuarioBean.listaUsuario}" var="listaUsuarios" rows="10">
 				<f:facet name="footer">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" actionListener="#{usuarioBean.novo}" update=":formCadastro:painel">
-					<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> <!-- Código para limpar validação vermelha nos campos ao cadastrar -->
+					<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/> <!-- Código para limpar validação vermelha nos campos ao cadastrar -->
 					</p:commandButton>
 				</f:facet>
 
@@ -70,8 +70,7 @@
 			<h:panelGrid id="painel" columns="2">
 			
 				<p:outputLabel for="login" value="Login" />
-				<p:inputText id="login" maxlength="32" size="20" value="#{usuarioBean.usuario.login}"
-				required="true" requiredMessage="O campo 'Login' é obrigatório" />
+				<p:inputText id="login" maxlength="32" size="20" value="#{usuarioBean.usuario.login}" required="true" requiredMessage="O campo 'Login' é obrigatório" />
 
 				<p:outputLabel for="senha" value="Senha" />
 				<p:password id="senha" maxlength="32" size="20" value="#{usuarioBean.usuario.senha}"
