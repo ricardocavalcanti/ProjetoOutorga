@@ -38,6 +38,7 @@
 		<mapping class="br.com.pgo.domain.Pessoa"/>
 		<mapping class="br.com.pgo.domain.Usuario"/>
 		<mapping class="br.com.pgo.domain.Venda"/>
+		<mapping class="br.com.pgo.domain.ItemDeVenda"/>
 
 	</session-factory>
 

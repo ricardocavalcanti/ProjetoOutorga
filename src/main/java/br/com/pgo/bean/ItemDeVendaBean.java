@@ -1,32 +1,52 @@
 package br.com.pgo.bean;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-
 import org.omnifaces.util.Messages;
-
 import br.com.pgo.dao.UaDAO;
-import br.com.pgo.domain.Outorgante;
+import br.com.pgo.domain.ItemDeVenda;
 import br.com.pgo.domain.Ua;
-import br.com.pgo.domain.Venda;
 
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
-public class VendaBean implements Serializable {
+public class ItemDeVendaBean implements Serializable {
 
-	private List<Ua> listaUa;
-	private List<Outorgante> listaOutorgante;
-	private List<Venda> listaVenda;
 	private Ua ua;
+	private List<Ua> listaUa;
+	private List<ItemDeVenda> itensVenda;
+	private ItemDeVenda demandaPontual;
+	private ItemDeVenda itemDeVenda;
 	private double valor;
 	private double resultado;
+
+	public void novo() {
+
+		itemDeVenda = new ItemDeVenda();
+
+	}
+
+	public ItemDeVenda getItemDeVenda() {
+		return itemDeVenda;
+	}
+
+	public void setItemDeVenda(ItemDeVenda itemDeVenda) {
+		this.itemDeVenda = itemDeVenda;
+	}
+
+	public Ua getUa() {
+		return ua;
+	}
+
+	public void setUa(Ua ua) {
+		this.ua = ua;
+	}
 
 	public List<Ua> getListaUa() {
 		return listaUa;
@@ -36,28 +56,20 @@ public class VendaBean implements Serializable {
 		this.listaUa = listaUa;
 	}
 
-	public List<Outorgante> getListaOutorgante() {
-		return listaOutorgante;
+	public List<ItemDeVenda> getItensVenda() {
+		return itensVenda;
 	}
 
-	public void setListaOutorgante(List<Outorgante> listaOutorgante) {
-		this.listaOutorgante = listaOutorgante;
+	public void setItensVenda(List<ItemDeVenda> itensVenda) {
+		this.itensVenda = itensVenda;
 	}
 
-	public List<Venda> getListaVenda() {
-		return listaVenda;
+	public ItemDeVenda getDemandaPontual() {
+		return demandaPontual;
 	}
 
-	public void setListaVenda(List<Venda> listaVenda) {
-		this.listaVenda = listaVenda;
-	}
-
-	public Ua getUa() {
-		return ua;
-	}
-
-	public void setUa(Ua ua) {
-		this.ua = ua;
+	public void setDemandaPontual(ItemDeVenda demandaPontual) {
+		this.demandaPontual = demandaPontual;
 	}
 
 	public double getValor() {
@@ -82,6 +94,8 @@ public class VendaBean implements Serializable {
 		try {
 			UaDAO uaDAO = new UaDAO();
 			listaUa = uaDAO.listar("numeroUa");
+
+			itensVenda = new ArrayList<>();
 
 		} catch (RuntimeException erro) {
 
@@ -113,16 +127,13 @@ public class VendaBean implements Serializable {
 
 			if (valor <= meses[i]) {
 
-				System.out.println(meses[i]);
 				cont++;
 			}
 
 		}
 
-		resultado = (cont / 12) * 100;
+		resultado = (cont / 12);
 
-		System.out.println("Total de meses: " + cont);
-		System.out.println("Percentual vazão: " + resultado);
 	}
 
 	public void editar(ActionEvent evento) {
@@ -140,11 +151,24 @@ public class VendaBean implements Serializable {
 		}
 
 	}
-	
-	public void salvar (){
-		
-		//Usar o data
-		
-		
+
+	public void adicionar() {
+
+		novo();
+
+		itemDeVenda.setNumeroUa(ua);
+		itemDeVenda.setDemandaPontual(valor);
+		itemDeVenda.setGarantiaVazao(resultado);
+
+		itensVenda.add(itemDeVenda);
+
+		for (ItemDeVenda venda : itensVenda) {
+
+			System.out.println("Demanda Pontual: " + venda.getDemandaPontual());
+			System.out.println("Garantia Vazao: " + venda.getGarantiaVazao());
+			System.out.println("Numero Ua: " + venda.getNumeroUa());
+
+		}
+
 	}
 }
