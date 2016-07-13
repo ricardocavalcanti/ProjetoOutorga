@@ -12,7 +12,7 @@
 	<p:growl id="mensagem" />
 
 	<h:form id="formulario">
-		<p:panel header="Selecione uma Unidade de Análise">
+		<p:panel header="Adicione as Unidades de Análise">
 			<p:dataTable id="tabelaProduto"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
 				value="#{itemDeVendaBean.listaUa}" var="listaUas" rows="3">
@@ -104,7 +104,7 @@
 				</p:column>
 
 				<p:column headerText="Opções">
-					<p:commandButton value="Calcular" oncomplete="PF('dialogo').show()"
+					<p:commandButton icon="ui-icon-plus" oncomplete="PF('dialogo').show()"
 						actionListener="#{itemDeVendaBean.editar}"
 						update=":mensagem :formCalculo:painel">
 						<f:attribute name="uaSelecionada" value="#{listaUas}" />
@@ -114,13 +114,15 @@
 			</p:dataTable>
 		</p:panel>
 
-		<p:panel header="Dados Outorga">
+		<p:panel header="Garantia da Vazão">
 			<p:dataTable id="tabelaCesta" emptyMessage="Nenhum registro encontrado." paginator="true"	
-			value="#{itemDeVendaBean.itensVenda}" var="itensVendas" rows="3">
-			  	
-
+			value="#{itemDeVendaBean.listaItensVenda}" var="listaItensVenda" rows="3">
 
 				<p:column headerText="Unidade de Análise">
+					<h:outputText value="#{itensVendas.numeroUa.numeroUa}" />
+				</p:column>
+				
+				<p:column headerText="Ano">
 					<h:outputText value="#{itensVendas.numeroUa.numeroUa}" />
 				</p:column>
 
@@ -137,7 +139,7 @@
 				</p:column>
 				
 				<p:column headerText="Opções">
-					<p:commandButton value="Excluir" />
+					<p:commandButton icon="ui-icon-plus" />
 				</p:column>
 
 			</p:dataTable>
