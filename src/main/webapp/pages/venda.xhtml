@@ -12,14 +12,12 @@
 	<p:growl id="mensagem" />
 
 	<h:form id="formulario">
-		<p:panel header="Adicione as Unidades de Análise">
-			<p:dataTable id="tabelaProduto"
-				emptyMessage="Nenhum registro encontrado." paginator="true"
+		<p:panel header="Adicione Unidades de Análise"> 
+			<p:dataTable id="adicioneUnidadeDeAnalise" emptyMessage="Nenhum registro encontrado." paginator="true"
 				value="#{itemDeVendaBean.listaUa}" var="listaUas" rows="3">
 				<!-- rows: Informa a paginação -->
 
-				<p:column headerText="UA" sortBy="#{listaUas.numeroUa}"
-					filterBy="#{listaUas.numeroUa}">
+				<p:column headerText="UA" sortBy="#{listaUas.numeroUa}" filterBy="#{listaUas.numeroUa}">
 					<!-- sortBy: Ordenação dos dados -->
 					<h:outputText value="#{listaUas.numeroUa}" />
 					<!-- filterBy: Filtar dados      -->
@@ -104,9 +102,7 @@
 				</p:column>
 
 				<p:column headerText="Opções">
-					<p:commandButton icon="ui-icon-plus" oncomplete="PF('dialogo').show()"
-						actionListener="#{itemDeVendaBean.editar}"
-						update=":mensagem :formCalculo:painel">
+					<p:commandButton icon="ui-icon-plus" actionListener="#{itemDeVendaBean.adicionar}" update="formulario:garantiaDaVazao">
 						<f:attribute name="uaSelecionada" value="#{listaUas}" />
 					</p:commandButton>
 				</p:column>
@@ -114,75 +110,103 @@
 			</p:dataTable>
 		</p:panel>
 
-		<p:panel header="Garantia da Vazão">
-			<p:dataTable id="tabelaCesta" emptyMessage="Nenhum registro encontrado." paginator="true"	
-			value="#{itemDeVendaBean.listaItensVenda}" var="listaItensVenda" rows="3">
+		<p:panel header="Garantia da Vazão">  
+		
+			<p:dataTable id="garantiaDaVazao" emptyMessage="Nenhum registro encontrado." paginator="true"	
+			value="#{itemDeVendaBean.listaItensVenda}" var="listaItensVendas" rows="10">
+				<f:facet name="footer">
+				<p:commandButton value="CALCULAR" actionListener="#{itemDeVendaBean.calcular}"/>
+				</f:facet>
 
-				<p:column headerText="Unidade de Análise">
-					<h:outputText value="#{itensVendas.numeroUa.numeroUa}" />
+				<p:column headerText="Ua">
+					<h:outputText value="#{listaItensVendas.numeroUa}"/>
 				</p:column>
 				
 				<p:column headerText="Ano">
-					<h:outputText value="#{itensVendas.numeroUa.numeroUa}" />
+					<h:outputText value="#{listaItensVendas.ano}" />
 				</p:column>
 
-				<p:column headerText="Demanda Pontual">
-					<h:outputText value="#{itensVendas.demandaPontual}">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" maxFractionDigits="2"/>
-					</h:outputText>
+				<p:column headerText="Jan">
+					<h:outputText value="#{listaItensVendas.jan}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					</h:outputText>					
 				</p:column>
 
-				<p:column headerText="Garantia da Vazão">
-					<h:outputText value="#{itensVendas.garantiaVazao}">					
-					<f:convertNumber type="percent"/>
-					</h:outputText>
+				<p:column headerText="Fev">
+					<h:outputText value="#{listaItensVendas.fev}">	
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>	
+					 </h:outputText>		
 				</p:column>
 				
-				<p:column headerText="Opções">
-					<p:commandButton icon="ui-icon-plus" />
+				<p:column headerText="Mar">
+					<h:outputText value="#{listaItensVendas.mar}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					 </h:outputText>
 				</p:column>
+				
+				<p:column headerText="Abr">
+					<h:outputText value="#{listaItensVendas.abr}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					 </h:outputText>
+				</p:column>
+				
+				<p:column headerText="Mai">
+					<h:outputText value="#{listaItensVendas.mai}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					 </h:outputText>
+				</p:column>
+				
+				<p:column headerText="Jun">
+					<h:outputText value="#{listaItensVendas.jun}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					 </h:outputText>
+				</p:column>
+				
+				<p:column headerText="Jul">
+					<h:outputText value="#{listaItensVendas.jul}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					 </h:outputText>
+				</p:column>
+				
+				<p:column headerText="Ago">
+					<h:outputText value="#{listaItensVendas.ago}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					 </h:outputText>
+				</p:column>
+				
+				<p:column headerText="Set">
+					<h:outputText value="#{listaItensVendas.set}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					 </h:outputText>
+				</p:column>
+				
+				<p:column headerText="Out">
+					<h:outputText value="#{listaItensVendas.out}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					 </h:outputText>
+				</p:column>
+				
+				<p:column headerText="Nov">
+					<h:outputText value="#{listaItensVendas.nov}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					 </h:outputText>
+				</p:column>
+				
+				<p:column headerText="Dez">
+					<h:outputText value="#{listaItensVendas.dez}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					 </h:outputText>
+				</p:column>	
+								
+				<p:column headerText="Opções">
+				  <p:commandButton icon="ui-icon-minus"/>
+				</p:column>			
 
 			</p:dataTable>
 		</p:panel>
-
-		<p:panel header="Ua Outorgada">
-		</p:panel>
+		
 	</h:form>
 
-	<!-- Dialogo calculo de vazão -->
-	<p:dialog header="Calculo do Percentual da Vazão" widgetVar="dialogo"
-		draggable="false" resizable="false" modal="true" closable="false">
-		<h:form id="formCalculo">
-
-			<h:panelGrid id="painel" columns="1">
-
-				<p:outputLabel for="ua" value="Unidade de Análise" />
-				<p:inputText id="ua" maxlength="10" size="15"
-					value="#{itemDeVendaBean.ua.numeroUa}" />
-
-				<p:outputLabel for="demanda" value="Demanda pontual" />
-				<p:inputText id="demanda" label="Demanda" maxlength="10" size="15" value="#{itemDeVendaBean.valor}">					
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-				</p:inputText>
-				<p:outputLabel for="garantia" value="Garantia de vazão" />
-				<p:inputText id="garantia" label="Garantia" maxlength="10" size="15"
-					value="#{itemDeVendaBean.resultado}">
-						<f:convertNumber type="percent"/>
-				</p:inputText>
-			</h:panelGrid>
-
-			<h:panelGrid columns="4">
-				<!--  ///Dar update.	-->
-				<p:commandButton value="Calcular" actionListener="#{itemDeVendaBean.calcular}"
-					update=":formCalculo:painel" />
-				<p:commandButton value="Adicionar" actionListener="#{itemDeVendaBean.adicionar}" 
-				update=":formCalculo:painel :formulario:tabelaCesta" oncomplete="PF('dialogo').hide()" >
-				<f:attribute name="itemSelecionado" value="#{itensVendas}" />    	
-				</p:commandButton>	                                                             	
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()" />
-			</h:panelGrid>
-
-		</h:form>
-	</p:dialog>
+	
 </h:body>
 </html>

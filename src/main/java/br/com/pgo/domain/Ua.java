@@ -3,10 +3,12 @@ package br.com.pgo.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+
 @SuppressWarnings("serial")
 @Entity
 public class Ua extends GenericDomain {
 
+	
 	@Column(length = 50, nullable = false)
 	private int numeroUa;
 	@Column(length = 50, nullable = false)

@@ -25,7 +25,7 @@ public class Outorgante extends GenericDomain {
 
 	@Column(nullable = false)
 	private Boolean liberado;
-
+	
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Ua numeroUa;

@@ -2,12 +2,14 @@ package br.com.pgo.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+
 import org.omnifaces.util.Messages;
 import br.com.pgo.dao.UaDAO;
 import br.com.pgo.domain.ItemDeVenda;
@@ -20,8 +22,7 @@ public class ItemDeVendaBean implements Serializable {
 
 	private Ua ua;
 	private List<Ua> listaUa;
-	private List<ItemDeVenda> listaItensVenda;
-	private ItemDeVenda demandaPontual;
+	private List<Ua> listaItensVenda;
 	private ItemDeVenda itemDeVenda;
 
 	public void novo() {
@@ -46,20 +47,12 @@ public class ItemDeVendaBean implements Serializable {
 		this.listaUa = listaUa;
 	}
 
-	public List<ItemDeVenda> getListaItensVenda() {
+	public List<Ua> getListaItensVenda() {
 		return listaItensVenda;
 	}
 
-	public void setListaItensVenda(List<ItemDeVenda> listaItensVenda) {
+	public void setListaItensVenda(List<Ua> listaItensVenda) {
 		this.listaItensVenda = listaItensVenda;
-	}
-
-	public ItemDeVenda getDemandaPontual() {
-		return demandaPontual;
-	}
-
-	public void setDemandaPontual(ItemDeVenda demandaPontual) {
-		this.demandaPontual = demandaPontual;
 	}
 
 	public ItemDeVenda getItemDeVenda() {
@@ -74,6 +67,7 @@ public class ItemDeVendaBean implements Serializable {
 	public void listar() {
 
 		try {
+
 			UaDAO uaDAO = new UaDAO();
 			listaUa = uaDAO.listar("numeroUa");
 
@@ -87,20 +81,109 @@ public class ItemDeVendaBean implements Serializable {
 
 	}
 
-	public void editar(ActionEvent evento) {
+	public void adicionar(ActionEvent evento) {
 
-		try {
+		ua = (Ua) evento.getComponent().getAttributes().get("uaSelecionada");
 
-			ua = (Ua) evento.getComponent().getAttributes().get("uaSelecionada");
+		// int achou = -1;
 
-			Messages.addGlobalInfo("Calculo vazão UA: " + ua.getNumeroUa());
+		ua.setAno(ua.getAno());
+		ua.setNumeroUa(ua.getNumeroUa());
+		ua.setJan(ua.getJan());
+		ua.setFev(ua.getFev());
+		ua.setMar(ua.getMar());
+		ua.setAbr(ua.getAbr());
+		ua.setMai(ua.getMai());
+		ua.setJun(ua.getJun());
+		ua.setJul(ua.getJul());
+		ua.setAgo(ua.getAgo());
+		ua.setSet(ua.getSet());
+		ua.setOut(ua.getOut());
+		ua.setNov(ua.getNov());
+		ua.setDez(ua.getDez());
 
-		} catch (RuntimeException erro) {
-
-			Messages.addGlobalInfo("Erro ao calcular");
-			erro.printStackTrace();
-		}
+		listaItensVenda.add(ua);
 
 	}
+	// list.indexOf dentro do if pra saber as posições
 
+	public void calcular() {
+
+		int tamanho = listaItensVenda.size();
+		double aux;
+		double aux2;
+		System.out.println(tamanho);		
+		
+		
+		for (int i = tamanho - 1; i >= 1; i--) {
+
+			for (int j = 0; j < i; j++) {
+
+				if (listaItensVenda.get(j).getJan() > listaItensVenda.get(j + 1).getJan()){
+                    
+					aux = listaItensVenda.get(j).getJan();
+					List listaItensVenda.get(j).setJan(listaItensVenda.get(j+1); 
+					listaItensVenda.get(j+1) = aux;
+				}
+			}			
+
+			System.out.println("Numero UA: " + listaItensVenda.get(i).getNumeroUa() + " Mes Janeiro " + "Vazao: "
+					+ listaItensVenda.get(i).getJan());
+
+		}
+		for (Ua fevereiro : listaItensVenda) {
+
+			System.out.println(
+					"NumeroUA: " + fevereiro.getNumeroUa() + " Mes: Fevereiro " + " Vazao: " + fevereiro.getFev());
+		}
+		for (Ua marco : listaItensVenda) {
+
+			System.out.println("NumeroUA: " + marco.getNumeroUa() + " Mes: Março " + " Vazao: " + marco.getMar());
+		}
+		for (Ua abril : listaItensVenda) {
+
+			System.out.println("NumeroUA: " + abril.getNumeroUa() + " Mes: Abril " + " Vazao: " + abril.getAbr());
+		}
+		for (Ua maio : listaItensVenda) {
+
+			System.out.println("NumeroUA: " + maio.getNumeroUa() + " Mes: Maio " + " Vazao: " + maio.getMai());
+		}
+		for (Ua junho : listaItensVenda) {
+
+			System.out.println("NumeroUA: " + junho.getNumeroUa() + " Mes: Junho " + " Vazao: " + junho.getJun());
+		}
+
+		for (Ua julho : listaItensVenda) {
+
+			System.out.println("NumeroUA: " + julho.getNumeroUa() + " Mes: Julho " + " Vazao: " + julho.getJul());
+		}
+		for (Ua agosto : listaItensVenda) {
+
+			System.out.println("NumeroUA: " + agosto.getNumeroUa() + " Mes: Agosto " + " Vazao: " + agosto.getAgo());
+		}
+		for (Ua setembro : listaItensVenda) {
+
+			System.out.println("NumeroUA: " + setembro.getNumeroUa() + " Mes: Setembro " + " Vazao: Setembro "
+					+ setembro.getSet());
+		}
+		for (Ua outubro : listaItensVenda) {
+
+			System.out.println("NumeroUA: " + outubro.getNumeroUa() + " Mes: Outubro " + " Vazao: " + outubro.getOut());
+		}
+		for (Ua novembro : listaItensVenda) {
+
+			System.out.println(
+					"NumeroUA: " + novembro.getNumeroUa() + " Mes: Novembro " + " Vazao: " + novembro.getNov());
+		}
+		for (Ua dezembro : listaItensVenda) {
+
+			System.out.println(
+					"NumeroUA: " + dezembro.getNumeroUa() + " Mes: Dezembro " + " Vazao: " + dezembro.getDez());
+		}
+	}
+
+	private Ua get(int j) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

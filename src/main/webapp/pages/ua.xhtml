@@ -21,7 +21,9 @@
 
 				<f:facet name="footer">
 					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{uaBean.novo}" update=":formCadastro:painel" />
+						actionListener="#{uaBean.novo}" update=":formCadastro:painel">
+						  <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> <!-- Código para limpar validação vermelha nos campos ao cadastrar -->
+						  </p:commandButton>
 				</f:facet>
 				
 				<p:column headerText="UA" sortBy="#{listaUas.numeroUa}" filterBy="#{listaUas.numeroUa}"> <!-- sortBy: Ordenação dos dados -->
@@ -120,6 +122,7 @@
 					<p:commandButton icon="ui-icon-pencil" actionListener="#{uaBean.editar}"
 					update=":mensagem :formCadastro:painel" oncomplete="PF('dialogo').show()"> 
 					     <f:attribute name="uaSelecionada" value="#{listaUas}"/>
+					      <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> <!-- Código para limpar validação vermelha nos campos ao cadastrar -->
 					</p:commandButton>
 					
 				</p:column>
