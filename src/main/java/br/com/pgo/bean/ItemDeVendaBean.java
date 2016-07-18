@@ -107,10 +107,9 @@ public class ItemDeVendaBean implements Serializable {
 
 	public void calcular() {
 
-		int tamanho = listaItensVenda.size();
+		double quantidade = listaItensVenda.size();
 
-		System.out.println(tamanho);
-
+		// Ordenação Janeiro
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
 			@Override
 			public int compare(Ua ua1, Ua ua2) {
@@ -124,14 +123,21 @@ public class ItemDeVendaBean implements Serializable {
 				}
 			}
 		});
+	    double posicaoJan=1;
 		for (Ua janeiro : listaItensVenda) {
-			System.out.println("NumeroUA: " + janeiro.getNumeroUa() + " Mes: Janeiro " + " Vazao: " + janeiro.getJan());
-		}
 		
-		System.out.println("1 "+listaItensVenda.get(0).getJan()/tamanho);
-		System.out.println("2 " +listaItensVenda.get(1).getJan()/tamanho);
-		System.out.println("3 " +listaItensVenda.get(2).getJan()/tamanho);
+			System.out.println("NumeroUA: " + janeiro.getNumeroUa() + " - Mes: Janeiro "	+ " - Vazao: " + janeiro.getJan());
+            
+			double jan = janeiro.getJan();
+			double media = (jan / quantidade);
 
+			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("MEDIA : " + media + " POSICAO " + posicaoJan);
+			System.out.println("--------------------------------------------");
+			posicaoJan++;
+		}
+
+		// Ordenação Fevereiro
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
 			@Override
 			public int compare(Ua ua1, Ua ua2) {
@@ -145,55 +151,301 @@ public class ItemDeVendaBean implements Serializable {
 				}
 			}
 		});
-
+	    double posicaoFev=1;
 		for (Ua fevereiro : listaItensVenda) {
+			
+			System.out.println(	"NumeroUA: " + fevereiro.getNumeroUa() + " Mes: Fevereiro " + " Vazao: " + fevereiro.getFev());
+			
+			double fev = fevereiro.getFev();
+			double media = (fev / quantidade);
 
-			System.out.println("NumeroUA: " + fevereiro.getNumeroUa() + " Mes: Fevereiro " + " Vazao: " + fevereiro.getFev());
+			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("MEDIA : " + media + " POSICAO " + posicaoFev);
+			System.out.println("--------------------------------------------");
+			posicaoFev++;
+			
 		}
 
+		// Ordenação Março
+		Collections.sort(listaItensVenda, new Comparator<Ua>() {
+			@Override
+			public int compare(Ua ua1, Ua ua2) {
+
+				if (ua1.getMar() < ua2.getMar()) {
+					return 1;
+				} else if (ua1.getMar() > ua2.getMar()) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+		});
+		 double posicaoMar=1;
 		for (Ua marco : listaItensVenda) {
-
+		
 			System.out.println("NumeroUA: " + marco.getNumeroUa() + " Mes: Março " + " Vazao: " + marco.getMar());
+			
+			double mar = marco.getMar();
+			double media = (mar / quantidade);
+
+			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("MEDIA : " + media + " POSICAO " + posicaoMar);
+			System.out.println("--------------------------------------------");
+			posicaoMar++;
 		}
+			
+
+		// Ordenação Abril
+		Collections.sort(listaItensVenda, new Comparator<Ua>() {
+			@Override
+			public int compare(Ua ua1, Ua ua2) {
+
+				if (ua1.getAbr() < ua2.getAbr()) {
+					return 1;
+				} else if (ua1.getFev() > ua2.getFev()) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+		});
+		 double posicaoAbr=1;
 		for (Ua abril : listaItensVenda) {
-
+			
 			System.out.println("NumeroUA: " + abril.getNumeroUa() + " Mes: Abril " + " Vazao: " + abril.getAbr());
+			
+			double abr = abril.getAbr();
+			double media = (abr / quantidade);
+
+			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("MEDIA : " + media + " POSICAO " + posicaoAbr);
+			System.out.println("--------------------------------------------");
+			posicaoAbr++;
 		}
+
+		// Ordenação Maio
+		Collections.sort(listaItensVenda, new Comparator<Ua>() {
+			@Override
+			public int compare(Ua ua1, Ua ua2) {
+
+				if (ua1.getMai() < ua2.getMai()) {
+					return 1;
+				} else if (ua1.getMai() > ua2.getMai()) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+		});
+		 double posicaoMai=1;
 		for (Ua maio : listaItensVenda) {
-
+			
 			System.out.println("NumeroUA: " + maio.getNumeroUa() + " Mes: Maio " + " Vazao: " + maio.getMai());
+			
+			double mai = maio.getMai();
+			double media = (mai / quantidade);
+
+			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("MEDIA : " + media + " POSICAO " + posicaoMai);
+			System.out.println("--------------------------------------------");
+			posicaoMai++;
 		}
+
+		// Ordenação Junho
+		Collections.sort(listaItensVenda, new Comparator<Ua>() {
+			@Override
+			public int compare(Ua ua1, Ua ua2) {
+
+				if (ua1.getJun() < ua2.getJun()) {
+					return 1;
+				} else if (ua1.getJun() > ua2.getJun()) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+		});
+		 double posicaoJun=1;
 		for (Ua junho : listaItensVenda) {
-
+			
 			System.out.println("NumeroUA: " + junho.getNumeroUa() + " Mes: Junho " + " Vazao: " + junho.getJun());
+			
+			double jun = junho.getJun();
+			double media = (jun / quantidade);
+
+			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("MEDIA : " + media + " POSICAO " + posicaoJun);
+			System.out.println("--------------------------------------------");
+			posicaoJun++;
 		}
 
+		// Ordenação Julho
+		Collections.sort(listaItensVenda, new Comparator<Ua>() {
+			@Override
+			public int compare(Ua ua1, Ua ua2) {
+
+				if (ua1.getJul() < ua2.getJul()) {
+					return 1;
+				} else if (ua1.getJul() > ua2.getJul()) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+		});
+		 double posicaoJul=1;
 		for (Ua julho : listaItensVenda) {
-
+			
 			System.out.println("NumeroUA: " + julho.getNumeroUa() + " Mes: Julho " + " Vazao: " + julho.getJul());
+			
+			double jul = julho.getJul();
+			double media = (jul / quantidade);
+
+			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("MEDIA : " + media + " POSICAO " + posicaoJul);
+			System.out.println("--------------------------------------------");
+			posicaoJul++;
 		}
+
+		// Ordenação Agosto
+		Collections.sort(listaItensVenda, new Comparator<Ua>() {
+			@Override
+			public int compare(Ua ua1, Ua ua2) {
+
+				if (ua1.getAgo() < ua2.getAgo()) {
+					return 1;
+				} else if (ua1.getAgo() > ua2.getAgo()) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+		});
+		 double posicaoAgo=1;
 		for (Ua agosto : listaItensVenda) {
-
+		
 			System.out.println("NumeroUA: " + agosto.getNumeroUa() + " Mes: Agosto " + " Vazao: " + agosto.getAgo());
+			
+			double ago = agosto.getAgo();
+			double media = (ago / quantidade);
+
+			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("MEDIA : " + media + " POSICAO " + posicaoAgo);
+			System.out.println("--------------------------------------------");
+			posicaoAgo++;
 		}
+
+		// Ordenanação Setembro
+		Collections.sort(listaItensVenda, new Comparator<Ua>() {
+			@Override
+			public int compare(Ua ua1, Ua ua2) {
+
+				if (ua1.getSet() < ua2.getSet()) {
+					return 1;
+				} else if (ua1.getSet() > ua2.getSet()) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+		});
+		 double posicaoSet=1;
 		for (Ua setembro : listaItensVenda) {
-
-			System.out.println("NumeroUA: " + setembro.getNumeroUa() + " Mes: Setembro " + " Vazao: Setembro "
+			
+			System.out.println("NumeroUA: " + setembro.getNumeroUa() + " Mes: Setembro " + " Vazao: "
 					+ setembro.getSet());
+			
+			
+			double set = setembro.getSet();
+			double media = (set / quantidade);
+
+			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("MEDIA : " + media + " POSICAO " + posicaoSet);
+			System.out.println("--------------------------------------------");
+			posicaoSet++;
 		}
+		// Ordenanação Outubro
+		Collections.sort(listaItensVenda, new Comparator<Ua>() {
+			@Override
+			public int compare(Ua ua1, Ua ua2) {
+
+				if (ua1.getOut() < ua2.getOut()) {
+					return 1;
+				} else if (ua1.getOut() > ua2.getOut()) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+		});
+		 double posicaoOut=1;
 		for (Ua outubro : listaItensVenda) {
-
+			
 			System.out.println("NumeroUA: " + outubro.getNumeroUa() + " Mes: Outubro " + " Vazao: " + outubro.getOut());
+			
+			double out = outubro.getOut();
+			double media = (out / quantidade);
+
+			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("MEDIA : " + media + " POSICAO " + posicaoOut);
+			System.out.println("--------------------------------------------");
+			posicaoOut++;
 		}
+
+		// Ordenanação Novembro
+		Collections.sort(listaItensVenda, new Comparator<Ua>() {
+			@Override
+			public int compare(Ua ua1, Ua ua2) {
+
+				if (ua1.getNov() < ua2.getNov()) {
+					return 1;
+				} else if (ua1.getNov() > ua2.getNov()) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+		});
+		double posicaoNov=1;
 		for (Ua novembro : listaItensVenda) {
+			
+			System.out.println("NumeroUA: " + novembro.getNumeroUa() + " Mes: Novembro " + " Vazao: " + novembro.getNov());
+			
+			double nov = novembro.getNov();
+			double media = (nov / quantidade);
 
-			System.out.println(
-					"NumeroUA: " + novembro.getNumeroUa() + " Mes: Novembro " + " Vazao: " + novembro.getNov());
+			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("MEDIA : " + media + " POSICAO " + posicaoNov);
+			System.out.println("--------------------------------------------");
+			posicaoNov++;
 		}
-		for (Ua dezembro : listaItensVenda) {
 
-			System.out.println(
-					"NumeroUA: " + dezembro.getNumeroUa() + " Mes: Dezembro " + " Vazao: " + dezembro.getDez());
+		// Ordenanação Dezembro
+		Collections.sort(listaItensVenda, new Comparator<Ua>() {
+			@Override
+			public int compare(Ua ua1, Ua ua2) {
+
+				if (ua1.getDez() < ua2.getDez()) {
+					return 1;
+				} else if (ua1.getDez() > ua2.getDez()) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+		});
+		double posicaoDez=1;
+		for (Ua dezembro : listaItensVenda) {
+		
+			System.out.println("NumeroUA: " + dezembro.getNumeroUa() + " Mes: Dezembro " + " Vazao: " + dezembro.getDez());
+			
+			double dez = dezembro.getDez();
+			double media = (dez / quantidade);
+
+			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("MEDIA : " + media + " POSICAO " + posicaoDez);
+			System.out.println("--------------------------------------------");
+			posicaoDez++;
 		}
 	}
 
