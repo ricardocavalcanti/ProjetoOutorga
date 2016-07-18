@@ -3,6 +3,7 @@ package br.com.pgo.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -105,37 +106,50 @@ public class ItemDeVendaBean implements Serializable {
 		listaItensVenda.add(ua);
 
 	}
-	// list.indexOf dentro do if pra saber as posições
 
 	public void calcular() {
 
 		int tamanho = listaItensVenda.size();
-		double aux;
-		double aux2;
-		System.out.println(tamanho);		
-		
-		
-		for (int i = tamanho - 1; i >= 1; i--) {
 
-			for (int j = 0; j < i; j++) {
+		System.out.println(tamanho);
 
-				if (listaItensVenda.get(j).getJan() > listaItensVenda.get(j + 1).getJan()){
-                    
-					aux = listaItensVenda.get(j).getJan();
-					List listaItensVenda.get(j).setJan(listaItensVenda.get(j+1); 
-					listaItensVenda.get(j+1) = aux;
+		Collections.sort(listaItensVenda, new Comparator<Ua>() {
+			@Override
+			public int compare(Ua ua1, Ua ua2) {
+
+				if (ua1.getJan() < ua2.getJan()) {
+					return 1;
+				} else if (ua1.getJan() > ua2.getJan()) {
+					return -1;
+				} else {
+					return 0;
 				}
-			}			
-
-			System.out.println("Numero UA: " + listaItensVenda.get(i).getNumeroUa() + " Mes Janeiro " + "Vazao: "
-					+ listaItensVenda.get(i).getJan());
-
+			}
+		});
+		for (Ua janeiro : listaItensVenda) {
+			System.out.println("NumeroUA: " + janeiro.getNumeroUa() + " Mes: Janeiro " + " Vazao: " + janeiro.getJan());
 		}
+
+		Collections.sort(listaItensVenda, new Comparator<Ua>() {
+			@Override
+			public int compare(Ua ua1, Ua ua2) {
+
+				if (ua1.getFev() < ua2.getFev()) {
+					return 1;
+				} else if (ua1.getFev() > ua2.getFev()) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+		});
+
 		for (Ua fevereiro : listaItensVenda) {
 
 			System.out.println(
 					"NumeroUA: " + fevereiro.getNumeroUa() + " Mes: Fevereiro " + " Vazao: " + fevereiro.getFev());
 		}
+
 		for (Ua marco : listaItensVenda) {
 
 			System.out.println("NumeroUA: " + marco.getNumeroUa() + " Mes: Março " + " Vazao: " + marco.getMar());
@@ -182,8 +196,4 @@ public class ItemDeVendaBean implements Serializable {
 		}
 	}
 
-	private Ua get(int j) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
