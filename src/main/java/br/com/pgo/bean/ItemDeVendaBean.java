@@ -86,8 +86,6 @@ public class ItemDeVendaBean implements Serializable {
 
 		ua = (Ua) evento.getComponent().getAttributes().get("uaSelecionada");
 
-		// int achou = -1;
-
 		ua.setAno(ua.getAno());
 		ua.setNumeroUa(ua.getNumeroUa());
 		ua.setJan(ua.getJan());
@@ -129,6 +127,10 @@ public class ItemDeVendaBean implements Serializable {
 		for (Ua janeiro : listaItensVenda) {
 			System.out.println("NumeroUA: " + janeiro.getNumeroUa() + " Mes: Janeiro " + " Vazao: " + janeiro.getJan());
 		}
+		
+		System.out.println("1 "+listaItensVenda.get(0).getJan()/tamanho);
+		System.out.println("2 " +listaItensVenda.get(1).getJan()/tamanho);
+		System.out.println("3 " +listaItensVenda.get(2).getJan()/tamanho);
 
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
 			@Override
@@ -146,8 +148,7 @@ public class ItemDeVendaBean implements Serializable {
 
 		for (Ua fevereiro : listaItensVenda) {
 
-			System.out.println(
-					"NumeroUA: " + fevereiro.getNumeroUa() + " Mes: Fevereiro " + " Vazao: " + fevereiro.getFev());
+			System.out.println("NumeroUA: " + fevereiro.getNumeroUa() + " Mes: Fevereiro " + " Vazao: " + fevereiro.getFev());
 		}
 
 		for (Ua marco : listaItensVenda) {
