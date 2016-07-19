@@ -74,25 +74,83 @@
 
 			<h:panelGrid id="painel" columns="8">
 
-				<p:outputLabel for="processo" value="Processo" />
-				<p:inputText id="processo" label="Processo" maxlength="50" size="10" value="#{outorganteBean.outorgante.processo}" 
-				required="true"	requiredMessage="O campo 'Processo' é obrigatório!" converterMessage="O valor informado no campo'Processo' é invalido"
-				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Processo' ">
+				<p:outputLabel for="processoCprh" value="Nº Processo CPRH"/>
+				<p:inputText id="processoCprh" label="processoCprh" maxlength="50" size="10" value="#{outorganteBean.outorgante.processoCprh}" 
+				required="true"	requiredMessage="O campo 'Processo' é obrigatório!" converterMessage="O valor informado no campo'Nº Processo CPRH' é invalido"
+				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Nº Processo CPRH' ">
 				<f:validateLongRange minimum="1" maximum="10000000"/>  
 				</p:inputText>				
 
-				<p:outputLabel for="numeroUa" value="Numero UA" />
-				<!-- Criar chave estrangeira na tela -->
-				<!-- SelectItemsConverter converter valores chaves estrangeira
-				para corrigir erro de conversão da tela, "SEMPRE QUE USAR SelectOneMenu-->
-				<p:selectOneMenu filter="true" id="numeroUa" value="#{outorganteBean.outorgante.numeroUa}"
-					converter="omnifaces.SelectItemsConverter" requiredMessage="O campo 'Numero UA' é obrigatório!" required="true" 
-					converterMessage="O valor informado no campo'Numero UA' é invalido">
-					
-					<f:selectItem noSelectionOption="true" itemLabel="Selecione uma UA" />
-					<f:selectItems value="#{outorganteBean.listaNumeroUa}" var="listaNumeroUas" itemValue="#{listaNumeroUas}"
-						itemLabel="#{listaNumeroUas.numeroUa}" />
-				</p:selectOneMenu>
+				<p:outputLabel for="processoApac" value="Nº Processo APAC"/>
+				<p:inputText id="processoApac" label="processoApac" maxlength="50" size="10" value="#{outorganteBean.outorgante.processoApac}" 
+				required="true"	requiredMessage="O campo 'Processo' é obrigatório!" converterMessage="O valor informado no campo'Nº Processo APAC' é invalido"
+				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Nº Processo APAC' ">
+				<f:validateLongRange minimum="1" maximum="10000000"/>  
+				</p:inputText>				
+				
+				<p:outputLabel for="nomeRazao" value="Nome/Razão"/>
+				<p:inputText id="nomeRazao" label="processoApac" maxlength="50" size="10" value="#{outorganteBean.outorgante.nomeRazao}" 
+				required="true"	requiredMessage="O campo 'Nome/Razão' é obrigatório!" converterMessage="O valor informado no campo'Nome/Razão' é invalido"
+				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Nome/Razão' ">
+				<f:validateLongRange minimum="1" maximum="10000000"/>  
+				</p:inputText>	
+				
+				<p:outputLabel for="cpfCnpj" value="CPF/CNPJ"/>
+				<p:inputText id="cpfCnpj" label="cpfCnpj" maxlength="50" size="10" value="#{outorganteBean.outorgante.cpfCnpj}" 
+				required="true"	requiredMessage="O campo 'Nome/Razão' é obrigatório!" converterMessage="O valor informado no campo'CPF/CNPJ' é invalido"
+				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'CPF/CNPJ' ">
+				<f:validateLongRange minimum="1" maximum="10000000"/>  
+				</p:inputText>
+				
+				<p:outputLabel for="rua" value="Rua"/>
+				<p:inputText id="rua" label="rua" maxlength="50" size="10" value="#{outorganteBean.outorgante.rua}" 
+				required="true"	requiredMessage="O campo 'Rua' é obrigatório!" converterMessage="O valor informado no campo'Rua' é invalido"
+				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Rua' ">
+				<f:validateLongRange minimum="1" maximum="10000000"/>  
+				</p:inputText>	
+				
+				<p:outputLabel for="municipio" value="Municipio"/>
+				<p:inputText id="municipio" label="rua" maxlength="50" size="10" value="#{outorganteBean.outorgante.municipio}" 
+				required="true"	requiredMessage="O campo 'Municipio' é obrigatório!" converterMessage="O valor informado no campo'municipio' é invalido"
+				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Municipio' ">
+				<f:validateLongRange minimum="1" maximum="10000000"/>  
+				</p:inputText>	
+				
+				<p:outputLabel for="bairro" value="Bairro"/>
+				<p:inputText id="bairro" label="bairro" maxlength="50" size="10" value="#{outorganteBean.outorgante.bairro}" 
+				required="true"	requiredMessage="O campo 'Bairro' é obrigatório!" converterMessage="O valor informado no campo'Bairro' é invalido"
+				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Bairro' ">
+				<f:validateLongRange minimum="1" maximum="10000000"/>  
+				</p:inputText>	
+				
+				<p:outputLabel for="cep" value="CEP"/>
+				<p:inputText id="cep" label="cep" maxlength="50" size="10" value="#{outorganteBean.outorgante.cep}" 
+				required="true"	requiredMessage="O campo 'Bairro' é obrigatório!" converterMessage="O valor informado no campo'CEP' é invalido"
+				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'CEP' ">
+				<f:validateLongRange minimum="1" maximum="10000000"/>  
+				</p:inputText>
+				
+				<p:outputLabel for="telefone" value="telefone"/>
+				<p:inputText id="cep" label="cep" maxlength="50" size="10" value="#{outorganteBean.outorgante.telefone}" 
+				required="true"	requiredMessage="O campo 'Bairro' é obrigatório!" converterMessage="O valor informado no campo'TELEFONE' é invalido"
+				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'TELEFONE' ">
+				<f:validateLongRange minimum="1" maximum="10000000"/>  
+				</p:inputText>
+				
+				
+				<p:outputLabel for="email" value="email"/>
+				<p:inputText id="email" label="email" maxlength="50" size="10" value="#{outorganteBean.outorgante.email}" 
+				required="true"	requiredMessage="O campo 'Bairro' é obrigatório!" converterMessage="O valor informado no campo'TELEFONE' é invalido"
+				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'TELEFONE' ">
+				<f:validateLongRange minimum="1" maximum="10000000"/>  
+				</p:inputText>
+							
+							
+							
+							
+							
+							
+							
                  
                  <!-- Required não funciona nos tipos primitivos, só funciona nos tipos que podem valer nulo --> 
 				<p:outputLabel for="demandaPontual" value="Demanda Pontual" />

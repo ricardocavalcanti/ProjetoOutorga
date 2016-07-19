@@ -12,6 +12,26 @@ import javax.persistence.TemporalType;
 @SuppressWarnings("serial")
 @Entity
 public class Outorgante extends GenericDomain {
+	
+	private int processoCprh;
+	private int processoApac;
+	private String nomeRazao;
+	private String cpfCnpj;
+	private String rua;
+	private String municipio;
+	private String bairro;
+	private int cep;
+	private int telefone;
+	private String email;
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	@Column(length = 50, nullable = false)
 	private double demandaPontual; /* mesma coisa de drenagem??? */
@@ -34,44 +54,4 @@ public class Outorgante extends GenericDomain {
 
 	}
 
-	public int getProcesso() {
-		return processo;
-	}
-
-	public void setProcesso(int processo) {
-		this.processo = processo;
-	}
-
-	public Date getVencimento() {
-		return vencimento;
-	}
-
-	public void setVencimento(Date vencimento) {
-		this.vencimento = vencimento;
-	}
-
-	public double getDemandaPontual() {
-		return demandaPontual;
-	}
-
-	public void setDemandaPontual(double demandaPontual) {
-		this.demandaPontual = demandaPontual;
-	}
-
-	public Boolean getLiberado() {
-		return liberado;
-	}
-
-	public void setLiberado(Boolean liberado) {
-		this.liberado = liberado;
-	}
-
-	public Ua getNumeroUa() {
-		return numeroUa;
-	}
-
-	public void setNumeroUa(Ua numeroUa) {
-		this.numeroUa = numeroUa;
-	}
-
-}
+}	
