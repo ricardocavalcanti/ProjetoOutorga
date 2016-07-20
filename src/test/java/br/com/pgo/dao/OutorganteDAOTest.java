@@ -1,14 +1,14 @@
 package br.com.pgo.dao;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.List;
+//import java.text.SimpleDateFormat;
+//import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.pgo.domain.Outorgante;
-import br.com.pgo.domain.Ua;
+//import br.com.pgo.domain.Ua;
 
 public class OutorganteDAOTest {
 
@@ -16,15 +16,15 @@ public class OutorganteDAOTest {
 	// @Ignore
 	public void salvar() throws ParseException {
 
-		UaDAO uaDAO = new UaDAO();
-		Ua numeroUa = uaDAO.buscar(3L);
+		//UaDAO uaDAO = new UaDAO();
+		//Ua numeroUa = uaDAO.buscar(3L);
 		Outorgante outorgante = new Outorgante();
 
-		outorgante.setDemandaPontual(8888.88);
-		outorgante.setLiberado(true);
-		outorgante.setNumeroUa(numeroUa);
-		outorgante.setProcesso(600);
-		outorgante.setVencimento(new SimpleDateFormat("dd/MM/yyy").parse("28/11/2016")); //Inserir a data manual
+		//outorgante.setDemandaPontual(8888.88);
+		//outorgante.setLiberado(true);
+		//outorgante.setNumeroUa(numeroUa);
+		//outorgante.setProcesso(600);
+		//outorgante.setVencimento(new SimpleDateFormat("dd/MM/yyy").parse("28/11/2016")); //Inserir a data manual
 
 		OutorganteDAO outorganteDAO = new OutorganteDAO();
 		outorganteDAO.salvar(outorgante);
@@ -36,23 +36,23 @@ public class OutorganteDAOTest {
 	@Ignore
 	public void listar() {
 
-		OutorganteDAO outorganteDAO = new OutorganteDAO();
+		//OutorganteDAO outorganteDAO = new OutorganteDAO();
 
-		List<Outorgante> resultado = outorganteDAO.listar();
+		//List<Outorgante> resultado = outorganteDAO.listar();
 
-		for (Outorgante outorgante : resultado) {
+		//for (Outorgante outorgante : resultado) {
 
-			System.out.println("Demanda Pontual: " + outorgante.getDemandaPontual());
-			System.out.println("Processo: " + outorgante.getProcesso());
-			System.out.println("Codigo: " + outorgante.getCodigo());
-			System.out.println("Liberado: " + outorgante.getLiberado());
-			System.out.println("Numero UA: " + outorgante.getNumeroUa().getNumeroUa());
-			System.out.println("Vencimento: " + outorgante.getVencimento());
-			System.out.println("--------------------------------------");
+			//System.out.println("Demanda Pontual: " + outorgante.getDemandaPontual());
+			//System.out.println("Processo: " + outorgante.getProcesso());
+			//System.out.println("Codigo: " + outorgante.getCodigo());
+			//System.out.println("Liberado: " + outorgante.getLiberado());
+			//System.out.println("Numero UA: " + outorgante.getNumeroUa().getNumeroUa());
+			//System.out.println("Vencimento: " + outorgante.getVencimento());
+			//System.out.println("--------------------------------------");
 		}
 
-	}
-
+	//}
+	/**
 	@Test
 	@Ignore
 	public void buscar() {
@@ -76,7 +76,7 @@ public class OutorganteDAOTest {
 		}
 
 	}
-
+**/
 	@Test
 	@Ignore
 	public void excluir() {
@@ -93,7 +93,7 @@ public class OutorganteDAOTest {
 			System.out.println("Excluido com sucesso!");
 		}
 	}
-
+/**
 	@Test
 	@Ignore
 	public void atualizar() {
@@ -112,5 +112,5 @@ public class OutorganteDAOTest {
 		}
 
 	}
-
+**/
 }

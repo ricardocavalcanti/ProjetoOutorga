@@ -7,13 +7,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-
 import org.omnifaces.util.Messages;
-
 import br.com.pgo.dao.OutorganteDAO;
-import br.com.pgo.dao.UaDAO;
 import br.com.pgo.domain.Outorgante;
-import br.com.pgo.domain.Ua;
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -22,7 +18,6 @@ public class OutorganteBean implements Serializable {
 
 	private Outorgante outorgante;
 	private List<Outorgante> listaOutorgante;
-	private List<Ua> listaNumeroUa;
 
 	public Outorgante getOutorgante() {
 		return outorgante;
@@ -40,25 +35,18 @@ public class OutorganteBean implements Serializable {
 		this.listaOutorgante = listaOutorgante;
 	}
 
-	public List<Ua> getListaNumeroUa() {
-		return listaNumeroUa;
-	}
-
-	public void setListaNumeroUa(List<Ua> listaNumeroUa) {
-		this.listaNumeroUa = listaNumeroUa;
-	}
-
 	public void novo() {
 
 		try {
 
 			outorgante = new Outorgante();
-			UaDAO uaDAO = new UaDAO();
-			listaNumeroUa = uaDAO.listar("numeroUa");			
+			OutorganteDAO outorganteDAO = new OutorganteDAO();
+			listaOutorgante = outorganteDAO.listar("processoAPAC");
+
 
 		} catch (RuntimeException erro) {
 
-			Messages.addGlobalInfo("Erro ao gerar numero UA !");
+			Messages.addGlobalInfo("Erro ao gerar numero Outorgante !");
 			erro.printStackTrace();
 
 		}
@@ -72,9 +60,6 @@ public class OutorganteBean implements Serializable {
 			outorganteDAO.merge(outorgante);
 			outorgante = new Outorgante();
 			listaOutorgante = outorganteDAO.listar();
-
-			UaDAO uaDAO = new UaDAO();
-			listaNumeroUa = uaDAO.listar();
 
 			Messages.addFlashGlobalInfo("Outorgante salvo com sucesso!");
 
@@ -105,8 +90,8 @@ public class OutorganteBean implements Serializable {
 		try {
 
 			outorgante = (Outorgante) evento.getComponent().getAttributes().get("outorganteSelecionado");
-			
-			Messages.addGlobalInfo("Numero da Outorgante: " + outorgante.getProcesso());
+
+			Messages.addGlobalInfo("Numero da Outorgante: " + outorgante.getProcessoApac());
 
 			OutorganteDAO outorganteDAO = new OutorganteDAO();
 			outorganteDAO.excluir(outorgante);
@@ -128,14 +113,11 @@ public class OutorganteBean implements Serializable {
 		try {
 
 			outorgante = (Outorgante) evento.getComponent().getAttributes().get("outorganteSelecionado");
-			
-			UaDAO uaDAO = new UaDAO();
-			listaNumeroUa = uaDAO.listar();
-			
-			Messages.addGlobalInfo("Edição processo: "+ outorgante.getProcesso());
-			
-			/**OutorganteDAO outorganteDAO = new OutorganteDAO();
-			outorganteDAO.editar(outorgante);**/
+
+			OutorganteDAO outorganteDAO = new OutorganteDAO();
+			listaOutorgante = outorganteDAO.listar();
+
+			Messages.addGlobalInfo("Edição processo: " + outorgante.getProcessoApac());
 
 		} catch (RuntimeException erro) {
 

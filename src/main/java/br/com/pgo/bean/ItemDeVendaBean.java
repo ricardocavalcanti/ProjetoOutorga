@@ -128,8 +128,8 @@ public class ItemDeVendaBean implements Serializable {
 		
 			System.out.println("NumeroUA: " + janeiro.getNumeroUa() + " - Mes: Janeiro "	+ " - Vazao: " + janeiro.getJan());
             
-			double jan = janeiro.getJan();
-			double media = (jan / quantidade);
+			//double jan = janeiro.getJan();
+			double media = (posicaoJan / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoJan);
@@ -156,8 +156,8 @@ public class ItemDeVendaBean implements Serializable {
 			
 			System.out.println(	"NumeroUA: " + fevereiro.getNumeroUa() + " Mes: Fevereiro " + " Vazao: " + fevereiro.getFev());
 			
-			double fev = fevereiro.getFev();
-			double media = (fev / quantidade);
+			//double fev = fevereiro.getFev();
+			double media = (posicaoFev / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoFev);
@@ -185,8 +185,8 @@ public class ItemDeVendaBean implements Serializable {
 		
 			System.out.println("NumeroUA: " + marco.getNumeroUa() + " Mes: Março " + " Vazao: " + marco.getMar());
 			
-			double mar = marco.getMar();
-			double media = (mar / quantidade);
+			//double mar = marco.getMar();
+			double media = (posicaoMar / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoMar);
@@ -214,8 +214,8 @@ public class ItemDeVendaBean implements Serializable {
 			
 			System.out.println("NumeroUA: " + abril.getNumeroUa() + " Mes: Abril " + " Vazao: " + abril.getAbr());
 			
-			double abr = abril.getAbr();
-			double media = (abr / quantidade);
+			//double abr = abril.getAbr();
+			double media = (posicaoAbr / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoAbr);
@@ -242,8 +242,8 @@ public class ItemDeVendaBean implements Serializable {
 			
 			System.out.println("NumeroUA: " + maio.getNumeroUa() + " Mes: Maio " + " Vazao: " + maio.getMai());
 			
-			double mai = maio.getMai();
-			double media = (mai / quantidade);
+			//double mai = maio.getMai();
+			double media = (posicaoMai / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoMai);
@@ -270,8 +270,8 @@ public class ItemDeVendaBean implements Serializable {
 			
 			System.out.println("NumeroUA: " + junho.getNumeroUa() + " Mes: Junho " + " Vazao: " + junho.getJun());
 			
-			double jun = junho.getJun();
-			double media = (jun / quantidade);
+			//double jun = junho.getJun();
+			double media = (posicaoJun / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoJun);
@@ -298,8 +298,8 @@ public class ItemDeVendaBean implements Serializable {
 			
 			System.out.println("NumeroUA: " + julho.getNumeroUa() + " Mes: Julho " + " Vazao: " + julho.getJul());
 			
-			double jul = julho.getJul();
-			double media = (jul / quantidade);
+			//double jul = julho.getJul();
+			double media = (posicaoJul / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoJul);
@@ -321,13 +321,13 @@ public class ItemDeVendaBean implements Serializable {
 				}
 			}
 		});
-		 double posicaoAgo=1;
+		double posicaoAgo=1;
 		for (Ua agosto : listaItensVenda) {
 		
 			System.out.println("NumeroUA: " + agosto.getNumeroUa() + " Mes: Agosto " + " Vazao: " + agosto.getAgo());
 			
-			double ago = agosto.getAgo();
-			double media = (ago / quantidade);
+			//double ago = agosto.getAgo();
+			double media = (posicaoAgo / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoAgo);
@@ -356,8 +356,8 @@ public class ItemDeVendaBean implements Serializable {
 					+ setembro.getSet());
 			
 			
-			double set = setembro.getSet();
-			double media = (set / quantidade);
+			//double set = setembro.getSet();
+			double media = (posicaoSet / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoSet);
@@ -383,8 +383,8 @@ public class ItemDeVendaBean implements Serializable {
 			
 			System.out.println("NumeroUA: " + outubro.getNumeroUa() + " Mes: Outubro " + " Vazao: " + outubro.getOut());
 			
-			double out = outubro.getOut();
-			double media = (out / quantidade);
+			//double out = outubro.getOut();
+			double media = (posicaoOut / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoOut);
@@ -411,8 +411,8 @@ public class ItemDeVendaBean implements Serializable {
 			
 			System.out.println("NumeroUA: " + novembro.getNumeroUa() + " Mes: Novembro " + " Vazao: " + novembro.getNov());
 			
-			double nov = novembro.getNov();
-			double media = (nov / quantidade);
+			//double nov = novembro.getNov();
+			double media = (posicaoNov / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoNov);
@@ -439,8 +439,8 @@ public class ItemDeVendaBean implements Serializable {
 		
 			System.out.println("NumeroUA: " + dezembro.getNumeroUa() + " Mes: Dezembro " + " Vazao: " + dezembro.getDez());
 			
-			double dez = dezembro.getDez();
-			double media = (dez / quantidade);
+			//double dez = dezembro.getDez();
+			double media = (posicaoDez / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoDez);

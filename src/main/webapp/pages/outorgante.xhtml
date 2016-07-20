@@ -23,20 +23,20 @@
 						</p:commandButton>
 				</f:facet>
 				
-				<p:column headerText="Processo APAC" sortBy="#{listaOutorgantes.processo}" filterBy="#{listaOutorgantes.processoApac}">
-					<h:outputText value="#{listaOutorgantes.processo}"/>
+				<p:column headerText="Processo APAC" sortBy="#{listaOutorgantes.processoApac}" filterBy="#{listaOutorgantes.processoApac}">
+					<h:outputText value="#{listaOutorgantes.processoApac}"/>
 				</p:column>
 				
-				<p:column headerText="Processo CPRH" sortBy="#{listaOutorgantes.processo}" filterBy="#{listaOutorgantes.processoCprh}">
-					<h:outputText value="#{listaOutorgantes.processo}"/>
+				<p:column headerText="Processo CPRH">
+					<h:outputText value="#{listaOutorgantes.processoCprh}"/>
 				</p:column>
 				
 				<p:column headerText="Nome/Razao">
-					<h:outputText value="#{listaOutorgantes.numeroUa.nomeRazao}"/>					 
+					<h:outputText value="#{listaOutorgantes.nomeRazao}"/>					 
 				</p:column>
 				
 				<p:column headerText="Telefone">
-					<h:outputText value="#{listaOutorgantes.demandaPontual}"/>
+					<h:outputText value="#{listaOutorgantes.telefone}"/>
 					</p:column>									
 					
 				<p:column headerText="Email">
@@ -134,8 +134,8 @@
 				</p:inputText>
 				
 				<p:outputLabel for="telefone" value="Telefone"/>
-				<p:inputText id="cep" label="cep" maxlength="50" size="10" value="#{outorganteBean.outorgante.telefone}" 
-				required="true"	requiredMessage="O campo 'Bairro' é obrigatório!" converterMessage="O valor informado no campo'Telefone' é invalido"
+				<p:inputText id="telefone" label="cep" maxlength="50" size="10" value="#{outorganteBean.outorgante.telefone}" 
+				required="true"	requiredMessage="O campo 'Telefone' é obrigatório!" converterMessage="O valor informado no campo'Telefone' é invalido"
 				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Telefone' ">
 				<f:validateLongRange minimum="1" maximum="10000000"/>  
 				</p:inputText>
@@ -211,7 +211,7 @@
 				<p:outputLabel for="abastecimentoInCom" value="Abast.Ind/Comer:" /> 
 				<p:selectBooleanCheckbox id="abastecimentoInCom" value="#{outorganteBean.outorgante.abastecimentoInCom}"/>
 				
-				<p:outputLabel for="Dessendentação Animal" value="Abast. Ind/Comer:" /> 
+				<p:outputLabel for="dessentacaoAnimal" value="Dessendentação Animal:" /> 
 				<p:selectBooleanCheckbox id="dessentacaoAnimal" value="#{outorganteBean.outorgante.dessentacaoAnimal}"/>
 				
 				<p:outputLabel for="abastecimentoHum" value="Abast.Humano:" /> 
@@ -253,8 +253,8 @@
 				<p:outputLabel for="dique" value="Dique:" /> 
 				<p:selectBooleanCheckbox id="dique" value="#{outorganteBean.outorgante.dique}"/>
 				
-				<p:outputLabel for="outrosModalidade" value="Outras Modalidades"/>
-				<p:inputText id="outrosModalidade" label="cep" maxlength="50" size="10" value="#{outorganteBean.outorgante.Outras Modalidades}" 
+				<p:outputLabel for="outrasModalidades" value="Outras Modalidades"/>
+				<p:inputText id="outrasModalidades" label="cep" maxlength="50" size="10" value="#{outorganteBean.outorgante.outrasModalidades}" 
 				required="true"	requiredMessage="O campo 'Outras Modalidades' é obrigatório!" converterMessage="O valor informado no campo'Outras Modalidades' é invalido"
 				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Telefone Técnico' ">
 				<f:validateLongRange minimum="1" maximum="10000000"/>  
