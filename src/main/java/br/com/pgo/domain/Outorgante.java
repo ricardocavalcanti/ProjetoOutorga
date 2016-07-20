@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @SuppressWarnings("serial")
 @Entity
@@ -23,32 +24,38 @@ public class Outorgante extends GenericDomain {
 	private int cep;
 	private int telefone;
 	private String email;
+	@Column(length = 32, nullable = false)
+	private char tipoRequerimento;
+	private String resposavelTecnico;
+	private int registroTecnico;
+	private int telefoneTecnico;
+	private String emailTecnico;
 	
 	
 	
-	
-	
+	@Transient
+	public String getTipoFormatado() {
+		String tipoFormatado = null;
+
+		if (tipoRequerimento == 'O') {
+			tipoFormatado = "Outorga";
+		} else if (tipoRequerimento == 'R') {
+			tipoFormatado = "Renovacao";
+		} else if (tipoRequerimento == 'T') {
+			tipoFormatado = "Transferencia";
+		} else if (tipoRequerimento == 'A') {
+		tipoFormatado = "Ateracao";
+	    } else if (tipoRequerimento == 'N') {
+	    tipoFormatado = "Outros";
+        }
+		return tipoFormatado;
+	}
 	
 	
 	
 	
 
-	@Column(length = 50, nullable = false)
-	private double demandaPontual; /* mesma coisa de drenagem??? */
-
-	@Column(length = 50, nullable = false)
-	private int processo;
-
-	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date vencimento;
-
-	@Column(nullable = false)
-	private Boolean liberado;
 	
-	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Ua numeroUa;
 
 	public Outorgante() {
 

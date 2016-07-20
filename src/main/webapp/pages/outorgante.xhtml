@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Outorgante - Listagem</title>
+	<title>Requerimento</title>
 	<h:outputScript library="js" name="scripts.js"/>
 </h:head>
 <h:body>
@@ -23,27 +23,28 @@
 						</p:commandButton>
 				</f:facet>
 				
-				<p:column headerText="Processo" sortBy="#{listaOutorgantes.processo}" filterBy="#{listaOutorgantes.processo}">
-					<h:outputText value="#{listaOutorgantes.processo}" />
+				<p:column headerText="Processo APAC" sortBy="#{listaOutorgantes.processo}" filterBy="#{listaOutorgantes.processoApac}">
+					<h:outputText value="#{listaOutorgantes.processo}"/>
 				</p:column>
 				
-				<p:column headerText="Numero UA">
-					<h:outputText value="#{listaOutorgantes.numeroUa.numeroUa}"/>					 
+				<p:column headerText="Processo CPRH" sortBy="#{listaOutorgantes.processo}" filterBy="#{listaOutorgantes.processoCprh}">
+					<h:outputText value="#{listaOutorgantes.processo}"/>
 				</p:column>
 				
-				<p:column headerText="Demanda Pontual">
-					<h:outputText value="#{listaOutorgantes.demandaPontual}">
-					<!-- convertNumber serve para mudar para o padrão BR a emprego de virgula no padrão númerico -->
-					 <f:convertNumber locale="pt_BR" minFractionDigits="2"/>					
-					</h:outputText>
+				<p:column headerText="Nome/Razao">
+					<h:outputText value="#{listaOutorgantes.numeroUa.nomeRazao}"/>					 
 				</p:column>
-				<p:column headerText="Vencimento">
-					<h:outputText value="#{listaOutorgantes.vencimento}">
-					     <f:convertDateTime locale="pt_BR" />
-					</h:outputText>
+				
+				<p:column headerText="Telefone">
+					<h:outputText value="#{listaOutorgantes.demandaPontual}"/>
+					</p:column>									
+					
+				<p:column headerText="Email">
+					<h:outputText value="#{listaOutorgantes.email}"/> 				
 				</p:column>
-				<p:column headerText="Liberado">
-					<h:outputText value="#{listaOutorgantes.liberado}" />
+				
+				<p:column headerText="Modalidade">
+					<h:outputText value="#{listaOutorgantes.modalidade}" />
 				</p:column>
 				
 				<p:column headerText="Opções">
@@ -73,6 +74,8 @@
 		<h:form id="formCadastro">
 
 			<h:panelGrid id="painel" columns="8">
+			
+			   <p:outputLabel value="1.Dados do Proprietário/Empreendimento"/>
 
 				<p:outputLabel for="processoCprh" value="Nº Processo CPRH"/>
 				<p:inputText id="processoCprh" label="processoCprh" maxlength="50" size="10" value="#{outorganteBean.outorgante.processoCprh}" 
@@ -130,45 +133,134 @@
 				<f:validateLongRange minimum="1" maximum="10000000"/>  
 				</p:inputText>
 				
-				<p:outputLabel for="telefone" value="telefone"/>
+				<p:outputLabel for="telefone" value="Telefone"/>
 				<p:inputText id="cep" label="cep" maxlength="50" size="10" value="#{outorganteBean.outorgante.telefone}" 
-				required="true"	requiredMessage="O campo 'Bairro' é obrigatório!" converterMessage="O valor informado no campo'TELEFONE' é invalido"
-				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'TELEFONE' ">
+				required="true"	requiredMessage="O campo 'Bairro' é obrigatório!" converterMessage="O valor informado no campo'Telefone' é invalido"
+				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Telefone' ">
 				<f:validateLongRange minimum="1" maximum="10000000"/>  
 				</p:inputText>
 				
 				
-				<p:outputLabel for="email" value="email"/>
+				<p:outputLabel for="email" value="Email"/>
 				<p:inputText id="email" label="email" maxlength="50" size="10" value="#{outorganteBean.outorgante.email}" 
-				required="true"	requiredMessage="O campo 'Bairro' é obrigatório!" converterMessage="O valor informado no campo'TELEFONE' é invalido"
-				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'TELEFONE' ">
+				required="true"	requiredMessage="O campo 'Bairro' é obrigatório!" converterMessage="O valor informado no campo'email' é invalido"
+				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'email' ">
 				<f:validateLongRange minimum="1" maximum="10000000"/>  
 				</p:inputText>
+				
+				 <p:outputLabel value="2.Tipo do Requerimento"/>	
+				 
+				<p:outputLabel for="tipoRequerimento" value="Tipo do Requerimento:" />
+				<p:selectOneRadio id="tipoRequerimento" value="#{outorganteBean.outorgante.tipoRequerimento}" required="true" requiredMessage="O campo 'Tipo' é obrigatório">
+				         <f:selectItem itemValue="O" itemLabel="Outorga"/>
+				         <f:selectItem itemValue="R" itemLabel="Renovação" />
+				         <f:selectItem itemValue="T" itemLabel="Transferência"/>
+				         <f:selectItem itemValue="A" itemLabel="Alteração"/>
+				         <f:selectItem itemValue="N" itemLabel="Outros"/>
+				</p:selectOneRadio>		
 							
-							
-							
-							
-							
-							
-							
-                 
-                 <!-- Required não funciona nos tipos primitivos, só funciona nos tipos que podem valer nulo --> 
-				<p:outputLabel for="demandaPontual" value="Demanda Pontual" />
-				<p:inputText id="demandaPontual" maxlength="50" size="10"
-					value="#{outorganteBean.outorgante.demandaPontual}" required="true" requiredMessage="Campo Demanda Pontual obrigatório" 
-					converterMessage="O valor informado no campo'Demanda Pontual' é invalido" validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Demanda Pontual' ">
-				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>	
-				<!-- convertNumber serve para mudar para o padrão BR a emprego de virgula no padrão númerico -->
-					 <f:convertNumber locale="pt_BR" minFractionDigits="2"/>				
+				 <p:outputLabel value="3.Responsável Técnico"/>		
+				 
+				<p:outputLabel for="resposavelTecnico" value="Nome do Técnico"/>
+				<p:inputText id="resposavelTecnico" label="cep" maxlength="50" size="10" value="#{outorganteBean.outorgante.resposavelTecnico}" 
+				required="true"	requiredMessage="O campo 'Nome Técnico' é obrigatório!" converterMessage="O valor informado no campo'TEL' é invalido"
+				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Nome Técnico' ">
+				<f:validateLongRange minimum="1" maximum="10000000"/>  
+				</p:inputText>	
+				
+				<p:outputLabel for="registroTecnico" value="Registro do Técnico"/>
+				<p:inputText id="registroTecnico" label="cep" maxlength="50" size="10" value="#{outorganteBean.outorgante.registroTecnico}" 
+				required="true"	requiredMessage="O campo 'Email do Técnico' é obrigatório!" converterMessage="O valor informado no campo'Registro do Técnico' é invalido"
+				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Registro do Técnico' ">
+				<f:validateLongRange minimum="1" maximum="10000000"/>  
+				</p:inputText>	
+				
+				
+				<p:outputLabel for="telefoneTecnico" value="Telefone Técnico"/>
+				<p:inputText id="telefoneTecnico" label="cep" maxlength="50" size="10" value="#{outorganteBean.outorgante.telefoneTecnico}" 
+				required="true"	requiredMessage="O campo 'Nome Técnico' é obrigatório!" converterMessage="O valor informado no campo'Telefone do Técnico' é invalido"
+				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Telefone do Técnico' ">
+				<f:validateLongRange minimum="1" maximum="10000000"/>  
+				</p:inputText>	
+				
+				<p:outputLabel for="emailTecnico" value="Email Técnico"/>
+				<p:inputText id="emailTecnico" label="cep" maxlength="50" size="10" value="#{outorganteBean.outorgante.emailTecnico}" 
+				required="true"	requiredMessage="O campo 'Email do Técnico' é obrigatório!" converterMessage="O valor informado no campo'Email do Técnico' é invalido"
+				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Telefone Técnico' ">
+				<f:validateLongRange minimum="1" maximum="10000000"/>  
+				</p:inputText>				
+				
+				
+				<p:outputLabel value="4.Modalidade e Finalidade"/>		
+				
+				<p:outputLabel for="captacao" value="Captacao:" /> 
+				<p:selectBooleanCheckbox id="captacao" value="#{outorganteBean.outorgante.captacao}"/>
+				
+				<p:outputLabel for="diluicao" value="Diluição:" /> 
+				<p:selectBooleanCheckbox id="diluicao" value="#{outorganteBean.outorgante.diluicao}"/>
+				
+				<p:outputLabel for="drdh" value="DRDH:" /> 
+				<p:selectBooleanCheckbox id="drdh" value="#{outorganteBean.outorgante.drdh}"/>
+				
+				<p:outputLabel for="construçãoObra" value="Construção Obra:" /> 
+				<p:selectBooleanCheckbox id="construçãoObra" value="#{outorganteBean.outorgante.construçãoObra}"/>
+				
+				<p:outputLabel for="irrigacao" value="Construção Obra:" /> 
+				<p:selectBooleanCheckbox id="irrigacao" value="#{outorganteBean.outorgante.irrigacao}"/>
+				
+				<p:outputLabel for="abastecimentoInCom" value="Abast.Ind/Comer:" /> 
+				<p:selectBooleanCheckbox id="abastecimentoInCom" value="#{outorganteBean.outorgante.abastecimentoInCom}"/>
+				
+				<p:outputLabel for="Dessendentação Animal" value="Abast. Ind/Comer:" /> 
+				<p:selectBooleanCheckbox id="dessentacaoAnimal" value="#{outorganteBean.outorgante.dessentacaoAnimal}"/>
+				
+				<p:outputLabel for="abastecimentoHum" value="Abast.Humano:" /> 
+				<p:selectBooleanCheckbox id="abastecimentoHum" value="#{outorganteBean.outorgante.abastecimentoHum}"/>
+				
+				<p:outputLabel for="aquiculturaCarcini" value="Aquicultura/Carcinicultura:" /> 
+				<p:selectBooleanCheckbox id="aquiculturaCarcini" value="#{outorganteBean.outorgante.aquiculturaCarcini}"/>
+				
+				<p:outputLabel for="barragem" value="Barragem:" />
+				<p:selectOneRadio id="tipo" value="#{outorganteBean.outorgante.barragem}" required="true" requiredMessage="O campo 'Tipo' é obrigatório">
+				         <f:selectItem itemValue="1" itemLabel="V>500.000m³"/>
+				         <f:selectItem itemValue="2" itemLabel="V≥500.000m³"/>				       			      
+				</p:selectOneRadio>	
+				
+				<p:outputLabel for="ponte" value="Ponte:" /> 
+				<p:selectBooleanCheckbox id="ponte" value="#{outorganteBean.outorgante.ponte}"/>
+				
+				<p:outputLabel for="travessiaDutos" value="Travessia de Dutos:" /> 
+				<p:selectBooleanCheckbox id="travessiaDutos" value="#{outorganteBean.outorgante.travessiaDutos}"/>
+				
+				<p:outputLabel for="terraplanagem" value="Terraplanagem:" /> 
+				<p:selectBooleanCheckbox id="terraplanagem" value="#{outorganteBean.outorgante.terraplanagem}"/>
+				
+				<p:outputLabel for="geracaoEnergia" value="Geracao de Energia:" /> 
+				<p:selectBooleanCheckbox id="geracaoEnergia" value="#{outorganteBean.outorgante.geracaoEnergia}"/>
+				
+				<p:outputLabel for="lancamentoEfluentes" value="Lancamento de Efluentes:" /> 
+				<p:selectBooleanCheckbox id="lancamentoEfluentes" value="#{outorganteBean.outorgante.lancamentoEfluentes}"/>
+				
+				<p:outputLabel for="extracaoMineral" value="Extracao Mineral:" /> 
+				<p:selectBooleanCheckbox id="extracaoMineral" value="#{outorganteBean.outorgante.extracaoMineral}"/>
+				
+				<p:outputLabel for="obrasDrenagem" value="Obras de Drenagem:" /> 
+				<p:selectBooleanCheckbox id="obrasDrenagem" value="#{outorganteBean.outorgante.obrasDrenagem}"/>
+				
+				<p:outputLabel for="revestimentoCanal" value="Revestimento de Canal:" /> 
+				<p:selectBooleanCheckbox id="revestimentoCanal" value="#{outorganteBean.outorgante.revestimentoCanal}"/>
+				
+				<p:outputLabel for="dique" value="Dique:" /> 
+				<p:selectBooleanCheckbox id="dique" value="#{outorganteBean.outorgante.dique}"/>
+				
+				<p:outputLabel for="outrosModalidade" value="Outras Modalidades"/>
+				<p:inputText id="outrosModalidade" label="cep" maxlength="50" size="10" value="#{outorganteBean.outorgante.Outras Modalidades}" 
+				required="true"	requiredMessage="O campo 'Outras Modalidades' é obrigatório!" converterMessage="O valor informado no campo'Outras Modalidades' é invalido"
+				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Telefone Técnico' ">
+				<f:validateLongRange minimum="1" maximum="10000000"/>  
 				</p:inputText>
-
-				<p:outputLabel for="vencimento" value="Vencimento:"/>
-				<p:calendar id="vencimento" value="#{outorganteBean.outorgante.vencimento}" required="true"
-				requiredMessage="O campo 'Vencimento é obrigatório" size="10" locale="pt_BR"/>
-
-				<p:outputLabel for="liberado" value="Liberado:"/>
-				<p:selectBooleanCheckbox id="liberado" value="#{outorganteBean.outorgante.liberado}"/> 
-				</h:panelGrid>
+				
+				</h:panelGrid>           
 
 			<h:panelGrid columns="3">
 				<p:commandButton value="Salvar" actionListener="#{outorganteBean.salvar}"
