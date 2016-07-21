@@ -16,12 +16,10 @@
 	
 		<p:panel header="Pessoa - Listagem">
 		
-			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{pessoaBean.listaPessoa}" var="listaPessoas" rows="10">
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado." paginator="true" value="#{pessoaBean.listaPessoa}" var="listaPessoas" rows="10">
 				
 				<f:facet name="footer">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" 
-					actionListener="#{pessoaBean.novo}" update=":formCadastro:painel">
+					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" actionListener="#{pessoaBean.novo}" update=":formCadastro:painel">
 					  <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> <!-- Código para limpar validação vermelha nos campos ao cadastrar -->		
 					  </p:commandButton>			
 				</f:facet>
@@ -87,8 +85,7 @@
 		<h:panelGrid id="painel" columns="1">
 
 				<p:outputLabel for="nome" value="Nome" />
-				<p:inputText id="nome" maxlength="50" size="40" value="#{pessoaBean.pessoa.nome}" required="true"
-					requiredMessage="Campo 'Nome' obrigatório" />
+				<p:inputText id="nome" maxlength="50" size="40" value="#{pessoaBean.pessoa.nome}" required="true" requiredMessage="Campo 'Nome' obrigatório" />
 
 				<p:outputLabel for="email" value="Email" />
 				<p:inputText id="email" maxlength="50" size="30" value="#{pessoaBean.pessoa.email}" required="true"
@@ -108,8 +105,7 @@
 			</h:panelGrid>
 
 		    <h:panelGrid columns="3">
-				<p:commandButton value="Salvar" actionListener="#{pessoaBean.salvar}"
-					update=":mensagem :formCadastro:painel :formListagem:tabela" />
+				<p:commandButton value="Salvar" actionListener="#{pessoaBean.salvar}" update=":mensagem :formCadastro:painel :formListagem:tabela" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()" />
 			</h:panelGrid>
 

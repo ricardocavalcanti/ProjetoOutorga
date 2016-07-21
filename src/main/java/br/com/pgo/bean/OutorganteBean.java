@@ -41,7 +41,7 @@ public class OutorganteBean implements Serializable {
 
 			outorgante = new Outorgante();
 			OutorganteDAO outorganteDAO = new OutorganteDAO();
-			listaOutorgante = outorganteDAO.listar("processoAPAC");
+			listaOutorgante = outorganteDAO.listar("processoApac");
 
 
 		} catch (RuntimeException erro) {

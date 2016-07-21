@@ -10,76 +10,120 @@ public class Outorgante extends GenericDomain {
 
 	@Column(length = 50, nullable = false)
 	private int processoCprh;
+
 	@Column(length = 50, nullable = false)
 	private int processoApac;
+
 	@Column(length = 50, nullable = false)
 	private String nomeRazao;
+
 	@Column(length = 50, nullable = false)
 	private String cpfCnpj;
+
 	@Column(length = 50, nullable = false)
 	private String rua;
+
 	@Column(length = 50, nullable = false)
-	private String municipio;
+	private String cidade;
+
 	@Column(length = 50, nullable = false)
 	private String bairro;
+
+	@Column(length = 50, nullable = false)
+	private String complemento;
+
+	@Column(length = 50, nullable = false)
+	private String uf;
+
+	@Column(length = 50, nullable = false)
+	private String numero;
+
 	@Column(length = 50, nullable = false)
 	private int cep;
+
 	@Column(length = 50, nullable = false)
 	private int telefone;
+
 	@Column(length = 50, nullable = false)
 	private String email;
+
 	@Column(length = 32, nullable = false)
 	private char tipoRequerimento;
+
 	@Column(length = 32, nullable = false)
-	private String resposavelTecnico;
+	private String nomeTecnico;
+
 	@Column(length = 50, nullable = false)
 	private int registroTecnico;
+
 	@Column(length = 50, nullable = false)
 	private int telefoneTecnico;
+
 	@Column(length = 50, nullable = false)
 	private String emailTecnico;
-	@Column(length = 50, nullable = false)
-	private char captacao;
-	@Column(length = 50, nullable = false)
-	private char diluicao;
-	@Column(length = 50, nullable = false)
-	private char drdh;
-	@Column(length = 50, nullable = false)
-	private char construçãoObra;
-	@Column(length = 50, nullable = false)
-	private char irrigacao;
-	@Column(length = 50, nullable = false)
-	private char abastecimentoInCom;
-	@Column(length = 50, nullable = false)
-	private char dessentacaoAnimal;
-	@Column(length = 50, nullable = false)
-	private char abastecimentoHum;
-	@Column(length = 50, nullable = false)
-	private char aquiculturaCarcini;
-	@Column(length = 32, nullable = false)
+
+	@Column(length = 50)
+	private String outrasModalidades;
+
+	@Column(nullable = false)
+	private boolean captacao;
+
+	@Column(nullable = false)
+	private boolean diluicao;
+
+	@Column(nullable = false)
+	private boolean drdh;
+
+	@Column(nullable = false)
+	private boolean construcaoObra;
+
+	@Column(nullable = false)
+	private boolean irrigacao;
+
+	@Column(nullable = false)
+	private boolean abastecimentoInCom;
+
+	@Column(nullable = false)
+	private boolean dessentacaoAnimal;
+
+	@Column(nullable = false)
+	private boolean abastecimentoHum;
+
+	@Column(nullable = false)
+	private boolean aquiculturaCarcini;
+
+	@Column(nullable = false)
 	private char barragem;
-	@Column(length = 50, nullable = false)
-	private char ponte;
-	@Column(length = 50, nullable = false)
-	private char chartravessiaDutos;
-	@Column(length = 50, nullable = false)
-	private char terraplanagem;
-	@Column(length = 50, nullable = false)
-	private char geracaoEnergia;
-	@Column(length = 50, nullable = false)
-	private char lancamentoEfluentes;
-	@Column(length = 50, nullable = false)
-	private char extracaoMineral;
-	@Column(length = 50, nullable = false)
-	private char obrasDrenagem;
-	@Column(length = 50, nullable = false)
-	private char revestimentoCanal;
-	@Column(length = 50, nullable = false)
-	private char dique;
-	@Column(length = 50, nullable = false)
-	private char travessiaDutos;
-	@Column(length = 50, nullable = false)
-	private char outrasModalidades;
+
+	@Column(nullable = false)
+	private boolean ponte;
+
+	@Column(nullable = false)
+	private boolean chartravessiaDutos;
+
+	@Column(nullable = false)
+	private boolean terraplanagem;
+
+	@Column(nullable = false)
+	private boolean geracaoEnergia;
+
+	@Column(nullable = false)
+	private boolean lancamentoEfluentes;
+
+	@Column(nullable = false)
+	private boolean extracaoMineral;
+
+	@Column(nullable = false)
+	private boolean obrasDrenagem;
+
+	@Column(nullable = false)
+	private boolean revestimentoCanal;
+
+	@Column(nullable = false)
+	private boolean dique;
+
+	@Column(nullable = false)
+	private boolean travessiaDutos;
 
 	public Outorgante() {
 
@@ -125,12 +169,12 @@ public class Outorgante extends GenericDomain {
 		this.rua = rua;
 	}
 
-	public String getMunicipio() {
-		return municipio;
+	public String getCidade() {
+		return cidade;
 	}
 
-	public void setMunicipio(String municipio) {
-		this.municipio = municipio;
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
 	}
 
 	public String getBairro() {
@@ -139,6 +183,30 @@ public class Outorgante extends GenericDomain {
 
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
 	public int getCep() {
@@ -173,12 +241,12 @@ public class Outorgante extends GenericDomain {
 		this.tipoRequerimento = tipoRequerimento;
 	}
 
-	public String getResposavelTecnico() {
-		return resposavelTecnico;
+	public String getNomeTecnico() {
+		return nomeTecnico;
 	}
 
-	public void setResposavelTecnico(String resposavelTecnico) {
-		this.resposavelTecnico = resposavelTecnico;
+	public void setNomeTecnico(String nomeTecnico) {
+		this.nomeTecnico = nomeTecnico;
 	}
 
 	public int getRegistroTecnico() {
@@ -205,75 +273,83 @@ public class Outorgante extends GenericDomain {
 		this.emailTecnico = emailTecnico;
 	}
 
-	public char getCaptacao() {
+	public String getOutrasModalidades() {
+		return outrasModalidades;
+	}
+
+	public void setOutrasModalidades(String outrasModalidades) {
+		this.outrasModalidades = outrasModalidades;
+	}
+
+	public boolean isCaptacao() {
 		return captacao;
 	}
 
-	public void setCaptacao(char captacao) {
+	public void setCaptacao(boolean captacao) {
 		this.captacao = captacao;
 	}
 
-	public char getDiluicao() {
+	public boolean isDiluicao() {
 		return diluicao;
 	}
 
-	public void setDiluicao(char diluicao) {
+	public void setDiluicao(boolean diluicao) {
 		this.diluicao = diluicao;
 	}
 
-	public char getDrdh() {
+	public boolean isDrdh() {
 		return drdh;
 	}
 
-	public void setDrdh(char drdh) {
+	public void setDrdh(boolean drdh) {
 		this.drdh = drdh;
 	}
 
-	public char getConstruçãoObra() {
-		return construçãoObra;
+	public boolean isConstrucaoObra() {
+		return construcaoObra;
 	}
 
-	public void setConstruçãoObra(char construçãoObra) {
-		this.construçãoObra = construçãoObra;
+	public void setConstrucaoObra(boolean construcaoObra) {
+		this.construcaoObra = construcaoObra;
 	}
 
-	public char getIrrigacao() {
+	public boolean isIrrigacao() {
 		return irrigacao;
 	}
 
-	public void setIrrigacao(char irrigacao) {
+	public void setIrrigacao(boolean irrigacao) {
 		this.irrigacao = irrigacao;
 	}
 
-	public char getAbastecimentoInCom() {
+	public boolean isAbastecimentoInCom() {
 		return abastecimentoInCom;
 	}
 
-	public void setAbastecimentoInCom(char abastecimentoInCom) {
+	public void setAbastecimentoInCom(boolean abastecimentoInCom) {
 		this.abastecimentoInCom = abastecimentoInCom;
 	}
 
-	public char getDessentacaoAnimal() {
+	public boolean isDessentacaoAnimal() {
 		return dessentacaoAnimal;
 	}
 
-	public void setDessentacaoAnimal(char dessentacaoAnimal) {
+	public void setDessentacaoAnimal(boolean dessentacaoAnimal) {
 		this.dessentacaoAnimal = dessentacaoAnimal;
 	}
 
-	public char getAbastecimentoHum() {
+	public boolean isAbastecimentoHum() {
 		return abastecimentoHum;
 	}
 
-	public void setAbastecimentoHum(char abastecimentoHum) {
+	public void setAbastecimentoHum(boolean abastecimentoHum) {
 		this.abastecimentoHum = abastecimentoHum;
 	}
 
-	public char getAquiculturaCarcini() {
+	public boolean isAquiculturaCarcini() {
 		return aquiculturaCarcini;
 	}
 
-	public void setAquiculturaCarcini(char aquiculturaCarcini) {
+	public void setAquiculturaCarcini(boolean aquiculturaCarcini) {
 		this.aquiculturaCarcini = aquiculturaCarcini;
 	}
 
@@ -285,92 +361,84 @@ public class Outorgante extends GenericDomain {
 		this.barragem = barragem;
 	}
 
-	public char getPonte() {
+	public boolean isPonte() {
 		return ponte;
 	}
 
-	public void setPonte(char ponte) {
+	public void setPonte(boolean ponte) {
 		this.ponte = ponte;
 	}
 
-	public char getChartravessiaDutos() {
+	public boolean isChartravessiaDutos() {
 		return chartravessiaDutos;
 	}
 
-	public void setChartravessiaDutos(char chartravessiaDutos) {
+	public void setChartravessiaDutos(boolean chartravessiaDutos) {
 		this.chartravessiaDutos = chartravessiaDutos;
 	}
 
-	public char getTerraplanagem() {
+	public boolean isTerraplanagem() {
 		return terraplanagem;
 	}
 
-	public void setTerraplanagem(char terraplanagem) {
+	public void setTerraplanagem(boolean terraplanagem) {
 		this.terraplanagem = terraplanagem;
 	}
 
-	public char getGeracaoEnergia() {
+	public boolean isGeracaoEnergia() {
 		return geracaoEnergia;
 	}
 
-	public void setGeracaoEnergia(char geracaoEnergia) {
+	public void setGeracaoEnergia(boolean geracaoEnergia) {
 		this.geracaoEnergia = geracaoEnergia;
 	}
 
-	public char getLancamentoEfluentes() {
+	public boolean isLancamentoEfluentes() {
 		return lancamentoEfluentes;
 	}
 
-	public void setLancamentoEfluentes(char lancamentoEfluentes) {
+	public void setLancamentoEfluentes(boolean lancamentoEfluentes) {
 		this.lancamentoEfluentes = lancamentoEfluentes;
 	}
 
-	public char getExtracaoMineral() {
+	public boolean isExtracaoMineral() {
 		return extracaoMineral;
 	}
 
-	public void setExtracaoMineral(char extracaoMineral) {
+	public void setExtracaoMineral(boolean extracaoMineral) {
 		this.extracaoMineral = extracaoMineral;
 	}
 
-	public char getObrasDrenagem() {
+	public boolean isObrasDrenagem() {
 		return obrasDrenagem;
 	}
 
-	public void setObrasDrenagem(char obrasDrenagem) {
+	public void setObrasDrenagem(boolean obrasDrenagem) {
 		this.obrasDrenagem = obrasDrenagem;
 	}
 
-	public char getRevestimentoCanal() {
+	public boolean isRevestimentoCanal() {
 		return revestimentoCanal;
 	}
 
-	public void setRevestimentoCanal(char revestimentoCanal) {
+	public void setRevestimentoCanal(boolean revestimentoCanal) {
 		this.revestimentoCanal = revestimentoCanal;
 	}
 
-	public char getDique() {
+	public boolean isDique() {
 		return dique;
 	}
 
-	public void setDique(char dique) {
+	public void setDique(boolean dique) {
 		this.dique = dique;
 	}
 
-	public char getTravessiaDutos() {
+	public boolean isTravessiaDutos() {
 		return travessiaDutos;
 	}
 
-	public void setTravessiaDutos(char travessiaDutos) {
+	public void setTravessiaDutos(boolean travessiaDutos) {
 		this.travessiaDutos = travessiaDutos;
-	}
-
-	public char getoutrasModalidades() {
-		return outrasModalidades;
-	}
-
-	public void setoutrasModalidades(char outrasModalidades) {
-		this.outrasModalidades = outrasModalidades;
 	}
 
 	@Transient

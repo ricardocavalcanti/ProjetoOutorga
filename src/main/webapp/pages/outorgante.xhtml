@@ -10,33 +10,23 @@
 	<h:outputScript library="js" name="scripts.js" />
 </h:head>
 <h:body>
-	<p:growl id="mensagem" />
+	<p:growl id="mensagem" />                    
 
 	<h:form id="formListagem">
 
-		<p:panel header="Outorgante - Listagem">
-
-			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{outorganteBean.listaOutorgante}"
-				var="listaOutorgantes" rows="10">
+		<p:panel header="Outorgante - Listagem"> 		
+            
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."	paginator="true" value="#{outorganteBean.listaOutorgante}" var="listaOutorgantes" rows="10">
+			
 				<f:facet name="footer">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-						actionListener="#{outorganteBean.novo}">
-						<f:actionListener
-							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
-						<!-- Código para limpar validação vermelha nos campos ao cadastrar -->
+					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" actionListener="#{outorganteBean.novo}" update=":formCadastro:painel">
+						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> <!-- Código para limpar validação vermelha nos campos ao cadastrar -->						
 					</p:commandButton>
-				</f:facet>
+				</f:facet>			
 
-				<p:column headerText="Processo APAC"
-					sortBy="#{listaOutorgantes.processoApac}"
-					filterBy="#{listaOutorgantes.processoApac}">
+				<p:column headerText="Processo APAC" sortBy="#{listaOutorgantes.processoApac}" filterBy="#{listaOutorgantes.processoApac}"> 
 					<h:outputText value="#{listaOutorgantes.processoApac}" />
-				</p:column>
-
-				<p:column headerText="Processo CPRH">
-					<h:outputText value="#{listaOutorgantes.processoCprh}" />
-				</p:column>
+				</p:column>				
 
 				<p:column headerText="Nome/Razao">
 					<h:outputText value="#{listaOutorgantes.nomeRazao}" />
@@ -48,58 +38,44 @@
 
 				<p:column headerText="Email">
 					<h:outputText value="#{listaOutorgantes.email}" />
-				</p:column>
-
-				<p:column headerText="Modalidade">
-					<h:outputText value="#{listaOutorgantes.modalidade}" />
-				</p:column>
+				</p:column>				
 
 				<p:column headerText="Opções">
 
-					<p:commandButton icon="ui-icon-trash"
-						actionListener="#{outorganteBean.excluir}"
-						update=":mensagem :formListagem:tabela">
-						<p:confirm header="Apagar dados" message="Você tem certeza?"
-							icon="ui-icon-alert" />
-						<f:attribute name="outorganteSelecionado"
-							value="#{listaOutorgantes}" />
+					<p:commandButton icon="ui-icon-trash" actionListener="#{outorganteBean.excluir}" update=":mensagem :formListagem:tabela">
+						<p:confirm header="Apagar dados" message="Você tem certeza?" icon="ui-icon-alert" />
+						<f:attribute name="outorganteSelecionado" value="#{listaOutorgantes}" />
 					</p:commandButton>
 
-					<p:commandButton icon="ui-icon-pencil"
-						actionListener="#{outorganteBean.editar}"
-						update=":mensagem :formCadastro:painel"
-						oncomplete="PF('dialogo').show()">
-						<f:attribute name="outorganteSelecionado"
-							value="#{listaOutorgantes}" />
-						<f:actionListener
-							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					<p:commandButton icon="ui-icon-pencil" actionListener="#{outorganteBean.editar}" update=":mensagem :formCadastro:painel" oncomplete="PF('dialogo').show()">
+						<f:attribute name="outorganteSelecionado" value="#{listaOutorgantes}" />
+						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 						<!-- Código para limpar validação vermelha nos campos ao editar -->
 					</p:commandButton>
+					
 				</p:column>
 			</p:dataTable>
 
 			<p:confirmDialog global="true">
-				<p:commandButton value="Sim" type="button"
-					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-				<p:commandButton value="Não" type="button"
-					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
 		</p:panel>
 	</h:form>
 
 	<p:dialog header="Cadastro Outorgante" widgetVar="dialogo" draggable="false" resizable="false" modal="true" closable="false">
 
-		<h:form id="CadastroClientePF">			
+		<h:form id="formCadastro">			
 
-			<p:tabView id="tabClientes">
+			<p:tabView id="painel">
 
 				<p:tab id="processo" title="Processo">				
 				<h:panelGrid columns="2">
 						<h:outputText value="Processo APAC: " />
-						<p:inputText id="processoApac" label="processoApac" />
+						<p:inputText id="processoApac" maxlength="1000" size="10" value="#{outorganteBean.outorgante.processoApac}" />
 
 						<h:outputText value="Processo CPRH:" />
-						<p:inputText id="processoCprh" label="processoCprh" />
+						<p:inputText id="processoCprh" maxlength="1000" size="10" value="#{outorganteBean.outorgante.processoCprh}"/>
 				</h:panelGrid>
 				</p:tab>
 				
@@ -107,16 +83,16 @@
 				<h:panelGrid columns="2">						
 
 						<h:outputText value="Nome/Razão Social:" />
-						<p:inputText id="nomeOutorgante" label="nomeOutorgante" />
+						<p:inputText id="nomeOutorgante" maxlength="50" size="50" value="#{outorganteBean.outorgante.nomeRazao}"/>
 						
 						<h:outputText value="CPF/CNPJ:" />
-						<p:inputText id="cpfCnpj" label="cpfCnpj" />
+						<p:inputText id="cpfCnpj" maxlength="20" size="20" value="#{outorganteBean.outorgante.cpfCnpj}" />
 						
 						<h:outputText value="Telefone:" />
-						<p:inputText id="telefone" label="telefone" />
+						<p:inputText id="telefone" maxlength="9" size="14" value="#{outorganteBean.outorgante.telefone}" />
 						
 						<h:outputText value="Email:" />
-						<p:inputText id="email" label="email" />				
+						<p:inputText id="email" maxlength="50" size="40" value="#{outorganteBean.outorgante.email}"/>				
 						
 				</h:panelGrid>					
 				</p:tab>
@@ -125,35 +101,35 @@
 				
 					<h:panelGrid columns="4">
 						<h:outputText value="Rua:" />
-						<p:inputText id="rua" label="rua" size="40" maxlength="30"/>				
+						<p:inputText id="rua" maxlength="40" size="30" value="#{outorganteBean.outorgante.rua}" />				
 				
 						<h:outputText value="Bairro:" />
-						<p:inputText id="bairro" label="bairro" size="20" maxlength="20"/>
+						<p:inputText id="bairro" maxlength="40" size="30" value="#{outorganteBean.outorgante.bairro}"/>
 						
 						<h:outputText value="Cidade:" />
-						<p:inputText id="cidade" label="cidade" size="40" maxlength="30"/>						
+						<p:inputText id="cidade" maxlength="40" size="30" value="#{outorganteBean.outorgante.cidade}"/>				
 
 						<h:outputText value="Número:" />
-						<p:inputText id="numero" label="numero" size="3" maxlength="4"/>							
+						<p:inputText id="numero" maxlength="10" size="4" value="#{outorganteBean.outorgante.numero}" />						
 
 						<h:outputText value="Complemento:" />
-						<p:inputText id="complemento" label="Complemento"/>													
+						<p:inputText id="complemento" maxlength="40" size="30" value="#{outorganteBean.outorgante.complemento}" />									
 
 						<h:outputText value="UF: " />
-						<p:inputText id="uf" label="uf"  size="3" maxlength="2"/>						
+						<p:inputText id="uf" maxlength="2" size="2" value="#{outorganteBean.outorgante.uf}" />			
 					</h:panelGrid>
 				</p:tab>
 
 				<p:tab id="contato" title="Tipo">
 					<h:panelGrid columns="5">
 					<p:outputLabel for="tipoRequerimento" value="Tipo do Requerimento:" />
-				<p:selectOneMenu id="tipoRequerimento" value="#{outorganteBean.outorgante.tipoRequerimento}" required="true" requiredMessage="O campo 'Tipo' é obrigatório">
-				         <f:selectItem itemValue="O" itemLabel="Outorga"/>
-				         <f:selectItem itemValue="R" itemLabel="Renovação" />
-				         <f:selectItem itemValue="T" itemLabel="Transferência"/>
-				         <f:selectItem itemValue="A" itemLabel="Alteração"/>
-				         <f:selectItem itemValue="N" itemLabel="Outros"/>
-				</p:selectOneMenu>						
+			  	           <p:selectOneMenu id="tipoRequerimento" value="#{outorganteBean.outorgante.tipoRequerimento}" required="true" requiredMessage="O campo 'Tipo' é obrigatório">
+				                     <f:selectItem itemValue="O" itemLabel="Outorga"/>
+				                     <f:selectItem itemValue="R" itemLabel="Renovação" />
+				                     <f:selectItem itemValue="T" itemLabel="Transferência"/>
+				                     <f:selectItem itemValue="A" itemLabel="Alteração"/>
+				                     <f:selectItem itemValue="N" itemLabel="Outros"/>
+				          </p:selectOneMenu>						
 					</h:panelGrid>
 				</p:tab>
 
@@ -161,34 +137,34 @@
 					<h:panelGrid columns="2">
 					
 					<h:outputText value="Registro:" />
-					<p:inputText id="registro" label="registro" size="5"/>
+					<p:inputText id="registro" maxlength="10" size="10" value="#{outorganteBean.outorgante.registroTecnico}"/>
 					
 					<h:outputText value="Nome:" />
-					<p:inputText id="nomeTecnico" label="nomeTecnico" />					
+					<p:inputText id="nomeTecnico" maxlength="50" size="50" value="#{outorganteBean.outorgante.nomeTecnico}"/>			
 					
 					<h:outputText value="Telefone:" />
-					<p:inputText id="telefoneTecnico" label="telefoneTecnico" />
+					<p:inputText id="telefoneTecnico" maxlength="9" size="14" value="#{outorganteBean.outorgante.telefoneTecnico}"/>  
 					
 					<h:outputText value="Email:" />
-					<p:inputText id="emailTecnico" label="emailTecnico" />
+					<p:inputText id="emailTecnico"  maxlength="50" size="40" value="#{outorganteBean.outorgante.emailTecnico}"/>	
 						
 					</h:panelGrid>
 				</p:tab>
 
 				<p:tab id="finalidade" title="Finalidade">
-					<h:panelGrid columns="4">
+					<h:panelGrid columns="4">					
 					
 				<p:selectBooleanCheckbox id="captacao" value="#{outorganteBean.outorgante.captacao}"/>
-				<p:outputLabel for="captacao" value="Captacao" /> 
+				<p:outputLabel for="captacao" value="Captação"/> 
 			
-					<p:selectBooleanCheckbox id="diluicao" value="#{outorganteBean.outorgante.diluicao}"/>
+				<p:selectBooleanCheckbox id="diluicao" value="#{outorganteBean.outorgante.diluicao}"/>
 				<p:outputLabel for="diluicao" value="Diluição" /> 
 			
 				<p:selectBooleanCheckbox id="drdh" value="#{outorganteBean.outorgante.drdh}"/>
 				<p:outputLabel for="drdh" value="DRDH" /> 
 				
-				<p:selectBooleanCheckbox id="construçãoObra" value="#{outorganteBean.outorgante.construçãoObra}"/>
-				<p:outputLabel for="construçãoObra" value="Construção Obra" /> 
+				<p:selectBooleanCheckbox id="construcaoObra" value="#{outorganteBean.outorgante.construcaoObra}"/>
+				<p:outputLabel for="construcaoObra" value="Construção Obra" /> 
 				
 				<p:selectBooleanCheckbox id="irrigacao" value="#{outorganteBean.outorgante.irrigacao}"/>
 				<p:outputLabel for="irrigacao" value="Construção Obra" /> 
@@ -239,12 +215,13 @@
 			<h:panelGrid columns="2">					
 					
 				<h:outputText value="Outros:" />
-				<p:inputText id="outros" label="outros" size="15" maxlength="20" />
+				<p:inputText id="outros" label="outros" size="15" maxlength="20" value="#{outorganteBean.outorgante.outrasModalidades}" />
 					
 			    <p:outputLabel for="barragem" value="Barragem:" />
 				<p:selectOneMenu id="barragem" value="#{outorganteBean.outorgante.barragem}" required="true" requiredMessage="O campo 'Tipo' é obrigatório">
-				         <f:selectItem itemValue="1" itemLabel="V>500.000m³"/>
-				         <f:selectItem itemValue="2" itemLabel="V≥500.000m³"/>				       			      
+                         <f:selectItem itemValue="0" itemLabel="0"/>				        
+				         <f:selectItem itemValue="1" itemLabel="Maior 500.000m³"/>
+				         <f:selectItem itemValue="2" itemLabel="Menor 500.000m³"/>				       			      
 				</p:selectOneMenu>									
 					</h:panelGrid>
 				</p:tab>
@@ -253,7 +230,7 @@
 </p:tabView>
 
 			<h:panelGrid columns="3">
-				<p:commandButton value="Salvar" actionListener="#{outorganteBean.salvar}"/>
+				<p:commandButton value="Salvar" actionListener="#{outorganteBean.salvar}" update=":mensagem :formCadastro:painel :formListagem:tabela"/>
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()" />
 			</h:panelGrid>
 		</h:form>
