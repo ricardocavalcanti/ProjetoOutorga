@@ -7,264 +7,253 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Requerimento</title>
-	<h:outputScript library="js" name="scripts.js"/>
+	<h:outputScript library="js" name="scripts.js" />
 </h:head>
 <h:body>
-	<p:growl id="mensagem"/>
+	<p:growl id="mensagem" />
 
 	<h:form id="formListagem">
-	
+
 		<p:panel header="Outorgante - Listagem">
-		
-			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado." paginator="true" value="#{outorganteBean.listaOutorgante}" var="listaOutorgantes" rows="10">
+
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+				paginator="true" value="#{outorganteBean.listaOutorgante}"
+				var="listaOutorgantes" rows="10">
 				<f:facet name="footer">
-					    <p:commandButton value="Novo" oncomplete="PF('dialogo').show();" actionListener="#{outorganteBean.novo}" update=":formCadastro:painel"> 
-						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> <!-- Código para limpar validação vermelha nos campos ao cadastrar -->
-						</p:commandButton>
+					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
+						actionListener="#{outorganteBean.novo}">
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+						<!-- Código para limpar validação vermelha nos campos ao cadastrar -->
+					</p:commandButton>
 				</f:facet>
-				
-				<p:column headerText="Processo APAC" sortBy="#{listaOutorgantes.processoApac}" filterBy="#{listaOutorgantes.processoApac}">
-					<h:outputText value="#{listaOutorgantes.processoApac}"/>
+
+				<p:column headerText="Processo APAC"
+					sortBy="#{listaOutorgantes.processoApac}"
+					filterBy="#{listaOutorgantes.processoApac}">
+					<h:outputText value="#{listaOutorgantes.processoApac}" />
 				</p:column>
-				
+
 				<p:column headerText="Processo CPRH">
-					<h:outputText value="#{listaOutorgantes.processoCprh}"/>
+					<h:outputText value="#{listaOutorgantes.processoCprh}" />
 				</p:column>
-				
+
 				<p:column headerText="Nome/Razao">
-					<h:outputText value="#{listaOutorgantes.nomeRazao}"/>					 
+					<h:outputText value="#{listaOutorgantes.nomeRazao}" />
 				</p:column>
-				
+
 				<p:column headerText="Telefone">
-					<h:outputText value="#{listaOutorgantes.telefone}"/>
-					</p:column>									
-					
-				<p:column headerText="Email">
-					<h:outputText value="#{listaOutorgantes.email}"/> 				
+					<h:outputText value="#{listaOutorgantes.telefone}" />
 				</p:column>
-				
+
+				<p:column headerText="Email">
+					<h:outputText value="#{listaOutorgantes.email}" />
+				</p:column>
+
 				<p:column headerText="Modalidade">
 					<h:outputText value="#{listaOutorgantes.modalidade}" />
 				</p:column>
-				
+
 				<p:column headerText="Opções">
-								
-					<p:commandButton icon="ui-icon-trash" actionListener="#{outorganteBean.excluir}"
+
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{outorganteBean.excluir}"
 						update=":mensagem :formListagem:tabela">
-						<p:confirm header="Apagar dados" message="Você tem certeza?" icon="ui-icon-alert" />
-						<f:attribute name="outorganteSelecionado" value="#{listaOutorgantes}" />
+						<p:confirm header="Apagar dados" message="Você tem certeza?"
+							icon="ui-icon-alert" />
+						<f:attribute name="outorganteSelecionado"
+							value="#{listaOutorgantes}" />
 					</p:commandButton>
 
-					<p:commandButton icon="ui-icon-pencil" actionListener="#{outorganteBean.editar}" update=":mensagem :formCadastro:painel"
-						oncomplete="PF('dialogo').show()"> 
-						<f:attribute name="outorganteSelecionado" value="#{listaOutorgantes}" />
-							   <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" /> <!-- Código para limpar validação vermelha nos campos ao editar -->
+					<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{outorganteBean.editar}"
+						update=":mensagem :formCadastro:painel"
+						oncomplete="PF('dialogo').show()">
+						<f:attribute name="outorganteSelecionado"
+							value="#{listaOutorgantes}" />
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+						<!-- Código para limpar validação vermelha nos campos ao editar -->
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 
 			<p:confirmDialog global="true">
-				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"  icon="ui-icon-close"/>
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
 		</p:panel>
 	</h:form>
 
 	<p:dialog header="Cadastro Outorgante" widgetVar="dialogo" draggable="false" resizable="false" modal="true" closable="false">
-		<h:form id="formCadastro">
 
-			<h:panelGrid id="painel" columns="8">
-			
-			   <p:outputLabel value="1.Dados do Proprietário/Empreendimento"/>
+		<h:form id="CadastroClientePF">			
 
-				<p:outputLabel for="processoCprh" value="Nº Processo CPRH"/>
-				<p:inputText id="processoCprh" label="processoCprh" maxlength="50" size="10" value="#{outorganteBean.outorgante.processoCprh}" 
-				required="true"	requiredMessage="O campo 'Processo' é obrigatório!" converterMessage="O valor informado no campo'Nº Processo CPRH' é invalido"
-				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Nº Processo CPRH' ">
-				<f:validateLongRange minimum="1" maximum="10000000"/>  
-				</p:inputText>				
+			<p:tabView id="tabClientes">
 
-				<p:outputLabel for="processoApac" value="Nº Processo APAC"/>
-				<p:inputText id="processoApac" label="processoApac" maxlength="50" size="10" value="#{outorganteBean.outorgante.processoApac}" 
-				required="true"	requiredMessage="O campo 'Processo' é obrigatório!" converterMessage="O valor informado no campo'Nº Processo APAC' é invalido"
-				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Nº Processo APAC' ">
-				<f:validateLongRange minimum="1" maximum="10000000"/>  
-				</p:inputText>				
+				<p:tab id="processo" title="Processo">				
+				<h:panelGrid columns="2">
+						<h:outputText value="Processo APAC: " />
+						<p:inputText id="processoApac" label="processoApac" />
+
+						<h:outputText value="Processo CPRH:" />
+						<p:inputText id="processoCprh" label="processoCprh" />
+				</h:panelGrid>
+				</p:tab>
 				
-				<p:outputLabel for="nomeRazao" value="Nome/Razão"/>
-				<p:inputText id="nomeRazao" label="processoApac" maxlength="50" size="10" value="#{outorganteBean.outorgante.nomeRazao}" 
-				required="true"	requiredMessage="O campo 'Nome/Razão' é obrigatório!" converterMessage="O valor informado no campo'Nome/Razão' é invalido"
-				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Nome/Razão' ">
-				<f:validateLongRange minimum="1" maximum="10000000"/>  
-				</p:inputText>	
+				<p:tab id="dadosClientes" title="Dados">
+				<h:panelGrid columns="2">						
+
+						<h:outputText value="Nome/Razão Social:" />
+						<p:inputText id="nomeOutorgante" label="nomeOutorgante" />
+						
+						<h:outputText value="CPF/CNPJ:" />
+						<p:inputText id="cpfCnpj" label="cpfCnpj" />
+						
+						<h:outputText value="Telefone:" />
+						<p:inputText id="telefone" label="telefone" />
+						
+						<h:outputText value="Email:" />
+						<p:inputText id="email" label="email" />				
+						
+				</h:panelGrid>					
+				</p:tab>
+
+				<p:tab id="enderecoClientes" title="Endereço">
 				
-				<p:outputLabel for="cpfCnpj" value="CPF/CNPJ"/>
-				<p:inputText id="cpfCnpj" label="cpfCnpj" maxlength="50" size="10" value="#{outorganteBean.outorgante.cpfCnpj}" 
-				required="true"	requiredMessage="O campo 'Nome/Razão' é obrigatório!" converterMessage="O valor informado no campo'CPF/CNPJ' é invalido"
-				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'CPF/CNPJ' ">
-				<f:validateLongRange minimum="1" maximum="10000000"/>  
-				</p:inputText>
+					<h:panelGrid columns="4">
+						<h:outputText value="Rua:" />
+						<p:inputText id="rua" label="rua" size="40" maxlength="30"/>				
 				
-				<p:outputLabel for="rua" value="Rua"/>
-				<p:inputText id="rua" label="rua" maxlength="50" size="10" value="#{outorganteBean.outorgante.rua}" 
-				required="true"	requiredMessage="O campo 'Rua' é obrigatório!" converterMessage="O valor informado no campo'Rua' é invalido"
-				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Rua' ">
-				<f:validateLongRange minimum="1" maximum="10000000"/>  
-				</p:inputText>	
-				
-				<p:outputLabel for="municipio" value="Municipio"/>
-				<p:inputText id="municipio" label="rua" maxlength="50" size="10" value="#{outorganteBean.outorgante.municipio}" 
-				required="true"	requiredMessage="O campo 'Municipio' é obrigatório!" converterMessage="O valor informado no campo'municipio' é invalido"
-				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Municipio' ">
-				<f:validateLongRange minimum="1" maximum="10000000"/>  
-				</p:inputText>	
-				
-				<p:outputLabel for="bairro" value="Bairro"/>
-				<p:inputText id="bairro" label="bairro" maxlength="50" size="10" value="#{outorganteBean.outorgante.bairro}" 
-				required="true"	requiredMessage="O campo 'Bairro' é obrigatório!" converterMessage="O valor informado no campo'Bairro' é invalido"
-				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Bairro' ">
-				<f:validateLongRange minimum="1" maximum="10000000"/>  
-				</p:inputText>	
-				
-				<p:outputLabel for="cep" value="CEP"/>
-				<p:inputText id="cep" label="cep" maxlength="50" size="10" value="#{outorganteBean.outorgante.cep}" 
-				required="true"	requiredMessage="O campo 'Bairro' é obrigatório!" converterMessage="O valor informado no campo'CEP' é invalido"
-				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'CEP' ">
-				<f:validateLongRange minimum="1" maximum="10000000"/>  
-				</p:inputText>
-				
-				<p:outputLabel for="telefone" value="Telefone"/>
-				<p:inputText id="telefone" label="cep" maxlength="50" size="10" value="#{outorganteBean.outorgante.telefone}" 
-				required="true"	requiredMessage="O campo 'Telefone' é obrigatório!" converterMessage="O valor informado no campo'Telefone' é invalido"
-				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Telefone' ">
-				<f:validateLongRange minimum="1" maximum="10000000"/>  
-				</p:inputText>
-				
-				
-				<p:outputLabel for="email" value="Email"/>
-				<p:inputText id="email" label="email" maxlength="50" size="10" value="#{outorganteBean.outorgante.email}" 
-				required="true"	requiredMessage="O campo 'Bairro' é obrigatório!" converterMessage="O valor informado no campo'email' é invalido"
-				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'email' ">
-				<f:validateLongRange minimum="1" maximum="10000000"/>  
-				</p:inputText>
-				
-				 <p:outputLabel value="2.Tipo do Requerimento"/>	
-				 
-				<p:outputLabel for="tipoRequerimento" value="Tipo do Requerimento:" />
-				<p:selectOneRadio id="tipoRequerimento" value="#{outorganteBean.outorgante.tipoRequerimento}" required="true" requiredMessage="O campo 'Tipo' é obrigatório">
+						<h:outputText value="Bairro:" />
+						<p:inputText id="bairro" label="bairro" size="20" maxlength="20"/>
+						
+						<h:outputText value="Cidade:" />
+						<p:inputText id="cidade" label="cidade" size="40" maxlength="30"/>						
+
+						<h:outputText value="Número:" />
+						<p:inputText id="numero" label="numero" size="3" maxlength="4"/>							
+
+						<h:outputText value="Complemento:" />
+						<p:inputText id="complemento" label="Complemento"/>													
+
+						<h:outputText value="UF: " />
+						<p:inputText id="uf" label="uf"  size="3" maxlength="2"/>						
+					</h:panelGrid>
+				</p:tab>
+
+				<p:tab id="contato" title="Tipo">
+					<h:panelGrid columns="5">
+					<p:outputLabel for="tipoRequerimento" value="Tipo do Requerimento:" />
+				<p:selectOneMenu id="tipoRequerimento" value="#{outorganteBean.outorgante.tipoRequerimento}" required="true" requiredMessage="O campo 'Tipo' é obrigatório">
 				         <f:selectItem itemValue="O" itemLabel="Outorga"/>
 				         <f:selectItem itemValue="R" itemLabel="Renovação" />
 				         <f:selectItem itemValue="T" itemLabel="Transferência"/>
 				         <f:selectItem itemValue="A" itemLabel="Alteração"/>
 				         <f:selectItem itemValue="N" itemLabel="Outros"/>
-				</p:selectOneRadio>		
-							
-				 <p:outputLabel value="3.Responsável Técnico"/>		
-				 
-				<p:outputLabel for="resposavelTecnico" value="Nome do Técnico"/>
-				<p:inputText id="resposavelTecnico" label="cep" maxlength="50" size="10" value="#{outorganteBean.outorgante.resposavelTecnico}" 
-				required="true"	requiredMessage="O campo 'Nome Técnico' é obrigatório!" converterMessage="O valor informado no campo'TEL' é invalido"
-				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Nome Técnico' ">
-				<f:validateLongRange minimum="1" maximum="10000000"/>  
-				</p:inputText>	
-				
-				<p:outputLabel for="registroTecnico" value="Registro do Técnico"/>
-				<p:inputText id="registroTecnico" label="cep" maxlength="50" size="10" value="#{outorganteBean.outorgante.registroTecnico}" 
-				required="true"	requiredMessage="O campo 'Email do Técnico' é obrigatório!" converterMessage="O valor informado no campo'Registro do Técnico' é invalido"
-				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Registro do Técnico' ">
-				<f:validateLongRange minimum="1" maximum="10000000"/>  
-				</p:inputText>	
-				
-				
-				<p:outputLabel for="telefoneTecnico" value="Telefone Técnico"/>
-				<p:inputText id="telefoneTecnico" label="cep" maxlength="50" size="10" value="#{outorganteBean.outorgante.telefoneTecnico}" 
-				required="true"	requiredMessage="O campo 'Nome Técnico' é obrigatório!" converterMessage="O valor informado no campo'Telefone do Técnico' é invalido"
-				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Telefone do Técnico' ">
-				<f:validateLongRange minimum="1" maximum="10000000"/>  
-				</p:inputText>	
-				
-				<p:outputLabel for="emailTecnico" value="Email Técnico"/>
-				<p:inputText id="emailTecnico" label="cep" maxlength="50" size="10" value="#{outorganteBean.outorgante.emailTecnico}" 
-				required="true"	requiredMessage="O campo 'Email do Técnico' é obrigatório!" converterMessage="O valor informado no campo'Email do Técnico' é invalido"
-				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Telefone Técnico' ">
-				<f:validateLongRange minimum="1" maximum="10000000"/>  
-				</p:inputText>				
-				
-				
-				<p:outputLabel value="4.Modalidade e Finalidade"/>		
-				
-				<p:outputLabel for="captacao" value="Captacao:" /> 
+				</p:selectOneMenu>						
+					</h:panelGrid>
+				</p:tab>
+
+				<p:tab id="tecnico" title="Técnico">
+					<h:panelGrid columns="2">
+					
+					<h:outputText value="Registro:" />
+					<p:inputText id="registro" label="registro" size="5"/>
+					
+					<h:outputText value="Nome:" />
+					<p:inputText id="nomeTecnico" label="nomeTecnico" />					
+					
+					<h:outputText value="Telefone:" />
+					<p:inputText id="telefoneTecnico" label="telefoneTecnico" />
+					
+					<h:outputText value="Email:" />
+					<p:inputText id="emailTecnico" label="emailTecnico" />
+						
+					</h:panelGrid>
+				</p:tab>
+
+				<p:tab id="finalidade" title="Finalidade">
+					<h:panelGrid columns="4">
+					
 				<p:selectBooleanCheckbox id="captacao" value="#{outorganteBean.outorgante.captacao}"/>
-				
-				<p:outputLabel for="diluicao" value="Diluição:" /> 
-				<p:selectBooleanCheckbox id="diluicao" value="#{outorganteBean.outorgante.diluicao}"/>
-				
-				<p:outputLabel for="drdh" value="DRDH:" /> 
+				<p:outputLabel for="captacao" value="Captacao" /> 
+			
+					<p:selectBooleanCheckbox id="diluicao" value="#{outorganteBean.outorgante.diluicao}"/>
+				<p:outputLabel for="diluicao" value="Diluição" /> 
+			
 				<p:selectBooleanCheckbox id="drdh" value="#{outorganteBean.outorgante.drdh}"/>
+				<p:outputLabel for="drdh" value="DRDH" /> 
 				
-				<p:outputLabel for="construçãoObra" value="Construção Obra:" /> 
 				<p:selectBooleanCheckbox id="construçãoObra" value="#{outorganteBean.outorgante.construçãoObra}"/>
+				<p:outputLabel for="construçãoObra" value="Construção Obra" /> 
 				
-				<p:outputLabel for="irrigacao" value="Construção Obra:" /> 
 				<p:selectBooleanCheckbox id="irrigacao" value="#{outorganteBean.outorgante.irrigacao}"/>
+				<p:outputLabel for="irrigacao" value="Construção Obra" /> 
 				
-				<p:outputLabel for="abastecimentoInCom" value="Abast.Ind/Comer:" /> 
 				<p:selectBooleanCheckbox id="abastecimentoInCom" value="#{outorganteBean.outorgante.abastecimentoInCom}"/>
+				<p:outputLabel for="abastecimentoInCom" value="Abast.Ind/Comer" /> 
 				
-				<p:outputLabel for="dessentacaoAnimal" value="Dessendentação Animal:" /> 
 				<p:selectBooleanCheckbox id="dessentacaoAnimal" value="#{outorganteBean.outorgante.dessentacaoAnimal}"/>
+				<p:outputLabel for="dessentacaoAnimal" value="Dessendentação Animal" /> 
 				
-				<p:outputLabel for="abastecimentoHum" value="Abast.Humano:" /> 
 				<p:selectBooleanCheckbox id="abastecimentoHum" value="#{outorganteBean.outorgante.abastecimentoHum}"/>
+				<p:outputLabel for="abastecimentoHum" value="Abast.Humano" /> 
 				
-				<p:outputLabel for="aquiculturaCarcini" value="Aquicultura/Carcinicultura:" /> 
 				<p:selectBooleanCheckbox id="aquiculturaCarcini" value="#{outorganteBean.outorgante.aquiculturaCarcini}"/>
+				<p:outputLabel for="aquiculturaCarcini" value="Aquicultura/Carcinicultura" /> 				
 				
-				<p:outputLabel for="barragem" value="Barragem:" />
-				<p:selectOneRadio id="tipo" value="#{outorganteBean.outorgante.barragem}" required="true" requiredMessage="O campo 'Tipo' é obrigatório">
+				<p:selectBooleanCheckbox id="ponte" value="#{outorganteBean.outorgante.ponte}"/>
+				<p:outputLabel for="ponte" value="Ponte" /> 
+			
+				<p:selectBooleanCheckbox id="travessiaDutos" value="#{outorganteBean.outorgante.travessiaDutos}"/>
+				<p:outputLabel for="travessiaDutos" value="Travessia de Dutos" /> 
+				
+				<p:selectBooleanCheckbox id="terraplanagem" value="#{outorganteBean.outorgante.terraplanagem}"/>
+				<p:outputLabel for="terraplanagem" value="Terraplanagem" /> 
+				
+				<p:selectBooleanCheckbox id="geracaoEnergia" value="#{outorganteBean.outorgante.geracaoEnergia}"/>
+				<p:outputLabel for="geracaoEnergia" value="Geracao de Energia" /> 
+				
+					<p:selectBooleanCheckbox id="lancamentoEfluentes" value="#{outorganteBean.outorgante.lancamentoEfluentes}"/>
+				<p:outputLabel for="lancamentoEfluentes" value="Lancamento de Efluentes" /> 
+			
+				<p:selectBooleanCheckbox id="extracaoMineral" value="#{outorganteBean.outorgante.extracaoMineral}"/>
+				<p:outputLabel for="extracaoMineral" value="Extracao Mineral" /> 
+				
+				<p:selectBooleanCheckbox id="obrasDrenagem" value="#{outorganteBean.outorgante.obrasDrenagem}"/>
+				<p:outputLabel for="obrasDrenagem" value="Obras de Drenagem" /> 
+				
+				<p:selectBooleanCheckbox id="revestimentoCanal" value="#{outorganteBean.outorgante.revestimentoCanal}"/>
+				<p:outputLabel for="revestimentoCanal" value="Revestimento de Canal" /> 
+				
+				<p:selectBooleanCheckbox id="dique" value="#{outorganteBean.outorgante.dique}"/>
+				<p:outputLabel for="dique" value="Dique" /> 		
+							
+               </h:panelGrid>
+           </p:tab>
+           
+           <p:tab id="outrasModalidades" title="Outras Modalidades">
+			<h:panelGrid columns="2">					
+					
+				<h:outputText value="Outros:" />
+				<p:inputText id="outros" label="outros" size="15" maxlength="20" />
+					
+			    <p:outputLabel for="barragem" value="Barragem:" />
+				<p:selectOneMenu id="barragem" value="#{outorganteBean.outorgante.barragem}" required="true" requiredMessage="O campo 'Tipo' é obrigatório">
 				         <f:selectItem itemValue="1" itemLabel="V>500.000m³"/>
 				         <f:selectItem itemValue="2" itemLabel="V≥500.000m³"/>				       			      
-				</p:selectOneRadio>	
-				
-				<p:outputLabel for="ponte" value="Ponte:" /> 
-				<p:selectBooleanCheckbox id="ponte" value="#{outorganteBean.outorgante.ponte}"/>
-				
-				<p:outputLabel for="travessiaDutos" value="Travessia de Dutos:" /> 
-				<p:selectBooleanCheckbox id="travessiaDutos" value="#{outorganteBean.outorgante.travessiaDutos}"/>
-				
-				<p:outputLabel for="terraplanagem" value="Terraplanagem:" /> 
-				<p:selectBooleanCheckbox id="terraplanagem" value="#{outorganteBean.outorgante.terraplanagem}"/>
-				
-				<p:outputLabel for="geracaoEnergia" value="Geracao de Energia:" /> 
-				<p:selectBooleanCheckbox id="geracaoEnergia" value="#{outorganteBean.outorgante.geracaoEnergia}"/>
-				
-				<p:outputLabel for="lancamentoEfluentes" value="Lancamento de Efluentes:" /> 
-				<p:selectBooleanCheckbox id="lancamentoEfluentes" value="#{outorganteBean.outorgante.lancamentoEfluentes}"/>
-				
-				<p:outputLabel for="extracaoMineral" value="Extracao Mineral:" /> 
-				<p:selectBooleanCheckbox id="extracaoMineral" value="#{outorganteBean.outorgante.extracaoMineral}"/>
-				
-				<p:outputLabel for="obrasDrenagem" value="Obras de Drenagem:" /> 
-				<p:selectBooleanCheckbox id="obrasDrenagem" value="#{outorganteBean.outorgante.obrasDrenagem}"/>
-				
-				<p:outputLabel for="revestimentoCanal" value="Revestimento de Canal:" /> 
-				<p:selectBooleanCheckbox id="revestimentoCanal" value="#{outorganteBean.outorgante.revestimentoCanal}"/>
-				
-				<p:outputLabel for="dique" value="Dique:" /> 
-				<p:selectBooleanCheckbox id="dique" value="#{outorganteBean.outorgante.dique}"/>
-				
-				<p:outputLabel for="outrasModalidades" value="Outras Modalidades"/>
-				<p:inputText id="outrasModalidades" label="cep" maxlength="50" size="10" value="#{outorganteBean.outorgante.outrasModalidades}" 
-				required="true"	requiredMessage="O campo 'Outras Modalidades' é obrigatório!" converterMessage="O valor informado no campo'Outras Modalidades' é invalido"
-				validatorMessage="Informe um valor entre 0 e 10000000 no campo 'Telefone Técnico' ">
-				<f:validateLongRange minimum="1" maximum="10000000"/>  
-				</p:inputText>
-				
-				</h:panelGrid>           
+				</p:selectOneMenu>									
+					</h:panelGrid>
+				</p:tab>
+           
+           
+</p:tabView>
 
 			<h:panelGrid columns="3">
-				<p:commandButton value="Salvar" actionListener="#{outorganteBean.salvar}"
-					update=":mensagem :formCadastro:painel :formListagem:tabela" />
+				<p:commandButton value="Salvar" actionListener="#{outorganteBean.salvar}"/>
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()" />
 			</h:panelGrid>
 		</h:form>
