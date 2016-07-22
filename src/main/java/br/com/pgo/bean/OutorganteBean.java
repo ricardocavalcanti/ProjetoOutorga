@@ -46,7 +46,7 @@ public class OutorganteBean implements Serializable {
 
 		} catch (RuntimeException erro) {
 
-			Messages.addGlobalInfo("Erro ao gerar numero Outorgante !");
+			Messages.addGlobalInfo("Erro ao gerar processo Outorgante !");
 			erro.printStackTrace();
 
 		}
@@ -61,10 +61,10 @@ public class OutorganteBean implements Serializable {
 			outorgante = new Outorgante();
 			listaOutorgante = outorganteDAO.listar();
 
-			Messages.addFlashGlobalInfo("Outorgante salvo com sucesso!");
+			Messages.addFlashGlobalInfo("Processo salvo com sucesso!");
 
 		} catch (RuntimeException erro) {
-			Messages.addFlashGlobalInfo("Erro ao salvar outorgante!");
+			Messages.addFlashGlobalInfo("Erro ao salvar processo!");
 			erro.printStackTrace();
 		}
 
@@ -80,7 +80,7 @@ public class OutorganteBean implements Serializable {
 
 		} catch (RuntimeException erro) {
 
-			Messages.addGlobalInfo("Erro ao listar Outorgante !");
+			Messages.addGlobalInfo("Erro ao listar Processo !");
 			erro.printStackTrace();
 		}
 	}
@@ -91,17 +91,17 @@ public class OutorganteBean implements Serializable {
 
 			outorgante = (Outorgante) evento.getComponent().getAttributes().get("outorganteSelecionado");
 
-			Messages.addGlobalInfo("Numero da Outorgante: " + outorgante.getProcessoApac());
+			Messages.addGlobalInfo("Numero ProcessoAPAC: " + outorgante.getProcessoApac());
 
 			OutorganteDAO outorganteDAO = new OutorganteDAO();
 			outorganteDAO.excluir(outorgante);
 
 			listaOutorgante = outorganteDAO.listar();
-			Messages.addGlobalInfo("Outorgante excluido com sucesso!");
+			Messages.addGlobalInfo("Processo excluido com sucesso!");
 
 		} catch (RuntimeException erro) {
 
-			Messages.addGlobalInfo("Erro ao excluir Outorgante!");
+			Messages.addGlobalInfo("Erro ao excluir Processo!");
 			erro.printStackTrace();
 
 		}
@@ -117,7 +117,7 @@ public class OutorganteBean implements Serializable {
 			OutorganteDAO outorganteDAO = new OutorganteDAO();
 			listaOutorgante = outorganteDAO.listar();
 
-			Messages.addGlobalInfo("Edição processo: " + outorgante.getProcessoApac());
+			Messages.addGlobalInfo("Edição ProcessoAPAC: " + outorgante.getProcessoApac());
 
 		} catch (RuntimeException erro) {
 

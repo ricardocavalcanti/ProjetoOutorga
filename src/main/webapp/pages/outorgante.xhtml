@@ -72,27 +72,33 @@
 				<p:tab id="processo" title="Processo">				
 				<h:panelGrid columns="2">
 						<h:outputText value="Processo APAC: " />
-						<p:inputText id="processoApac" maxlength="1000" size="10" value="#{outorganteBean.outorgante.processoApac}" />
-
-						<h:outputText value="Processo CPRH:" />
-						<p:inputText id="processoCprh" maxlength="1000" size="10" value="#{outorganteBean.outorgante.processoCprh}"/>
+						<p:inputText id="processoApac" maxlength="1000" size="10" value="#{outorganteBean.outorgante.processoApac}" required="true" requiredMessage="Campo 'Processo APAC' obrigatório"
+                         validatorMessage="Informe processoApac diferente de '0' ">
+					    <f:validateLongRange minimum="1"/>					    
+					    </p:inputText>
+					     					      
+						<h:outputText for="processoCprh" value="Processo CPRH:" />						
+						<p:inputText id="processoCprh" maxlength="1000" size="10" value="#{outorganteBean.outorgante.processoCprh}" required="true" requiredMessage="Campo 'Processo CPRH' obrigatório"
+						 validatorMessage="Informe um processoCprh diferente de '0'">
+					    <f:validateLongRange minimum="1"/>   
+					    </p:inputText>
 				</h:panelGrid>
 				</p:tab>
 				
 				<p:tab id="dadosClientes" title="Dados">
 				<h:panelGrid columns="2">						
 
-						<h:outputText value="Nome/Razão Social:" />
-						<p:inputText id="nomeOutorgante" maxlength="50" size="50" value="#{outorganteBean.outorgante.nomeRazao}"/>
+						<h:outputText for="nomeOutorgante" value="Nome/Razão Social:" />
+						<p:inputText id="nomeOutorgante" maxlength="50" size="50" value="#{outorganteBean.outorgante.nomeRazao}" required="true" requiredMessage="Campo 'Razão Social' obrigatório"/>
 						
-						<h:outputText value="CPF/CNPJ:" />
-						<p:inputText id="cpfCnpj" maxlength="20" size="20" value="#{outorganteBean.outorgante.cpfCnpj}" />
+						<h:outputText for="cpfCnpj" value="CPF/CNPJ:" />
+						<p:inputText id="cpfCnpj" maxlength="20" size="20" value="#{outorganteBean.outorgante.cpfCnpj}" required="true" requiredMessage="Campo 'CPF/CNPJ' obrigatório"/>
 						
-						<h:outputText value="Telefone:" />
-						<p:inputText id="telefone" maxlength="9" size="14" value="#{outorganteBean.outorgante.telefone}" />
+						<h:outputText for="telefone" value="Telefone:" />
+						<p:inputMask id="telefone" mask="(99) 9 9999-9999" maxlength="9" size="18" value="#{outorganteBean.outorgante.telefone}" required="true" requiredMessage="Campo 'Telefone' obrigatório" />
 						
-						<h:outputText value="Email:" />
-						<p:inputText id="email" maxlength="50" size="40" value="#{outorganteBean.outorgante.email}"/>				
+						<h:outputText for="email" value="Email:" />
+						<p:inputText id="email" maxlength="50" size="40" value="#{outorganteBean.outorgante.email}" required="true" requiredMessage="Campo 'Email Outorgante' obrigatório"/>				
 						
 				</h:panelGrid>					
 				</p:tab>
@@ -100,23 +106,23 @@
 				<p:tab id="enderecoClientes" title="Endereço">
 				
 					<h:panelGrid columns="4">
-						<h:outputText value="Rua:" />
-						<p:inputText id="rua" maxlength="40" size="30" value="#{outorganteBean.outorgante.rua}" />				
+						<h:outputText for="rua" value="Rua:" />
+						<p:inputText id="rua" maxlength="40" size="30" value="#{outorganteBean.outorgante.rua}" required="true" requiredMessage="Campo 'Rua' obrigatório" />				
 				
-						<h:outputText value="Bairro:" />
-						<p:inputText id="bairro" maxlength="40" size="30" value="#{outorganteBean.outorgante.bairro}"/>
+						<h:outputText for="bairro" value="Bairro:" />
+						<p:inputText id="bairro" maxlength="40" size="30" value="#{outorganteBean.outorgante.bairro}" required="true" requiredMessage="Campo 'Bairro' obrigatório"/>
 						
-						<h:outputText value="Cidade:" />
-						<p:inputText id="cidade" maxlength="40" size="30" value="#{outorganteBean.outorgante.cidade}"/>				
+						<h:outputText for="cidade" value="Cidade:" />
+						<p:inputText id="cidade" maxlength="40" size="30" value="#{outorganteBean.outorgante.cidade}" required="true" requiredMessage="Campo 'Cidade' obrigatório"/>				
 
 						<h:outputText value="Número:" />
-						<p:inputText id="numero" maxlength="10" size="4" value="#{outorganteBean.outorgante.numero}" />						
+						<p:inputText id="numero" maxlength="10" size="4" value="#{outorganteBean.outorgante.numero}" required="true" requiredMessage="Campo 'Numero' obrigatório" />						
 
 						<h:outputText value="Complemento:" />
-						<p:inputText id="complemento" maxlength="40" size="30" value="#{outorganteBean.outorgante.complemento}" />									
+						<p:inputText id="complemento" maxlength="40" size="30" value="#{outorganteBean.outorgante.complemento}" required="true" requiredMessage="Campo 'Complemento' obrigatório" />									
 
 						<h:outputText value="UF: " />
-						<p:inputText id="uf" maxlength="2" size="2" value="#{outorganteBean.outorgante.uf}" />			
+						<p:inputText id="uf" maxlength="2" size="2" value="#{outorganteBean.outorgante.uf}" required="true" requiredMessage="Campo 'UF' obrigatório" />			
 					</h:panelGrid>
 				</p:tab>
 
@@ -137,16 +143,19 @@
 					<h:panelGrid columns="2">
 					
 					<h:outputText value="Registro:" />
-					<p:inputText id="registro" maxlength="10" size="10" value="#{outorganteBean.outorgante.registroTecnico}"/>
+					<p:inputText id="registro" maxlength="10" size="10" value="#{outorganteBean.outorgante.registroTecnico}" required="true" requiredMessage="Campo 'Registro' obrigatório"
+					validatorMessage="Informe um registro diferente de '0'">
+					<f:validateLongRange minimum="1"/>
+					</p:inputText>
 					
 					<h:outputText value="Nome:" />
-					<p:inputText id="nomeTecnico" maxlength="50" size="50" value="#{outorganteBean.outorgante.nomeTecnico}"/>			
+					<p:inputText id="nomeTecnico" maxlength="50" size="50" value="#{outorganteBean.outorgante.nomeTecnico}" required="true" requiredMessage="Campo 'Nome Tecnico' obrigatório"/>			
 					
 					<h:outputText value="Telefone:" />
-					<p:inputText id="telefoneTecnico" maxlength="9" size="14" value="#{outorganteBean.outorgante.telefoneTecnico}"/>  
-					
+					<p:inputMask id="telefoneTecnico" mask="(99) 9 9999-9999" maxlength="18" size="18" value="#{outorganteBean.outorgante.telefoneTecnico}" required="true" requiredMessage="Campo 'Telefone' obrigatório"/>				
+				    
 					<h:outputText value="Email:" />
-					<p:inputText id="emailTecnico"  maxlength="50" size="40" value="#{outorganteBean.outorgante.emailTecnico}"/>	
+					<p:inputText id="emailTecnico"  maxlength="50" size="40" value="#{outorganteBean.outorgante.emailTecnico}" required="true" requiredMessage="Campo 'Email Tecnico' obrigatório"/>	
 						
 					</h:panelGrid>
 				</p:tab>
@@ -214,11 +223,11 @@
            <p:tab id="outrasModalidades" title="Outras Modalidades">
 			<h:panelGrid columns="2">					
 					
-				<h:outputText value="Outros:" />
+				<h:outputText for="id" value="Outros:" />
 				<p:inputText id="outros" label="outros" size="15" maxlength="20" value="#{outorganteBean.outorgante.outrasModalidades}" />
 					
 			    <p:outputLabel for="barragem" value="Barragem:" />
-				<p:selectOneMenu id="barragem" value="#{outorganteBean.outorgante.barragem}" required="true" requiredMessage="O campo 'Tipo' é obrigatório">
+				<p:selectOneMenu id="barragem" value="#{outorganteBean.outorgante.barragem}">
                          <f:selectItem itemValue="0" itemLabel="0"/>				        
 				         <f:selectItem itemValue="1" itemLabel="Maior 500.000m³"/>
 				         <f:selectItem itemValue="2" itemLabel="Menor 500.000m³"/>				       			      

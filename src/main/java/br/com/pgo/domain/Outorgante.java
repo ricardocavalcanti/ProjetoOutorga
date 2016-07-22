@@ -42,7 +42,7 @@ public class Outorgante extends GenericDomain {
 	private int cep;
 
 	@Column(length = 50, nullable = false)
-	private int telefone;
+	private String telefone;
 
 	@Column(length = 50, nullable = false)
 	private String email;
@@ -57,7 +57,7 @@ public class Outorgante extends GenericDomain {
 	private int registroTecnico;
 
 	@Column(length = 50, nullable = false)
-	private int telefoneTecnico;
+	private String telefoneTecnico;
 
 	@Column(length = 50, nullable = false)
 	private String emailTecnico;
@@ -217,11 +217,11 @@ public class Outorgante extends GenericDomain {
 		this.cep = cep;
 	}
 
-	public int getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(int telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 
@@ -257,11 +257,11 @@ public class Outorgante extends GenericDomain {
 		this.registroTecnico = registroTecnico;
 	}
 
-	public int getTelefoneTecnico() {
+	public String getTelefoneTecnico() {
 		return telefoneTecnico;
 	}
 
-	public void setTelefoneTecnico(int telefoneTecnico) {
+	public void setTelefoneTecnico(String telefoneTecnico) {
 		this.telefoneTecnico = telefoneTecnico;
 	}
 
