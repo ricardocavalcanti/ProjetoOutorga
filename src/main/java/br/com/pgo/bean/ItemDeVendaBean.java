@@ -1,6 +1,8 @@
 package br.com.pgo.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -15,6 +17,7 @@ import org.omnifaces.util.Messages;
 import br.com.pgo.dao.UaDAO;
 import br.com.pgo.domain.ItemDeVenda;
 import br.com.pgo.domain.Ua;
+import br.com.pgo.util.Interpolar;
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -108,6 +111,7 @@ public class ItemDeVendaBean implements Serializable {
 	public void calcular() {
 
 		double quantidade = listaItensVenda.size();
+		BigDecimal qtdBigDec = new BigDecimal(listaItensVenda.size());
 
 		// Ordenação Janeiro
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
@@ -123,20 +127,86 @@ public class ItemDeVendaBean implements Serializable {
 				}
 			}
 		});
-	    double posicaoJan=1;
-		for (Ua janeiro : listaItensVenda) {
 		
-			System.out.println("NumeroUA: " + janeiro.getNumeroUa() + " - Mes: Janeiro "	+ " - Vazao: " + janeiro.getJan());
-            
-			//double jan = janeiro.getJan();
-			double media = (posicaoJan / quantidade);
+		int posicaoJan = 1; 
+		double x1 = 0;
+		double x2 = 0;
+		
+		double y1 = 0;
+		double y2 = 0;
 
-			System.out.println("TAMANHO DA LISTA: " + quantidade);
+		// Adiconar os valores percentuais para fazer comparação
+		List<BigDecimal> percentJan = new ArrayList<BigDecimal>();
+		// Para imprimir valores
+		for (Ua janeiro : listaItensVenda) {
+
+			System.out.println("NumeroUA: " + janeiro.getNumeroUa() + " - Mes: Janeiro " + " - Vazao: " + janeiro.getJan());  
+ 
+			// double jan = janeiro.getJan(); posicão / quantidade (3)
+						
+			BigDecimal media = new BigDecimal(posicaoJan).divide(qtdBigDec, 2, RoundingMode.DOWN);		 	
+			percentJan.add(media);
+			// x2 = media;
+			System.out.println("TAMANHO DA LISTA: " + qtdBigDec);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoJan);
-			System.out.println("--------------------------------------------");
-			posicaoJan++;
+		
+			posicaoJan++; 
+		}
+		System.out.println("--------------------------------------------");
+		System.out.println("Percent Jan");
+		
+		percentJan.forEach(media->System.out.println(media));
+		
+		System.out.println("--------------------------------------------");
+
+		System.out.println("HARD!");
+		
+		double menor = 0;
+		double maior = 0;
+		BigDecimal maiorBigDec = BigDecimal.ZERO;
+		BigDecimal menorBigDec = BigDecimal.ZERO;
+
+        int x = -1;
+        double z = 0.8;        
+        BigDecimal zBigDec = new BigDecimal("0.1");
+		
+		for (BigDecimal media : percentJan) {
+			
+			if (media.compareTo(zBigDec) == 1) {
+
+				maiorBigDec = media;
+				break;
+			}
+		}
+		
+		for (int i = percentJan.size() - 1; i > -1; i--) {
+			
+			BigDecimal mediaTemp = percentJan.get(i);					
+			
+			if (mediaTemp.compareTo(zBigDec) == -1) {
+
+				menorBigDec = mediaTemp;
+				break;
+			}
 		}
 
+//		while (x < percentJan.size()) {
+//			x++;
+//			// achar o primeiro maior
+//			if (z < percentJan.get(x)) {
+//
+//				maior = percentJan.get(x);
+//				break;
+//			}
+//
+//		}
+//     
+		System.out.println("--------------------------------------------");
+
+		System.out.println("WHILE menor: !" + menorBigDec);
+		System.out.println("WHILE maior: !" + maiorBigDec);
+		System.out.println("--------------------------------------------");
+                                                                               
 		// Ordenação Fevereiro
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
 			@Override
@@ -151,19 +221,20 @@ public class ItemDeVendaBean implements Serializable {
 				}
 			}
 		});
-	    double posicaoFev=1;
+		double posicaoFev = 1;
 		for (Ua fevereiro : listaItensVenda) {
-			
-			System.out.println(	"NumeroUA: " + fevereiro.getNumeroUa() + " Mes: Fevereiro " + " Vazao: " + fevereiro.getFev());
-			
-			//double fev = fevereiro.getFev();
+
+			System.out.println(
+					"NumeroUA: " + fevereiro.getNumeroUa() + " Mes: Fevereiro " + " Vazao: " + fevereiro.getFev());
+
+			// double fev = fevereiro.getFev();
 			double media = (posicaoFev / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoFev);
 			System.out.println("--------------------------------------------");
 			posicaoFev++;
-			
+
 		}
 
 		// Ordenação Março
@@ -180,12 +251,12 @@ public class ItemDeVendaBean implements Serializable {
 				}
 			}
 		});
-		 double posicaoMar=1;
+		double posicaoMar = 1;
 		for (Ua marco : listaItensVenda) {
-		
+
 			System.out.println("NumeroUA: " + marco.getNumeroUa() + " Mes: Março " + " Vazao: " + marco.getMar());
-			
-			//double mar = marco.getMar();
+
+			// double mar = marco.getMar();
 			double media = (posicaoMar / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
@@ -193,7 +264,6 @@ public class ItemDeVendaBean implements Serializable {
 			System.out.println("--------------------------------------------");
 			posicaoMar++;
 		}
-			
 
 		// Ordenação Abril
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
@@ -209,12 +279,12 @@ public class ItemDeVendaBean implements Serializable {
 				}
 			}
 		});
-		 double posicaoAbr=1;
+		double posicaoAbr = 1;
 		for (Ua abril : listaItensVenda) {
-			
+
 			System.out.println("NumeroUA: " + abril.getNumeroUa() + " Mes: Abril " + " Vazao: " + abril.getAbr());
-			
-			//double abr = abril.getAbr();
+
+			// double abr = abril.getAbr();
 			double media = (posicaoAbr / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
@@ -237,12 +307,12 @@ public class ItemDeVendaBean implements Serializable {
 				}
 			}
 		});
-		 double posicaoMai=1;
+		double posicaoMai = 1;
 		for (Ua maio : listaItensVenda) {
-			
+
 			System.out.println("NumeroUA: " + maio.getNumeroUa() + " Mes: Maio " + " Vazao: " + maio.getMai());
-			
-			//double mai = maio.getMai();
+
+			// double mai = maio.getMai();
 			double media = (posicaoMai / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
@@ -265,12 +335,12 @@ public class ItemDeVendaBean implements Serializable {
 				}
 			}
 		});
-		 double posicaoJun=1;
+		double posicaoJun = 1;
 		for (Ua junho : listaItensVenda) {
-			
+
 			System.out.println("NumeroUA: " + junho.getNumeroUa() + " Mes: Junho " + " Vazao: " + junho.getJun());
-			
-			//double jun = junho.getJun();
+
+			// double jun = junho.getJun();
 			double media = (posicaoJun / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
@@ -293,12 +363,12 @@ public class ItemDeVendaBean implements Serializable {
 				}
 			}
 		});
-		 double posicaoJul=1;
+		double posicaoJul = 1;
 		for (Ua julho : listaItensVenda) {
-			
+
 			System.out.println("NumeroUA: " + julho.getNumeroUa() + " Mes: Julho " + " Vazao: " + julho.getJul());
-			
-			//double jul = julho.getJul();
+
+			// double jul = julho.getJul();
 			double media = (posicaoJul / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
@@ -321,12 +391,12 @@ public class ItemDeVendaBean implements Serializable {
 				}
 			}
 		});
-		double posicaoAgo=1;
+		double posicaoAgo = 1;
 		for (Ua agosto : listaItensVenda) {
-		
+
 			System.out.println("NumeroUA: " + agosto.getNumeroUa() + " Mes: Agosto " + " Vazao: " + agosto.getAgo());
-			
-			//double ago = agosto.getAgo();
+
+			// double ago = agosto.getAgo();
 			double media = (posicaoAgo / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
@@ -349,14 +419,13 @@ public class ItemDeVendaBean implements Serializable {
 				}
 			}
 		});
-		 double posicaoSet=1;
+		double posicaoSet = 1;
 		for (Ua setembro : listaItensVenda) {
-			
-			System.out.println("NumeroUA: " + setembro.getNumeroUa() + " Mes: Setembro " + " Vazao: "
-					+ setembro.getSet());
-			
-			
-			//double set = setembro.getSet();
+
+			System.out.println(
+					"NumeroUA: " + setembro.getNumeroUa() + " Mes: Setembro " + " Vazao: " + setembro.getSet());
+
+			// double set = setembro.getSet();
 			double media = (posicaoSet / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
@@ -378,12 +447,12 @@ public class ItemDeVendaBean implements Serializable {
 				}
 			}
 		});
-		 double posicaoOut=1;
+		double posicaoOut = 1;
 		for (Ua outubro : listaItensVenda) {
-			
+
 			System.out.println("NumeroUA: " + outubro.getNumeroUa() + " Mes: Outubro " + " Vazao: " + outubro.getOut());
-			
-			//double out = outubro.getOut();
+
+			// double out = outubro.getOut();
 			double media = (posicaoOut / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
@@ -406,12 +475,13 @@ public class ItemDeVendaBean implements Serializable {
 				}
 			}
 		});
-		double posicaoNov=1;
+		double posicaoNov = 1;
 		for (Ua novembro : listaItensVenda) {
-			
-			System.out.println("NumeroUA: " + novembro.getNumeroUa() + " Mes: Novembro " + " Vazao: " + novembro.getNov());
-			
-			//double nov = novembro.getNov();
+
+			System.out.println(
+					"NumeroUA: " + novembro.getNumeroUa() + " Mes: Novembro " + " Vazao: " + novembro.getNov());
+
+			// double nov = novembro.getNov();
 			double media = (posicaoNov / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
@@ -434,12 +504,13 @@ public class ItemDeVendaBean implements Serializable {
 				}
 			}
 		});
-		double posicaoDez=1;
+		double posicaoDez = 1;
 		for (Ua dezembro : listaItensVenda) {
-		
-			System.out.println("NumeroUA: " + dezembro.getNumeroUa() + " Mes: Dezembro " + " Vazao: " + dezembro.getDez());
-			
-			//double dez = dezembro.getDez();
+
+			System.out.println(
+					"NumeroUA: " + dezembro.getNumeroUa() + " Mes: Dezembro " + " Vazao: " + dezembro.getDez());
+
+			// double dez = dezembro.getDez();
 			double media = (posicaoDez / quantidade);
 
 			System.out.println("TAMANHO DA LISTA: " + quantidade);
@@ -447,6 +518,11 @@ public class ItemDeVendaBean implements Serializable {
 			System.out.println("--------------------------------------------");
 			posicaoDez++;
 		}
+	}
+
+	private BigDecimal newBigDecimal(String string) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
