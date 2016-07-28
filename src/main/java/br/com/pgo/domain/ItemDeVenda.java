@@ -57,6 +57,6 @@ public class ItemDeVenda extends GenericDomain {
 
 	public void setGarantiaVazao(double garantiaVazao) {
 		this.garantiaVazao = garantiaVazao;
-	}
+	}	
 
 }

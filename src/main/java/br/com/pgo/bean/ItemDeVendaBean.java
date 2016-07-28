@@ -6,7 +6,10 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.function.Consumer;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -14,6 +17,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
+
 import br.com.pgo.dao.UaDAO;
 import br.com.pgo.domain.ItemDeVenda;
 import br.com.pgo.domain.Ua;
@@ -108,12 +112,17 @@ public class ItemDeVendaBean implements Serializable {
 
 	}
 
+	// Método para calcular a interpolação dos pontos
 	public void calcular() {
 
+		// Para contar o tamanho da quantidade de elementos da lista, para ser
+		// utilizado na divisão = (posiçãoJan/Quantidade).
 		double quantidade = listaItensVenda.size();
-		BigDecimal qtdBigDec = new BigDecimal(listaItensVenda.size());
+		BigDecimal qtdBigDec = new BigDecimal(String.valueOf(listaItensVenda.size()));
 
-		// Ordenação Janeiro
+		// -------------------------------------INICIO// JANEIRO---------------------------------------------------------------------------------------------------------//
+		
+		// Para fazer a ordenação Janeiro em ordem descrescente.
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
 			@Override
 			public int compare(Ua ua1, Ua ua2) {
@@ -127,86 +136,121 @@ public class ItemDeVendaBean implements Serializable {
 				}
 			}
 		});
-		
-		int posicaoJan = 1; 
-		double x1 = 0;
-		double x2 = 0;
-		
-		double y1 = 0;
-		double y2 = 0;
-
-		// Adiconar os valores percentuais para fazer comparação
+		// Posição inicial de Janeiro para ser utilizado na divisão =
+		// (posiçãoJan/Quantidade)
+		int posicaoJan = 1;
+		// Adiconar os valores percentuais para fazer a busca dos valores que
+		// estão antes de depois do valor informado para ser interpolado.
 		List<BigDecimal> percentJan = new ArrayList<BigDecimal>();
-		// Para imprimir valores
+		HashMap<String, BigDecimal> mapJan = new HashMap<>();
+		// Para calcular os percentuais (posição/quantidade)
 		for (Ua janeiro : listaItensVenda) {
 
-			System.out.println("NumeroUA: " + janeiro.getNumeroUa() + " - Mes: Janeiro " + " - Vazao: " + janeiro.getJan());  
- 
-			// double jan = janeiro.getJan(); posicão / quantidade (3)
-						
-			BigDecimal media = new BigDecimal(posicaoJan).divide(qtdBigDec, 2, RoundingMode.DOWN);		 	
+			System.out.println(
+					"NumeroUA: " + janeiro.getNumeroUa() + " - Mes: Janeiro " + " - Vazao: " + janeiro.getJan());
+
+			// Adiconando a medeia ao List percentJan
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoJan)).divide(qtdBigDec, 2, RoundingMode.DOWN);
 			percentJan.add(media);
-			// x2 = media;
+
+			mapJan.merge(String.valueOf(media), new BigDecimal(String.valueOf(janeiro.getJan())), BigDecimal::add);
+
 			System.out.println("TAMANHO DA LISTA: " + qtdBigDec);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoJan);
-		
-			posicaoJan++; 
+
+			posicaoJan++;
+
+			// Aqui ficaria o HasMap index 'percentJan(i)' e o valor seria
+			// janeito.getJan(i)
 		}
+		System.out.println("--------------------------------------------");
+
+		// Trabalhando com valores HashMap
+		System.out.println("HashMap - 0.33 : " + mapJan.get("0.33"));
+		System.out.println("HashMap - 0.66 : " + mapJan.get("0.66"));
+		System.out.println("HashMap - 1.00 : " + mapJan.get("1.00"));
+
 		System.out.println("--------------------------------------------");
 		System.out.println("Percent Jan");
-		
-		percentJan.forEach(media->System.out.println(media));
-		
+
+		percentJan.forEach(media -> System.out.println(media));
+
 		System.out.println("--------------------------------------------");
 
-		System.out.println("HARD!");
-		
-		double menor = 0;
-		double maior = 0;
-		BigDecimal maiorBigDec = BigDecimal.ZERO;
-		BigDecimal menorBigDec = BigDecimal.ZERO;
+		System.out.println("INTERPOLAÇÃO!");
 
-        int x = -1;
-        double z = 0.8;        
-        BigDecimal zBigDec = new BigDecimal("0.1");
-		
-		for (BigDecimal media : percentJan) {
-			
-			if (media.compareTo(zBigDec) == 1) {
+		// double x1 = 0; Ver quem vai ser o maior e menor valor
+		// double x2 = 0; Ver quem vai ser o maior e menor valor
 
-				maiorBigDec = media;
+		// double y1 = 0; Pegar a vazao da posição da outra lista
+		// double y2 = 0; Pegar a vazao da posição da outra lista
+
+		BigDecimal x2 = BigDecimal.ZERO;
+		BigDecimal x1 = BigDecimal.ZERO;
+		BigDecimal z = new BigDecimal("0.4"); // Valor informado pelo usuário
+		//Pegar as keys do HashMap da lista de Janeiro
+		Set<String> chaves = mapJan.keySet();
+
+		// Achar maior valor x2
+		for (BigDecimal valor : percentJan) {
+
+			if (valor.compareTo(z) == 1) {
+
+				x2 = valor;
+
 				break;
 			}
 		}
-		
+
+		// Achar menor valor y2
+		BigDecimal y2 = BigDecimal.ZERO;
+		for (String c : chaves) {
+			if (mapJan.get(c) == mapJan.get(String.valueOf(x2))) {
+
+				y2 = mapJan.get(c);				
+				System.out.println("TESTE_y2: " + y2);
+
+			}
+
+		}
+
+		// Achar menor valor x1
 		for (int i = percentJan.size() - 1; i > -1; i--) {
-			
-			BigDecimal mediaTemp = percentJan.get(i);					
-			
-			if (mediaTemp.compareTo(zBigDec) == -1) {
 
-				menorBigDec = mediaTemp;
+			BigDecimal valor = percentJan.get(i);
+
+			if (valor.compareTo(z) == -1) {
+
+				x1 = valor;
 				break;
 			}
 		}
 
-//		while (x < percentJan.size()) {
-//			x++;
-//			// achar o primeiro maior
-//			if (z < percentJan.get(x)) {
-//
-//				maior = percentJan.get(x);
-//				break;
-//			}
-//
-//		}
-//     
+		// Achar maior valor y1
+		BigDecimal y1 = BigDecimal.ZERO;
+		for (String c : chaves) {
+			if (mapJan.get(c) == mapJan.get(String.valueOf(x1))) {
+
+				y1 = mapJan.get(c);				
+				System.out.println("TESTE_y1: " + y1);
+
+			}
+
+		}
+
+		System.out.println("--------------------------------------------");
+		System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
+		System.out.println("X1: " + x1);
+		System.out.println("X2: " + x2);
+		System.out.println("Z: " + z);
+		System.out.println("Y1: " + y1);
+		System.out.println("Y2: " + y2);
 		System.out.println("--------------------------------------------");
 
-		System.out.println("WHILE menor: !" + menorBigDec);
-		System.out.println("WHILE maior: !" + maiorBigDec);
-		System.out.println("--------------------------------------------");
-                                                                               
+		Interpolar.calcular(x1, x2, z, y1, y2) ;
+
+		// -------------------------------------FIM	// JANEIRO---------------------------------------------------------------------------------------------------------//
+		
 		// Ordenação Fevereiro
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
 			@Override
@@ -294,10 +338,21 @@ public class ItemDeVendaBean implements Serializable {
 		}
 
 		// Ordenação Maio
-		Collections.sort(listaItensVenda, new Comparator<Ua>() {
+		// Usando Lambda
+		listaItensVenda.sort((ua1, ua2) -> {
+			if (ua1.getMai() < ua2.getMai()) {
+				return 1;
+			} else if (ua1.getMai() > ua2.getMai()) {
+				return -1;
+			} else {
+				return 0;
+			}
+		});
+
+		listaItensVenda.sort(new Comparator<Ua>() {
+
 			@Override
 			public int compare(Ua ua1, Ua ua2) {
-
 				if (ua1.getMai() < ua2.getMai()) {
 					return 1;
 				} else if (ua1.getMai() > ua2.getMai()) {
@@ -306,8 +361,47 @@ public class ItemDeVendaBean implements Serializable {
 					return 0;
 				}
 			}
+
 		});
+
+		Comparator<Ua> c = new Comparator<Ua>() {
+
+			@Override
+			public int compare(Ua ua1, Ua ua2) {
+				if (ua1.getMai() < ua2.getMai()) {
+					return 1;
+				} else if (ua1.getMai() > ua2.getMai()) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+
+		};
+		listaItensVenda.sort(c);
+
+		listaItensVenda.sort((ua1, ua2) -> {
+			if (ua1.getMai() < ua2.getMai()) {
+				return 1;
+			} else if (ua1.getMai() > ua2.getMai()) {
+				return -1;
+			} else {
+				return 0;
+			}
+		});
+
+		listaItensVenda.forEach(new Consumer<Ua>() {
+
+			@Override
+			public void accept(Ua ua) {
+				System.out.println(ua.getNumeroUa());
+			}
+		});
+
+		// listaItensVenda.forEach(uaxxxx->System.out.println(uaxxxx.getNumeroUa()));
+
 		double posicaoMai = 1;
+
 		for (Ua maio : listaItensVenda) {
 
 			System.out.println("NumeroUA: " + maio.getNumeroUa() + " Mes: Maio " + " Vazao: " + maio.getMai());
@@ -518,11 +612,6 @@ public class ItemDeVendaBean implements Serializable {
 			System.out.println("--------------------------------------------");
 			posicaoDez++;
 		}
-	}
-
-	private BigDecimal newBigDecimal(String string) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
