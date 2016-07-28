@@ -8,13 +8,13 @@ public class Teste {
 		// TODO Auto-generated method stub
 		
 	
-		BigDecimal x1 = new BigDecimal(0.33);
-		BigDecimal x2 = new BigDecimal(0.66);
-		BigDecimal z = new BigDecimal(0.4);
-		BigDecimal y1 = new BigDecimal(7.0);
-		BigDecimal y2 = new BigDecimal(4.0);
+		//BigDecimal x1 = new BigDecimal(0.33);
+		//BigDecimal x2 = new BigDecimal(0.66);
+		//BigDecimal z = new BigDecimal(0.4);
+		//BigDecimal y1 = new BigDecimal(7.0);
+		//BigDecimal y2 = new BigDecimal(4.0);
 		
-		Interpolar.calcular(x1, x2, z, y1, y2);
+		//Interpolar.calcular(x1, x2, z, y1, y2);
 
 	}
 

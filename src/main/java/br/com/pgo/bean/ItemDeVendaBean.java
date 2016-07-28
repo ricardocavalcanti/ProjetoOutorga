@@ -21,7 +21,8 @@ import org.omnifaces.util.Messages;
 import br.com.pgo.dao.UaDAO;
 import br.com.pgo.domain.ItemDeVenda;
 import br.com.pgo.domain.Ua;
-import br.com.pgo.util.Interpolar;
+import br.com.pgo.util.Interpolacao;
+
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -246,8 +247,12 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("Y1: " + y1);
 		System.out.println("Y2: " + y2);
 		System.out.println("--------------------------------------------");
-
-		Interpolar.calcular(x1, x2, z, y1, y2) ;
+     
+		Interpolacao InterpolarJan = new Interpolacao();
+		
+		System.out.println("INTERPOLACAO JAN: "+InterpolarJan.calcular(x1, x2, z, y1, y2));
+		System.out.println("--------------------------------------------");
+	//	Interpolar.calcular(x1, x2, z, y1, y2) ;
 
 		// -------------------------------------FIM	// JANEIRO---------------------------------------------------------------------------------------------------------//
 		
