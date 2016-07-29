@@ -9,20 +9,15 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Consumer;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-
 import org.omnifaces.util.Messages;
-
 import br.com.pgo.dao.UaDAO;
 import br.com.pgo.domain.ItemDeVenda;
 import br.com.pgo.domain.Ua;
 import br.com.pgo.util.Interpolacao;
-
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -121,16 +116,17 @@ public class ItemDeVendaBean implements Serializable {
 		double quantidade = listaItensVenda.size();
 		BigDecimal qtdBigDec = new BigDecimal(String.valueOf(listaItensVenda.size()));
 
-		// -------------------------------------INICIO// JANEIRO---------------------------------------------------------------------------------------------------------//
-		
+		// -------------------------------------INICIO//
+		// JANEIRO---------------------------------------------------------------------------------------------------------//
+
 		// Para fazer a ordenação Janeiro em ordem descrescente.
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
 			@Override
 			public int compare(Ua ua1, Ua ua2) {
 
-				if (ua1.getJan() < ua2.getJan()) {
+				if (ua2.getJan().compareTo(ua1.getJan()) == 1) {
 					return 1;
-				} else if (ua1.getJan() > ua2.getJan()) {
+				} else if (ua1.getJan().compareTo(ua2.getJan()) == 1) {
 					return -1;
 				} else {
 					return 0;
@@ -189,7 +185,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal x2 = BigDecimal.ZERO;
 		BigDecimal x1 = BigDecimal.ZERO;
 		BigDecimal z = new BigDecimal("0.4"); // Valor informado pelo usuário
-		//Pegar as keys do HashMap da lista de Janeiro
+		// Pegar as keys do HashMap da lista de Janeiro
 		Set<String> chaves = mapJan.keySet();
 
 		// Achar maior valor x2
@@ -208,7 +204,7 @@ public class ItemDeVendaBean implements Serializable {
 		for (String c : chaves) {
 			if (mapJan.get(c) == mapJan.get(String.valueOf(x2))) {
 
-				y2 = mapJan.get(c);				
+				y2 = mapJan.get(c);
 				System.out.println("TESTE_y2: " + y2);
 
 			}
@@ -232,7 +228,7 @@ public class ItemDeVendaBean implements Serializable {
 		for (String c : chaves) {
 			if (mapJan.get(c) == mapJan.get(String.valueOf(x1))) {
 
-				y1 = mapJan.get(c);				
+				y1 = mapJan.get(c);
 				System.out.println("TESTE_y1: " + y1);
 
 			}
@@ -247,53 +243,125 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("Y1: " + y1);
 		System.out.println("Y2: " + y2);
 		System.out.println("--------------------------------------------");
-     
-		Interpolacao InterpolarJan = new Interpolacao();
-		
-		System.out.println("INTERPOLACAO JAN: "+InterpolarJan.calcular(x1, x2, z, y1, y2));
-		System.out.println("--------------------------------------------");
-	//	Interpolar.calcular(x1, x2, z, y1, y2) ;
 
-		// -------------------------------------FIM	// JANEIRO---------------------------------------------------------------------------------------------------------//
-		
+		Interpolacao InterpolarJan = new Interpolacao();
+
+		System.out.println("INTERPOLACAO JAN: " + InterpolarJan.calcular(x1, x2, z, y1, y2));
+		System.out.println("--------------------------------------------");
+		// Interpolar.calcular(x1, x2, z, y1, y2) ;
+
+		// -------------------------------------FIM //
+		// JANEIRO---------------------------------------------------------------------------------------------------------//
+
 		// Ordenação Fevereiro
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
 			@Override
 			public int compare(Ua ua1, Ua ua2) {
 
-				if (ua1.getFev() < ua2.getFev()) {
+				if (ua2.getFev().compareTo(ua1.getFev()) == 1) {
 					return 1;
-				} else if (ua1.getFev() > ua2.getFev()) {
+				} else if (ua1.getFev().compareTo(ua2.getFev()) == 1) {
 					return -1;
 				} else {
 					return 0;
 				}
 			}
 		});
-		double posicaoFev = 1;
+		int posicaoFev = 1;
+		List<BigDecimal> percentFev = new ArrayList<BigDecimal>();
+		HashMap<String, BigDecimal> mapFev = new HashMap<>();
 		for (Ua fevereiro : listaItensVenda) {
 
 			System.out.println(
 					"NumeroUA: " + fevereiro.getNumeroUa() + " Mes: Fevereiro " + " Vazao: " + fevereiro.getFev());
 
-			// double fev = fevereiro.getFev();
-			double media = (posicaoFev / quantidade);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoFev)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			percentFev.add(media);
+			mapFev.merge(String.valueOf(media), new BigDecimal(String.valueOf(fevereiro.getFev())), BigDecimal::add);
 
-			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("TAMANHO DA LISTA: " + qtdBigDec);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoFev);
 			System.out.println("--------------------------------------------");
 			posicaoFev++;
+		}
+
+		System.out.println("--------------------------------------------");
+
+		// Trabalhando com valores HashMap
+		System.out.println("HashMap - 0.33 : " + mapFev.get("0.33"));
+		System.out.println("HashMap - 0.66 : " + mapFev.get("0.66"));
+		System.out.println("HashMap - 1.00 : " + mapFev.get("1.00"));
+
+		System.out.println("--------------------------------------------");
+		System.out.println("Percent Fev");
+
+		percentFev.forEach(media -> System.out.println(media));
+		System.out.println("--------------------------------------------");
+		System.out.println("INTERPOLAÇÃO!");
+
+		Set<String> chavesFev = mapFev.keySet();
+
+		// Achar maior valor fevX2
+		BigDecimal fevX2 = BigDecimal.ZERO;
+		for (BigDecimal valor : percentFev) {
+
+			if (valor.compareTo(z) == 1) {
+
+				fevX2 = valor;
+				break;
+			}
+		}
+		// Achar menor valor fevY2
+		BigDecimal fevY2 = BigDecimal.ZERO;
+		for (String c : chavesFev) {
+			if (mapFev.get(c) == mapFev.get(String.valueOf(fevX2))) {
+				fevY2 = mapFev.get(c);
+				System.out.println("OOOOOFEV Y2: " + fevX2);
+
+			}
 
 		}
+
+		// Achar menor valor fevX1
+		BigDecimal fevX1 = BigDecimal.ZERO;
+		for (int i = percentFev.size() - 1; i > -1; i--) {
+			BigDecimal valor = percentFev.get(i);
+			if (valor.compareTo(z) == -1) {
+				fevX1 = valor;
+				break;
+			}
+		}
+		// Achar maior valor fevY1
+		BigDecimal fevY1 = BigDecimal.ZERO;
+		for (String c : chavesFev) {
+			if (mapFev.get(c) == mapFev.get(String.valueOf(fevX1))) {
+				fevY1 = mapFev.get(c);
+				System.out.println("OOOOOFevY1: " + fevY1);
+			}
+		}
+		System.out.println("--------------------------------------------");
+		System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
+		System.out.println("FevX1: " + fevX1);
+		System.out.println("FevX2: " + fevX2);
+		System.out.println("FevZ: " + z);
+		System.out.println("FevY1: " + fevY1);
+		System.out.println("FevY2: " + fevY2);
+		System.out.println("--------------------------------------------");
+
+		Interpolacao interpolarFev = new Interpolacao();
+		System.out.println("INTERPOLACAO FEV: " + interpolarFev.calcular(fevX1, fevX2, z, fevY1, fevY2));
+		System.out.println("--------------------------------------------");
+
+		// FIM FEVEREIRO
 
 		// Ordenação Março
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
 			@Override
 			public int compare(Ua ua1, Ua ua2) {
 
-				if (ua1.getMar() < ua2.getMar()) {
+				if (ua2.getMar().compareTo(ua1.getMar()) == 1) {
 					return 1;
-				} else if (ua1.getMar() > ua2.getMar()) {
+				} else if (ua1.getMar().compareTo(ua2.getMar()) == 1) {
 					return -1;
 				} else {
 					return 0;
@@ -301,27 +369,96 @@ public class ItemDeVendaBean implements Serializable {
 			}
 		});
 		double posicaoMar = 1;
+		List<BigDecimal> percentMar = new ArrayList<BigDecimal>();
+		HashMap<String, BigDecimal> mapMar = new HashMap<>();
 		for (Ua marco : listaItensVenda) {
 
 			System.out.println("NumeroUA: " + marco.getNumeroUa() + " Mes: Março " + " Vazao: " + marco.getMar());
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoMar)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			percentMar.add(media);
+			mapMar.merge(String.valueOf(media), new BigDecimal(String.valueOf(marco.getMar())), BigDecimal::add);
 
-			// double mar = marco.getMar();
-			double media = (posicaoMar / quantidade);
-
-			System.out.println("TAMANHO DA LISTA: " + quantidade);
-			System.out.println("MEDIA : " + media + " POSICAO " + posicaoMar);
+			System.out.println("TAMANHO DA LISTA: " + qtdBigDec);
+			System.out.println("MEDIA : " + media + " POSICAO " + posicaoFev);
 			System.out.println("--------------------------------------------");
-			posicaoMar++;
+			posicaoFev++;
+
 		}
+		System.out.println("--------------------------------------------");
+		// Trabalhando com valores HashMap
+				System.out.println("HashMap - 0.33 : " + mapMar.get("0.33"));
+				System.out.println("HashMap - 0.66 : " + mapMar.get("0.66"));
+				System.out.println("HashMap - 1.00 : " + mapMar.get("1.00"));
+
+				System.out.println("--------------------------------------------");
+				System.out.println("Percent Fev");
+				percentMar.forEach(media -> System.out.println(media));
+				System.out.println("--------------------------------------------");
+				System.out.println("INTERPOLAÇÃO!");
+				
+				Set<String> chavesMar = mapMar.keySet();
+				
+				//Achar maior valor fevX2
+				BigDecimal marX2 = BigDecimal.ZERO;
+				for(BigDecimal valor : percentMar){
+					
+					if(valor.compareTo(z) == 1){
+						
+						marX2 = valor;
+						break;
+					   }
+					}
+				//Achar menor valor fevY2		
+				BigDecimal marY2 = BigDecimal.ZERO;
+				for (String c : chavesFev){
+					if(mapMar.get(c) == mapMar.get(String.valueOf(marX2))){
+						marY2 = mapMar.get(c);
+						System.out.println("OOOOOFEV Y2: "+marX2);
+						
+					}					
+				}
+				//Achar menor valor fevX1
+				BigDecimal marX1 = BigDecimal.ZERO;
+				for (int i = percentFev.size()-1; i>-1; i--){
+					BigDecimal valor = percentMar.get(i);
+					if(valor.compareTo(z)==-1){
+						marX1 = valor;
+						break;
+					}
+				}
+				
+				//Achar maior valor fevY1
+				BigDecimal marY1 = BigDecimal.ZERO;
+				for(String c : chavesMar){
+					if(mapMar.get(c)==mapMar.get(String.valueOf(marX1))){
+						fevY1=mapMar.get(c);
+						System.out.println("OOOOOFevY1: "+marY1);
+					}
+				}
+				
+				System.out.println("--------------------------------------------");
+				System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
+				System.out.println("FevX1: " + marX1);
+				System.out.println("FevX2: " + marX2);
+				System.out.println("FevZ: " + z);
+				System.out.println("FevY1: " + marY1);
+				System.out.println("FevY2: " + marY2);
+				System.out.println("--------------------------------------------");
+				
+				Interpolacao interpolarMar = new Interpolacao();
+				System.out.println("INTERPOLACAO FEV: " + interpolarMar.calcular(marX1, marX2, z, marY1, marY2));
+				System.out.println("--------------------------------------------");
+				//FIM DE MARÇO
+				
 
 		// Ordenação Abril
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
 			@Override
 			public int compare(Ua ua1, Ua ua2) {
 
-				if (ua1.getAbr() < ua2.getAbr()) {
+				if (ua2.getAbr().compareTo(ua1.getAbr()) == 1) {
 					return 1;
-				} else if (ua1.getFev() > ua2.getFev()) {
+				} else if (ua1.getAbr().compareTo(ua2.getAbr()) == 1) {
 					return -1;
 				} else {
 					return 0;
@@ -345,65 +482,14 @@ public class ItemDeVendaBean implements Serializable {
 		// Ordenação Maio
 		// Usando Lambda
 		listaItensVenda.sort((ua1, ua2) -> {
-			if (ua1.getMai() < ua2.getMai()) {
+			if (ua2.getMai().compareTo(ua1.getMai()) == 1) {
 				return 1;
-			} else if (ua1.getMai() > ua2.getMai()) {
+			} else if (ua1.getMai().compareTo(ua2.getMai()) == 1) {
 				return -1;
 			} else {
 				return 0;
 			}
 		});
-
-		listaItensVenda.sort(new Comparator<Ua>() {
-
-			@Override
-			public int compare(Ua ua1, Ua ua2) {
-				if (ua1.getMai() < ua2.getMai()) {
-					return 1;
-				} else if (ua1.getMai() > ua2.getMai()) {
-					return -1;
-				} else {
-					return 0;
-				}
-			}
-
-		});
-
-		Comparator<Ua> c = new Comparator<Ua>() {
-
-			@Override
-			public int compare(Ua ua1, Ua ua2) {
-				if (ua1.getMai() < ua2.getMai()) {
-					return 1;
-				} else if (ua1.getMai() > ua2.getMai()) {
-					return -1;
-				} else {
-					return 0;
-				}
-			}
-
-		};
-		listaItensVenda.sort(c);
-
-		listaItensVenda.sort((ua1, ua2) -> {
-			if (ua1.getMai() < ua2.getMai()) {
-				return 1;
-			} else if (ua1.getMai() > ua2.getMai()) {
-				return -1;
-			} else {
-				return 0;
-			}
-		});
-
-		listaItensVenda.forEach(new Consumer<Ua>() {
-
-			@Override
-			public void accept(Ua ua) {
-				System.out.println(ua.getNumeroUa());
-			}
-		});
-
-		// listaItensVenda.forEach(uaxxxx->System.out.println(uaxxxx.getNumeroUa()));
 
 		double posicaoMai = 1;
 
@@ -425,9 +511,9 @@ public class ItemDeVendaBean implements Serializable {
 			@Override
 			public int compare(Ua ua1, Ua ua2) {
 
-				if (ua1.getJun() < ua2.getJun()) {
+				if (ua2.getJun().compareTo(ua1.getJun()) == 1) {
 					return 1;
-				} else if (ua1.getJun() > ua2.getJun()) {
+				} else if (ua1.getJun().compareTo(ua2.getJun()) == 1) {
 					return -1;
 				} else {
 					return 0;
@@ -453,9 +539,9 @@ public class ItemDeVendaBean implements Serializable {
 			@Override
 			public int compare(Ua ua1, Ua ua2) {
 
-				if (ua1.getJul() < ua2.getJul()) {
+				if (ua2.getJul().compareTo(ua1.getJul()) == 1) {
 					return 1;
-				} else if (ua1.getJul() > ua2.getJul()) {
+				} else if (ua1.getJul().compareTo(ua2.getJul()) == 1) {
 					return -1;
 				} else {
 					return 0;
@@ -481,9 +567,9 @@ public class ItemDeVendaBean implements Serializable {
 			@Override
 			public int compare(Ua ua1, Ua ua2) {
 
-				if (ua1.getAgo() < ua2.getAgo()) {
+				if (ua2.getAgo().compareTo(ua1.getAgo()) == 1) {
 					return 1;
-				} else if (ua1.getAgo() > ua2.getAgo()) {
+				} else if (ua1.getAgo().compareTo(ua2.getAgo()) == 1) {
 					return -1;
 				} else {
 					return 0;
@@ -509,9 +595,9 @@ public class ItemDeVendaBean implements Serializable {
 			@Override
 			public int compare(Ua ua1, Ua ua2) {
 
-				if (ua1.getSet() < ua2.getSet()) {
+				if (ua2.getSet().compareTo(ua1.getSet()) == 1) {
 					return 1;
-				} else if (ua1.getSet() > ua2.getSet()) {
+				} else if (ua1.getSet().compareTo(ua2.getSet()) == 1) {
 					return -1;
 				} else {
 					return 0;
@@ -537,9 +623,9 @@ public class ItemDeVendaBean implements Serializable {
 			@Override
 			public int compare(Ua ua1, Ua ua2) {
 
-				if (ua1.getOut() < ua2.getOut()) {
+				if (ua2.getOut().compareTo(ua1.getOut()) == 1) {
 					return 1;
-				} else if (ua1.getOut() > ua2.getOut()) {
+				} else if (ua1.getOut().compareTo(ua2.getOut()) == 1) {
 					return -1;
 				} else {
 					return 0;
@@ -565,9 +651,9 @@ public class ItemDeVendaBean implements Serializable {
 			@Override
 			public int compare(Ua ua1, Ua ua2) {
 
-				if (ua1.getNov() < ua2.getNov()) {
+				if (ua2.getNov().compareTo(ua1.getNov()) == 1) {
 					return 1;
-				} else if (ua1.getNov() > ua2.getNov()) {
+				} else if (ua1.getNov().compareTo(ua2.getNov()) == 1) {
 					return -1;
 				} else {
 					return 0;
@@ -594,9 +680,9 @@ public class ItemDeVendaBean implements Serializable {
 			@Override
 			public int compare(Ua ua1, Ua ua2) {
 
-				if (ua1.getDez() < ua2.getDez()) {
+				if (ua2.getDez().compareTo(ua1.getDez()) == 1) {
 					return 1;
-				} else if (ua1.getDez() > ua2.getDez()) {
+				} else if (ua1.getDez().compareTo(ua2.getDez()) == 1) {
 					return -1;
 				} else {
 					return 0;

@@ -1,10 +1,8 @@
 package br.com.pgo.dao;
 
 import java.util.List;
-
 import org.junit.Ignore;
 import org.junit.Test;
-
 import br.com.pgo.domain.Ua;
 
 public class UaDAOTest {
@@ -16,18 +14,18 @@ public class UaDAOTest {
 		Ua cadastrarUa = new Ua();
 		cadastrarUa.setNumeroUa(900);
 		cadastrarUa.setAno(2086);
-		cadastrarUa.setJan(10.0);
-		cadastrarUa.setFev(10.090);
-		cadastrarUa.setMar(20.879);
-		cadastrarUa.setAbr(90.00);
-		cadastrarUa.setMai(10.99787);
-		cadastrarUa.setJun(09.99);
-		cadastrarUa.setJul(15.98);
-		cadastrarUa.setAgo(10.876);
-		cadastrarUa.setSet(30.857);
-		cadastrarUa.setOut(10.758);
-		cadastrarUa.setNov(10.876);
-		cadastrarUa.setDez(80.534);
+		//cadastrarUa.setJan(10.0);
+		//cadastrarUa.setFev(10.090);
+		//cadastrarUa.setMar(20.879);
+		//cadastrarUa.setAbr(90.00);
+		//cadastrarUa.setMai(10.99787);
+		//cadastrarUa.setJun(09.99);
+		//cadastrarUa.setJul(15.98);
+		//cadastrarUa.setAgo(10.876);
+		//cadastrarUa.setSet(30.857);
+		//cadastrarUa.setOut(10.758);
+		//cadastrarUa.setNov(10.876);
+		//cadastrarUa.setDez(80.534);
 
 		UaDAO cadastrarUaDAO = new UaDAO();
 

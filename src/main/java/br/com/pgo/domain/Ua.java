@@ -1,42 +1,56 @@
 package br.com.pgo.domain;
 
+import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-
 @SuppressWarnings("serial")
 @Entity
-public class Ua extends GenericDomain  {
+public class Ua extends GenericDomain {
 
-	
 	@Column(length = 50, nullable = false)
 	private int numeroUa;
+
 	@Column(length = 50, nullable = false)
 	private int ano;
-	@Column(length = 50, nullable = false)
-	private double jan;
-	@Column(length = 50, nullable = false)
-	private double fev;
-	@Column(length = 50, nullable = false)
-	private double mar;
-	@Column(nullable = false, length = 50)
-	private double abr;
-	@Column(length = 50, nullable = false)
-	private double mai;
-	@Column(length = 50, nullable = false)
-	private double jun;
-	@Column(length = 50, nullable = false)
-	private double jul;
-	@Column(length = 50, nullable = false)
-	private double ago;
-	@Column(length = 50, nullable = false)
-	private double set;
-	@Column(length = 50, nullable = false)
-	private double out;
-	@Column(length = 50, nullable = false)
-	private double nov;
-	@Column(length = 50, nullable = false)
-	private double dez;
+
+	// precision, informa total de numero usados
+	// scale, informa total de digitos depois da virgula
+	@Column(nullable = false, precision = 5, scale = 3)
+	private BigDecimal jan;
+
+	@Column(nullable = false, precision = 5, scale = 3)
+	private BigDecimal fev;
+
+	@Column(nullable = false, precision = 5, scale = 3)
+	private BigDecimal mar;
+
+	@Column(nullable = false, precision = 5, scale = 3)
+	private BigDecimal abr;
+
+	@Column(nullable = false, precision = 5, scale = 3)
+	private BigDecimal mai;
+
+	@Column(nullable = false, precision = 5, scale = 3)
+	private BigDecimal jun;
+
+	@Column(nullable = false, precision = 5, scale = 3)
+	private BigDecimal jul;
+
+	@Column(nullable = false, precision = 5, scale = 3)
+	private BigDecimal ago;
+
+	@Column(nullable = false, precision = 5, scale = 3)
+	private BigDecimal set;
+
+	@Column(nullable = false, precision = 5, scale = 3)
+	private BigDecimal out;
+
+	@Column(nullable = false, precision = 5, scale = 3)
+	private BigDecimal nov;
+
+	@Column(nullable = false, precision = 5, scale = 3)
+	private BigDecimal dez;
 
 	public Ua() {
 
@@ -58,100 +72,101 @@ public class Ua extends GenericDomain  {
 		this.ano = ano;
 	}
 
-	public double getJan() {
+	public BigDecimal getJan() {
 		return jan;
 	}
 
-	public void setJan(double jan) {
+	public void setJan(BigDecimal jan) {
 		this.jan = jan;
 	}
 
-	public double getFev() {
+	public BigDecimal getFev() {
 		return fev;
 	}
 
-	public void setFev(double fev) {
+	public void setFev(BigDecimal fev) {
 		this.fev = fev;
 	}
 
-	public double getMar() {
+	public BigDecimal getMar() {
 		return mar;
 	}
 
-	public void setMar(double mar) {
+	public void setMar(BigDecimal mar) {
 		this.mar = mar;
 	}
 
-	public double getAbr() {
+	public BigDecimal getAbr() {
 		return abr;
 	}
 
-	public void setAbr(double abr) {
+	public void setAbr(BigDecimal abr) {
 		this.abr = abr;
 	}
 
-	public double getMai() {
+	public BigDecimal getMai() {
 		return mai;
 	}
 
-	public void setMai(double mai) {
+	public void setMai(BigDecimal mai) {
 		this.mai = mai;
 	}
 
-	public double getJun() {
+	public BigDecimal getJun() {
 		return jun;
 	}
 
-	public void setJun(double jun) {
+	public void setJun(BigDecimal jun) {
 		this.jun = jun;
 	}
 
-	public double getJul() {
+	public BigDecimal getJul() {
 		return jul;
 	}
 
-	public void setJul(double jul) {
+	public void setJul(BigDecimal jul) {
 		this.jul = jul;
 	}
 
-	public double getAgo() {
+	public BigDecimal getAgo() {
 		return ago;
 	}
 
-	public void setAgo(double ago) {
+	public void setAgo(BigDecimal ago) {
 		this.ago = ago;
 	}
 
-	public double getSet() {
+	public BigDecimal getSet() {
 		return set;
 	}
 
-	public void setSet(double set) {
+	public void setSet(BigDecimal set) {
 		this.set = set;
 	}
 
-	public double getOut() {
+	public BigDecimal getOut() {
 		return out;
 	}
 
-	public void setOut(double out) {
+	public void setOut(BigDecimal out) {
 		this.out = out;
 	}
 
-	public double getNov() {
+	public BigDecimal getNov() {
 		return nov;
 	}
 
-	public void setNov(double nov) {
+	public void setNov(BigDecimal nov) {
 		this.nov = nov;
 	}
 
-	public double getDez() {
+	public BigDecimal getDez() {
 		return dez;
 	}
 
-	public void setDez(double dez) {
+	public void setDez(BigDecimal dez) {
 		this.dez = dez;
 	}
 
+	
 }
