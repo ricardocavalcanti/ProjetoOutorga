@@ -17,7 +17,7 @@ import org.omnifaces.util.Messages;
 import br.com.pgo.dao.UaDAO;
 import br.com.pgo.domain.ItemDeVenda;
 import br.com.pgo.domain.Ua;
-import br.com.pgo.util.Interpolacao;
+import br.com.pgo.util.Interpolar;
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -113,7 +113,7 @@ public class ItemDeVendaBean implements Serializable {
 
 		// Para contar o tamanho da quantidade de elementos da lista, para ser
 		// utilizado na divisão = (posiçãoJan/Quantidade).
-		double quantidade = listaItensVenda.size();
+		//double quantidade = listaItensVenda.size();
 		BigDecimal qtdBigDec = new BigDecimal(String.valueOf(listaItensVenda.size()));
 
 		// -------------------------------------INICIO//
@@ -244,7 +244,7 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("Y2: " + y2);
 		System.out.println("--------------------------------------------");
 
-		Interpolacao InterpolarJan = new Interpolacao();
+		Interpolar InterpolarJan = new Interpolar();
 
 		System.out.println("INTERPOLACAO JAN: " + InterpolarJan.calcular(x1, x2, z, y1, y2));
 		System.out.println("--------------------------------------------");
@@ -270,6 +270,7 @@ public class ItemDeVendaBean implements Serializable {
 		int posicaoFev = 1;
 		List<BigDecimal> percentFev = new ArrayList<BigDecimal>();
 		HashMap<String, BigDecimal> mapFev = new HashMap<>();
+
 		for (Ua fevereiro : listaItensVenda) {
 
 			System.out.println(
@@ -348,7 +349,7 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("FevY2: " + fevY2);
 		System.out.println("--------------------------------------------");
 
-		Interpolacao interpolarFev = new Interpolacao();
+		Interpolar interpolarFev = new Interpolar();
 		System.out.println("INTERPOLACAO FEV: " + interpolarFev.calcular(fevX1, fevX2, z, fevY1, fevY2));
 		System.out.println("--------------------------------------------");
 
@@ -371,6 +372,7 @@ public class ItemDeVendaBean implements Serializable {
 		double posicaoMar = 1;
 		List<BigDecimal> percentMar = new ArrayList<BigDecimal>();
 		HashMap<String, BigDecimal> mapMar = new HashMap<>();
+
 		for (Ua marco : listaItensVenda) {
 
 			System.out.println("NumeroUA: " + marco.getNumeroUa() + " Mes: Março " + " Vazao: " + marco.getMar());
@@ -386,70 +388,69 @@ public class ItemDeVendaBean implements Serializable {
 		}
 		System.out.println("--------------------------------------------");
 		// Trabalhando com valores HashMap
-				System.out.println("HashMap - 0.33 : " + mapMar.get("0.33"));
-				System.out.println("HashMap - 0.66 : " + mapMar.get("0.66"));
-				System.out.println("HashMap - 1.00 : " + mapMar.get("1.00"));
+		System.out.println("HashMap - 0.33 : " + mapMar.get("0.33"));
+		System.out.println("HashMap - 0.66 : " + mapMar.get("0.66"));
+		System.out.println("HashMap - 1.00 : " + mapMar.get("1.00"));
 
-				System.out.println("--------------------------------------------");
-				System.out.println("Percent Fev");
-				percentMar.forEach(media -> System.out.println(media));
-				System.out.println("--------------------------------------------");
-				System.out.println("INTERPOLAÇÃO!");
-				
-				Set<String> chavesMar = mapMar.keySet();
-				
-				//Achar maior valor fevX2
-				BigDecimal marX2 = BigDecimal.ZERO;
-				for(BigDecimal valor : percentMar){
-					
-					if(valor.compareTo(z) == 1){
-						
-						marX2 = valor;
-						break;
-					   }
-					}
-				//Achar menor valor fevY2		
-				BigDecimal marY2 = BigDecimal.ZERO;
-				for (String c : chavesFev){
-					if(mapMar.get(c) == mapMar.get(String.valueOf(marX2))){
-						marY2 = mapMar.get(c);
-						System.out.println("OOOOOFEV Y2: "+marX2);
-						
-					}					
-				}
-				//Achar menor valor fevX1
-				BigDecimal marX1 = BigDecimal.ZERO;
-				for (int i = percentFev.size()-1; i>-1; i--){
-					BigDecimal valor = percentMar.get(i);
-					if(valor.compareTo(z)==-1){
-						marX1 = valor;
-						break;
-					}
-				}
-				
-				//Achar maior valor fevY1
-				BigDecimal marY1 = BigDecimal.ZERO;
-				for(String c : chavesMar){
-					if(mapMar.get(c)==mapMar.get(String.valueOf(marX1))){
-						fevY1=mapMar.get(c);
-						System.out.println("OOOOOFevY1: "+marY1);
-					}
-				}
-				
-				System.out.println("--------------------------------------------");
-				System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
-				System.out.println("FevX1: " + marX1);
-				System.out.println("FevX2: " + marX2);
-				System.out.println("FevZ: " + z);
-				System.out.println("FevY1: " + marY1);
-				System.out.println("FevY2: " + marY2);
-				System.out.println("--------------------------------------------");
-				
-				Interpolacao interpolarMar = new Interpolacao();
-				System.out.println("INTERPOLACAO FEV: " + interpolarMar.calcular(marX1, marX2, z, marY1, marY2));
-				System.out.println("--------------------------------------------");
-				//FIM DE MARÇO
-				
+		System.out.println("--------------------------------------------");
+		System.out.println("Percent Fev");
+		percentMar.forEach(media -> System.out.println(media));
+		System.out.println("--------------------------------------------");
+		System.out.println("INTERPOLAÇÃO!");
+
+		Set<String> chavesMar = mapMar.keySet();
+
+		// Achar maior valor fevX2
+		BigDecimal marX2 = BigDecimal.ZERO;
+		for (BigDecimal valor : percentMar) {
+
+			if (valor.compareTo(z) == 1) {
+
+				marX2 = valor;
+				break;
+			}
+		}
+		// Achar menor valor fevY2
+		BigDecimal marY2 = BigDecimal.ZERO;
+		for (String c : chavesFev) {
+			if (mapMar.get(c) == mapMar.get(String.valueOf(marX2))) {
+				marY2 = mapMar.get(c);
+				System.out.println("OOOOOFEV Y2: " + marX2);
+
+			}
+		}
+		// Achar menor valor fevX1
+		BigDecimal marX1 = BigDecimal.ZERO;
+		for (int i = percentFev.size() - 1; i > -1; i--) {
+			BigDecimal valor = percentMar.get(i);
+			if (valor.compareTo(z) == -1) {
+				marX1 = valor;
+				break;
+			}
+		}
+
+		// Achar maior valor fevY1
+		BigDecimal marY1 = BigDecimal.ZERO;
+		for (String c : chavesMar) {
+			if (mapMar.get(c) == mapMar.get(String.valueOf(marX1))) {
+				fevY1 = mapMar.get(c);
+				System.out.println("OOOOOFevY1: " + marY1);
+			}
+		}
+
+		System.out.println("--------------------------------------------");
+		System.out.println("MARÇO PONTOS DE REFERENCIA PARA INTERPOLAR");
+		System.out.println("MarX1: " + marX1);
+		System.out.println("MarX2: " + marX2);
+		System.out.println("MarZ: " + z);
+		System.out.println("MarY1: " + marY1);
+		System.out.println("MarY2: " + marY2);
+		System.out.println("--------------------------------------------");
+
+		Interpolar interpolarMar = new Interpolar();
+		System.out.println("INTERPOLACAO MAR: " + interpolarMar.calcular(marX1, marX2, z, marY1, marY2));
+		System.out.println("--------------------------------------------");
+		// FIM DE MARÇO
 
 		// Ordenação Abril
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
@@ -466,18 +467,89 @@ public class ItemDeVendaBean implements Serializable {
 			}
 		});
 		double posicaoAbr = 1;
+		List<BigDecimal> percentAbr = new ArrayList<BigDecimal>();
+		HashMap<String, BigDecimal> mapAbr = new HashMap<>();
+
 		for (Ua abril : listaItensVenda) {
 
 			System.out.println("NumeroUA: " + abril.getNumeroUa() + " Mes: Abril " + " Vazao: " + abril.getAbr());
 
-			// double abr = abril.getAbr();
-			double media = (posicaoAbr / quantidade);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoAbr)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			percentAbr.add(media);
+			mapAbr.merge(String.valueOf(media), new BigDecimal(String.valueOf(abril.getFev())), BigDecimal::add);
 
-			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("TAMANHO DA LISTA: " + qtdBigDec);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoAbr);
 			System.out.println("--------------------------------------------");
 			posicaoAbr++;
 		}
+		System.out.println("--------------------------------------------");
+
+		// Trabalhando com valores HashMap
+		System.out.println("HashMap - 0.33 : " + mapAbr.get("0.33"));
+		System.out.println("HashMap - 0.66 : " + mapAbr.get("0.66"));
+		System.out.println("HashMap - 1.00 : " + mapAbr.get("1.00"));
+
+		System.out.println("--------------------------------------------");
+		System.out.println("Percent Fev");
+
+		percentAbr.forEach(media -> System.out.println(media));
+		System.out.println("--------------------------------------------");
+		System.out.println("INTERPOLAÇÃO!");
+
+		Set<String> chavesAbr = mapAbr.keySet();
+
+		// Achar maior valor abrX2
+		BigDecimal abrX2 = BigDecimal.ZERO;
+		for (BigDecimal valor : percentAbr) {
+
+			if (valor.compareTo(z) == 1) {
+
+				abrX2 = valor;
+				break;
+			}
+		}
+		// Achar menor valor abrY2
+		BigDecimal abrY2 = BigDecimal.ZERO;
+		for (String c : chavesAbr) {
+			if (mapAbr.get(c) == mapAbr.get(String.valueOf(abrX2))) {
+				abrY2 = mapAbr.get(c);
+				System.out.println("OOOOOFEV Y2: " + abrX2);
+
+			}
+
+		}
+		// Achar menor valor fevX1
+		BigDecimal abrX1 = BigDecimal.ZERO;
+		for (int i = percentAbr.size() - 1; i > -1; i--) {
+			BigDecimal valor = percentAbr.get(i);
+			if (valor.compareTo(z) == -1) {
+				abrX1 = valor;
+				break;
+			}
+		}
+		// Achar maior valor fevY1
+		BigDecimal abrY1 = BigDecimal.ZERO;
+		for (String c : chavesAbr) {
+			if (mapAbr.get(c) == mapAbr.get(String.valueOf(abrX1))) {
+				abrY1 = mapAbr.get(c);
+				System.out.println("OOOOOFevY1: " + abrY1);
+			}
+		}
+		System.out.println("--------------------------------------------");
+		System.out.println(" ABRIL PONTOS DE REFERENCIA PARA INTERPOLAR");
+		System.out.println("AbrX1: " + abrX1);
+		System.out.println("AbrX2: " + abrX2);
+		System.out.println("AbrZ: " + z);
+		System.out.println("AbrY1: " + abrY1);
+		System.out.println("AbrY2: " + abrY2);
+		System.out.println("--------------------------------------------");
+
+		Interpolar interpolarAbr = new Interpolar();
+		System.out.println("INTERPOLACAO FEV: " + interpolarAbr.calcular(abrX1, abrX2, z, abrY1, abrY2));
+		System.out.println("--------------------------------------------");
+
+		// FIM ABRIL
 
 		// Ordenação Maio
 		// Usando Lambda
@@ -492,19 +564,90 @@ public class ItemDeVendaBean implements Serializable {
 		});
 
 		double posicaoMai = 1;
+		List<BigDecimal> percentMai = new ArrayList<BigDecimal>();
+		HashMap<String, BigDecimal> mapMai = new HashMap<>();
 
 		for (Ua maio : listaItensVenda) {
 
 			System.out.println("NumeroUA: " + maio.getNumeroUa() + " Mes: Maio " + " Vazao: " + maio.getMai());
 
-			// double mai = maio.getMai();
-			double media = (posicaoMai / quantidade);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoMai)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			percentMai.add(media);
+			mapMai.merge(String.valueOf(media), new BigDecimal(String.valueOf(maio.getFev())), BigDecimal::add);
 
-			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("TAMANHO DA LISTA: " + qtdBigDec);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoMai);
 			System.out.println("--------------------------------------------");
 			posicaoMai++;
 		}
+		System.out.println("--------------------------------------------");
+
+		// Trabalhando com valores HashMap
+		System.out.println("HashMap - 0.33 : " + mapMai.get("0.33"));
+		System.out.println("HashMap - 0.66 : " + mapMai.get("0.66"));
+		System.out.println("HashMap - 1.00 : " + mapMai.get("1.00"));
+
+		System.out.println("--------------------------------------------");
+		System.out.println("Percent Mai");
+
+		percentMai.forEach(media -> System.out.println(media));
+		System.out.println("--------------------------------------------");
+		System.out.println("INTERPOLAÇÃO!");
+
+		Set<String> chavesMai = mapMai.keySet();
+
+		// Achar maior valor maiX2
+		BigDecimal maiX2 = BigDecimal.ZERO;
+		for (BigDecimal valor : percentMai) {
+
+			if (valor.compareTo(z) == 1) {
+
+				maiX2 = valor;
+				break;
+			}
+		}
+
+		// Achar menor valor maiY2
+		BigDecimal maiY2 = BigDecimal.ZERO;
+		for (String c : chavesMai) {
+			if (mapMai.get(c) == mapMai.get(String.valueOf(maiX2))) {
+				maiY2 = mapMai.get(c);
+				System.out.println("OOOOOFEV Y2: " + maiX2);
+
+			}
+
+		}
+		// Achar menor valor maiX1
+		BigDecimal maiX1 = BigDecimal.ZERO;
+		for (int i = percentMai.size() - 1; i > -1; i--) {
+			BigDecimal valor = percentMai.get(i);
+			if (valor.compareTo(z) == -1) {
+				maiX1 = valor;
+				break;
+			}
+		}
+		// Achar maior valor maiY1
+		BigDecimal maiY1 = BigDecimal.ZERO;
+		for (String c : chavesFev) {
+			if (mapMai.get(c) == mapMai.get(String.valueOf(maiX1))) {
+				maiY1 = mapMai.get(c);
+				System.out.println("OOOOOFevY1: " + maiY1);
+			}
+		}
+		System.out.println("--------------------------------------------");
+		System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
+		System.out.println("MaiX1: " + maiX1);
+		System.out.println("MaiX2: " + maiX2);
+		System.out.println("MaiZ: " + z);
+		System.out.println("MaiY1: " + maiY1);
+		System.out.println("MaiY2: " + maiY2);
+		System.out.println("--------------------------------------------");
+
+		Interpolar interpolarMai = new Interpolar();
+		System.out.println("INTERPOLACAO FEV: " + interpolarMai.calcular(maiX1, maiX2, z, maiY1, maiY2));
+		System.out.println("--------------------------------------------");
+
+		// FIM MAIO
 
 		// Ordenação Junho
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
@@ -521,18 +664,87 @@ public class ItemDeVendaBean implements Serializable {
 			}
 		});
 		double posicaoJun = 1;
+		List<BigDecimal> percentJun = new ArrayList<BigDecimal>();
+		HashMap<String, BigDecimal> mapJun = new HashMap<>();
 		for (Ua junho : listaItensVenda) {
 
 			System.out.println("NumeroUA: " + junho.getNumeroUa() + " Mes: Junho " + " Vazao: " + junho.getJun());
 
-			// double jun = junho.getJun();
-			double media = (posicaoJun / quantidade);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoJun)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			percentJun.add(media);
+			mapJun.merge(String.valueOf(media), new BigDecimal(String.valueOf(junho.getFev())), BigDecimal::add);
 
-			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("TAMANHO DA LISTA: " + qtdBigDec);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoJun);
 			System.out.println("--------------------------------------------");
 			posicaoJun++;
 		}
+		System.out.println("--------------------------------------------");
+
+		// Trabalhando com valores HashMap
+		System.out.println("HashMap - 0.33 : " + mapJun.get("0.33"));
+		System.out.println("HashMap - 0.66 : " + mapJun.get("0.66"));
+		System.out.println("HashMap - 1.00 : " + mapJun.get("1.00"));
+
+		System.out.println("--------------------------------------------");
+		System.out.println("Percent Fev");
+
+		percentJun.forEach(media -> System.out.println(media));
+		System.out.println("--------------------------------------------");
+		System.out.println("INTERPOLAÇÃO!");
+
+		Set<String> chavesJun = mapJun.keySet();
+
+		// Achar maior valor junX2
+		BigDecimal junX2 = BigDecimal.ZERO;
+		for (BigDecimal valor : percentJun) {
+
+			if (valor.compareTo(z) == 1) {
+
+				junX2 = valor;
+				break;
+			}
+		}
+		// Achar menor valor junY2
+		BigDecimal junY2 = BigDecimal.ZERO;
+		for (String c : chavesJun) {
+			if (mapJun.get(c) == mapJun.get(String.valueOf(junX2))) {
+				junY2 = mapJun.get(c);
+				System.out.println("OOOOOFEV Y2: " + junX2);
+
+			}
+		}
+		// Achar menor valor junX1
+		BigDecimal junX1 = BigDecimal.ZERO;
+		for (int i = percentJun.size() - 1; i > -1; i--) {
+			BigDecimal valor = percentJun.get(i);
+			if (valor.compareTo(z) == -1) {
+				junX1 = valor;
+				break;
+			}
+		}
+		// Achar maior valor junY1
+		BigDecimal junY1 = BigDecimal.ZERO;
+		for (String c : chavesJun) {
+			if (mapJun.get(c) == mapJun.get(String.valueOf(junX1))) {
+				junY1 = mapJun.get(c);
+				System.out.println("OOOOOFevY1: " + junY1);
+			}
+		}
+		System.out.println("--------------------------------------------");
+		System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
+		System.out.println("JunX1: " + junX1);
+		System.out.println("JunX2: " + junX2);
+		System.out.println("JunZ: " + z);
+		System.out.println("JunY1: " + junY1);
+		System.out.println("JunY2: " + junY2);
+		System.out.println("--------------------------------------------");
+
+		Interpolar interpolarJun = new Interpolar();
+		System.out.println("INTERPOLACAO FEV: " + interpolarJun.calcular(junX1, junX2, z, junY1, junY2));
+		System.out.println("--------------------------------------------");
+
+		// FIM JUNHO
 
 		// Ordenação Julho
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
@@ -549,18 +761,88 @@ public class ItemDeVendaBean implements Serializable {
 			}
 		});
 		double posicaoJul = 1;
+		List<BigDecimal> percentJul = new ArrayList<BigDecimal>();
+		HashMap<String, BigDecimal> mapJul = new HashMap<>();
 		for (Ua julho : listaItensVenda) {
 
 			System.out.println("NumeroUA: " + julho.getNumeroUa() + " Mes: Julho " + " Vazao: " + julho.getJul());
 
-			// double jul = julho.getJul();
-			double media = (posicaoJul / quantidade);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoJul)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			percentJul.add(media);
+			mapJul.merge(String.valueOf(media), new BigDecimal(String.valueOf(julho.getFev())), BigDecimal::add);
 
-			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("TAMANHO DA LISTA: " + qtdBigDec);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoJul);
 			System.out.println("--------------------------------------------");
 			posicaoJul++;
 		}
+
+		System.out.println("--------------------------------------------");
+
+		// Trabalhando com valores HashMap
+		System.out.println("HashMap - 0.33 : " + mapJul.get("0.33"));
+		System.out.println("HashMap - 0.66 : " + mapJul.get("0.66"));
+		System.out.println("HashMap - 1.00 : " + mapJul.get("1.00"));
+
+		System.out.println("--------------------------------------------");
+		System.out.println("Percent Fev");
+
+		percentFev.forEach(media -> System.out.println(media));
+		System.out.println("--------------------------------------------");
+		System.out.println("INTERPOLAÇÃO!");
+
+		Set<String> chavesJul = mapFev.keySet();
+
+		// Achar maior valor julX2
+		BigDecimal julX2 = BigDecimal.ZERO;
+		for (BigDecimal valor : percentJul) {
+
+			if (valor.compareTo(z) == 1) {
+
+				julX2 = valor;
+				break;
+			}
+		}
+		// Achar menor valor julY2
+		BigDecimal julY2 = BigDecimal.ZERO;
+		for (String c : chavesJul) {
+			if (mapJul.get(c) == mapJul.get(String.valueOf(julX2))) {
+				julY2 = mapJul.get(c);
+				System.out.println("OOOOOFEV Y2: " + julX2);
+
+			}
+		}
+		// Achar menor valor fevX1
+		BigDecimal julX1 = BigDecimal.ZERO;
+		for (int i = percentFev.size() - 1; i > -1; i--) {
+			BigDecimal valor = percentJul.get(i);
+			if (valor.compareTo(z) == -1) {
+				julX1 = valor;
+				break;
+			}
+		}
+		// Achar maior valor julY1
+		BigDecimal julY1 = BigDecimal.ZERO;
+		for (String c : chavesFev) {
+			if (mapFev.get(c) == mapFev.get(String.valueOf(julX1))) {
+				julY1 = mapFev.get(c);
+				System.out.println("OOOOOFevY1: " + julY1);
+			}
+		}
+		System.out.println("--------------------------------------------");
+		System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
+		System.out.println("JulX1: " + julX1);
+		System.out.println("JulX2: " + julX2);
+		System.out.println("JulZ: " + z);
+		System.out.println("JulY1: " + julY1);
+		System.out.println("JulY2: " + julY2);
+		System.out.println("--------------------------------------------");
+
+		Interpolar interpolarJul = new Interpolar();
+		System.out.println("INTERPOLACAO FEV: " + interpolarJul.calcular(julX1, julX2, z, julY1, julY2));
+		System.out.println("--------------------------------------------");
+
+		// FIM JULHO
 
 		// Ordenação Agosto
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
@@ -577,18 +859,88 @@ public class ItemDeVendaBean implements Serializable {
 			}
 		});
 		double posicaoAgo = 1;
+		List<BigDecimal> percentAgo = new ArrayList<BigDecimal>();
+		HashMap<String, BigDecimal> mapAgo = new HashMap<>();
 		for (Ua agosto : listaItensVenda) {
 
 			System.out.println("NumeroUA: " + agosto.getNumeroUa() + " Mes: Agosto " + " Vazao: " + agosto.getAgo());
 
-			// double ago = agosto.getAgo();
-			double media = (posicaoAgo / quantidade);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoAgo)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			percentAgo.add(media);
+			mapAgo.merge(String.valueOf(media), new BigDecimal(String.valueOf(agosto.getFev())), BigDecimal::add);
 
-			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("TAMANHO DA LISTA: " + qtdBigDec);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoAgo);
 			System.out.println("--------------------------------------------");
 			posicaoAgo++;
 		}
+
+		System.out.println("--------------------------------------------");
+
+		// Trabalhando com valores HashMap
+		System.out.println("HashMap - 0.33 : " + mapAgo.get("0.33"));
+		System.out.println("HashMap - 0.66 : " + mapAgo.get("0.66"));
+		System.out.println("HashMap - 1.00 : " + mapAgo.get("1.00"));
+
+		System.out.println("--------------------------------------------");
+		System.out.println("Percent Ago");
+
+		percentFev.forEach(media -> System.out.println(media));
+		System.out.println("--------------------------------------------");
+		System.out.println("INTERPOLAÇÃO!");
+
+		Set<String> chavesAgo = mapAgo.keySet();
+
+		// Achar maior valor fevX2
+		BigDecimal agoX2 = BigDecimal.ZERO;
+		for (BigDecimal valor : percentAgo) {
+
+			if (valor.compareTo(z) == 1) {
+
+				agoX2 = valor;
+				break;
+			}
+		}
+		// Achar menor valor fevY2
+		BigDecimal agoY2 = BigDecimal.ZERO;
+		for (String c : chavesAgo) {
+			if (mapAgo.get(c) == mapAgo.get(String.valueOf(agoX2))) {
+				agoY2 = mapAgo.get(c);
+				System.out.println("OOOOOFEV Y2: " + agoX2);
+
+			}
+		}
+		// Achar menor valor fevX1
+		BigDecimal agoX1 = BigDecimal.ZERO;
+		for (int i = percentAgo.size() - 1; i > -1; i--) {
+			BigDecimal valor = percentAgo.get(i);
+			if (valor.compareTo(z) == -1) {
+				agoX1 = valor;
+				break;
+			}
+		}
+		// Achar maior valor fevY1
+		BigDecimal agoY1 = BigDecimal.ZERO;
+		for (String c : chavesFev) {
+			if (mapFev.get(c) == mapAgo.get(String.valueOf(agoX1))) {
+				agoY1 = mapAgo.get(c);
+				System.out.println("OOOOOFevY1: " + agoY1);
+			}
+		}
+		System.out.println("--------------------------------------------");
+		System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
+		System.out.println("AgoX1: " + agoX1);
+		System.out.println("AgoX2: " + agoX2);
+		System.out.println("AgoZ: " + z);
+		System.out.println("AgoY1: " + agoY1);
+		System.out.println("AgoY2: " + agoY2);
+		System.out.println("--------------------------------------------");
+
+		Interpolar interpolarAgo = new Interpolar();
+		System.out.println("INTERPOLACAO FEV: " + interpolarAgo.calcular(agoX1, agoX2, z, agoY1, agoY2));
+		System.out.println("--------------------------------------------");
+
+		// FIM AGOSTO
 
 		// Ordenanação Setembro
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
@@ -605,19 +957,89 @@ public class ItemDeVendaBean implements Serializable {
 			}
 		});
 		double posicaoSet = 1;
+		List<BigDecimal> percentSet = new ArrayList<BigDecimal>();
+		HashMap<String, BigDecimal> mapSet = new HashMap<>();
 		for (Ua setembro : listaItensVenda) {
 
 			System.out.println(
 					"NumeroUA: " + setembro.getNumeroUa() + " Mes: Setembro " + " Vazao: " + setembro.getSet());
 
-			// double set = setembro.getSet();
-			double media = (posicaoSet / quantidade);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoSet)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			percentSet.add(media);
+			mapSet.merge(String.valueOf(media), new BigDecimal(String.valueOf(setembro.getFev())), BigDecimal::add);
 
-			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("TAMANHO DA LISTA: " + qtdBigDec);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoSet);
 			System.out.println("--------------------------------------------");
 			posicaoSet++;
 		}
+		System.out.println("--------------------------------------------");
+
+		// Trabalhando com valores HashMap
+		System.out.println("HashMap - 0.33 : " + mapSet.get("0.33"));
+		System.out.println("HashMap - 0.66 : " + mapSet.get("0.66"));
+		System.out.println("HashMap - 1.00 : " + mapSet.get("1.00"));
+
+		System.out.println("--------------------------------------------");
+		System.out.println("Percent Fev");
+
+		percentFev.forEach(media -> System.out.println(media));
+		System.out.println("--------------------------------------------");
+		System.out.println("INTERPOLAÇÃO!");
+
+		Set<String> chavesSet = mapSet.keySet();
+
+		// Achar maior valor fevX2
+		BigDecimal setX2 = BigDecimal.ZERO;
+		for (BigDecimal valor : percentSet) {
+
+			if (valor.compareTo(z) == 1) {
+
+				setX2 = valor;
+				break;
+			}
+		}
+		// Achar menor valor fevY2
+		BigDecimal setY2 = BigDecimal.ZERO;
+		for (String c : chavesSet) {
+			if (mapSet.get(c) == mapSet.get(String.valueOf(setX2))) {
+				setY2 = mapSet.get(c);
+				System.out.println("OOOOOFEV Y2: " + setX2);
+
+			}
+		}
+		// Achar menor valor fevX1
+		BigDecimal setX1 = BigDecimal.ZERO;
+		for (int i = percentSet.size() - 1; i > -1; i--) {
+			BigDecimal valor = percentSet.get(i);
+			if (valor.compareTo(z) == -1) {
+				setX1 = valor;
+				break;
+			}
+		}
+		// Achar maior valor fevY1
+		BigDecimal setY1 = BigDecimal.ZERO;
+		for (String c : chavesSet) {
+			if (mapSet.get(c) == mapSet.get(String.valueOf(setX1))) {
+				setY1 = mapSet.get(c);
+				System.out.println("OOOOOFevY1: " + setY1);
+			}
+		}
+		System.out.println("--------------------------------------------");
+		System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
+		System.out.println("FevX1: " + setX1);
+		System.out.println("FevX2: " + setX2);
+		System.out.println("FevZ: " + z);
+		System.out.println("FevY1: " + setY1);
+		System.out.println("FevY2: " + setY2);
+		System.out.println("--------------------------------------------");
+
+		Interpolar interpolarSet = new Interpolar();
+		System.out.println("INTERPOLACAO FEV: " + interpolarSet.calcular(setX1, setX2, z, setY1, setY2));
+		System.out.println("--------------------------------------------");
+
+		// FIM SETEMBRO
+
 		// Ordenanação Outubro
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
 			@Override
@@ -633,18 +1055,86 @@ public class ItemDeVendaBean implements Serializable {
 			}
 		});
 		double posicaoOut = 1;
+		List<BigDecimal> percentOut = new ArrayList<BigDecimal>();
+		HashMap<String, BigDecimal> mapOut = new HashMap<>();
+
 		for (Ua outubro : listaItensVenda) {
 
 			System.out.println("NumeroUA: " + outubro.getNumeroUa() + " Mes: Outubro " + " Vazao: " + outubro.getOut());
 
-			// double out = outubro.getOut();
-			double media = (posicaoOut / quantidade);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoOut)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			percentOut.add(media);
+			mapOut.merge(String.valueOf(media), new BigDecimal(String.valueOf(outubro.getFev())), BigDecimal::add);
 
-			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("TAMANHO DA LISTA: " + qtdBigDec);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoOut);
 			System.out.println("--------------------------------------------");
 			posicaoOut++;
 		}
+		// Trabalhando com valores HashMap
+		System.out.println("HashMap - 0.33 : " + mapOut.get("0.33"));
+		System.out.println("HashMap - 0.66 : " + mapOut.get("0.66"));
+		System.out.println("HashMap - 1.00 : " + mapOut.get("1.00"));
+
+		System.out.println("--------------------------------------------");
+		System.out.println("Percent Out");
+
+		percentOut.forEach(media -> System.out.println(media));
+		System.out.println("--------------------------------------------");
+		System.out.println("INTERPOLAÇÃO!");
+
+		Set<String> chavesOut = mapOut.keySet();
+
+		// Achar maior valor fevX2
+		BigDecimal outX2 = BigDecimal.ZERO;
+		for (BigDecimal valor : percentOut) {
+
+			if (valor.compareTo(z) == 1) {
+
+				outX2 = valor;
+				break;
+			}
+		}
+		// Achar menor valor fevY2
+		BigDecimal outY2 = BigDecimal.ZERO;
+		for (String c : chavesOut) {
+			if (mapOut.get(c) == mapOut.get(String.valueOf(outX2))) {
+				outY2 = mapOut.get(c);
+				System.out.println("OOOOOFEV Y2: " + outX2);
+
+			}
+		}
+		// Achar menor valor fevX1
+		BigDecimal outX1 = BigDecimal.ZERO;
+		for (int i = percentOut.size() - 1; i > -1; i--) {
+			BigDecimal valor = percentOut.get(i);
+			if (valor.compareTo(z) == -1) {
+				outX1 = valor;
+				break;
+			}
+		}
+		// Achar maior valor fevY1
+		BigDecimal outY1 = BigDecimal.ZERO;
+		for (String c : chavesOut) {
+			if (mapOut.get(c) == mapOut.get(String.valueOf(outX1))) {
+				outY1 = mapOut.get(c);
+				System.out.println("OOOOOFevY1: " + outY1);
+			}
+		}
+		System.out.println("--------------------------------------------");
+		System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
+		System.out.println("OutX1: " + outX1);
+		System.out.println("OutX2: " + outX2);
+		System.out.println("OutZ: " + z);
+		System.out.println("OutY1: " + outY1);
+		System.out.println("OutY2: " + outY2);
+		System.out.println("--------------------------------------------");
+
+		Interpolar interpolarOut = new Interpolar();
+		System.out.println("INTERPOLACAO OUT: " + interpolarOut.calcular(outX1, outX2, z, outY1, outY2));
+		System.out.println("--------------------------------------------");
+
+		// FIM OUTUBRO
 
 		// Ordenanação Novembro
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
@@ -661,19 +1151,88 @@ public class ItemDeVendaBean implements Serializable {
 			}
 		});
 		double posicaoNov = 1;
+		List<BigDecimal> percentNov = new ArrayList<BigDecimal>();
+		HashMap<String, BigDecimal> mapNov = new HashMap<>();
 		for (Ua novembro : listaItensVenda) {
 
 			System.out.println(
 					"NumeroUA: " + novembro.getNumeroUa() + " Mes: Novembro " + " Vazao: " + novembro.getNov());
 
-			// double nov = novembro.getNov();
-			double media = (posicaoNov / quantidade);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoNov)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			percentNov.add(media);
+			mapNov.merge(String.valueOf(media), new BigDecimal(String.valueOf(novembro.getFev())), BigDecimal::add);
 
-			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("TAMANHO DA LISTA: " + qtdBigDec);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoNov);
 			System.out.println("--------------------------------------------");
 			posicaoNov++;
 		}
+		System.out.println("--------------------------------------------");
+
+		// Trabalhando com valores HashMap
+		System.out.println("HashMap - 0.33 : " + mapNov.get("0.33"));
+		System.out.println("HashMap - 0.66 : " + mapNov.get("0.66"));
+		System.out.println("HashMap - 1.00 : " + mapNov.get("1.00"));
+
+		System.out.println("--------------------------------------------");
+		System.out.println("Percent Fev");
+
+		percentNov.forEach(media -> System.out.println(media));
+		System.out.println("--------------------------------------------");
+		System.out.println("INTERPOLAÇÃO!");
+
+		Set<String> chavesNov = mapNov.keySet();
+
+		// Achar maior valor fevX2
+		BigDecimal novX2 = BigDecimal.ZERO;
+		for (BigDecimal valor : percentNov) {
+
+			if (valor.compareTo(z) == 1) {
+
+				novX2 = valor;
+				break;
+			}
+		}
+		// Achar menor valor fevY2
+		BigDecimal novY2 = BigDecimal.ZERO;
+		for (String c : chavesNov) {
+			if (mapNov.get(c) == mapNov.get(String.valueOf(novX2))) {
+				novY2 = mapNov.get(c);
+				System.out.println("OOOOOFEV Y2: " + novX2);
+
+			}
+		}
+		// Achar menor valor fevX1
+		BigDecimal novX1 = BigDecimal.ZERO;
+		for (int i = percentNov.size() - 1; i > -1; i--) {
+			BigDecimal valor = percentNov.get(i);
+			if (valor.compareTo(z) == -1) {
+				novX1 = valor;
+				break;
+			}
+		}
+		// Achar maior valor fevY1
+		BigDecimal novY1 = BigDecimal.ZERO;
+		for (String c : chavesNov) {
+			if (mapNov.get(c) == mapNov.get(String.valueOf(novX1))) {
+				novY1 = mapNov.get(c);
+				System.out.println("OOOOONovY1: " + novY1);
+			}
+		}
+		System.out.println("--------------------------------------------");
+		System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
+		System.out.println("NovX1: " + novX1);
+		System.out.println("NovX2: " + novX2);
+		System.out.println("NovZ: " + z);
+		System.out.println("NovY1: " + novY1);
+		System.out.println("NovY2: " + novY2);
+		System.out.println("--------------------------------------------");
+
+		Interpolar interpolarNov = new Interpolar();
+		System.out.println("INTERPOLACAO NOV: " + interpolarNov.calcular(novX1, novX2, z, novY1, novY2));
+		System.out.println("--------------------------------------------");
+
+		// FIM NOVEMBRO
 
 		// Ordenanação Dezembro
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
@@ -690,19 +1249,87 @@ public class ItemDeVendaBean implements Serializable {
 			}
 		});
 		double posicaoDez = 1;
+		List<BigDecimal> percentDez = new ArrayList<BigDecimal>();
+		HashMap<String, BigDecimal> mapDez = new HashMap<>();
 		for (Ua dezembro : listaItensVenda) {
 
 			System.out.println(
 					"NumeroUA: " + dezembro.getNumeroUa() + " Mes: Dezembro " + " Vazao: " + dezembro.getDez());
 
-			// double dez = dezembro.getDez();
-			double media = (posicaoDez / quantidade);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoDez)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			percentDez.add(media);
+			mapDez.merge(String.valueOf(media), new BigDecimal(String.valueOf(dezembro.getFev())), BigDecimal::add);
 
-			System.out.println("TAMANHO DA LISTA: " + quantidade);
+			System.out.println("TAMANHO DA LISTA: " + qtdBigDec);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoDez);
 			System.out.println("--------------------------------------------");
 			posicaoDez++;
 		}
-	}
+		System.out.println("--------------------------------------------");
 
+		// Trabalhando com valores HashMap
+		System.out.println("HashMap - 0.33 : " + mapDez.get("0.33"));
+		System.out.println("HashMap - 0.66 : " + mapDez.get("0.66"));
+		System.out.println("HashMap - 1.00 : " + mapDez.get("1.00"));
+
+		System.out.println("--------------------------------------------");
+		System.out.println("Percent Dez");
+
+		percentDez.forEach(media -> System.out.println(media));
+		System.out.println("--------------------------------------------");
+		System.out.println("INTERPOLAÇÃO!");
+
+		Set<String> chavesDez = mapDez.keySet();
+
+		// Achar maior valor fevX2
+		BigDecimal dezX2 = BigDecimal.ZERO;
+		for (BigDecimal valor : percentDez) {
+
+			if (valor.compareTo(z) == 1) {
+
+				dezX2 = valor;
+				break;
+			}
+		}
+		// Achar menor valor fevY2
+		BigDecimal dezY2 = BigDecimal.ZERO;
+		for (String c : chavesDez) {
+			if (mapDez.get(c) == mapDez.get(String.valueOf(dezX2))) {
+				dezY2 = mapDez.get(c);
+				System.out.println("OOOOOFEV Y2: " + dezX2);
+
+			}
+		}
+		//Achar menor valor fevX1
+		BigDecimal dezX1 = BigDecimal.ZERO;
+		for (int i = percentDez.size()-1; i>-1; i--){
+			BigDecimal valor = percentFev.get(i);
+			if(valor.compareTo(z)==-1){
+				dezX1 = valor;
+				break;
+			}
+		}
+		//Achar maior valor fevY1
+		BigDecimal dezY1 = BigDecimal.ZERO;
+		for(String c : chavesDez){
+			if(mapDez.get(c)==mapDez.get(String.valueOf(dezX1))){
+				dezY1=mapDez.get(c);
+				System.out.println("OOOOOFevY1: "+dezY1);
+			}
+		}
+		System.out.println("--------------------------------------------");
+		System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
+		System.out.println("DezX1: " + fevX1);
+		System.out.println("DezX2: " + fevX2);
+		System.out.println("DezZ: " + z);
+		System.out.println("DezY1: " + fevY1);
+		System.out.println("DezY2: " + fevY2);
+		System.out.println("--------------------------------------------");
+		
+		Interpolar interpolarDez = new Interpolar();
+		System.out.println("INTERPOLACAO FEV: " + interpolarDez.calcular(dezX1, dezX2, z, dezY1, dezY2));
+		System.out.println("--------------------------------------------");
+		
+		//FIM DEZEMBRO
+	}
 }
