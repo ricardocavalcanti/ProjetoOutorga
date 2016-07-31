@@ -133,6 +133,7 @@ public class ItemDeVendaBean implements Serializable {
 				}
 			}
 		});
+		System.out.println("##########INICIO JANEIRO##############");
 		// Posição inicial de Janeiro para ser utilizado na divisão =
 		// (posiçãoJan/Quantidade)
 		int posicaoJan = 1;
@@ -267,6 +268,7 @@ public class ItemDeVendaBean implements Serializable {
 				}
 			}
 		});
+		System.out.println("##########INICIO FEVEREIRO##############");
 		int posicaoFev = 1;
 		List<BigDecimal> percentFev = new ArrayList<BigDecimal>();
 		HashMap<String, BigDecimal> mapFev = new HashMap<>();
@@ -354,7 +356,7 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("--------------------------------------------");
 
 		// FIM FEVEREIRO
-
+ System.out.println("##########INICIO MARÇO##############");
 		// Ordenação Março
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
 			@Override
@@ -369,7 +371,7 @@ public class ItemDeVendaBean implements Serializable {
 				}
 			}
 		});
-		double posicaoMar = 1;
+		int posicaoMar = 1;
 		List<BigDecimal> percentMar = new ArrayList<BigDecimal>();
 		HashMap<String, BigDecimal> mapMar = new HashMap<>();
 
@@ -381,9 +383,9 @@ public class ItemDeVendaBean implements Serializable {
 			mapMar.merge(String.valueOf(media), new BigDecimal(String.valueOf(marco.getMar())), BigDecimal::add);
 
 			System.out.println("TAMANHO DA LISTA: " + qtdBigDec);
-			System.out.println("MEDIA : " + media + " POSICAO " + posicaoFev);
+			System.out.println("MEDIA : " + media + " POSICAO " + posicaoMar);
 			System.out.println("--------------------------------------------");
-			posicaoFev++;
+			posicaoMar++;
 
 		}
 		System.out.println("--------------------------------------------");
@@ -393,14 +395,14 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("HashMap - 1.00 : " + mapMar.get("1.00"));
 
 		System.out.println("--------------------------------------------");
-		System.out.println("Percent Fev");
+		System.out.println("Percent Mar");
 		percentMar.forEach(media -> System.out.println(media));
 		System.out.println("--------------------------------------------");
 		System.out.println("INTERPOLAÇÃO!");
 
 		Set<String> chavesMar = mapMar.keySet();
 
-		// Achar maior valor fevX2
+		// Achar maior valor marX2
 		BigDecimal marX2 = BigDecimal.ZERO;
 		for (BigDecimal valor : percentMar) {
 
@@ -410,16 +412,16 @@ public class ItemDeVendaBean implements Serializable {
 				break;
 			}
 		}
-		// Achar menor valor fevY2
+		// Achar menor valor marY2
 		BigDecimal marY2 = BigDecimal.ZERO;
 		for (String c : chavesFev) {
 			if (mapMar.get(c) == mapMar.get(String.valueOf(marX2))) {
 				marY2 = mapMar.get(c);
-				System.out.println("OOOOOFEV Y2: " + marX2);
+				System.out.println("OOOOOMAR Y2: " + marY2);
 
 			}
 		}
-		// Achar menor valor fevX1
+		// Achar menor valor marX1
 		BigDecimal marX1 = BigDecimal.ZERO;
 		for (int i = percentFev.size() - 1; i > -1; i--) {
 			BigDecimal valor = percentMar.get(i);
@@ -429,12 +431,12 @@ public class ItemDeVendaBean implements Serializable {
 			}
 		}
 
-		// Achar maior valor fevY1
+		// Achar maior valor marY1
 		BigDecimal marY1 = BigDecimal.ZERO;
 		for (String c : chavesMar) {
 			if (mapMar.get(c) == mapMar.get(String.valueOf(marX1))) {
-				fevY1 = mapMar.get(c);
-				System.out.println("OOOOOFevY1: " + marY1);
+				marY1 = mapMar.get(c);
+				System.out.println("OOOOOMAR Y1: " + marY1);
 			}
 		}
 
@@ -451,7 +453,7 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("INTERPOLACAO MAR: " + interpolarMar.calcular(marX1, marX2, z, marY1, marY2));
 		System.out.println("--------------------------------------------");
 		// FIM DE MARÇO
-
+	System.out.println("##########INICIO ABRIL##############");
 		// Ordenação Abril
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
 			@Override
@@ -476,7 +478,7 @@ public class ItemDeVendaBean implements Serializable {
 
 			BigDecimal media = new BigDecimal(String.valueOf(posicaoAbr)).divide(qtdBigDec, 2, RoundingMode.DOWN);
 			percentAbr.add(media);
-			mapAbr.merge(String.valueOf(media), new BigDecimal(String.valueOf(abril.getFev())), BigDecimal::add);
+			mapAbr.merge(String.valueOf(media), new BigDecimal(String.valueOf(abril.getAbr())), BigDecimal::add);
 
 			System.out.println("TAMANHO DA LISTA: " + qtdBigDec);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoAbr);
@@ -491,7 +493,7 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("HashMap - 1.00 : " + mapAbr.get("1.00"));
 
 		System.out.println("--------------------------------------------");
-		System.out.println("Percent Fev");
+		System.out.println("Percent Abr");
 
 		percentAbr.forEach(media -> System.out.println(media));
 		System.out.println("--------------------------------------------");
@@ -514,7 +516,7 @@ public class ItemDeVendaBean implements Serializable {
 		for (String c : chavesAbr) {
 			if (mapAbr.get(c) == mapAbr.get(String.valueOf(abrX2))) {
 				abrY2 = mapAbr.get(c);
-				System.out.println("OOOOOFEV Y2: " + abrX2);
+				System.out.println("OOOOOABR Y2: " + abrY2);
 
 			}
 
@@ -533,7 +535,7 @@ public class ItemDeVendaBean implements Serializable {
 		for (String c : chavesAbr) {
 			if (mapAbr.get(c) == mapAbr.get(String.valueOf(abrX1))) {
 				abrY1 = mapAbr.get(c);
-				System.out.println("OOOOOFevY1: " + abrY1);
+				System.out.println("OOOOOABRY1: " + abrY1);
 			}
 		}
 		System.out.println("--------------------------------------------");
@@ -546,11 +548,11 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("--------------------------------------------");
 
 		Interpolar interpolarAbr = new Interpolar();
-		System.out.println("INTERPOLACAO FEV: " + interpolarAbr.calcular(abrX1, abrX2, z, abrY1, abrY2));
+		System.out.println("INTERPOLACAO ABRIL: " + interpolarAbr.calcular(abrX1, abrX2, z, abrY1, abrY2));
 		System.out.println("--------------------------------------------");
 
 		// FIM ABRIL
-
+		System.out.println("##########INICIO MAIO##############");
 		// Ordenação Maio
 		// Usando Lambda
 		listaItensVenda.sort((ua1, ua2) -> {
@@ -573,7 +575,7 @@ public class ItemDeVendaBean implements Serializable {
 
 			BigDecimal media = new BigDecimal(String.valueOf(posicaoMai)).divide(qtdBigDec, 2, RoundingMode.DOWN);
 			percentMai.add(media);
-			mapMai.merge(String.valueOf(media), new BigDecimal(String.valueOf(maio.getFev())), BigDecimal::add);
+			mapMai.merge(String.valueOf(media), new BigDecimal(String.valueOf(maio.getMai())), BigDecimal::add);
 
 			System.out.println("TAMANHO DA LISTA: " + qtdBigDec);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoMai);
@@ -612,7 +614,7 @@ public class ItemDeVendaBean implements Serializable {
 		for (String c : chavesMai) {
 			if (mapMai.get(c) == mapMai.get(String.valueOf(maiX2))) {
 				maiY2 = mapMai.get(c);
-				System.out.println("OOOOOFEV Y2: " + maiX2);
+				System.out.println("OOOOOMAIO Y2: " + maiY2);
 
 			}
 
@@ -631,7 +633,7 @@ public class ItemDeVendaBean implements Serializable {
 		for (String c : chavesFev) {
 			if (mapMai.get(c) == mapMai.get(String.valueOf(maiX1))) {
 				maiY1 = mapMai.get(c);
-				System.out.println("OOOOOFevY1: " + maiY1);
+				System.out.println("OOOOOMAIO Y1: " + maiY1);
 			}
 		}
 		System.out.println("--------------------------------------------");
@@ -644,11 +646,11 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("--------------------------------------------");
 
 		Interpolar interpolarMai = new Interpolar();
-		System.out.println("INTERPOLACAO FEV: " + interpolarMai.calcular(maiX1, maiX2, z, maiY1, maiY2));
+		System.out.println("INTERPOLACAO MAIO: " + interpolarMai.calcular(maiX1, maiX2, z, maiY1, maiY2));
 		System.out.println("--------------------------------------------");
 
 		// FIM MAIO
-
+		System.out.println("##########INICIO JUNHO##############");
 		// Ordenação Junho
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
 			@Override
@@ -672,7 +674,7 @@ public class ItemDeVendaBean implements Serializable {
 
 			BigDecimal media = new BigDecimal(String.valueOf(posicaoJun)).divide(qtdBigDec, 2, RoundingMode.DOWN);
 			percentJun.add(media);
-			mapJun.merge(String.valueOf(media), new BigDecimal(String.valueOf(junho.getFev())), BigDecimal::add);
+			mapJun.merge(String.valueOf(media), new BigDecimal(String.valueOf(junho.getJun())), BigDecimal::add);
 
 			System.out.println("TAMANHO DA LISTA: " + qtdBigDec);
 			System.out.println("MEDIA : " + media + " POSICAO " + posicaoJun);
@@ -687,7 +689,7 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("HashMap - 1.00 : " + mapJun.get("1.00"));
 
 		System.out.println("--------------------------------------------");
-		System.out.println("Percent Fev");
+		System.out.println("Percent Jun");
 
 		percentJun.forEach(media -> System.out.println(media));
 		System.out.println("--------------------------------------------");
@@ -710,7 +712,7 @@ public class ItemDeVendaBean implements Serializable {
 		for (String c : chavesJun) {
 			if (mapJun.get(c) == mapJun.get(String.valueOf(junX2))) {
 				junY2 = mapJun.get(c);
-				System.out.println("OOOOOFEV Y2: " + junX2);
+				System.out.println("OOOOOJUNHO Y2: " + junY2);
 
 			}
 		}
@@ -728,7 +730,7 @@ public class ItemDeVendaBean implements Serializable {
 		for (String c : chavesJun) {
 			if (mapJun.get(c) == mapJun.get(String.valueOf(junX1))) {
 				junY1 = mapJun.get(c);
-				System.out.println("OOOOOFevY1: " + junY1);
+				System.out.println("OOOOOJUNHOY1: " + junY1);
 			}
 		}
 		System.out.println("--------------------------------------------");
@@ -741,11 +743,11 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("--------------------------------------------");
 
 		Interpolar interpolarJun = new Interpolar();
-		System.out.println("INTERPOLACAO FEV: " + interpolarJun.calcular(junX1, junX2, z, junY1, junY2));
+		System.out.println("INTERPOLACAO JUN: " + interpolarJun.calcular(junX1, junX2, z, junY1, junY2));
 		System.out.println("--------------------------------------------");
 
 		// FIM JUNHO
-
+		System.out.println("##########INICIO JULHO##############");
 		// Ordenação Julho
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
 			@Override
