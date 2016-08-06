@@ -32,6 +32,7 @@ public class ItemDeVendaBean implements Serializable {
 	garantiaSet, garantiaOut, garantiaNov, garantiaDez;  
 	
 	
+	
 	public void novo() {
 
 		itemDeVenda = new ItemDeVenda();
@@ -68,6 +69,103 @@ public class ItemDeVendaBean implements Serializable {
 
 	public void setItemDeVenda(ItemDeVenda itemDeVenda) {
 		this.itemDeVenda = itemDeVenda;
+	}
+	
+	
+	public BigDecimal getGarantiaJan() {
+		return garantiaJan;
+	}
+
+	public void setGarantiaJan(BigDecimal garantiaJan) {
+		this.garantiaJan = garantiaJan;
+	}
+
+	public BigDecimal getGarantiaFev() {
+		return garantiaFev;
+	}
+
+	public void setGarantiaFev(BigDecimal garantiaFev) {
+		this.garantiaFev = garantiaFev;
+	}
+
+	public BigDecimal getGarantiaMar() {
+		return garantiaMar;
+	}
+
+	public void setGarantiaMar(BigDecimal garantiaMar) {
+		this.garantiaMar = garantiaMar;
+	}
+
+	public BigDecimal getGarantiaAbr() {
+		return garantiaAbr;
+	}
+
+	public void setGarantiaAbr(BigDecimal garantiaAbr) {
+		this.garantiaAbr = garantiaAbr;
+	}
+
+	public BigDecimal getGarantiaMai() {
+		return garantiaMai;
+	}
+
+	public void setGarantiaMai(BigDecimal garantiaMai) {
+		this.garantiaMai = garantiaMai;
+	}
+
+	public BigDecimal getGarantiaJun() {
+		return garantiaJun;
+	}
+
+	public void setGarantiaJun(BigDecimal garantiaJun) {
+		this.garantiaJun = garantiaJun;
+	}
+
+	public BigDecimal getGarantiaJul() {
+		return garantiaJul;
+	}
+
+	public void setGarantiaJul(BigDecimal garantiaJul) {
+		this.garantiaJul = garantiaJul;
+	}
+
+	public BigDecimal getGarantiaAgo() {
+		return garantiaAgo;
+	}
+
+	public void setGarantiaAgo(BigDecimal garantiaAgo) {
+		this.garantiaAgo = garantiaAgo;
+	}
+
+	public BigDecimal getGarantiaSet() {
+		return garantiaSet;
+	}
+
+	public void setGarantiaSet(BigDecimal garantiaSet) {
+		this.garantiaSet = garantiaSet;
+	}
+
+	public BigDecimal getGarantiaOut() {
+		return garantiaOut;
+	}
+
+	public void setGarantiaOut(BigDecimal garantiaOut) {
+		this.garantiaOut = garantiaOut;
+	}
+
+	public BigDecimal getGarantiaNov() {
+		return garantiaNov;
+	}
+
+	public void setGarantiaNov(BigDecimal garantiaNov) {
+		this.garantiaNov = garantiaNov;
+	}
+
+	public BigDecimal getGarantiaDez() {
+		return garantiaDez;
+	}
+
+	public void setGarantiaDez(BigDecimal garantiaDez) {
+		this.garantiaDez = garantiaDez;
 	}
 
 	@PostConstruct
@@ -113,7 +211,7 @@ public class ItemDeVendaBean implements Serializable {
 
 	// Método para calcular a interpolação dos pontos
 	public void calcular() {
-
+   
 		// Para contar o tamanho da quantidade de elementos da lista, para ser
 		// utilizado na divisão = (posiçãoJan/Quantidade).
 		//double quantidade = listaItensVenda.size();
@@ -137,6 +235,7 @@ public class ItemDeVendaBean implements Serializable {
 			}
 		});
 		System.out.println("##########INICIO JANEIRO##############");
+		System.out.println(garantiaJan);
 		// Posição inicial de Janeiro para ser utilizado na divisão =
 		// (posiçãoJan/Quantidade)
 		int posicaoJan = 1;
@@ -188,7 +287,8 @@ public class ItemDeVendaBean implements Serializable {
 
 		BigDecimal x2 = BigDecimal.ZERO;
 		BigDecimal x1 = BigDecimal.ZERO;
-		 // Valor informado pelo usuário
+		//garantiaJan = new BigDecimal(String.valueOf(garantiaJan)).divide(new BigDecimal("100"),2,RoundingMode.DOWN); // Valor informado pelo usuário
+		System.out.println(garantiaJan);
 		// Pegar as keys do HashMap da lista de Janeiro
 		Set<String> chaves = mapJan.keySet();
 
@@ -304,7 +404,8 @@ public class ItemDeVendaBean implements Serializable {
 		percentFev.forEach(media -> System.out.println(media));
 		System.out.println("--------------------------------------------");
 		System.out.println("INTERPOLAÇÃO!");
-
+		
+		garantiaFev = new BigDecimal(String.valueOf(garantiaFev)).divide(new BigDecimal("100"),2,RoundingMode.DOWN); // Valor informado pelo usuário
 		Set<String> chavesFev = mapFev.keySet();
 
 		// Achar maior valor fevX2
@@ -402,7 +503,8 @@ public class ItemDeVendaBean implements Serializable {
 		percentMar.forEach(media -> System.out.println(media));
 		System.out.println("--------------------------------------------");
 		System.out.println("INTERPOLAÇÃO!");
-
+        
+		//garantiaMar = new BigDecimal(String.valueOf(garantiaMar)).divide(new BigDecimal("100"),2,RoundingMode.DOWN); // Valor informado pelo usuário
 		Set<String> chavesMar = mapMar.keySet();
 
 		// Achar maior valor marX2
@@ -501,7 +603,8 @@ public class ItemDeVendaBean implements Serializable {
 		percentAbr.forEach(media -> System.out.println(media));
 		System.out.println("--------------------------------------------");
 		System.out.println("INTERPOLAÇÃO!");
-
+		
+		//garantiaAbr = new BigDecimal(String.valueOf(garantiaAbr)).divide(new BigDecimal("100"),2,RoundingMode.DOWN); // Valor informado pelo usuário
 		Set<String> chavesAbr = mapAbr.keySet();
 
 		// Achar maior valor abrX2
@@ -598,6 +701,8 @@ public class ItemDeVendaBean implements Serializable {
 		percentMai.forEach(media -> System.out.println(media));
 		System.out.println("--------------------------------------------");
 		System.out.println("INTERPOLAÇÃO!");
+		
+		//garantiaMai = new BigDecimal(String.valueOf(garantiaMai)).divide(new BigDecimal("100"),2,RoundingMode.DOWN); // Valor informado pelo usuário
 
 		Set<String> chavesMai = mapMai.keySet();
 
@@ -697,6 +802,8 @@ public class ItemDeVendaBean implements Serializable {
 		percentJun.forEach(media -> System.out.println(media));
 		System.out.println("--------------------------------------------");
 		System.out.println("INTERPOLAÇÃO!");
+		
+		//garantiaJun = new BigDecimal(String.valueOf(garantiaJun)).divide(new BigDecimal("100"),2,RoundingMode.DOWN); // Valor informado pelo usuário
 
 		Set<String> chavesJun = mapJun.keySet();
 
@@ -795,7 +902,8 @@ public class ItemDeVendaBean implements Serializable {
 		percentFev.forEach(media -> System.out.println(media));
 		System.out.println("--------------------------------------------");
 		System.out.println("INTERPOLAÇÃO!");
-
+		
+		//garantiaJul = new BigDecimal(String.valueOf(garantiaJul)).divide(new BigDecimal("100"),2,RoundingMode.DOWN); // Valor informado pelo usuário
 		Set<String> chavesJul = mapJul.keySet();
 
 		// Achar maior valor julX2
@@ -893,7 +1001,8 @@ public class ItemDeVendaBean implements Serializable {
 		percentFev.forEach(media -> System.out.println(media));
 		System.out.println("--------------------------------------------");
 		System.out.println("INTERPOLAÇÃO!");
-
+		
+		//garantiaAgo = new BigDecimal(String.valueOf(garantiaAgo)).divide(new BigDecimal("100"),2,RoundingMode.DOWN); // Valor informado pelo usuário
 		Set<String> chavesAgo = mapAgo.keySet();
 
 		// Achar maior valor fevX2
@@ -991,6 +1100,8 @@ public class ItemDeVendaBean implements Serializable {
 		percentFev.forEach(media -> System.out.println(media));
 		System.out.println("--------------------------------------------");
 		System.out.println("INTERPOLAÇÃO!");
+		
+		//garantiaSet = new BigDecimal(String.valueOf(garantiaSet)).divide(new BigDecimal("100"),2,RoundingMode.DOWN); // Valor informado pelo usuário
 
 		Set<String> chavesSet = mapSet.keySet();
 
@@ -1087,6 +1198,8 @@ public class ItemDeVendaBean implements Serializable {
 		percentOut.forEach(media -> System.out.println(media));
 		System.out.println("--------------------------------------------");
 		System.out.println("INTERPOLAÇÃO!");
+		
+		//garantiaOut = new BigDecimal(String.valueOf(garantiaOut)).divide(new BigDecimal("100"),2,RoundingMode.DOWN); // Valor informado pelo usuário
 
 		Set<String> chavesOut = mapOut.keySet();
 
@@ -1185,7 +1298,8 @@ public class ItemDeVendaBean implements Serializable {
 		percentNov.forEach(media -> System.out.println(media));
 		System.out.println("--------------------------------------------");
 		System.out.println("INTERPOLAÇÃO!");
-
+		
+		//garantiaNov = new BigDecimal(String.valueOf(garantiaNov)).divide(new BigDecimal("100"),2,RoundingMode.DOWN); // Valor informado pelo usuário
 		Set<String> chavesNov = mapNov.keySet();
 
 		// Achar maior valor novX2
@@ -1283,6 +1397,8 @@ public class ItemDeVendaBean implements Serializable {
 		percentDez.forEach(media -> System.out.println(media));
 		System.out.println("--------------------------------------------");
 		System.out.println("INTERPOLAÇÃO!");
+		
+		//garantiaDez = new BigDecimal(String.valueOf(garantiaDez)).divide(new BigDecimal("100"),2,RoundingMode.DOWN); // Valor informado pelo usuário
 
 		Set<String> chavesDez = mapDez.keySet();
 
