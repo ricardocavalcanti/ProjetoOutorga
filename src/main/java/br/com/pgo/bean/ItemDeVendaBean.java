@@ -28,7 +28,10 @@ public class ItemDeVendaBean implements Serializable {
 	private List<Ua> listaUa;
 	private List<Ua> listaItensVenda;
 	private ItemDeVenda itemDeVenda;
-
+	private BigDecimal garantiaJan, garantiaFev, garantiaMar, garantiaAbr, garantiaMai, garantiaJun, garantiaJul, garantiaAgo,
+	garantiaSet, garantiaOut, garantiaNov, garantiaDez;  
+	
+	
 	public void novo() {
 
 		itemDeVenda = new ItemDeVenda();
@@ -185,14 +188,14 @@ public class ItemDeVendaBean implements Serializable {
 
 		BigDecimal x2 = BigDecimal.ZERO;
 		BigDecimal x1 = BigDecimal.ZERO;
-		BigDecimal z = new BigDecimal("0.4"); // Valor informado pelo usuário
+		 // Valor informado pelo usuário
 		// Pegar as keys do HashMap da lista de Janeiro
 		Set<String> chaves = mapJan.keySet();
 
 		// Achar maior valor x2
 		for (BigDecimal valor : percentJan) {
 
-			if (valor.compareTo(z) == 1) {
+			if (valor.compareTo(garantiaJan) == 1) {
 
 				x2 = valor;
 
@@ -217,7 +220,7 @@ public class ItemDeVendaBean implements Serializable {
 
 			BigDecimal valor = percentJan.get(i);
 
-			if (valor.compareTo(z) == -1) {
+			if (valor.compareTo(garantiaJan) == -1) {
 
 				x1 = valor;
 				break;
@@ -240,14 +243,14 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
 		System.out.println("X1: " + x1);
 		System.out.println("X2: " + x2);
-		System.out.println("Z: " + z);
+		System.out.println("Z: " + garantiaJan);
 		System.out.println("Y1: " + y1);
 		System.out.println("Y2: " + y2);
 		System.out.println("--------------------------------------------");
 
 		Interpolar InterpolarJan = new Interpolar();
 
-		System.out.println("INTERPOLACAO JAN: " + InterpolarJan.calcular(x1, x2, z, y1, y2));
+		System.out.println("INTERPOLACAO JAN: " + InterpolarJan.calcular(x1, x2, garantiaJan, y1, y2));
 		System.out.println("--------------------------------------------");
 		// Interpolar.calcular(x1, x2, z, y1, y2) ;
 
@@ -308,7 +311,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal fevX2 = BigDecimal.ZERO;
 		for (BigDecimal valor : percentFev) {
 
-			if (valor.compareTo(z) == 1) {
+			if (valor.compareTo(garantiaFev) == 1) {
 
 				fevX2 = valor;
 				break;
@@ -329,7 +332,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal fevX1 = BigDecimal.ZERO;
 		for (int i = percentFev.size() - 1; i > -1; i--) {
 			BigDecimal valor = percentFev.get(i);
-			if (valor.compareTo(z) == -1) {
+			if (valor.compareTo(garantiaFev) == -1) {
 				fevX1 = valor;
 				break;
 			}
@@ -346,13 +349,13 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
 		System.out.println("FevX1: " + fevX1);
 		System.out.println("FevX2: " + fevX2);
-		System.out.println("FevZ: " + z);
+		System.out.println("FevZ: " + garantiaFev);
 		System.out.println("FevY1: " + fevY1);
 		System.out.println("FevY2: " + fevY2);
 		System.out.println("--------------------------------------------");
 
 		Interpolar interpolarFev = new Interpolar();
-		System.out.println("INTERPOLACAO FEV: " + interpolarFev.calcular(fevX1, fevX2, z, fevY1, fevY2));
+		System.out.println("INTERPOLACAO FEV: " + interpolarFev.calcular(fevX1, fevX2, garantiaFev, fevY1, fevY2));
 		System.out.println("--------------------------------------------");
 
 		// FIM FEVEREIRO
@@ -406,7 +409,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal marX2 = BigDecimal.ZERO;
 		for (BigDecimal valor : percentMar) {
 
-			if (valor.compareTo(z) == 1) {
+			if (valor.compareTo(garantiaMar) == 1) {
 
 				marX2 = valor;
 				break;
@@ -425,7 +428,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal marX1 = BigDecimal.ZERO;
 		for (int i = percentFev.size() - 1; i > -1; i--) {
 			BigDecimal valor = percentMar.get(i);
-			if (valor.compareTo(z) == -1) {
+			if (valor.compareTo(garantiaMar) == -1) {
 				marX1 = valor;
 				break;
 			}
@@ -444,13 +447,13 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("MARÇO PONTOS DE REFERENCIA PARA INTERPOLAR");
 		System.out.println("MarX1: " + marX1);
 		System.out.println("MarX2: " + marX2);
-		System.out.println("MarZ: " + z);
+		System.out.println("MarZ: " + garantiaMar);
 		System.out.println("MarY1: " + marY1);
 		System.out.println("MarY2: " + marY2);
 		System.out.println("--------------------------------------------");
 
 		Interpolar interpolarMar = new Interpolar();
-		System.out.println("INTERPOLACAO MAR: " + interpolarMar.calcular(marX1, marX2, z, marY1, marY2));
+		System.out.println("INTERPOLACAO MAR: " + interpolarMar.calcular(marX1, marX2, garantiaMar, marY1, marY2));
 		System.out.println("--------------------------------------------");
 		// FIM DE MARÇO
 	System.out.println("##########INICIO ABRIL##############");
@@ -505,7 +508,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal abrX2 = BigDecimal.ZERO;
 		for (BigDecimal valor : percentAbr) {
 
-			if (valor.compareTo(z) == 1) {
+			if (valor.compareTo(garantiaAbr) == 1) {
 
 				abrX2 = valor;
 				break;
@@ -525,7 +528,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal abrX1 = BigDecimal.ZERO;
 		for (int i = percentAbr.size() - 1; i > -1; i--) {
 			BigDecimal valor = percentAbr.get(i);
-			if (valor.compareTo(z) == -1) {
+			if (valor.compareTo(garantiaAbr) == -1) {
 				abrX1 = valor;
 				break;
 			}
@@ -542,13 +545,13 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println(" ABRIL PONTOS DE REFERENCIA PARA INTERPOLAR");
 		System.out.println("AbrX1: " + abrX1);
 		System.out.println("AbrX2: " + abrX2);
-		System.out.println("AbrZ: " + z);
+		System.out.println("AbrZ: " + garantiaAbr);
 		System.out.println("AbrY1: " + abrY1);
 		System.out.println("AbrY2: " + abrY2);
 		System.out.println("--------------------------------------------");
 
 		Interpolar interpolarAbr = new Interpolar();
-		System.out.println("INTERPOLACAO ABRIL: " + interpolarAbr.calcular(abrX1, abrX2, z, abrY1, abrY2));
+		System.out.println("INTERPOLACAO ABRIL: " + interpolarAbr.calcular(abrX1, abrX2, garantiaAbr, abrY1, abrY2));
 		System.out.println("--------------------------------------------");
 
 		// FIM ABRIL
@@ -602,7 +605,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal maiX2 = BigDecimal.ZERO;
 		for (BigDecimal valor : percentMai) {
 
-			if (valor.compareTo(z) == 1) {
+			if (valor.compareTo(garantiaMai) == 1) {
 
 				maiX2 = valor;
 				break;
@@ -623,7 +626,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal maiX1 = BigDecimal.ZERO;
 		for (int i = percentMai.size() - 1; i > -1; i--) {
 			BigDecimal valor = percentMai.get(i);
-			if (valor.compareTo(z) == -1) {
+			if (valor.compareTo(garantiaMai) == -1) {
 				maiX1 = valor;
 				break;
 			}
@@ -640,13 +643,13 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
 		System.out.println("MaiX1: " + maiX1);
 		System.out.println("MaiX2: " + maiX2);
-		System.out.println("MaiZ: " + z);
+		System.out.println("MaiZ: " + garantiaMai);
 		System.out.println("MaiY1: " + maiY1);
 		System.out.println("MaiY2: " + maiY2);
 		System.out.println("--------------------------------------------");
 
 		Interpolar interpolarMai = new Interpolar();
-		System.out.println("INTERPOLACAO MAIO: " + interpolarMai.calcular(maiX1, maiX2, z, maiY1, maiY2));
+		System.out.println("INTERPOLACAO MAIO: " + interpolarMai.calcular(maiX1, maiX2, garantiaMai, maiY1, maiY2));
 		System.out.println("--------------------------------------------");
 
 		// FIM MAIO
@@ -701,7 +704,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal junX2 = BigDecimal.ZERO;
 		for (BigDecimal valor : percentJun) {
 
-			if (valor.compareTo(z) == 1) {
+			if (valor.compareTo(garantiaJun) == 1) {
 
 				junX2 = valor;
 				break;
@@ -720,7 +723,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal junX1 = BigDecimal.ZERO;
 		for (int i = percentJun.size() - 1; i > -1; i--) {
 			BigDecimal valor = percentJun.get(i);
-			if (valor.compareTo(z) == -1) {
+			if (valor.compareTo(garantiaJun) == -1) {
 				junX1 = valor;
 				break;
 			}
@@ -737,13 +740,13 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
 		System.out.println("JunX1: " + junX1);
 		System.out.println("JunX2: " + junX2);
-		System.out.println("JunZ: " + z);
+		System.out.println("JunZ: " + garantiaJun);
 		System.out.println("JunY1: " + junY1);
 		System.out.println("JunY2: " + junY2);
 		System.out.println("--------------------------------------------");
 
 		Interpolar interpolarJun = new Interpolar();
-		System.out.println("INTERPOLACAO JUN: " + interpolarJun.calcular(junX1, junX2, z, junY1, junY2));
+		System.out.println("INTERPOLACAO JUN: " + interpolarJun.calcular(junX1, junX2, garantiaJun, junY1, junY2));
 		System.out.println("--------------------------------------------");
 
 		// FIM JUNHO
@@ -799,7 +802,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal julX2 = BigDecimal.ZERO;
 		for (BigDecimal valor : percentJul) {
 
-			if (valor.compareTo(z) == 1) {
+			if (valor.compareTo(garantiaJul) == 1) {
 
 				julX2 = valor;
 				break;
@@ -818,7 +821,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal julX1 = BigDecimal.ZERO;
 		for (int i = percentFev.size() - 1; i > -1; i--) {
 			BigDecimal valor = percentJul.get(i);
-			if (valor.compareTo(z) == -1) {
+			if (valor.compareTo(garantiaJul) == -1) {
 				julX1 = valor;
 				break;
 			}
@@ -835,13 +838,13 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
 		System.out.println("JulX1: " + julX1);
 		System.out.println("JulX2: " + julX2);
-		System.out.println("JulZ: " + z);
+		System.out.println("JulZ: " + garantiaJul);
 		System.out.println("JulY1: " + julY1);
 		System.out.println("JulY2: " + julY2);
 		System.out.println("--------------------------------------------");
 
 		Interpolar interpolarJul = new Interpolar();
-		System.out.println("INTERPOLACAO JULHO: " + interpolarJul.calcular(julX1, julX2, z, julY1, julY2));
+		System.out.println("INTERPOLACAO JULHO: " + interpolarJul.calcular(julX1, julX2, garantiaJul, julY1, julY2));
 		System.out.println("--------------------------------------------");
 
 		// FIM JULHO
@@ -897,7 +900,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal agoX2 = BigDecimal.ZERO;
 		for (BigDecimal valor : percentAgo) {
 
-			if (valor.compareTo(z) == 1) {
+			if (valor.compareTo(garantiaAgo) == 1) {
 
 				agoX2 = valor;
 				break;
@@ -916,7 +919,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal agoX1 = BigDecimal.ZERO;
 		for (int i = percentAgo.size() - 1; i > -1; i--) {
 			BigDecimal valor = percentAgo.get(i);
-			if (valor.compareTo(z) == -1) {
+			if (valor.compareTo(garantiaAgo) == -1) {
 				agoX1 = valor;
 				break;
 			}
@@ -933,13 +936,13 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
 		System.out.println("AgoX1: " + agoX1);
 		System.out.println("AgoX2: " + agoX2);
-		System.out.println("AgoZ: " + z);
+		System.out.println("AgoZ: " + garantiaAgo);
 		System.out.println("AgoY1: " + agoY1);
 		System.out.println("AgoY2: " + agoY2);
 		System.out.println("--------------------------------------------");
 
 		Interpolar interpolarAgo = new Interpolar();
-		System.out.println("INTERPOLACAO FEV: " + interpolarAgo.calcular(agoX1, agoX2, z, agoY1, agoY2));
+		System.out.println("INTERPOLACAO FEV: " + interpolarAgo.calcular(agoX1, agoX2, garantiaAgo, agoY1, agoY2));
 		System.out.println("--------------------------------------------");
 
 		// FIM AGOSTO
@@ -995,7 +998,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal setX2 = BigDecimal.ZERO;
 		for (BigDecimal valor : percentSet) {
 
-			if (valor.compareTo(z) == 1) {
+			if (valor.compareTo(garantiaSet) == 1) {
 
 				setX2 = valor;
 				break;
@@ -1014,7 +1017,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal setX1 = BigDecimal.ZERO;
 		for (int i = percentSet.size() - 1; i > -1; i--) {
 			BigDecimal valor = percentSet.get(i);
-			if (valor.compareTo(z) == -1) {
+			if (valor.compareTo(garantiaSet) == -1) {
 				setX1 = valor;
 				break;
 			}
@@ -1031,13 +1034,13 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
 		System.out.println("FevX1: " + setX1);
 		System.out.println("FevX2: " + setX2);
-		System.out.println("FevZ: " + z);
+		System.out.println("FevZ: " + garantiaSet);
 		System.out.println("FevY1: " + setY1);
 		System.out.println("FevY2: " + setY2);
 		System.out.println("--------------------------------------------");
 
 		Interpolar interpolarSet = new Interpolar();
-		System.out.println("INTERPOLACAO SETEMBRO: " + interpolarSet.calcular(setX1, setX2, z, setY1, setY2));
+		System.out.println("INTERPOLACAO SETEMBRO: " + interpolarSet.calcular(setX1, setX2, garantiaSet, setY1, setY2));
 		System.out.println("--------------------------------------------");
 
 		// FIM SETEMBRO
@@ -1091,7 +1094,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal outX2 = BigDecimal.ZERO;
 		for (BigDecimal valor : percentOut) {
 
-			if (valor.compareTo(z) == 1) {
+			if (valor.compareTo(garantiaOut) == 1) {
 
 				outX2 = valor;
 				break;
@@ -1110,7 +1113,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal outX1 = BigDecimal.ZERO;
 		for (int i = percentOut.size() - 1; i > -1; i--) {
 			BigDecimal valor = percentOut.get(i);
-			if (valor.compareTo(z) == -1) {
+			if (valor.compareTo(garantiaOut) == -1) {
 				outX1 = valor;
 				break;
 			}
@@ -1127,13 +1130,13 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
 		System.out.println("OutX1: " + outX1);
 		System.out.println("OutX2: " + outX2);
-		System.out.println("OutZ: " + z);
+		System.out.println("OutZ: " + garantiaOut);
 		System.out.println("OutY1: " + outY1);
 		System.out.println("OutY2: " + outY2);
 		System.out.println("--------------------------------------------");
 
 		Interpolar interpolarOut = new Interpolar();
-		System.out.println("INTERPOLACAO OUT: " + interpolarOut.calcular(outX1, outX2, z, outY1, outY2));
+		System.out.println("INTERPOLACAO OUT: " + interpolarOut.calcular(outX1, outX2, garantiaOut, outY1, outY2));
 		System.out.println("--------------------------------------------");
 
 		// FIM OUTUBRO
@@ -1189,7 +1192,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal novX2 = BigDecimal.ZERO;
 		for (BigDecimal valor : percentNov) {
 
-			if (valor.compareTo(z) == 1) {
+			if (valor.compareTo(garantiaNov) == 1) {
 
 				novX2 = valor;
 				break;
@@ -1208,7 +1211,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal novX1 = BigDecimal.ZERO;
 		for (int i = percentNov.size() - 1; i > -1; i--) {
 			BigDecimal valor = percentNov.get(i);
-			if (valor.compareTo(z) == -1) {
+			if (valor.compareTo(garantiaNov) == -1) {
 				novX1 = valor;
 				break;
 			}
@@ -1225,13 +1228,13 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
 		System.out.println("NovX1: " + novX1);
 		System.out.println("NovX2: " + novX2);
-		System.out.println("NovZ: " + z);
+		System.out.println("NovZ: " + garantiaNov);
 		System.out.println("NovY1: " + novY1);
 		System.out.println("NovY2: " + novY2);
 		System.out.println("--------------------------------------------");
 
 		Interpolar interpolarNov = new Interpolar();
-		System.out.println("INTERPOLACAO NOVEMBRO: " + interpolarNov.calcular(novX1, novX2, z, novY1, novY2));
+		System.out.println("INTERPOLACAO NOVEMBRO: " + interpolarNov.calcular(novX1, novX2, garantiaNov, novY1, novY2));
 		System.out.println("--------------------------------------------");
 
 		// FIM NOVEMBRO
@@ -1287,7 +1290,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal dezX2 = BigDecimal.ZERO;
 		for (BigDecimal valor : percentDez) {
 
-			if (valor.compareTo(z) == 1) {
+			if (valor.compareTo(garantiaDez) == 1) {
 
 				dezX2 = valor;
 				break;
@@ -1306,7 +1309,7 @@ public class ItemDeVendaBean implements Serializable {
 		BigDecimal dezX1 = BigDecimal.ZERO;
 		for (int i = percentDez.size()-1; i>-1; i--){
 			BigDecimal valor = percentFev.get(i);
-			if(valor.compareTo(z)==-1){
+			if(valor.compareTo(garantiaDez)==-1){
 				dezX1 = valor;
 				break;
 			}
@@ -1323,13 +1326,13 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
 		System.out.println("DezX1: " + dezX1);
 		System.out.println("DezX2: " + dezX2);
-		System.out.println("DezZ: " + z);
+		System.out.println("DezZ: " + garantiaDez);
 		System.out.println("DezY1: " + dezY1);
 		System.out.println("DezY2: " + dezY2);
 		System.out.println("--------------------------------------------");
 		
 		Interpolar interpolarDez = new Interpolar();
-		System.out.println("INTERPOLACAO DEZEMBRO: " + interpolarDez.calcular(dezX1, dezX2, z, dezY1, dezY2));
+		System.out.println("INTERPOLACAO DEZEMBRO: " + interpolarDez.calcular(dezX1, dezX2, garantiaDez, dezY1, dezY2));
 		System.out.println("--------------------------------------------");
 		
 		//FIM DEZEMBRO

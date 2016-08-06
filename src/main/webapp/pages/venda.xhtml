@@ -208,7 +208,7 @@
               	<h:panelGrid id="painel" columns="10">  
               	
                  	<p:outputLabel for="janeiro" value="Janeiro" />
-				    <p:inputText id="janeiro" maxlength="5" size="5">
+				    <p:inputText id="janeiro" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaJan" required="true" requiredMessage="O campo 'Janeiro' é obrigatório">
                           
                     </p:inputText>        
 				    <p:outputLabel for="fevereiro" value="Fevereiro" />
@@ -252,9 +252,6 @@
 				
 			</h:panelGrid>
 			</h:form>
-	</p:dialog>
-	
-
-	
+	</p:dialog>	
 </h:body>
 </html>

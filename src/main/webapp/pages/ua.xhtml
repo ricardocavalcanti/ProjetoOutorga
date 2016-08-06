@@ -147,60 +147,59 @@
 
 		<h:form id="formCadastro">
 
-			<h:panelGrid id="painel" columns="12">
+			<h:panelGrid id="painel" columns="10">
 
 				<p:outputLabel for="numeroUa" value="Numero UA: " />
-				<p:inputText id="numeroUa" maxlength="50" size="10" value="#{uaBean.ua.numeroUa}">
+				<p:inputText id="numeroUa" maxlength="50" size="10" value="#{uaBean.ua.numeroUa}" required="true">
 				<f:validateLongRange minimum="1" maximum="10000000"/>
 				</p:inputText> 					
 				
 				<p:outputLabel for="anoUa" value="Ano UA: " />
-				<p:inputText id="anoUa" maxlength="50" size="10" value="#{uaBean.ua.ano}">
+				<p:inputText id="anoUa" maxlength="50" size="10" value="#{uaBean.ua.ano}" required="true">
 				<f:validateLongRange minimum="1" maximum="10000000"/>
 				</p:inputText> 	
 				
 				<p:outputLabel for="janeiro" value="Janeiro: " />
-				<p:inputText id="janeiro" maxlength="50" size="10" value="#{uaBean.ua.jan}">
+				<p:inputText id="janeiro" maxlength="50" size="10" value="#{uaBean.ua.jan}" required="true">
 				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>	
 				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>			
 				</p:inputText>			
 				
 				<p:outputLabel for="fevereiro" value="Fevereiro: " />
-				<p:inputText id="fevereiro" maxlength="50" size="10" value="#{uaBean.ua.fev}"> 
+				<p:inputText id="fevereiro" maxlength="50" size="10" value="#{uaBean.ua.fev}" required="true"> 
 				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>	
 				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>			
 				</p:inputText>				
 				
 				<p:outputLabel for="marco" value="Março: " />
-				<p:inputText id="marco" maxlength="50" size="10" value="#{uaBean.ua.mar}">
+				<p:inputText id="marco" maxlength="50" size="10" value="#{uaBean.ua.mar}" required="true">
 				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>	
 				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>			
 				</p:inputText>				
 				
 				<p:outputLabel for="abril" value="Abril: " />
-				<p:inputText id="abril" maxlength="50" size="10" value="#{uaBean.ua.abr}"> 
+				<p:inputText id="abril" maxlength="50" size="10" value="#{uaBean.ua.abr}" required="true"> 
 				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>
 				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>				
 				</p:inputText>				
 				
 				<p:outputLabel for="maio" value="Maio: " />
-				<p:inputText id="maio" maxlength="50" size="10" value="#{uaBean.ua.mai}">
+				<p:inputText id="maio" maxlength="50" size="10" value="#{uaBean.ua.mai}" required="true">
 				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>	
 				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>			
 				</p:inputText>				
 				
 				<p:outputLabel  for="junho" value="Junho: " />
-				<p:inputText id="junho" maxlength="50" size="10" value="#{uaBean.ua.jun}">
+				<p:inputText id="junho" maxlength="50" size="10" value="#{uaBean.ua.jun}" required="true">
 				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>	
 				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>			
 				</p:inputText>				
 				
 				<p:outputLabel for="julho" value="Julho: " />
-				<p:inputText id="julho" maxlength="50" size="10" value="#{uaBean.ua.jul}">
+				<p:inputText id="julho" maxlength="50" size="10" value="#{uaBean.ua.jul}" required="true">
 				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>
 				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>				
-				</p:inputText>
-				
+				</p:inputText>				
 				
 				<p:outputLabel for="agosto" value="Agosto: " />
 				<p:inputText id="agosto" maxlength="50" size="10" value="#{uaBean.ua.ago}" required="true">				
