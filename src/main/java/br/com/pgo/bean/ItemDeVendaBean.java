@@ -15,7 +15,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Messages;
 import br.com.pgo.dao.UaDAO;
-import br.com.pgo.domain.ItemDeVenda;
 import br.com.pgo.domain.Ua;
 import br.com.pgo.util.Interpolar;
 
@@ -25,19 +24,15 @@ import br.com.pgo.util.Interpolar;
 public class ItemDeVendaBean implements Serializable {
 
 	private Ua ua;
+	private int num;
 	private List<Ua> listaUa;
 	private List<Ua> listaItensVenda;
-	private ItemDeVenda itemDeVenda;
+	private List<Ua> listaGarantiaVazao;
 	private BigDecimal garantiaJan, garantiaFev, garantiaMar, garantiaAbr, garantiaMai, garantiaJun, garantiaJul, garantiaAgo,
-	garantiaSet, garantiaOut, garantiaNov, garantiaDez;  
+	garantiaSet, garantiaOut, garantiaNov, garantiaDez; 	
 	
 	
 	
-	public void novo() {
-
-		itemDeVenda = new ItemDeVenda();
-
-	}
 
 	public Ua getUa() {
 		return ua;
@@ -63,15 +58,7 @@ public class ItemDeVendaBean implements Serializable {
 		this.listaItensVenda = listaItensVenda;
 	}
 
-	public ItemDeVenda getItemDeVenda() {
-		return itemDeVenda;
-	}
-
-	public void setItemDeVenda(ItemDeVenda itemDeVenda) {
-		this.itemDeVenda = itemDeVenda;
-	}
-	
-	
+		
 	public BigDecimal getGarantiaJan() {
 		return garantiaJan;
 	}
@@ -166,7 +153,9 @@ public class ItemDeVendaBean implements Serializable {
 
 	public void setGarantiaDez(BigDecimal garantiaDez) {
 		this.garantiaDez = garantiaDez;
-	}
+	}	
+
+	
 
 	@PostConstruct
 	public void listar() {
@@ -186,12 +175,21 @@ public class ItemDeVendaBean implements Serializable {
 
 	}
 
+	public List<Ua> getListaGarantiaVazao() {
+		return listaGarantiaVazao;
+	}
+
+	public void setListaGarantiaVazao(List<Ua> listaGarantiaVazao) {
+		this.listaGarantiaVazao = listaGarantiaVazao;
+	}
+
 	public void adicionar(ActionEvent evento) {
 
-		ua = (Ua) evento.getComponent().getAttributes().get("uaSelecionada");
-
+		ua = (Ua) evento.getComponent().getAttributes().get("uaSelecionada");		
+		
 		ua.setAno(ua.getAno());
 		ua.setNumeroUa(ua.getNumeroUa());
+		num = ua.getNumeroUa();
 		ua.setJan(ua.getJan());
 		ua.setFev(ua.getFev());
 		ua.setMar(ua.getMar());
@@ -206,12 +204,22 @@ public class ItemDeVendaBean implements Serializable {
 		ua.setDez(ua.getDez());
 
 		listaItensVenda.add(ua);
+		
+		System.out.println(num);
 
 	}
 
 	// Método para calcular a interpolação dos pontos
 	public void calcular() {
-   
+			
+		
+		Ua garantiaVazao = new  Ua();
+		System.out.println(num);
+		garantiaVazao.setNumeroUa(num);
+		garantiaVazao.setAno(0);
+		
+		
+		
 		// Para contar o tamanho da quantidade de elementos da lista, para ser
 		// utilizado na divisão = (posiçãoJan/Quantidade).
 		//double quantidade = listaItensVenda.size();
@@ -219,7 +227,10 @@ public class ItemDeVendaBean implements Serializable {
 
 		// -------------------------------------INICIO//
 		// JANEIRO---------------------------------------------------------------------------------------------------------//
-
+		
+		
+		if(!garantiaJan.equals(BigDecimal.ZERO)){
+		
 		// Para fazer a ordenação Janeiro em ordem descrescente.
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
 			@Override
@@ -234,6 +245,9 @@ public class ItemDeVendaBean implements Serializable {
 				}
 			}
 		});
+		
+		
+			
 		System.out.println("##########INICIO JANEIRO##############");
 		System.out.println(garantiaJan);
 		// Posição inicial de Janeiro para ser utilizado na divisão =
@@ -352,11 +366,40 @@ public class ItemDeVendaBean implements Serializable {
 
 		System.out.println("INTERPOLACAO JAN: " + InterpolarJan.calcular(x1, x2, garantiaJan, y1, y2));
 		System.out.println("--------------------------------------------");
+		
+	  		
+		
+		garantiaJan = InterpolarJan.calcular(x1, x2, garantiaJan, y1, y2);		
+		//listaGarantiaVazao.add(garantiaJan);	
+		
+		
+		
+		System.out.println("GARANTIA JAN FINAL"+garantiaJan);
+		//Ua ua = new Ua();
+		
+		
+		
+		
 		// Interpolar.calcular(x1, x2, z, y1, y2) ;
 
 		// -------------------------------------FIM //
 		// JANEIRO---------------------------------------------------------------------------------------------------------//
-
+		}else {
+			
+			garantiaJan = BigDecimal.ZERO;
+		}
+		
+		
+		
+		garantiaVazao.setJan(garantiaJan);
+		
+	//	listaGarantiaVazao.add(garantiaVazao);
+		System.out.println(garantiaVazao.getJan());
+		
+		System.out.println("GARANTIA JAN FINAL"+garantiaJan);
+		
+		if(!garantiaFev.equals(BigDecimal.ZERO)){
+		
 		// Ordenação Fevereiro
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
 			@Override
@@ -405,7 +448,7 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("--------------------------------------------");
 		System.out.println("INTERPOLAÇÃO!");
 		
-		garantiaFev = new BigDecimal(String.valueOf(garantiaFev)).divide(new BigDecimal("100"),2,RoundingMode.DOWN); // Valor informado pelo usuário
+		//garantiaFev = new BigDecimal(String.valueOf(garantiaFev)).divide(new BigDecimal("100"),2,RoundingMode.DOWN); // Valor informado pelo usuário
 		Set<String> chavesFev = mapFev.keySet();
 
 		// Achar maior valor fevX2
@@ -423,7 +466,7 @@ public class ItemDeVendaBean implements Serializable {
 		for (String c : chavesFev) {
 			if (mapFev.get(c) == mapFev.get(String.valueOf(fevX2))) {
 				fevY2 = mapFev.get(c);
-				System.out.println("OOOOOFEV Y2: " + fevX2);
+				System.out.println("OOOOOFEV Y2: " + fevY2);
 
 			}
 
@@ -458,9 +501,26 @@ public class ItemDeVendaBean implements Serializable {
 		Interpolar interpolarFev = new Interpolar();
 		System.out.println("INTERPOLACAO FEV: " + interpolarFev.calcular(fevX1, fevX2, garantiaFev, fevY1, fevY2));
 		System.out.println("--------------------------------------------");
-
+		
+		garantiaFev = interpolarFev.calcular(fevX1, fevX2, garantiaFev, fevY1, fevY2);	
+		
+	   
+		
+		
+		
+		} else {
+		
+			 garantiaFev = BigDecimal.ZERO;
+			
+		}
+		
+		garantiaVazao.setFev(garantiaFev);
+		
+		System.out.println("GARANTIA FEVEREIRO FINAL"+garantiaFev);
 		// FIM FEVEREIRO
  System.out.println("##########INICIO MARÇO##############");
+ 
+ if(!garantiaMar.equals(BigDecimal.ZERO)){
 		// Ordenação Março
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
 			@Override
@@ -519,7 +579,7 @@ public class ItemDeVendaBean implements Serializable {
 		}
 		// Achar menor valor marY2
 		BigDecimal marY2 = BigDecimal.ZERO;
-		for (String c : chavesFev) {
+		for (String c : chavesMar) {
 			if (mapMar.get(c) == mapMar.get(String.valueOf(marX2))) {
 				marY2 = mapMar.get(c);
 				System.out.println("OOOOOMAR Y2: " + marY2);
@@ -528,7 +588,7 @@ public class ItemDeVendaBean implements Serializable {
 		}
 		// Achar menor valor marX1
 		BigDecimal marX1 = BigDecimal.ZERO;
-		for (int i = percentFev.size() - 1; i > -1; i--) {
+		for (int i = percentMar.size() - 1; i > -1; i--) {
 			BigDecimal valor = percentMar.get(i);
 			if (valor.compareTo(garantiaMar) == -1) {
 				marX1 = valor;
@@ -558,6 +618,23 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("INTERPOLACAO MAR: " + interpolarMar.calcular(marX1, marX2, garantiaMar, marY1, marY2));
 		System.out.println("--------------------------------------------");
 		// FIM DE MARÇO
+		
+		garantiaMar = interpolarMar.calcular(marX1, marX2, garantiaMar, marY1, marY2);
+		
+		
+		
+		
+ } else {
+	 
+	 garantiaMar = BigDecimal.ZERO;
+	 
+ }
+ 
+ garantiaVazao.setMar(garantiaMar);
+ 
+ if(!garantiaAbr.equals(BigDecimal.ZERO)){
+		
+		
 	System.out.println("##########INICIO ABRIL##############");
 		// Ordenação Abril
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
@@ -656,8 +733,24 @@ public class ItemDeVendaBean implements Serializable {
 		Interpolar interpolarAbr = new Interpolar();
 		System.out.println("INTERPOLACAO ABRIL: " + interpolarAbr.calcular(abrX1, abrX2, garantiaAbr, abrY1, abrY2));
 		System.out.println("--------------------------------------------");
+		
+		garantiaAbr = interpolarAbr.calcular(abrX1, abrX2, garantiaAbr, abrY1, abrY2);
+		
+		
+	
+		
+		System.out.println("GARANTIA ABRIL FINAL"+garantiaAbr);
 
+ } else {
+	 
+	 garantiaAbr = BigDecimal.ZERO;
+ }
+ garantiaVazao.setAbr(garantiaAbr);
+ 
+ 
 		// FIM ABRIL
+ if(!garantiaMai.equals(BigDecimal.ZERO)){
+ 
 		System.out.println("##########INICIO MAIO##############");
 		// Ordenação Maio
 		// Usando Lambda
@@ -738,7 +831,7 @@ public class ItemDeVendaBean implements Serializable {
 		}
 		// Achar maior valor maiY1
 		BigDecimal maiY1 = BigDecimal.ZERO;
-		for (String c : chavesFev) {
+		for (String c : chavesMai) {
 			if (mapMai.get(c) == mapMai.get(String.valueOf(maiX1))) {
 				maiY1 = mapMai.get(c);
 				System.out.println("OOOOOMAIO Y1: " + maiY1);
@@ -756,10 +849,24 @@ public class ItemDeVendaBean implements Serializable {
 		Interpolar interpolarMai = new Interpolar();
 		System.out.println("INTERPOLACAO MAIO: " + interpolarMai.calcular(maiX1, maiX2, garantiaMai, maiY1, maiY2));
 		System.out.println("--------------------------------------------");
+		
+		garantiaMai = interpolarMai.calcular(maiX1, maiX2, garantiaMai, maiY1, maiY2);
+		
+		
+		
 
+ }else {
+	  garantiaMai = BigDecimal.ZERO;
+	 
+ }
+ garantiaVazao.setMai(garantiaMai);
+ 
+ System.out.println("GARANTIA MAIO FINAL"+garantiaMai);
 		// FIM MAIO
 		System.out.println("##########INICIO JUNHO##############");
 		// Ordenação Junho
+		
+		if(!garantiaJun.equals(BigDecimal.ZERO)){		
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
 			@Override
 			public int compare(Ua ua1, Ua ua2) {
@@ -855,7 +962,23 @@ public class ItemDeVendaBean implements Serializable {
 		Interpolar interpolarJun = new Interpolar();
 		System.out.println("INTERPOLACAO JUN: " + interpolarJun.calcular(junX1, junX2, garantiaJun, junY1, junY2));
 		System.out.println("--------------------------------------------");
-
+		
+		garantiaJun = interpolarJun.calcular(junX1, junX2, garantiaJun, junY1, junY2);	
+		
+	
+		
+		
+		System.out.println("GARANTIA JUNHO FINAL"+garantiaJun);
+		
+		}else {
+			
+			garantiaJun = BigDecimal.ZERO;
+			
+		}
+		garantiaVazao.setJun(garantiaJun);
+		
+		if(!garantiaJul.equals(BigDecimal.ZERO)){
+		
 		// FIM JUNHO
 		System.out.println("##########INICIO JULHO##############");
 		// Ordenação Julho
@@ -899,7 +1022,7 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("--------------------------------------------");
 		System.out.println("Percent Jul");
 
-		percentFev.forEach(media -> System.out.println(media));
+		percentJul.forEach(media -> System.out.println(media));
 		System.out.println("--------------------------------------------");
 		System.out.println("INTERPOLAÇÃO!");
 		
@@ -927,7 +1050,7 @@ public class ItemDeVendaBean implements Serializable {
 		}
 		// Achar menor valor julX1
 		BigDecimal julX1 = BigDecimal.ZERO;
-		for (int i = percentFev.size() - 1; i > -1; i--) {
+		for (int i = percentJul.size() - 1; i > -1; i--) {
 			BigDecimal valor = percentJul.get(i);
 			if (valor.compareTo(garantiaJul) == -1) {
 				julX1 = valor;
@@ -954,7 +1077,25 @@ public class ItemDeVendaBean implements Serializable {
 		Interpolar interpolarJul = new Interpolar();
 		System.out.println("INTERPOLACAO JULHO: " + interpolarJul.calcular(julX1, julX2, garantiaJul, julY1, julY2));
 		System.out.println("--------------------------------------------");
-
+		
+		garantiaJul = interpolarJul.calcular(julX1, julX2, garantiaJul, julY1, julY2);	
+		
+		
+		
+		}else {
+			
+			garantiaJul = BigDecimal.ZERO;
+			
+		}
+		garantiaVazao.setJul(garantiaJul);
+		
+		
+		
+		System.out.println("GARANTIA JULHO FINAL"+garantiaJul);
+		
+		
+		if(!garantiaAgo.equals(BigDecimal.ZERO)){	
+		
 		// FIM JULHO
 		System.out.println("##########INICIO AGOSTO##############");
 		// Ordenação Agosto
@@ -998,7 +1139,7 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("--------------------------------------------");
 		System.out.println("Percent Ago");
 
-		percentFev.forEach(media -> System.out.println(media));
+		percentAgo.forEach(media -> System.out.println(media));
 		System.out.println("--------------------------------------------");
 		System.out.println("INTERPOLAÇÃO!");
 		
@@ -1035,7 +1176,7 @@ public class ItemDeVendaBean implements Serializable {
 		}
 		// Achar maior valor fevY1
 		BigDecimal agoY1 = BigDecimal.ZERO;
-		for (String c : chavesFev) {
+		for (String c : chavesAgo) {
 			if (mapAgo.get(c) == mapAgo.get(String.valueOf(agoX1))) {
 				agoY1 = mapAgo.get(c);
 				System.out.println("OOOOOAGOSTO Y1: " + agoY1);
@@ -1051,10 +1192,26 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("--------------------------------------------");
 
 		Interpolar interpolarAgo = new Interpolar();
-		System.out.println("INTERPOLACAO FEV: " + interpolarAgo.calcular(agoX1, agoX2, garantiaAgo, agoY1, agoY2));
+		System.out.println("INTERPOLACAO AGOSTO: " + interpolarAgo.calcular(agoX1, agoX2, garantiaAgo, agoY1, agoY2));
 		System.out.println("--------------------------------------------");
-
+		
+		garantiaAgo = interpolarAgo.calcular(agoX1, agoX2, garantiaAgo, agoY1, agoY2);	
+		
+		
+		
+		}else {
+			
+			garantiaAgo = BigDecimal.ZERO;
+			
+		}
+		
+		garantiaVazao.setAgo(garantiaAgo);
+		
+		System.out.println("GARANTIA AGOSTO FINAL"+garantiaAgo);
+		
 		// FIM AGOSTO
+		if(!garantiaSet.equals(BigDecimal.ZERO)){
+		
 		System.out.println("##########INICIO SETEMBRO##############");
 		// Ordenanação Setembro
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
@@ -1097,7 +1254,7 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("--------------------------------------------");
 		System.out.println("Percent Set");
 
-		percentFev.forEach(media -> System.out.println(media));
+		percentSet.forEach(media -> System.out.println(media));
 		System.out.println("--------------------------------------------");
 		System.out.println("INTERPOLAÇÃO!");
 		
@@ -1153,8 +1310,29 @@ public class ItemDeVendaBean implements Serializable {
 		Interpolar interpolarSet = new Interpolar();
 		System.out.println("INTERPOLACAO SETEMBRO: " + interpolarSet.calcular(setX1, setX2, garantiaSet, setY1, setY2));
 		System.out.println("--------------------------------------------");
-
+		
+		
+		
+		
+		garantiaSet = interpolarSet.calcular(setX1, setX2, garantiaSet, setY1, setY2);	
+		
+		
+		
+		
+		
+		}else{
+			garantiaSet = BigDecimal.ZERO;
+			
+		}
+		
+		garantiaVazao.setSet(garantiaSet);
+		
+		System.out.println("GARANTIA SETEMBRO FINAL"+garantiaSet);
 		// FIM SETEMBRO
+		
+		if(!garantiaOut.equals(BigDecimal.ZERO)){
+		
+		
 		System.out.println("##########INICIO OUTUBRO##############");
 		// Ordenanação Outubro
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
@@ -1251,8 +1429,25 @@ public class ItemDeVendaBean implements Serializable {
 		Interpolar interpolarOut = new Interpolar();
 		System.out.println("INTERPOLACAO OUT: " + interpolarOut.calcular(outX1, outX2, garantiaOut, outY1, outY2));
 		System.out.println("--------------------------------------------");
+		
+		
+		garantiaOut = interpolarOut.calcular(outX1, outX2, garantiaOut, outY1, outY2);	
+	
+		
+		
 
+		}else{
+			
+			 garantiaOut = BigDecimal.ZERO;
+		}
+		
+		garantiaVazao.setOut(garantiaOut);
+		
+		System.out.println("GARANTIA OUTUBRO FINAL"+garantiaOut);
+		
 		// FIM OUTUBRO
+		if(!garantiaNov.equals(BigDecimal.ZERO)){
+		
 		System.out.println("##########INICIO NOVEMBRO##############");
 		// Ordenanação Novembro
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
@@ -1350,8 +1545,20 @@ public class ItemDeVendaBean implements Serializable {
 		Interpolar interpolarNov = new Interpolar();
 		System.out.println("INTERPOLACAO NOVEMBRO: " + interpolarNov.calcular(novX1, novX2, garantiaNov, novY1, novY2));
 		System.out.println("--------------------------------------------");
-
+		
+		garantiaNov = interpolarNov.calcular(novX1, novX2, garantiaNov, novY1, novY2);	
+	
+		
+		
+		}else{
+			
+			garantiaNov = BigDecimal.ZERO;
+		}
+		garantiaVazao.setNov(garantiaNov);
+		System.out.println("GARANTIA NOVEMBRO FINAL"+garantiaNov);
 		// FIM NOVEMBRO
+		
+		if(!garantiaJan.equals(BigDecimal.ZERO)){
 		System.out.println("##########INICIO DEZEMBRO##############");
 		// Ordenanação Dezembro
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
@@ -1424,7 +1631,7 @@ public class ItemDeVendaBean implements Serializable {
 		//Achar menor valor dezX1
 		BigDecimal dezX1 = BigDecimal.ZERO;
 		for (int i = percentDez.size()-1; i>-1; i--){
-			BigDecimal valor = percentFev.get(i);
+			BigDecimal valor = percentDez.get(i);
 			if(valor.compareTo(garantiaDez)==-1){
 				dezX1 = valor;
 				break;
@@ -1451,6 +1658,49 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("INTERPOLACAO DEZEMBRO: " + interpolarDez.calcular(dezX1, dezX2, garantiaDez, dezY1, dezY2));
 		System.out.println("--------------------------------------------");
 		
+		garantiaDez = interpolarDez.calcular(dezX1, dezX2, garantiaDez, dezY1, dezY2);
+		
+		
+		
+		
 		//FIM DEZEMBRO
+		}else{
+			garantiaDez = BigDecimal.ZERO;
+			
+		}
+		
+		garantiaVazao.setDez(garantiaDez);
+		
+		System.out.println("GARANTIA FINAL DEZEMBRO"+garantiaDez);
+		//Ua ua = new Ua();
+		System.out.println("VALORES FINAIS!!!!!!!!!");
+		//listaGarantiaVazao.add(garantiaVazao);
+		System.out.println("ANO: "+garantiaVazao.getAno());
+		System.out.println("NUMERO UA: "+garantiaVazao.getNumeroUa());
+		System.out.println("JANEIRO: "+garantiaVazao.getJan());
+		System.out.println("FEVEREIRO: "+garantiaVazao.getFev());
+		System.out.println("MARÇO: "+garantiaVazao.getMar());
+		System.out.println("ABRIL: "+garantiaVazao.getAbr());
+		System.out.println("MAIO: "+garantiaVazao.getMai());
+		System.out.println("JUNHO: "+garantiaVazao.getJun());
+		System.out.println("JULHO: "+garantiaVazao.getJul());
+		System.out.println("AGOSTO: "+garantiaVazao.getAgo());
+		System.out.println("SETEMBRO: "+garantiaVazao.getSet());
+		System.out.println("OUTUBRO: "+garantiaVazao.getOut());
+		System.out.println("NOVEMBRO: "+garantiaVazao.getNov());
+		System.out.println("DEZEMBRO: "+garantiaVazao.getDez());
+		
+		garantiaJan = BigDecimal.ZERO;
+		garantiaFev = BigDecimal.ZERO;
+		garantiaMar = BigDecimal.ZERO;
+		garantiaAbr = BigDecimal.ZERO;
+		garantiaMai=  BigDecimal.ZERO;
+		garantiaJun = BigDecimal.ZERO;
+		garantiaJul = BigDecimal.ZERO;
+		garantiaAgo = BigDecimal.ZERO;
+		garantiaSet = BigDecimal.ZERO; 
+		garantiaOut = BigDecimal.ZERO;
+		garantiaNov = BigDecimal.ZERO;
+		garantiaDez = BigDecimal.ZERO;
 	}
 }

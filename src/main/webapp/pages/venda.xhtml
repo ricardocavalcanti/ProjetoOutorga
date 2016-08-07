@@ -111,7 +111,9 @@
 		
 			<p:dataTable id="garantiaDaVazao" emptyMessage="Nenhum registro encontrado." paginator="true" value="#{itemDeVendaBean.listaItensVenda}" var="listaItensVendas" rows="10">
 				<f:facet name="footer">
-				<p:commandButton value="SIMULAR" oncomplete="PF('dialogo').show();" update=":mensagem :formCadastro:painel"/>
+				<p:commandButton value="SIMULAR" oncomplete="PF('dialogo').show();" update=":mensagem :formCadastro:painel">
+				  <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+				</p:commandButton>
 				</f:facet>
 
 				<p:column headerText="Ua">
@@ -209,40 +211,40 @@
               	
                  	<p:outputLabel for="janeiro" value="Janeiro" />
 				    <p:inputMask id="janeiro" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaJan}" required="true" requiredMessage="O campo 'Janeiro' é obrigatório">				    
-                    <f:convertNumber type="percent" />						
+                    <f:convertNumber type="percent"/>						
 				    </p:inputMask>	  
                           
 				    <p:outputLabel for="fevereiro" value="Fevereiro" />
 				    <p:inputMask id="fevereiro" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaFev}" required="true" requiredMessage="O campo 'Fevereiro' é obrigatório">
-				    <f:convertNumber type="percent" />				 		
+				    <f:convertNumber type="percent"/>				 		
 				    </p:inputMask>
 				
-				    <p:outputLabel for="março" value="Março" />
-				    <p:inputMask id="março" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaMar}" required="true" requiredMessage="O campo 'Março' é obrigatório">
-				    <f:convertNumber type="percent" />				
+				    <p:outputLabel for="marco" value="Março"/>
+				    <p:inputMask id="marco" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaMar}" required="true" requiredMessage="O campo 'Março' é obrigatório">
+				    <f:convertNumber type="percent"/>				
 				    </p:inputMask>
 
-				    <p:outputLabel for="abril" value="Abril" />
+				    <p:outputLabel for="abril" value="Abril"/>
 				    <p:inputMask id="abril" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaAbr}" required="true" requiredMessage="O campo 'Abril' é obrigatório">
 				    <f:convertNumber type="percent" />				
 				    </p:inputMask>		
 
-				    <p:outputLabel for="maio" value="Maio" />
+				    <p:outputLabel for="maio" value="Maio"/>
 				    <p:inputMask id="maio" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaMai}" required="true" requiredMessage="O campo 'Mai' é obrigatório">
 				    <f:convertNumber type="percent" />			
 				    </p:inputMask>
 				    
 				    <p:outputLabel for="junho" value="Junho"/>
 				    <p:inputMask id="junho" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaJun}" required="true" requiredMessage="O campo 'Junho' é obrigatório">
-				    <f:convertNumber type="percent" />		
+				    <f:convertNumber type="percent"/>		
 				    </p:inputMask>
 				    
-				    <p:outputLabel for="julho" value="Julho" />
+				    <p:outputLabel for="julho" value="Julho"/>
 				    <p:inputMask id="julho" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaJul}" required="true" requiredMessage="O campo 'Julho' é obrigatório">
-				    <f:convertNumber type="percent" />				
+				    <f:convertNumber type="percent"/>				
 				    </p:inputMask>
 				    
-				    <p:outputLabel for="agosto" value="Agosto" />
+				    <p:outputLabel for="agosto" value="Agosto"/>
 				    <p:inputMask id="agosto" mask="99%" maxlength="5" size="5"  value="#{itemDeVendaBean.garantiaAgo}" required="true" requiredMessage="O campo 'Agosto' é obrigatório">
 				    <f:convertNumber type="percent" />				
 				    </p:inputMask>
@@ -270,7 +272,7 @@
 			   </h:panelGrid>
 			   
 			  <h:panelGrid columns="3">
-				<p:commandButton value="Calcular" actionListener="#{itemDeVendaBean.calcular}" oncomplete="PF('dialogo').hide()"/>							
+				<p:commandButton value="Calcular" actionListener="#{itemDeVendaBean.calcular}" update=":mensagem :formCadastro:painel"/>											
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()"/>				
 			</h:panelGrid>
 			</h:form>
