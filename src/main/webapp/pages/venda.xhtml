@@ -107,7 +107,7 @@
 			</p:dataTable>
 		</p:panel>
 
-		<p:panel header="Garantia da Vazão">  
+		<p:panel header="Unidade de Análise Selecionada">  
 		
 			<p:dataTable id="garantiaDaVazao" emptyMessage="Nenhum registro encontrado." paginator="true" value="#{itemDeVendaBean.listaItensVenda}" var="listaItensVendas" rows="10">
 				<f:facet name="footer">
@@ -272,10 +272,102 @@
 			   </h:panelGrid>
 			   
 			  <h:panelGrid columns="3">
-				<p:commandButton value="Calcular" actionListener="#{itemDeVendaBean.calcular}" update=":mensagem :formCadastro:painel"/>											
+				<p:commandButton value="Calcular" actionListener="#{itemDeVendaBean.calcular}" update=":mensagem :formCadastro:painel :novo"  oncomplete="PF('dialogo').hide()"/>											
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()"/>				
 			</h:panelGrid>
 			</h:form>
 	</p:dialog>	
+	
+	<h:form id="novo">
+	<p:panel header="Garantia da Vazão">  
+		
+			<p:dataTable id="garantiaDaVazao" emptyMessage="Nenhum registro encontrado." value="#{itemDeVendaBean.ua}" var="listaItensVendas" paginator="true" rows="10">				
+
+				<p:column headerText="Ua">
+					<h:outputText value="#{listaItensVendas.numeroUa}"/>
+				</p:column>				
+		
+				<p:column headerText="Jan">
+					<h:outputText value="#{listaItensVendas.jan}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					</h:outputText>					
+				</p:column>
+
+				<p:column headerText="Fev">
+					<h:outputText value="#{listaItensVendas.fev}">	
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>	
+					 </h:outputText>		
+				</p:column>
+				
+				<p:column headerText="Mar">
+					<h:outputText value="#{listaItensVendas.mar}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					 </h:outputText>
+				</p:column>
+				
+				<p:column headerText="Abr">
+					<h:outputText value="#{listaItensVendas.abr}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					 </h:outputText>
+				</p:column>
+				
+				<p:column headerText="Mai">
+					<h:outputText value="#{listaItensVendas.mai}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					 </h:outputText>
+				</p:column>
+				
+				<p:column headerText="Jun">
+					<h:outputText value="#{listaItensVendas.jun}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					 </h:outputText>
+				</p:column>
+				
+				<p:column headerText="Jul">
+					<h:outputText value="#{listaItensVendas.jul}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					 </h:outputText>
+				</p:column>
+				
+				<p:column headerText="Ago">
+					<h:outputText value="#{listaItensVendas.ago}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					 </h:outputText>
+				</p:column>
+				
+				<p:column headerText="Set">
+					<h:outputText value="#{listaItensVendas.set}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					 </h:outputText>
+				</p:column>
+				
+				<p:column headerText="Out">
+					<h:outputText value="#{listaItensVendas.out}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					 </h:outputText>
+				</p:column>
+				
+				<p:column headerText="Nov">
+					<h:outputText value="#{listaItensVendas.nov}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					 </h:outputText>
+				</p:column>
+				
+				<p:column headerText="Dez">
+					<h:outputText value="#{listaItensVendas.dez}">
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
+					 </h:outputText>
+				</p:column>	
+								
+				<p:column headerText="Opções">
+				  <p:commandButton icon="ui-icon-minus"/>
+				</p:column>			
+
+			</p:dataTable>
+		</p:panel>		
+	
+	</h:form>
+	
+	
 </h:body>
 </html>

@@ -26,12 +26,10 @@ public class ItemDeVendaBean implements Serializable {
 	private Ua ua;
 	private int num;
 	private List<Ua> listaUa;
-	private List<Ua> listaItensVenda;
-	private List<Ua> listaGarantiaVazao;
+	private List<Ua> listaItensVenda;	
 	private BigDecimal garantiaJan, garantiaFev, garantiaMar, garantiaAbr, garantiaMai, garantiaJun, garantiaJul, garantiaAgo,
 	garantiaSet, garantiaOut, garantiaNov, garantiaDez; 	
-	
-	
+	//private Ua garantiaVazao;
 	
 
 	public Ua getUa() {
@@ -156,6 +154,7 @@ public class ItemDeVendaBean implements Serializable {
 	}	
 
 	
+	
 
 	@PostConstruct
 	public void listar() {
@@ -175,13 +174,6 @@ public class ItemDeVendaBean implements Serializable {
 
 	}
 
-	public List<Ua> getListaGarantiaVazao() {
-		return listaGarantiaVazao;
-	}
-
-	public void setListaGarantiaVazao(List<Ua> listaGarantiaVazao) {
-		this.listaGarantiaVazao = listaGarantiaVazao;
-	}
 
 	public void adicionar(ActionEvent evento) {
 
@@ -212,11 +204,11 @@ public class ItemDeVendaBean implements Serializable {
 	// Método para calcular a interpolação dos pontos
 	public void calcular() {
 			
-		
-		Ua garantiaVazao = new  Ua();
+		ua = new Ua();
+	
 		System.out.println(num);
-		garantiaVazao.setNumeroUa(num);
-		garantiaVazao.setAno(0);
+		ua.setNumeroUa(num);
+		ua.setAno(0);
 		
 		
 		
@@ -391,10 +383,10 @@ public class ItemDeVendaBean implements Serializable {
 		
 		
 		
-		garantiaVazao.setJan(garantiaJan);
+		ua.setJan(garantiaJan);
 		
 	//	listaGarantiaVazao.add(garantiaVazao);
-		System.out.println(garantiaVazao.getJan());
+		System.out.println(ua.getJan());
 		
 		System.out.println("GARANTIA JAN FINAL"+garantiaJan);
 		
@@ -514,7 +506,7 @@ public class ItemDeVendaBean implements Serializable {
 			
 		}
 		
-		garantiaVazao.setFev(garantiaFev);
+		ua.setFev(garantiaFev);
 		
 		System.out.println("GARANTIA FEVEREIRO FINAL"+garantiaFev);
 		// FIM FEVEREIRO
@@ -630,7 +622,7 @@ public class ItemDeVendaBean implements Serializable {
 	 
  }
  
- garantiaVazao.setMar(garantiaMar);
+ ua.setMar(garantiaMar);
  
  if(!garantiaAbr.equals(BigDecimal.ZERO)){
 		
@@ -745,7 +737,7 @@ public class ItemDeVendaBean implements Serializable {
 	 
 	 garantiaAbr = BigDecimal.ZERO;
  }
- garantiaVazao.setAbr(garantiaAbr);
+ ua.setAbr(garantiaAbr);
  
  
 		// FIM ABRIL
@@ -859,7 +851,7 @@ public class ItemDeVendaBean implements Serializable {
 	  garantiaMai = BigDecimal.ZERO;
 	 
  }
- garantiaVazao.setMai(garantiaMai);
+ua.setMai(garantiaMai);
  
  System.out.println("GARANTIA MAIO FINAL"+garantiaMai);
 		// FIM MAIO
@@ -975,7 +967,7 @@ public class ItemDeVendaBean implements Serializable {
 			garantiaJun = BigDecimal.ZERO;
 			
 		}
-		garantiaVazao.setJun(garantiaJun);
+		ua.setJun(garantiaJun);
 		
 		if(!garantiaJul.equals(BigDecimal.ZERO)){
 		
@@ -1087,7 +1079,7 @@ public class ItemDeVendaBean implements Serializable {
 			garantiaJul = BigDecimal.ZERO;
 			
 		}
-		garantiaVazao.setJul(garantiaJul);
+		ua.setJul(garantiaJul);
 		
 		
 		
@@ -1205,7 +1197,7 @@ public class ItemDeVendaBean implements Serializable {
 			
 		}
 		
-		garantiaVazao.setAgo(garantiaAgo);
+		ua.setAgo(garantiaAgo);
 		
 		System.out.println("GARANTIA AGOSTO FINAL"+garantiaAgo);
 		
@@ -1325,7 +1317,7 @@ public class ItemDeVendaBean implements Serializable {
 			
 		}
 		
-		garantiaVazao.setSet(garantiaSet);
+		ua.setSet(garantiaSet);
 		
 		System.out.println("GARANTIA SETEMBRO FINAL"+garantiaSet);
 		// FIM SETEMBRO
@@ -1441,7 +1433,7 @@ public class ItemDeVendaBean implements Serializable {
 			 garantiaOut = BigDecimal.ZERO;
 		}
 		
-		garantiaVazao.setOut(garantiaOut);
+		ua.setOut(garantiaOut);
 		
 		System.out.println("GARANTIA OUTUBRO FINAL"+garantiaOut);
 		
@@ -1554,7 +1546,7 @@ public class ItemDeVendaBean implements Serializable {
 			
 			garantiaNov = BigDecimal.ZERO;
 		}
-		garantiaVazao.setNov(garantiaNov);
+		ua.setNov(garantiaNov);
 		System.out.println("GARANTIA NOVEMBRO FINAL"+garantiaNov);
 		// FIM NOVEMBRO
 		
@@ -1669,26 +1661,26 @@ public class ItemDeVendaBean implements Serializable {
 			
 		}
 		
-		garantiaVazao.setDez(garantiaDez);
+		ua.setDez(garantiaDez);
 		
 		System.out.println("GARANTIA FINAL DEZEMBRO"+garantiaDez);
 		//Ua ua = new Ua();
 		System.out.println("VALORES FINAIS!!!!!!!!!");
 		//listaGarantiaVazao.add(garantiaVazao);
-		System.out.println("ANO: "+garantiaVazao.getAno());
-		System.out.println("NUMERO UA: "+garantiaVazao.getNumeroUa());
-		System.out.println("JANEIRO: "+garantiaVazao.getJan());
-		System.out.println("FEVEREIRO: "+garantiaVazao.getFev());
-		System.out.println("MARÇO: "+garantiaVazao.getMar());
-		System.out.println("ABRIL: "+garantiaVazao.getAbr());
-		System.out.println("MAIO: "+garantiaVazao.getMai());
-		System.out.println("JUNHO: "+garantiaVazao.getJun());
-		System.out.println("JULHO: "+garantiaVazao.getJul());
-		System.out.println("AGOSTO: "+garantiaVazao.getAgo());
-		System.out.println("SETEMBRO: "+garantiaVazao.getSet());
-		System.out.println("OUTUBRO: "+garantiaVazao.getOut());
-		System.out.println("NOVEMBRO: "+garantiaVazao.getNov());
-		System.out.println("DEZEMBRO: "+garantiaVazao.getDez());
+		System.out.println("ANO: "+ua.getAno());
+		System.out.println("NUMERO UA: "+ua.getNumeroUa());
+		System.out.println("JANEIRO: "+ua.getJan());
+		System.out.println("FEVEREIRO: "+ua.getFev());
+		System.out.println("MARÇO: "+ua.getMar());
+		System.out.println("ABRIL: "+ua.getAbr());
+		System.out.println("MAIO: "+ua.getMai());
+		System.out.println("JUNHO: "+ua.getJun());
+		System.out.println("JULHO: "+ua.getJul());
+		System.out.println("AGOSTO: "+ua.getAgo());
+		System.out.println("SETEMBRO: "+ua.getSet());
+		System.out.println("OUTUBRO: "+ua.getOut());
+		System.out.println("NOVEMBRO: "+ua.getNov());
+		System.out.println("DEZEMBRO: "+ua.getDez());
 		
 		garantiaJan = BigDecimal.ZERO;
 		garantiaFev = BigDecimal.ZERO;
@@ -1703,4 +1695,6 @@ public class ItemDeVendaBean implements Serializable {
 		garantiaNov = BigDecimal.ZERO;
 		garantiaDez = BigDecimal.ZERO;
 	}
+
+	
 }
