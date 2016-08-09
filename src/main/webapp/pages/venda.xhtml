@@ -7,6 +7,7 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Venda - Listagem</title>
+	<h:outputScript library="js" name="scripts.js" />
 </h:head>
 <h:body>
 	<p:growl id="mensagem" />
@@ -16,7 +17,7 @@
 			<p:dataTable id="adicioneUnidadeDeAnalise" emptyMessage="Nenhum registro encontrado." paginator="true" value="#{itemDeVendaBean.listaUa}" var="listaUas" rows="3">
 				<!-- rows: Informa a paginação -->
                     
-				<p:column headerText="UA" sortBy="#{listaUas.numeroUa}" filterBy="#{listaUas.numeroUa}">					
+				<p:column headerText="UA" sortBy="#{listaUas.numeroUa}" filterBy="#{listaUas.numeroUa}" style="width:100px">					
 					<h:outputText value="#{listaUas.numeroUa}" />					
 				</p:column>
 
@@ -98,7 +99,7 @@
 					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Opções">
+				<p:column headerText="Adicionar" style="text-align:center">
 					<p:commandButton icon="ui-icon-plus" actionListener="#{itemDeVendaBean.adicionar}" update="formulario:garantiaDaVazao">
 						<f:attribute name="uaSelecionada" value="#{listaUas}" />
 					</p:commandButton>
@@ -196,7 +197,7 @@
 					 </h:outputText>
 				</p:column>	
 								
-				<p:column headerText="Opções">
+				<p:column headerText="Excluir" style="text-align:center">
 				  <p:commandButton icon="ui-icon-minus"/>
 				</p:column>			
 
@@ -283,11 +284,9 @@
 		
 			<p:dataTable id="garantiaDaVazao" emptyMessage="Nenhum registro encontrado." value="#{itemDeVendaBean.ua}" var="listaItensVendas" paginator="true" rows="10">				
 
-				<p:column headerText="Ua">
-					<h:outputText value="#{listaItensVendas.numeroUa}"/>					
-				</p:column>				
+							
 		
-				<p:column headerText="Jan">
+				<p:column headerText="Jan" style="width:105px">
 				
 				<h:outputText value="#{itemDeVendaBean.rgarantiaJan}">
 					<f:convertNumber type="percent"/>
@@ -298,7 +297,7 @@
 					</h:outputText>								
 				</p:column>
 
-				<p:column headerText="Fev">
+				<p:column headerText="Fev" style="width:105px">
 				
 				<h:outputText value="#{itemDeVendaBean.rgarantiaFev}">
 					<f:convertNumber type="percent"/>
@@ -306,12 +305,11 @@
 				 <h:outputText value=" - "/>
 					<h:outputText value="#{listaItensVendas.fev}">	
 					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>	
-					 </h:outputText>
-					 
+					 </h:outputText>				 
 					 		
 				</p:column>
 				
-				<p:column headerText="Mar">
+				<p:column headerText="Mar" style="width:105px">
 				
 				<h:outputText value="#{itemDeVendaBean.rgarantiaMar}">
 					<f:convertNumber type="percent"/>
@@ -322,7 +320,7 @@
 					 </h:outputText>
 				</p:column>
 				
-				<p:column headerText="Abr">
+				<p:column headerText="Abr" style="width:105px">
 				
 				<h:outputText value="#{itemDeVendaBean.rgarantiaAbr}">
 					<f:convertNumber type="percent"/>
@@ -333,7 +331,7 @@
 					 </h:outputText>
 				</p:column>
 				
-				<p:column headerText="Mai">
+				<p:column headerText="Mai" style="width:105px">
 				
 				<h:outputText value="#{itemDeVendaBean.rgarantiaMai}">
 					<f:convertNumber type="percent"/>
@@ -344,7 +342,7 @@
 					 </h:outputText>
 				</p:column>
 				
-				<p:column headerText="Jun">
+				<p:column headerText="Jun" style="width:105px">
 				
 				<h:outputText value="#{itemDeVendaBean.rgarantiaJun}">
 					<f:convertNumber type="percent"/>
@@ -355,7 +353,7 @@
 					 </h:outputText>
 				</p:column>
 				
-				<p:column headerText="Jul">
+				<p:column headerText="Jul" style="width:105px">
 				
 				<h:outputText value="#{itemDeVendaBean.rgarantiaJul}">
 					<f:convertNumber type="percent"/>
@@ -366,7 +364,7 @@
 					 </h:outputText>
 				</p:column>
 				
-				<p:column headerText="Ago">
+				<p:column headerText="Ago" style="width:105px">
 				  
 				  <h:outputText value="#{itemDeVendaBean.rgarantiaAgo}">
 					<f:convertNumber type="percent"/>
@@ -378,7 +376,7 @@
 					 </h:outputText>
 				</p:column>
 				
-				<p:column headerText="Set">
+				<p:column headerText="Set" style="width:105px">
 				
 				
 				<h:outputText value="#{itemDeVendaBean.rgarantiaSet}">
@@ -390,7 +388,7 @@
 					 </h:outputText>
 				</p:column>
 				
-				<p:column headerText="Out">
+				<p:column headerText="Out" style="width:105px">
 				
 				<h:outputText value="#{itemDeVendaBean.rgarantiaOut}">
 					<f:convertNumber type="percent"/>
@@ -401,7 +399,7 @@
 					 </h:outputText>
 				</p:column>
 				
-				<p:column headerText="Nov">
+				<p:column headerText="Nov" style="width:105px">
 				
 				<h:outputText value="#{itemDeVendaBean.rgarantiaNov}">
 					<f:convertNumber type="percent"/>
@@ -412,19 +410,23 @@
 					 </h:outputText>
 				</p:column>
 				
-				<p:column headerText="Dez">
+				<p:column headerText="Dez" style="width:105px">
 				
 				<h:outputText value="#{itemDeVendaBean.rgarantiaDez}">
 					<f:convertNumber type="percent"/>
 				</h:outputText>
 				 <h:outputText value=" - "/>
-					<h:outputText value="#{listaItensVendas.dez}">
+					<h:outputText value="#{listaItensVendas.dez}" >
 					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
 					 </h:outputText>
-				</p:column>	
-								
-				<p:column headerText="Opções">
-				  <p:commandButton icon="ui-icon-minus"/>
+				</p:column>		
+											
+				<p:column headerText="Vencimento">
+				 
+				    <p:calendar pattern="dd/MM/yyyy" local="pt_BR" value="#{itemDeVendaBean.data}" required="true"
+				    requiredMessage="O campo 'Vencimento' é obrigatório" size="11" navigator="true"/>
+				 
+																
 				</p:column>			
 
 			</p:dataTable>

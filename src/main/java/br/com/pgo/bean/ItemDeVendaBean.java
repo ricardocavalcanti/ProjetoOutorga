@@ -30,7 +30,16 @@ public class ItemDeVendaBean implements Serializable {
 	private BigDecimal garantiaJan, garantiaFev, garantiaMar, garantiaAbr, garantiaMai, garantiaJun, garantiaJul, garantiaAgo,
 	garantiaSet, garantiaOut, garantiaNov, garantiaDez; 	
 	private BigDecimal rgarantiaJan, rgarantiaFev, rgarantiaMar, rgarantiaAbr, rgarantiaMai, rgarantiaJun, rgarantiaJul, rgarantiaAgo,
-	rgarantiaSet, rgarantiaOut, rgarantiaNov, rgarantiaDez; 
+	rgarantiaSet, rgarantiaOut, rgarantiaNov, rgarantiaDez; 	
+	private java.util.Date data;
+	
+	public java.util.Date getData() {
+		return data;
+	}
+
+	public void setData(java.util.Date data) {
+		this.data = data;
+	}
 	
 	
 	public BigDecimal getRgarantiaJan() {
@@ -1812,6 +1821,8 @@ ua.setMai(garantiaMai);
 		garantiaNov = BigDecimal.ZERO;
 		garantiaDez = BigDecimal.ZERO;
 	}
+
+	
 
 
 	
