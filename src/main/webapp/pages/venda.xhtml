@@ -284,76 +284,140 @@
 			<p:dataTable id="garantiaDaVazao" emptyMessage="Nenhum registro encontrado." value="#{itemDeVendaBean.ua}" var="listaItensVendas" paginator="true" rows="10">				
 
 				<p:column headerText="Ua">
-					<h:outputText value="#{listaItensVendas.numeroUa}"/>
+					<h:outputText value="#{listaItensVendas.numeroUa}"/>					
 				</p:column>				
 		
 				<p:column headerText="Jan">
+				
+				<h:outputText value="#{itemDeVendaBean.rgarantiaJan}">
+					<f:convertNumber type="percent"/>
+				</h:outputText>
+				   <h:outputText value=" - "/>
 					<h:outputText value="#{listaItensVendas.jan}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					</h:outputText>					
+					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>  
+					</h:outputText>								
 				</p:column>
 
 				<p:column headerText="Fev">
+				
+				<h:outputText value="#{itemDeVendaBean.rgarantiaFev}">
+					<f:convertNumber type="percent"/>
+				</h:outputText>
+				 <h:outputText value=" - "/>
 					<h:outputText value="#{listaItensVendas.fev}">	
 					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>	
-					 </h:outputText>		
+					 </h:outputText>
+					 
+					 		
 				</p:column>
 				
 				<p:column headerText="Mar">
+				
+				<h:outputText value="#{itemDeVendaBean.rgarantiaMar}">
+					<f:convertNumber type="percent"/>
+				</h:outputText>
+				 <h:outputText value=" - "/>
 					<h:outputText value="#{listaItensVendas.mar}">
 					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
 					 </h:outputText>
 				</p:column>
 				
 				<p:column headerText="Abr">
+				
+				<h:outputText value="#{itemDeVendaBean.rgarantiaAbr}">
+					<f:convertNumber type="percent"/>
+				</h:outputText>
+				 <h:outputText value=" - "/>
 					<h:outputText value="#{listaItensVendas.abr}">
 					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
 					 </h:outputText>
 				</p:column>
 				
 				<p:column headerText="Mai">
+				
+				<h:outputText value="#{itemDeVendaBean.rgarantiaMai}">
+					<f:convertNumber type="percent"/>
+				</h:outputText>
+				 <h:outputText value=" - "/>
 					<h:outputText value="#{listaItensVendas.mai}">
 					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
 					 </h:outputText>
 				</p:column>
 				
 				<p:column headerText="Jun">
+				
+				<h:outputText value="#{itemDeVendaBean.rgarantiaJun}">
+					<f:convertNumber type="percent"/>
+				</h:outputText>
+				 <h:outputText value=" - "/>
 					<h:outputText value="#{listaItensVendas.jun}">
 					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
 					 </h:outputText>
 				</p:column>
 				
 				<p:column headerText="Jul">
+				
+				<h:outputText value="#{itemDeVendaBean.rgarantiaJul}">
+					<f:convertNumber type="percent"/>
+				</h:outputText>
+				 <h:outputText value=" - "/>
 					<h:outputText value="#{listaItensVendas.jul}">
 					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
 					 </h:outputText>
 				</p:column>
 				
 				<p:column headerText="Ago">
+				  
+				  <h:outputText value="#{itemDeVendaBean.rgarantiaAgo}">
+					<f:convertNumber type="percent"/>
+				</h:outputText>
+				
+				 <h:outputText value=" - "/>
 					<h:outputText value="#{listaItensVendas.ago}">
 					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
 					 </h:outputText>
 				</p:column>
 				
 				<p:column headerText="Set">
+				
+				
+				<h:outputText value="#{itemDeVendaBean.rgarantiaSet}">
+					<f:convertNumber type="percent"/>
+				</h:outputText>
+				 <h:outputText value=" - "/>
 					<h:outputText value="#{listaItensVendas.set}">
 					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
 					 </h:outputText>
 				</p:column>
 				
 				<p:column headerText="Out">
+				
+				<h:outputText value="#{itemDeVendaBean.rgarantiaOut}">
+					<f:convertNumber type="percent"/>
+				</h:outputText>
+				 <h:outputText value=" - "/>
 					<h:outputText value="#{listaItensVendas.out}">
 					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
 					 </h:outputText>
 				</p:column>
 				
 				<p:column headerText="Nov">
+				
+				<h:outputText value="#{itemDeVendaBean.rgarantiaNov}">
+					<f:convertNumber type="percent"/>
+				</h:outputText>
+				 <h:outputText value=" - "/>
 					<h:outputText value="#{listaItensVendas.nov}">
 					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
 					 </h:outputText>
 				</p:column>
 				
 				<p:column headerText="Dez">
+				
+				<h:outputText value="#{itemDeVendaBean.rgarantiaDez}">
+					<f:convertNumber type="percent"/>
+				</h:outputText>
+				 <h:outputText value=" - "/>
 					<h:outputText value="#{listaItensVendas.dez}">
 					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
 					 </h:outputText>
