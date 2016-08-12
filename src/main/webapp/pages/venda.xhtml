@@ -269,6 +269,12 @@
 				    <p:inputMask id="dezembro" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaDez}" required="true" requiredMessage="O campo 'Dezembro' é obrigatório">
 				    <f:convertNumber type="percent" />			
 				    </p:inputMask>
+				    
+				    <p:outputLabel for="areaDrenagem" value="Área de Drenagem:" />
+				    <p:inputText id="areaDrenagem" maxlength="50" size="10" value="#{uaBean.ua.jan}" required="true" requiredMessage="O campo 'Área de Drenagem' é obrigatório">
+				    <f:convertNumber locale="pt_BR" minFractionDigits="2"/>	
+				    <f:validateDoubleRange minimum="0.01" maximum="10000000"/>			
+				    </p:inputText>	
 				
 			   </h:panelGrid>
 			   
@@ -284,6 +290,10 @@
 		
 			<p:dataTable id="garantiaDaVazao" emptyMessage="Nenhum registro encontrado." value="#{itemDeVendaBean.ua}" var="listaItensVendas" paginator="true" rows="10">				
 
+				
+				<p:column headerText="Ua" style="width:105px">
+				<h:outputText value="#{itemDeVendaBean.num}"/>										
+				</p:column>
 							
 		
 				<p:column headerText="Jan" style="width:105px">

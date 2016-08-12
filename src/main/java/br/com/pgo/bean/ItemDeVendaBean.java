@@ -33,6 +33,15 @@ public class ItemDeVendaBean implements Serializable {
 	rgarantiaSet, rgarantiaOut, rgarantiaNov, rgarantiaDez; 	
 	private java.util.Date data;
 	
+	
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
 	public java.util.Date getData() {
 		return data;
 	}

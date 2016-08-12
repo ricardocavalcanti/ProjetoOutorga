@@ -12,44 +12,45 @@ public class Ua extends GenericDomain {
 	private int numeroUa;
 
 	@Column(length = 50, nullable = false)
-	private int ano;
-
-	// precision, informa total de numero usados
-	// scale, informa total de digitos depois da virgula
-	@Column(nullable = false, precision = 5, scale = 3)
+	private int ano;	
+	 
+	@Column(nullable = false, precision = 6, scale = 2)  // precision, informa total de numero usados e scale, informa total de digitos depois da virgula
+	private BigDecimal area;
+	
+	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal jan;
 
-	@Column(nullable = false, precision = 5, scale = 3)
+	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal fev;
 
-	@Column(nullable = false, precision = 5, scale = 3)
+	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal mar;
 
-	@Column(nullable = false, precision = 5, scale = 3)
+	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal abr;
 
-	@Column(nullable = false, precision = 5, scale = 3)
+	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal mai;
 
-	@Column(nullable = false, precision = 5, scale = 3)
+	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal jun;
 
-	@Column(nullable = false, precision = 5, scale = 3)
+	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal jul;
 
-	@Column(nullable = false, precision = 5, scale = 3)
+	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal ago;
 
-	@Column(nullable = false, precision = 5, scale = 3)
+	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal set;
 
-	@Column(nullable = false, precision = 5, scale = 3)
+	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal out;
 
-	@Column(nullable = false, precision = 5, scale = 3)
+	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal nov;
 
-	@Column(nullable = false, precision = 5, scale = 3)
+	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal dez;
 
 	public Ua() {
@@ -167,6 +168,16 @@ public class Ua extends GenericDomain {
 	public void setDez(BigDecimal dez) {
 		this.dez = dez;
 	}
+
+	public BigDecimal getArea() {
+		return area;
+	}
+
+	public void setArea(BigDecimal area) {
+		this.area = area;
+	}
+	
+	
 
 	
 }
