@@ -12,11 +12,16 @@ public class Ua extends GenericDomain {
 	private int numeroUa;
 
 	@Column(length = 50, nullable = false)
-	private int ano;	
-	 
-	@Column(nullable = false, precision = 6, scale = 2)  // precision, informa total de numero usados e scale, informa total de digitos depois da virgula
-	private BigDecimal area;
-	
+	private int ano;
+
+	@Column(nullable = false, precision = 6, scale = 2) // precision, informa
+														// total de numero
+														// usados e scale,
+														// informa total de
+														// digitos depois da
+														// virgula
+	private BigDecimal areaUa;
+
 	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal jan;
 
@@ -169,15 +174,12 @@ public class Ua extends GenericDomain {
 		this.dez = dez;
 	}
 
-	public BigDecimal getArea() {
-		return area;
+	public BigDecimal getAreaUa() {
+		return areaUa;
 	}
 
-	public void setArea(BigDecimal area) {
-		this.area = area;
+	public void setAreaUa(BigDecimal areaUa) {
+		this.areaUa = areaUa;
 	}
-	
-	
 
-	
 }

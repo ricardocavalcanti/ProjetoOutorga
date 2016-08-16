@@ -20,10 +20,12 @@ public class UaBean implements Serializable {
 
 	private Ua ua;
 	private List<Ua> listaUa;
+	
 
 	public Ua getUa() {
 		return ua;
 	}
+
 
 	public void setUa(Ua ua) {
 		this.ua = ua;

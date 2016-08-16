@@ -160,8 +160,8 @@
 				</p:inputText>
 				
 				<p:outputLabel for="areaUa" value="Área UA:" />
-				<p:inputText id="areaUa" maxlength="50" size="10" value="#{uaBean.ua.area}" required="true">
-				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>
+				<p:inputText id="areaUa" maxlength="50" size="10" value="#{uaBean.ua.areaUa}" required="true">
+				<f:convertNumber locale="pt_BR"/>
 				<f:validateDoubleRange minimum="0.01" maximum="10000000"/>
 				</p:inputText> 	
 				

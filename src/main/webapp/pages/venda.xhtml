@@ -271,8 +271,8 @@
 				    </p:inputMask>
 				    
 				    <p:outputLabel for="areaDrenagem" value="Área de Drenagem:" />
-				    <p:inputText id="areaDrenagem" maxlength="50" size="5" value="#{uaBean.ua.jan}" required="true" requiredMessage="O campo 'Área de Drenagem' é obrigatório">
-				    <f:convertNumber locale="pt_BR" minFractionDigits="2"/>	
+				    <p:inputText id="areaDrenagem" maxlength="50" size="5" value="#{itemDeVendaBean.areaDrenagem}" required="true" requiredMessage="O campo 'Área de Drenagem' é obrigatório">
+				    <f:convertNumber locale="pt_BR"/>	
 				    <f:validateDoubleRange minimum="0.01" maximum="10000000"/>			
 				    </p:inputText>	
 				
@@ -433,7 +433,7 @@
 											
 				<p:column headerText="Vencimento" style="text-align:center">
 				 
-				    <p:calendar pattern="dd/MM/yyyy" local="pt_BR" value="#{itemDeVendaBean.data}" required="true"
+				    <p:calendar pattern="dd/MM/yyyy" local="pt_BR" value="#{itemDeVendaBean.venda.vencimento}" required="true"
 				    requiredMessage="O campo 'Vencimento' é obrigatório" size="11" navigator="true"/>
 				 
 																

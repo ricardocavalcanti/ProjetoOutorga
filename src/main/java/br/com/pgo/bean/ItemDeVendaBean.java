@@ -16,6 +16,7 @@ import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Messages;
 import br.com.pgo.dao.UaDAO;
 import br.com.pgo.domain.Ua;
+import br.com.pgo.domain.Venda;
 import br.com.pgo.util.Interpolar;
 
 @SuppressWarnings("serial")
@@ -25,21 +26,75 @@ public class ItemDeVendaBean implements Serializable {
 
 	private Ua ua;
 	private int num;
+	private BigDecimal areaUa;
+	private BigDecimal areaDrenagem;
+	private List<Venda> garantiaVazao;
+	private List<Ua> listaItensVenda;
 	private List<Ua> listaUa;
-	private List<Ua> listaItensVenda;	
 	private BigDecimal garantiaJan, garantiaFev, garantiaMar, garantiaAbr, garantiaMai, garantiaJun, garantiaJul, garantiaAgo,
 	garantiaSet, garantiaOut, garantiaNov, garantiaDez; 	
 	private BigDecimal rgarantiaJan, rgarantiaFev, rgarantiaMar, rgarantiaAbr, rgarantiaMai, rgarantiaJun, rgarantiaJul, rgarantiaAgo,
 	rgarantiaSet, rgarantiaOut, rgarantiaNov, rgarantiaDez; 	
 	private java.util.Date data;
+    private Venda venda;
 	
 	
 	public int getNum() {
 		return num;
+	}		
+	
+	
+
+	public BigDecimal getAreaDrenagem() {
+		return areaDrenagem;
 	}
+
+
+
+	public void setAreaDrenagem(BigDecimal areaDrenagem) {
+		this.areaDrenagem = areaDrenagem;
+	}
+
+
+
+	public BigDecimal getAreaUa() {
+		return areaUa;
+	}
+
+
+
+	public void setAreaUa(BigDecimal areaUa) {
+		this.areaUa = areaUa;
+	}
+
+
 
 	public void setNum(int num) {
 		this.num = num;
+	}	
+
+	public Venda getVenda() {
+		return venda;
+	}
+
+	public void setVenda(Venda venda) {
+		this.venda = venda;
+	}
+
+	public List<Ua> getListaUa() {
+		return listaUa;
+	}
+
+	public void setListaUa(List<Ua> listaUa) {
+		this.listaUa = listaUa;
+	}
+
+	public List<Venda> getGarantiaVazao() {
+		return garantiaVazao;
+	}
+
+	public void setGarantiaVazao(List<Venda> garantiaVazao) {
+		this.garantiaVazao = garantiaVazao;
 	}
 
 	public java.util.Date getData() {
@@ -155,15 +210,7 @@ public class ItemDeVendaBean implements Serializable {
 	public void setUa(Ua ua) {
 		this.ua = ua;
 	}
-
-	public List<Ua> getListaUa() {
-		return listaUa;
-	}
-
-	public void setListaUa(List<Ua> listaUa) {
-		this.listaUa = listaUa;
-	}
-
+	
 	public List<Ua> getListaItensVenda() {
 		return listaItensVenda;
 	}
@@ -269,9 +316,6 @@ public class ItemDeVendaBean implements Serializable {
 		this.garantiaDez = garantiaDez;
 	}	
 
-	
-	
-
 	@PostConstruct
 	public void listar() {
 
@@ -297,6 +341,8 @@ public class ItemDeVendaBean implements Serializable {
 		
 		ua.setAno(ua.getAno());
 		ua.setNumeroUa(ua.getNumeroUa());
+		ua.setAreaUa(ua.getAreaUa());
+		areaUa = ua.getAreaUa();
 		num = ua.getNumeroUa();
 		ua.setJan(ua.getJan());
 		ua.setFev(ua.getFev());
@@ -335,8 +381,8 @@ public class ItemDeVendaBean implements Serializable {
 
 		// -------------------------------------INICIO//
 		// JANEIRO---------------------------------------------------------------------------------------------------------//
-		rgarantiaJan = garantiaJan;
 		
+		rgarantiaJan = garantiaJan;
 		if(!garantiaJan.equals(BigDecimal.ZERO)){
 		
 		// Para fazer a ordenação Janeiro em ordem descrescente.
@@ -477,8 +523,11 @@ public class ItemDeVendaBean implements Serializable {
 		
 		
 		
-		garantiaJan = InterpolarJan.calcular(x1, x2, garantiaJan, y1, y2);		
-		//listaGarantiaVazao.add(garantiaJan);	
+		BigDecimal calc1 = InterpolarJan.calcular(x1, x2, garantiaJan, y1, y2);		
+		
+		BigDecimal calc2 = new BigDecimal(String.valueOf(calc1)).divide(new BigDecimal(String.valueOf(areaUa)),2,RoundingMode.UP);
+		garantiaJan = new BigDecimal(String.valueOf(calc2)).multiply(new BigDecimal(String.valueOf(areaDrenagem)));
+		
 		
 		
 		
@@ -1829,6 +1878,14 @@ ua.setMai(garantiaMai);
 		garantiaOut = BigDecimal.ZERO;
 		garantiaNov = BigDecimal.ZERO;
 		garantiaDez = BigDecimal.ZERO;
+		
+		System.out.println("DENAGEM: "+areaDrenagem);
+		
+		        
+
+		
+	
+		
 	}
 
 	
