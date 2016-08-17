@@ -382,7 +382,7 @@ public class ItemDeVendaBean implements Serializable {
 		// -------------------------------------INICIO//
 		// JANEIRO---------------------------------------------------------------------------------------------------------//
 		
-		rgarantiaJan = garantiaJan;
+		rgarantiaJan=garantiaJan;
 		if(!garantiaJan.equals(BigDecimal.ZERO)){
 		
 		// Para fazer a ordenação Janeiro em ordem descrescente.
@@ -418,7 +418,7 @@ public class ItemDeVendaBean implements Serializable {
 					"NumeroUA: " + janeiro.getNumeroUa() + " - Mes: Janeiro " + " - Vazao: " + janeiro.getJan());
 
 			// Adiconando a medeia ao List percentJan
-			BigDecimal media = new BigDecimal(String.valueOf(posicaoJan)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoJan)).divide(qtdBigDec, 4, RoundingMode.UP);
 			percentJan.add(media);
 
 			mapJan.merge(String.valueOf(media), new BigDecimal(String.valueOf(janeiro.getJan())), BigDecimal::add);
@@ -521,13 +521,16 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("INTERPOLACAO JAN: " + InterpolarJan.calcular(x1, x2, garantiaJan, y1, y2));
 		System.out.println("--------------------------------------------");
 		
-		
+		System.out.println("1 AREA UA JANEIRO: "+areaUa);
 		
 		BigDecimal calc1 = InterpolarJan.calcular(x1, x2, garantiaJan, y1, y2);		
+		System.out.println("2 AREA UA JANEIRO: "+areaUa);
 		
-		BigDecimal calc2 = new BigDecimal(String.valueOf(calc1)).divide(new BigDecimal(String.valueOf(areaUa)),2,RoundingMode.UP);
+		BigDecimal calc2 = new BigDecimal(String.valueOf(calc1)).divide(new BigDecimal(String.valueOf(areaUa)),4,RoundingMode.UP);
+		System.out.println("3 AREA UA JANEIRO: "+areaUa);
+		
 		garantiaJan = new BigDecimal(String.valueOf(calc2)).multiply(new BigDecimal(String.valueOf(areaDrenagem)));
-		
+		System.out.println("4 AREA UA JANEIRO: "+areaUa);
 		
 		
 		
@@ -554,6 +557,7 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println(ua.getJan());
 		
 		System.out.println("GARANTIA JAN FINAL"+garantiaJan);
+		
 		rgarantiaFev=garantiaFev;
 		if(!garantiaFev.equals(BigDecimal.ZERO)){
 		
@@ -581,7 +585,7 @@ public class ItemDeVendaBean implements Serializable {
 			System.out.println(
 					"NumeroUA: " + fevereiro.getNumeroUa() + " Mes: Fevereiro " + " Vazao: " + fevereiro.getFev());
 
-			BigDecimal media = new BigDecimal(String.valueOf(posicaoFev)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoFev)).divide(qtdBigDec, 4, RoundingMode.UP);
 			percentFev.add(media);
 			mapFev.merge(String.valueOf(media), new BigDecimal(String.valueOf(fevereiro.getFev())), BigDecimal::add);
 
@@ -661,7 +665,18 @@ public class ItemDeVendaBean implements Serializable {
 		
 		
 		
-		garantiaFev = interpolarFev.calcular(fevX1, fevX2, garantiaFev, fevY1, fevY2);	
+		BigDecimal calc1 = interpolarFev.calcular(fevX1, fevX2, garantiaFev, fevY1, fevY2);		
+		
+		
+		BigDecimal calc2 = new BigDecimal(String.valueOf(calc1)).divide(new BigDecimal(String.valueOf(areaUa)),4,RoundingMode.UP);
+	
+		
+		garantiaFev = new BigDecimal(String.valueOf(calc2)).multiply(new BigDecimal(String.valueOf(areaDrenagem)));
+		
+		
+		
+		
+		//garantiaFev = interpolarFev.calcular(fevX1, fevX2, garantiaFev, fevY1, fevY2);	
 		
 	   
 		
@@ -701,7 +716,7 @@ public class ItemDeVendaBean implements Serializable {
 		for (Ua marco : listaItensVenda) {
 
 			System.out.println("NumeroUA: " + marco.getNumeroUa() + " Mes: Março " + " Vazao: " + marco.getMar());
-			BigDecimal media = new BigDecimal(String.valueOf(posicaoMar)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoMar)).divide(qtdBigDec, 4, RoundingMode.UP);
 			percentMar.add(media);
 			mapMar.merge(String.valueOf(media), new BigDecimal(String.valueOf(marco.getMar())), BigDecimal::add);
 
@@ -779,7 +794,16 @@ public class ItemDeVendaBean implements Serializable {
 		// FIM DE MARÇO
 		
 		
-		garantiaMar = interpolarMar.calcular(marX1, marX2, garantiaMar, marY1, marY2);
+       BigDecimal calc1 = interpolarMar.calcular(marX1, marX2, garantiaMar, marY1, marY2);		
+		
+		
+		BigDecimal calc2 = new BigDecimal(String.valueOf(calc1)).divide(new BigDecimal(String.valueOf(areaUa)),4,RoundingMode.UP);
+	
+		
+		garantiaMar = new BigDecimal(String.valueOf(calc2)).multiply(new BigDecimal(String.valueOf(areaDrenagem)));
+		
+		
+		//garantiaMar = interpolarMar.calcular(marX1, marX2, garantiaMar, marY1, marY2);
 		
 		
 		
@@ -818,7 +842,7 @@ public class ItemDeVendaBean implements Serializable {
 
 			System.out.println("NumeroUA: " + abril.getNumeroUa() + " Mes: Abril " + " Vazao: " + abril.getAbr());
 
-			BigDecimal media = new BigDecimal(String.valueOf(posicaoAbr)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoAbr)).divide(qtdBigDec, 4, RoundingMode.UP);
 			percentAbr.add(media);
 			mapAbr.merge(String.valueOf(media), new BigDecimal(String.valueOf(abril.getAbr())), BigDecimal::add);
 
@@ -895,8 +919,17 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("--------------------------------------------");
 		
 		
+        BigDecimal calc1 = interpolarAbr.calcular(abrX1, abrX2, garantiaAbr, abrY1, abrY2);		
 		
-		garantiaAbr = interpolarAbr.calcular(abrX1, abrX2, garantiaAbr, abrY1, abrY2);
+		
+		BigDecimal calc2 = new BigDecimal(String.valueOf(calc1)).divide(new BigDecimal(String.valueOf(areaUa)),4,RoundingMode.UP);
+	
+		
+		garantiaAbr = new BigDecimal(String.valueOf(calc2)).multiply(new BigDecimal(String.valueOf(areaDrenagem)));
+		
+		
+		
+	//	garantiaAbr = interpolarAbr.calcular(abrX1, abrX2, garantiaAbr, abrY1, abrY2);
 		
 		
 	
@@ -934,7 +967,7 @@ public class ItemDeVendaBean implements Serializable {
 
 			System.out.println("NumeroUA: " + maio.getNumeroUa() + " Mes: Maio " + " Vazao: " + maio.getMai());
 
-			BigDecimal media = new BigDecimal(String.valueOf(posicaoMai)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoMai)).divide(qtdBigDec, 4, RoundingMode.UP);
 			percentMai.add(media);
 			mapMai.merge(String.valueOf(media), new BigDecimal(String.valueOf(maio.getMai())), BigDecimal::add);
 
@@ -1013,8 +1046,17 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("--------------------------------------------");
 		
 		
+        BigDecimal calc1 = interpolarMai.calcular(maiX1, maiX2, garantiaMai, maiY1, maiY2);		
 		
-		garantiaMai = interpolarMai.calcular(maiX1, maiX2, garantiaMai, maiY1, maiY2);
+		
+		BigDecimal calc2 = new BigDecimal(String.valueOf(calc1)).divide(new BigDecimal(String.valueOf(areaUa)),4,RoundingMode.UP);
+	
+		
+		garantiaMai = new BigDecimal(String.valueOf(calc2)).multiply(new BigDecimal(String.valueOf(areaDrenagem)));
+		
+		
+		
+		//garantiaMai = interpolarMai.calcular(maiX1, maiX2, garantiaMai, maiY1, maiY2);
 		
 		
 		
@@ -1051,7 +1093,7 @@ ua.setMai(garantiaMai);
 
 			System.out.println("NumeroUA: " + junho.getNumeroUa() + " Mes: Junho " + " Vazao: " + junho.getJun());
 
-			BigDecimal media = new BigDecimal(String.valueOf(posicaoJun)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoJun)).divide(qtdBigDec, 4, RoundingMode.UP);
 			percentJun.add(media);
 			mapJun.merge(String.valueOf(media), new BigDecimal(String.valueOf(junho.getJun())), BigDecimal::add);
 
@@ -1127,9 +1169,17 @@ ua.setMai(garantiaMai);
 		System.out.println("INTERPOLACAO JUN: " + interpolarJun.calcular(junX1, junX2, garantiaJun, junY1, junY2));
 		System.out.println("--------------------------------------------");
 		
+        BigDecimal calc1 = interpolarJun.calcular(junX1, junX2, garantiaJun, junY1, junY2);		
 		
 		
-		garantiaJun = interpolarJun.calcular(junX1, junX2, garantiaJun, junY1, junY2);	
+		BigDecimal calc2 = new BigDecimal(String.valueOf(calc1)).divide(new BigDecimal(String.valueOf(areaUa)),4,RoundingMode.UP);
+	
+		
+		garantiaJun = new BigDecimal(String.valueOf(calc2)).multiply(new BigDecimal(String.valueOf(areaDrenagem)));
+		
+		
+		
+		//garantiaJun = interpolarJun.calcular(junX1, junX2, garantiaJun, junY1, junY2);	
 		
 	
 		
@@ -1168,7 +1218,7 @@ ua.setMai(garantiaMai);
 
 			System.out.println("NumeroUA: " + julho.getNumeroUa() + " Mes: Julho " + " Vazao: " + julho.getJul());
 
-			BigDecimal media = new BigDecimal(String.valueOf(posicaoJul)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoJul)).divide(qtdBigDec, 4, RoundingMode.UP);
 			percentJul.add(media);
 			mapJul.merge(String.valueOf(media), new BigDecimal(String.valueOf(julho.getJul())), BigDecimal::add);
 
@@ -1245,8 +1295,17 @@ ua.setMai(garantiaMai);
 		System.out.println("--------------------------------------------");
 		
 		
+        BigDecimal calc1 = interpolarJul.calcular(julX1, julX2, garantiaJul, julY1, julY2);		
 		
-		garantiaJul = interpolarJul.calcular(julX1, julX2, garantiaJul, julY1, julY2);	
+		
+		BigDecimal calc2 = new BigDecimal(String.valueOf(calc1)).divide(new BigDecimal(String.valueOf(areaUa)),4,RoundingMode.UP);
+	
+		
+		garantiaJul = new BigDecimal(String.valueOf(calc2)).multiply(new BigDecimal(String.valueOf(areaDrenagem)));
+		
+		
+		
+		//garantiaJul = interpolarJul.calcular(julX1, julX2, garantiaJul, julY1, julY2);	
 		
 		
 		
@@ -1287,7 +1346,7 @@ ua.setMai(garantiaMai);
 
 			System.out.println("NumeroUA: " + agosto.getNumeroUa() + " Mes: Agosto " + " Vazao: " + agosto.getAgo());
 
-			BigDecimal media = new BigDecimal(String.valueOf(posicaoAgo)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoAgo)).divide(qtdBigDec, 4, RoundingMode.UP);
 			percentAgo.add(media);
 			mapAgo.merge(String.valueOf(media), new BigDecimal(String.valueOf(agosto.getAgo())), BigDecimal::add);
 
@@ -1364,8 +1423,16 @@ ua.setMai(garantiaMai);
 		System.out.println("--------------------------------------------");
 		
 		
+        BigDecimal calc1 = interpolarAgo.calcular(agoX1, agoX2, garantiaAgo, agoY1, agoY2);		
 		
-		garantiaAgo = interpolarAgo.calcular(agoX1, agoX2, garantiaAgo, agoY1, agoY2);	
+		
+		BigDecimal calc2 = new BigDecimal(String.valueOf(calc1)).divide(new BigDecimal(String.valueOf(areaUa)),4,RoundingMode.UP);
+	
+		
+		garantiaAgo = new BigDecimal(String.valueOf(calc2)).multiply(new BigDecimal(String.valueOf(areaDrenagem)));
+		
+		
+		//garantiaAgo = interpolarAgo.calcular(agoX1, agoX2, garantiaAgo, agoY1, agoY2);	
 		
 		
 		
@@ -1406,7 +1473,7 @@ ua.setMai(garantiaMai);
 			System.out.println(
 					"NumeroUA: " + setembro.getNumeroUa() + " Mes: Setembro " + " Vazao: " + setembro.getSet());
 
-			BigDecimal media = new BigDecimal(String.valueOf(posicaoSet)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoSet)).divide(qtdBigDec, 4, RoundingMode.UP);
 			percentSet.add(media);
 			mapSet.merge(String.valueOf(media), new BigDecimal(String.valueOf(setembro.getSet())), BigDecimal::add);
 
@@ -1482,10 +1549,18 @@ ua.setMai(garantiaMai);
 		System.out.println("INTERPOLACAO SETEMBRO: " + interpolarSet.calcular(setX1, setX2, garantiaSet, setY1, setY2));
 		System.out.println("--------------------------------------------");
 		
+        BigDecimal calc1 = interpolarSet.calcular(setX1, setX2, garantiaSet, setY1, setY2);		
+		
+		
+		BigDecimal calc2 = new BigDecimal(String.valueOf(calc1)).divide(new BigDecimal(String.valueOf(areaUa)),4,RoundingMode.UP);
+	
+		
+		garantiaSet = new BigDecimal(String.valueOf(calc2)).multiply(new BigDecimal(String.valueOf(areaDrenagem)));
 		
 		
 		
-		garantiaSet = interpolarSet.calcular(setX1, setX2, garantiaSet, setY1, setY2);	
+		
+		//garantiaSet = interpolarSet.calcular(setX1, setX2, garantiaSet, setY1, setY2);	
 		
 		
 		
@@ -1527,7 +1602,7 @@ ua.setMai(garantiaMai);
 
 			System.out.println("NumeroUA: " + outubro.getNumeroUa() + " Mes: Outubro " + " Vazao: " + outubro.getOut());
 
-			BigDecimal media = new BigDecimal(String.valueOf(posicaoOut)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoOut)).divide(qtdBigDec, 4, RoundingMode.UP);
 			percentOut.add(media);
 			mapOut.merge(String.valueOf(media), new BigDecimal(String.valueOf(outubro.getOut())), BigDecimal::add);
 
@@ -1601,9 +1676,17 @@ ua.setMai(garantiaMai);
 		System.out.println("INTERPOLACAO OUT: " + interpolarOut.calcular(outX1, outX2, garantiaOut, outY1, outY2));
 		System.out.println("--------------------------------------------");
 		
+        BigDecimal calc1 = interpolarOut.calcular(outX1, outX2, garantiaOut, outY1, outY2);		
 		
 		
-		garantiaOut = interpolarOut.calcular(outX1, outX2, garantiaOut, outY1, outY2);	
+		BigDecimal calc2 = new BigDecimal(String.valueOf(calc1)).divide(new BigDecimal(String.valueOf(areaUa)),4,RoundingMode.UP);
+	
+		
+		garantiaOut = new BigDecimal(String.valueOf(calc2)).multiply(new BigDecimal(String.valueOf(areaDrenagem)));
+		
+		
+		
+		//garantiaOut = interpolarOut.calcular(outX1, outX2, garantiaOut, outY1, outY2);	
 	
 		
 		
@@ -1643,7 +1726,7 @@ ua.setMai(garantiaMai);
 			System.out.println(
 					"NumeroUA: " + novembro.getNumeroUa() + " Mes: Novembro " + " Vazao: " + novembro.getNov());
 
-			BigDecimal media = new BigDecimal(String.valueOf(posicaoNov)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoNov)).divide(qtdBigDec, 4, RoundingMode.UP);
 			percentNov.add(media);
 			mapNov.merge(String.valueOf(media), new BigDecimal(String.valueOf(novembro.getNov())), BigDecimal::add);
 
@@ -1718,9 +1801,17 @@ ua.setMai(garantiaMai);
 		System.out.println("INTERPOLACAO NOVEMBRO: " + interpolarNov.calcular(novX1, novX2, garantiaNov, novY1, novY2));
 		System.out.println("--------------------------------------------");
 		
+        BigDecimal calc1 = interpolarNov.calcular(novX1, novX2, garantiaNov, novY1, novY2);		
 		
 		
-		garantiaNov = interpolarNov.calcular(novX1, novX2, garantiaNov, novY1, novY2);	
+		BigDecimal calc2 = new BigDecimal(String.valueOf(calc1)).divide(new BigDecimal(String.valueOf(areaUa)),4,RoundingMode.UP);
+	
+		
+		garantiaNov = new BigDecimal(String.valueOf(calc2)).multiply(new BigDecimal(String.valueOf(areaDrenagem)));
+		
+		
+		
+		//garantiaNov = interpolarNov.calcular(novX1, novX2, garantiaNov, novY1, novY2);	
 	
 		
 		
@@ -1756,7 +1847,7 @@ ua.setMai(garantiaMai);
 			System.out.println(
 					"NumeroUA: " + dezembro.getNumeroUa() + " Mes: Dezembro " + " Vazao: " + dezembro.getDez());
 
-			BigDecimal media = new BigDecimal(String.valueOf(posicaoDez)).divide(qtdBigDec, 2, RoundingMode.DOWN);
+			BigDecimal media = new BigDecimal(String.valueOf(posicaoDez)).divide(qtdBigDec, 4, RoundingMode.UP);
 			percentDez.add(media);
 			mapDez.merge(String.valueOf(media), new BigDecimal(String.valueOf(dezembro.getDez())), BigDecimal::add);
 
@@ -1832,9 +1923,17 @@ ua.setMai(garantiaMai);
 		System.out.println("INTERPOLACAO DEZEMBRO: " + interpolarDez.calcular(dezX1, dezX2, garantiaDez, dezY1, dezY2));
 		System.out.println("--------------------------------------------");
 		
+        BigDecimal calc1 = interpolarDez.calcular(dezX1, dezX2, garantiaDez, dezY1, dezY2);		
 		
 		
-		garantiaDez = interpolarDez.calcular(dezX1, dezX2, garantiaDez, dezY1, dezY2);
+		BigDecimal calc2 = new BigDecimal(String.valueOf(calc1)).divide(new BigDecimal(String.valueOf(areaUa)),4,RoundingMode.UP);
+	
+		
+		garantiaDez = new BigDecimal(String.valueOf(calc2)).multiply(new BigDecimal(String.valueOf(areaDrenagem)));
+		
+		
+		
+		//garantiaDez = interpolarDez.calcular(dezX1, dezX2, garantiaDez, dezY1, dezY2);
 		
 		
 		
@@ -1879,17 +1978,8 @@ ua.setMai(garantiaMai);
 		garantiaNov = BigDecimal.ZERO;
 		garantiaDez = BigDecimal.ZERO;
 		
-		System.out.println("DENAGEM: "+areaDrenagem);
-		
-		        
-
-		
-	
 		
 	}
-
-	
-
 
 	
 }
