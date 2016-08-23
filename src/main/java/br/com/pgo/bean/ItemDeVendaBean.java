@@ -9,13 +9,19 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+
 import org.omnifaces.util.Messages;
+
 import br.com.pgo.dao.UaDAO;
+import br.com.pgo.dao.UsuarioDAO;
+import br.com.pgo.domain.Outorgante;
 import br.com.pgo.domain.Ua;
+import br.com.pgo.domain.Usuario;
 import br.com.pgo.domain.Venda;
 import br.com.pgo.util.Interpolar;
 
@@ -37,7 +43,34 @@ public class ItemDeVendaBean implements Serializable {
 	rgarantiaSet, rgarantiaOut, rgarantiaNov, rgarantiaDez; 	
 	private java.util.Date data;
     private Venda venda;
+    private List<Outorgante> listaOutorgantes;
+    private List<Usuario> listaUsuarios;    
 	
+    
+    
+    public List<Outorgante> getListaOutorgantes() {
+		return listaOutorgantes;
+	}
+
+
+
+	public void setListaOutorgantes(List<Outorgante> listaOutorgantes) {
+		this.listaOutorgantes = listaOutorgantes;
+	}
+
+
+
+	public List<Usuario> getListaUsuarios() {
+		return listaUsuarios;
+	}
+
+
+
+	public void setListaUsuarios(List<Usuario> listaUsuarios) {
+		this.listaUsuarios = listaUsuarios;
+	}
+
+    
 	
 	public int getNum() {
 		return num;
@@ -314,7 +347,21 @@ public class ItemDeVendaBean implements Serializable {
 
 	public void setGarantiaDez(BigDecimal garantiaDez) {
 		this.garantiaDez = garantiaDez;
-	}	
+	}
+	
+	public void finalizar(){
+		try{
+			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			listaUsuarios = usuarioDAO.listar("usuario.login");
+			
+						
+		}catch(RuntimeException erro){
+			Messages.addGlobalError("Ocorreu um erro ao criar processo");
+			erro.printStackTrace();
+			
+		}
+		
+	}
 
 	@PostConstruct
 	public void listar() {
@@ -332,6 +379,25 @@ public class ItemDeVendaBean implements Serializable {
 			erro.printStackTrace();
 		}
 
+	}
+	
+	public void remover(ActionEvent evento){
+		
+		Ua ua = (Ua) evento.getComponent().getAttributes().get("itemSelecionado");
+		
+		int achou = -1;
+		
+		for(int posicao = 0; posicao < listaItensVenda.size(); posicao++){
+			if(listaItensVenda.get(posicao).equals(ua)){
+				achou = posicao;				
+			}
+			
+		}
+		
+		if(achou>-1){
+			listaItensVenda.remove(achou);
+			
+		}
 	}
 
 
@@ -372,7 +438,7 @@ public class ItemDeVendaBean implements Serializable {
 		ua.setNumeroUa(num);
 		ua.setAno(0);
 		
-		
+	///IF NUMERO PROCESSO == 0 *** FAZER VAZAO DO PONTO	
 		
 		// Para contar o tamanho da quantidade de elementos da lista, para ser
 		// utilizado na divisão = (posiçãoJan/Quantidade).
@@ -1980,6 +2046,6 @@ ua.setMai(garantiaMai);
 		
 		
 	}
-
+	
 	
 }

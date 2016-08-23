@@ -198,7 +198,9 @@
 				</p:column>	
 								
 				<p:column headerText="Excluir" style="text-align:center">
-				  <p:commandButton icon="ui-icon-minus"/>
+				  <p:commandButton icon="ui-icon-minus" actionListener="#{itemDeVendaBean.remover}" update="formulario:garantiaDaVazao">
+				   <f:attribute name="itemSelecionado" value="#{listaItensVendas}"></f:attribute>
+				  </p:commandButton>
 				</p:column>			
 
 			</p:dataTable>
@@ -285,8 +287,8 @@
 			</h:form>
 	</p:dialog>	
 	
-	<h:form id="novo">
-	<p:panel header="Garantia da Vazão">  
+	<h:form id="novo"> 
+	<p:panel header="Garantia da Vazão no Ponto">  
 		
 			<p:dataTable id="garantiaDaVazao" emptyMessage="Nenhum registro encontrado." value="#{itemDeVendaBean.ua}" var="listaItensVendas" paginator="true" rows="10">				
 
@@ -431,19 +433,37 @@
 					 </h:outputText>
 				</p:column>		
 											
-				<p:column headerText="Vencimento" style="text-align:center">
-				 
+				<p:column headerText="Vencimento" style="text-align:center">				 
 				    <p:calendar pattern="dd/MM/yyyy" local="pt_BR" value="#{itemDeVendaBean.venda.vencimento}" required="true"
-				    requiredMessage="O campo 'Vencimento' é obrigatório" size="11" navigator="true"/>
-				 
-																
+				    requiredMessage="O campo 'Vencimento' é obrigatório" size="11" navigator="true"/>																
 				</p:column>			
 
 			</p:dataTable>
-		</p:panel>		
-	
+		</p:panel>
+		
+		<p:panel header="Criar Processo" >
+		   <p:commandButton value="Sim" oncomplete="PF('dialogo2').show();" actionListener="#{itemDeVendaBean.finalizar}" update=":mensagem :formularioFinalizar:painelFinalizar"/>
+		</p:panel>	
 	</h:form>
 	
+	<p:dialog header="Criar processo" widgetVar="dialogo2" draggable="false" resizable="false" modal="true" closable="false">
+	<h:form id="formularioFinalizar">
 	
+	<h:panelGrid columns="2" id="painelFinalizar">
+	   <p:outputLabel value="Usuário: "/>
+	   <p:selectOneMenu value="#{itemDeVendaBean.venda.usuario.login}" converter="omnifaces.SelectItemsConverter" filter="true">
+	   
+	     <f:selectItem noSelectionOption="true" itemLabel="Selecione um usuário"/>
+	     <f:selectItems value="#{itemDeVendaBean.listaUsuarios}" var="usuarios" itemValue="#{usuarios}" itemLabel="#{usuarios.login}"/>
+	     
+	   </p:selectOneMenu>	
+	</h:panelGrid>
+	
+	<h:panelGrid columns="2">
+	   <p:commandButton value="Criar"/>
+	   <p:commandButton value="Fechar" oncomplete="PF('dialogo2').hide()"/>
+	  </h:panelGrid>	
+	</h:form>
+	</p:dialog>
 </h:body>
 </html>

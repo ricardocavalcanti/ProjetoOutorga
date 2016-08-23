@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -14,6 +16,10 @@ public class Venda extends GenericDomain {
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date vencimento;
+
+	@OneToOne
+	@JoinColumn(nullable = false)
+	private Usuario usuario;
 
 	@Column(length = 50, nullable = false)
 	private int numeroUa;
@@ -190,6 +196,14 @@ public class Venda extends GenericDomain {
 
 	public void setDez(BigDecimal dez) {
 		this.dez = dez;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }
