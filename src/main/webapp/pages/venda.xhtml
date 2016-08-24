@@ -451,17 +451,25 @@
 	
 	<h:panelGrid columns="2" id="painelFinalizar">
 	   <p:outputLabel value="Usuário: "/>
-	   <p:selectOneMenu value="#{itemDeVendaBean.venda.usuario.login}" converter="omnifaces.SelectItemsConverter" filter="true">
+	   <p:selectOneMenu value="#{itemDeVendaBean.venda.usuario}" converter="omnifaces.SelectItemsConverter" filter="true">
 	   
 	     <f:selectItem noSelectionOption="true" itemLabel="Selecione um usuário"/>
 	     <f:selectItems value="#{itemDeVendaBean.listaUsuarios}" var="usuarios" itemValue="#{usuarios}" itemLabel="#{usuarios.login}"/>
 	     
+	   </p:selectOneMenu>
+	   
+	    <p:outputLabel value="Processo: "/>
+	   <p:selectOneMenu value="#{itemDeVendaBean.venda.outorgante}" converter="omnifaces.SelectItemsConverter" filter="true">
+	   
+	     <f:selectItem noSelectionOption="true" itemLabel="Selecione um processo"/>
+	     <f:selectItems value="#{itemDeVendaBean.listaOutorgantes}" var="outorgantes" itemValue="#{outorgantes}" itemLabel="#{outorgantes.nomeRazao} - #{outorgantes.processoApac}"/>
+	     
 	   </p:selectOneMenu>	
 	</h:panelGrid>
 	
-	<h:panelGrid columns="2">
-	   <p:commandButton value="Criar"/>
-	   <p:commandButton value="Fechar" oncomplete="PF('dialogo2').hide()"/>
+	<h:panelGrid columns="2"> 
+	   <p:commandButton value="Criar"/> 
+	   <p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()"/>
 	  </h:panelGrid>	
 	</h:form>
 	</p:dialog>

@@ -21,6 +21,10 @@ public class Venda extends GenericDomain {
 	@JoinColumn(nullable = false)
 	private Usuario usuario;
 
+	@OneToOne
+	@JoinColumn(nullable = false)
+	private Outorgante outorgante;
+
 	@Column(length = 50, nullable = false)
 	private int numeroUa;
 
@@ -204,6 +208,14 @@ public class Venda extends GenericDomain {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public Outorgante getOutorgante() {
+		return outorgante;
+	}
+
+	public void setOutorgante(Outorgante outorgante) {
+		this.outorgante = outorgante;
 	}
 
 }

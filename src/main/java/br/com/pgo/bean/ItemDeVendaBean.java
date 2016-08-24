@@ -17,6 +17,7 @@ import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
+import br.com.pgo.dao.OutorganteDAO;
 import br.com.pgo.dao.UaDAO;
 import br.com.pgo.dao.UsuarioDAO;
 import br.com.pgo.domain.Outorgante;
@@ -31,6 +32,8 @@ import br.com.pgo.util.Interpolar;
 public class ItemDeVendaBean implements Serializable {
 
 	private Ua ua;
+	private Outorgante outorgante;
+	private Usuario usuario;
 	private int num;
 	private BigDecimal areaUa;
 	private BigDecimal areaDrenagem;
@@ -43,64 +46,63 @@ public class ItemDeVendaBean implements Serializable {
 	rgarantiaSet, rgarantiaOut, rgarantiaNov, rgarantiaDez; 	
 	private java.util.Date data;
     private Venda venda;
+    
     private List<Outorgante> listaOutorgantes;
     private List<Usuario> listaUsuarios;    
 	
     
     
-    public List<Outorgante> getListaOutorgantes() {
-		return listaOutorgantes;
+    public Outorgante getOutorgante() {
+		return outorgante;
 	}
 
+	public void setOutorgante(Outorgante outorgante) {
+		this.outorgante = outorgante;
+	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public List<Outorgante> getListaOutorgantes() {
+		return listaOutorgantes;
+	}
 
 	public void setListaOutorgantes(List<Outorgante> listaOutorgantes) {
 		this.listaOutorgantes = listaOutorgantes;
 	}
 
-
-
 	public List<Usuario> getListaUsuarios() {
 		return listaUsuarios;
 	}
 
-
-
 	public void setListaUsuarios(List<Usuario> listaUsuarios) {
 		this.listaUsuarios = listaUsuarios;
-	}
-
-    
+	}    
 	
 	public int getNum() {
 		return num;
-	}		
-	
-	
+	}	
 
 	public BigDecimal getAreaDrenagem() {
 		return areaDrenagem;
 	}
 
-
-
 	public void setAreaDrenagem(BigDecimal areaDrenagem) {
 		this.areaDrenagem = areaDrenagem;
 	}
-
-
 
 	public BigDecimal getAreaUa() {
 		return areaUa;
 	}
 
-
-
 	public void setAreaUa(BigDecimal areaUa) {
 		this.areaUa = areaUa;
 	}
-
-
 
 	public void setNum(int num) {
 		this.num = num;
@@ -350,12 +352,17 @@ public class ItemDeVendaBean implements Serializable {
 	}
 	
 	public void finalizar(){
+		
 		try{
-			UsuarioDAO usuarioDAO = new UsuarioDAO();
-			listaUsuarios = usuarioDAO.listar("usuario.login");
 			
+			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			listaUsuarios = usuarioDAO.listar("login");
+			
+			OutorganteDAO outorganteDAO = new OutorganteDAO();
+			listaOutorgantes =  outorganteDAO.listar("processoApac");
 						
 		}catch(RuntimeException erro){
+			
 			Messages.addGlobalError("Ocorreu um erro ao criar processo");
 			erro.printStackTrace();
 			
