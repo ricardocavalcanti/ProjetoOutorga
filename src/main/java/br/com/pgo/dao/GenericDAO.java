@@ -130,6 +130,7 @@ public class GenericDAO<Entidade> {
 		}
 	}
 
+	// Metódo merge procura e altera o elmento indicado
 	public void merge(Entidade entidade) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;

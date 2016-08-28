@@ -379,7 +379,7 @@ public class ItemDeVendaBean implements Serializable {
 			listaUa = uaDAO.listar("numeroUa");
 
 			listaItensVenda = new ArrayList<>();
-
+            
 		} catch (RuntimeException erro) {
 
 			Messages.addGlobalInfo("Erro ao tentar carregar 'Seleção UA'");

@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+        <title>Simulação Vazão</title>
+       
+      
+    </h:head>
+    <h:body> 
+      
+        <h:form id="frmCadastro">
+        
+         <p:toolbar style="margin-top: 20px">
+                <p:toolbarGroup align="right">
+                    <p:commandButton value="Simular" icon="ui-icon-star"/>
+                    <p:commandButton action="#{enderecoBean.salvar()}" value="Salvar" ajax="false" update="@frmCadastro" icon="ui-icon-disk"/>
+                </p:toolbarGroup>                           
+            </p:toolbar> 
+
+            <p:fieldset legend="Dados da Vazão" style="margin-top: 2px">               
+
+                <p:panelGrid columns="2" style="width: 100%" > 
+
+                    <p:outputLabel value="Numero Da UA:" />
+                    <p:inputText value="#{enderecoBean.endereco.logradouro}" required="true" label="Logradouro" size="11" requiredMessage="Logradouro deve ser informado." immediate="true"/>
+
+                    <p:outputLabel value="Área De Drenagem:" />
+                    <p:inputText value="#{enderecoBean.endereco.logradouro}" required="true" label="Logradouro" size="11" requiredMessage="Logradouro deve ser informado." immediate="true"/>
+
+                    <p:outputLabel value="Processo Montante:" />
+                    <p:inputMask  value="#{enderecoBean.endereco.numero}" required="true" label="Nº" size="11" maxlength="11" requiredMessage="Número deve ser informado." immediate="true"/>
+                  
+
+                    <p:outputLabel value="Processo Jusante:" />
+                    <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="11" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/>
+                    
+                    <p:outputLabel value="Processo APAC:" />                   
+	                <p:selectOneMenu value="#{itemDeVendaBean.venda.outorgante}" converter="omnifaces.SelectItemsConverter" filter="true">
+	   
+	                <f:selectItem noSelectionOption="true" itemLabel="Selecione"/>
+	                <f:selectItems value="#{itemDeVendaBean.listaOutorgantes}" var="outorgantes" itemValue="#{outorgantes}" itemLabel="#{outorgantes.nomeRazao} - #{outorgantes.processoApac}"/>	     
+	                </p:selectOneMenu>                  
+
+                  
+                </p:panelGrid>
+            </p:fieldset>  
+            
+             <p:fieldset legend="Informe o percentual" style="margin-top: 2px">               
+
+                <p:panelGrid columns="8" style="width: 100%" > 
+
+                    <p:outputLabel value="Janeiro:" />
+                    <p:inputText value="#{enderecoBean.endereco.logradouro}" required="true" label="Logradouro" size="5" requiredMessage="Logradouro deve ser informado." immediate="true"/>
+
+                    <p:outputLabel value="Fevereiro" />
+                    <p:inputText value="#{enderecoBean.endereco.logradouro}" required="true" label="Logradouro" size="5" requiredMessage="Logradouro deve ser informado." immediate="true"/>
+
+                    <p:outputLabel value="Março:" />
+                    <p:inputMask  value="#{enderecoBean.endereco.numero}" required="true" label="Nº" size="5" maxlength="5" requiredMessage="Número deve ser informado." immediate="true"/>                  
+
+                    <p:outputLabel value="Abril:" />
+                    <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/>
+                    
+                    <p:outputLabel value="Maio:" />                   
+	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                
+	                <p:outputLabel value="Junho:" />                   
+	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                
+	                <p:outputLabel value="Julho:" />                   
+	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/>
+	                
+	                <p:outputLabel value="Agosto:" />                   
+	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                
+	                <p:outputLabel value="Setembro:" />                   
+	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                
+	                <p:outputLabel value="Outubro:" />                   
+	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                
+	                <p:outputLabel value="Novembro:" />                   
+	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                
+	                <p:outputLabel value="Dezembro:" />                   
+	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/>                 
+                </p:panelGrid>                 
+            </p:fieldset> 		 
+		     
+        </h:form>
+        <h:form>
+        <p:fieldset legend="Dados Da Simulação" style="margin-top: 2px"> 
+                     <p:panelGrid columns="8" style="width: 100%" > 
+
+                    <p:outputLabel value="Janeiro:" />
+                    <p:inputText value="#{enderecoBean.endereco.logradouro}" required="true" label="Logradouro" size="5" requiredMessage="Logradouro deve ser informado." immediate="true"/>
+
+                    <p:outputLabel value="Fevereiro" />
+                    <p:inputText value="#{enderecoBean.endereco.logradouro}" required="true" label="Logradouro" size="5" requiredMessage="Logradouro deve ser informado." immediate="true"/>
+
+                    <p:outputLabel value="Março:" />
+                    <p:inputMask  value="#{enderecoBean.endereco.numero}" required="true" label="Nº" size="5" maxlength="5" requiredMessage="Número deve ser informado." immediate="true"/>                  
+
+                    <p:outputLabel value="Abril:" />
+                    <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/>
+                    
+                    <p:outputLabel value="Maio:" />                   
+	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                
+	                <p:outputLabel value="Junho:" />                   
+	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                
+	                <p:outputLabel value="Julho:" />                   
+	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/>
+	                
+	                <p:outputLabel value="Agosto:" />                   
+	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                
+	                <p:outputLabel value="Setembro:" />                   
+	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                
+	                <p:outputLabel value="Outubro:" />                   
+	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                
+	                <p:outputLabel value="Novembro:" />                   
+	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                
+	                <p:outputLabel value="Dezembro:" />                   
+	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/>                 
+                </p:panelGrid>
+        </p:fieldset>
+        </h:form>
+
+</h:body>
+</html>
