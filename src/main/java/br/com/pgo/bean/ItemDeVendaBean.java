@@ -35,6 +35,8 @@ public class ItemDeVendaBean implements Serializable {
 	private Outorgante outorgante;
 	private Usuario usuario;
 	private int num;
+	private int processoMontante;
+	private int processoJusante;
 	private BigDecimal areaUa;
 	private BigDecimal areaDrenagem;
 	private List<Venda> garantiaVazao;
@@ -50,6 +52,25 @@ public class ItemDeVendaBean implements Serializable {
     private List<Outorgante> listaOutorgantes;
     private List<Usuario> listaUsuarios;    
 	
+    public ItemDeVendaBean(){
+    	finalizar();
+    }
+    
+    public int getProcessoMontante() {
+		return processoMontante;
+	}
+
+	public void setProcessoMontante(int processoMontante) {
+		this.processoMontante = processoMontante;
+	}
+
+	public int getProcessoJusante() {
+		return processoJusante;
+	}
+
+	public void setProcessoJusante(int processoJusante) {
+		this.processoJusante = processoJusante;
+	}
     
     
     public Outorgante getOutorgante() {
@@ -409,6 +430,9 @@ public class ItemDeVendaBean implements Serializable {
 
 
 	public void adicionar(ActionEvent evento) {
+		
+	//CHAMAR O DAO VENDA PARA BUSCAR A UA CORRENTE NA TELA USANDO O getCOMPONETE.
+	//USA O ATRIBUTO 'NUM' JÁ DECLARADO PARA RECEBER O NÚMERO DA UA.	
 
 		ua = (Ua) evento.getComponent().getAttributes().get("uaSelecionada");		
 		
@@ -2053,6 +2077,8 @@ ua.setMai(garantiaMai);
 		
 		
 	}
+
+	
 	
 	
 }

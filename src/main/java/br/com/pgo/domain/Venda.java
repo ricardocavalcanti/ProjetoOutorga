@@ -27,6 +27,12 @@ public class Venda extends GenericDomain {
 
 	@Column(length = 50, nullable = false)
 	private int numeroUa;
+	
+	@Column(length = 50, nullable = false)
+	private int processoMotante;
+	
+	@Column(length = 50, nullable = false)
+	private int processoJusante;
 
 	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal areaUa;
@@ -217,5 +223,23 @@ public class Venda extends GenericDomain {
 	public void setOutorgante(Outorgante outorgante) {
 		this.outorgante = outorgante;
 	}
+
+	public int getProcessoMotante() {
+		return processoMotante;
+	}
+
+	public void setProcessoMotante(int processoMotante) {
+		this.processoMotante = processoMotante;
+	}
+
+	public int getProcessoJusante() {
+		return processoJusante;
+	}
+
+	public void setProcessoJusante(int processoJusante) {
+		this.processoJusante = processoJusante;
+	}
+	
+	
 
 }

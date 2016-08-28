@@ -16,36 +16,40 @@
         
          <p:toolbar style="margin-top: 20px">
                 <p:toolbarGroup align="right">
-                    <p:commandButton value="Simular" icon="ui-icon-star"/>
-                    <p:commandButton action="#{enderecoBean.salvar()}" value="Salvar" ajax="false" update="@frmCadastro" icon="ui-icon-disk"/>
+                
+                 <p:commandButton value="Simular" icon="ui-icon-star" actionListener="#{itemDeVendaBean.calcular}">
+                    <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+                 </p:commandButton>
+                 
+                 <p:commandButton value="Salvar" ajax="false" icon="ui-icon-disk"/>
                 </p:toolbarGroup>                           
             </p:toolbar> 
 
-            <p:fieldset legend="Dados da Vazão" style="margin-top: 2px">               
+            <p:fieldset legend="Dados da Vazão" style="margin-top: 2px">         
 
                 <p:panelGrid columns="2" style="width: 100%" > 
 
                     <p:outputLabel value="Numero Da UA:" />
-                    <p:inputText value="#{enderecoBean.endereco.logradouro}" required="true" label="Logradouro" size="11" requiredMessage="Logradouro deve ser informado." immediate="true"/>
+                    <p:inputText value="#{itemDeVendaBean.num}" required="true" id="numerUa" size="11" requiredMessage="O campo numero da 'Ua' é obrigatório"/>
 
                     <p:outputLabel value="Área De Drenagem:" />
-                    <p:inputText value="#{enderecoBean.endereco.logradouro}" required="true" label="Logradouro" size="11" requiredMessage="Logradouro deve ser informado." immediate="true"/>
+                    <p:inputText value="#{itemDeVendaBean.areaDrenagem}" required="true" id="areDrenagem" size="11" requiredMessage="O campo 'Área de Drenagem é obrigatório"/>
 
                     <p:outputLabel value="Processo Montante:" />
-                    <p:inputMask  value="#{enderecoBean.endereco.numero}" required="true" label="Nº" size="11" maxlength="11" requiredMessage="Número deve ser informado." immediate="true"/>
-                  
+                    <p:inputMask  value="#{itemDeVendaBean.processoMontante}" required="true" id="processoMontante" size="11" maxlength="11" requiredMessage="O campo 'Processo Montante' é obrigatório"/>                  
 
                     <p:outputLabel value="Processo Jusante:" />
-                    <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="11" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/>
+                    <p:inputText value="#{itemDeVendaBeadn.processoJusante}" id="processoJusante" required="true" size="11" maxlength="50" requiredMessage="O campo 'Processo Jusante' é obrigatório"/>
                     
                     <p:outputLabel value="Processo APAC:" />                   
-	                <p:selectOneMenu value="#{itemDeVendaBean.venda.outorgante}" converter="omnifaces.SelectItemsConverter" filter="true">
+	                <p:selectOneMenu id="processoApac" value="#{itemDeVendaBean.venda.outorgante}" converter="omnifaces.SelectItemsConverter" filter="true" required="true" 
+	                requiredMessage="O campo 'Processo Apac' é obrigatório">	                
 	   
 	                <f:selectItem noSelectionOption="true" itemLabel="Selecione"/>
+	                
 	                <f:selectItems value="#{itemDeVendaBean.listaOutorgantes}" var="outorgantes" itemValue="#{outorgantes}" itemLabel="#{outorgantes.nomeRazao} - #{outorgantes.processoApac}"/>	     
-	                </p:selectOneMenu>                  
-
-                  
+	                </p:selectOneMenu> 
+	                                 
                 </p:panelGrid>
             </p:fieldset>  
             
@@ -54,40 +58,64 @@
                 <p:panelGrid columns="8" style="width: 100%" > 
 
                     <p:outputLabel value="Janeiro:" />
-                    <p:inputText value="#{enderecoBean.endereco.logradouro}" required="true" label="Logradouro" size="5" requiredMessage="Logradouro deve ser informado." immediate="true"/>
+                   <p:inputMask id="janeiro" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaJan}" required="true" requiredMessage="O campo 'Janeiro' é obrigatório">				    
+                    <f:convertNumber type="percent"/>						
+				    </p:inputMask>	  
 
                     <p:outputLabel value="Fevereiro" />
-                    <p:inputText value="#{enderecoBean.endereco.logradouro}" required="true" label="Logradouro" size="5" requiredMessage="Logradouro deve ser informado." immediate="true"/>
+                    <p:inputMask id="fevereiro" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaFev}" required="true" requiredMessage="O campo 'Fevereiro' é obrigatório">
+				    <f:convertNumber type="percent"/>				 		
+				    </p:inputMask>
 
                     <p:outputLabel value="Março:" />
-                    <p:inputMask  value="#{enderecoBean.endereco.numero}" required="true" label="Nº" size="5" maxlength="5" requiredMessage="Número deve ser informado." immediate="true"/>                  
+                    <p:inputMask id="marco" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaMar}" required="true" requiredMessage="O campo 'Março' é obrigatório">
+				    <f:convertNumber type="percent"/>				
+				    </p:inputMask>                  
 
                     <p:outputLabel value="Abril:" />
-                    <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/>
+                  <p:inputMask id="abril" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaAbr}" required="true" requiredMessage="O campo 'Abril' é obrigatório">
+				    <f:convertNumber type="percent" />				
+				    </p:inputMask>	
                     
                     <p:outputLabel value="Maio:" />                   
-	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	               <p:inputMask id="maio" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaMai}" required="true" requiredMessage="O campo 'Mai' é obrigatório">
+				    <f:convertNumber type="percent" />			
+				    </p:inputMask>
 	                
 	                <p:outputLabel value="Junho:" />                   
-	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                 <p:inputMask id="junho" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaJun}" required="true" requiredMessage="O campo 'Junho' é obrigatório">
+				    <f:convertNumber type="percent"/>		
+				    </p:inputMask>
 	                
 	                <p:outputLabel value="Julho:" />                   
-	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/>
+	                <p:inputMask id="julho" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaJul}" required="true" requiredMessage="O campo 'Julho' é obrigatório">
+				    <f:convertNumber type="percent"/>				
+				    </p:inputMask>
 	                
 	                <p:outputLabel value="Agosto:" />                   
-	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                <p:inputMask id="agosto" mask="99%" maxlength="5" size="5"  value="#{itemDeVendaBean.garantiaAgo}" required="true" requiredMessage="O campo 'Agosto' é obrigatório">
+				    <f:convertNumber type="percent" />				
+				    </p:inputMask>
 	                
 	                <p:outputLabel value="Setembro:" />                   
-	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                 <p:inputMask id="setembro" mask="99%" maxlength="5" size="5"  value="#{itemDeVendaBean.garantiaSet}" required="true" requiredMessage="O campo 'Setembro' é obrigatório">
+				    <f:convertNumber type="percent" />			
+				    </p:inputMask>
 	                
 	                <p:outputLabel value="Outubro:" />                   
-	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	               <p:inputMask id="outubro" mask="99%" maxlength="5" size="5"  value="#{itemDeVendaBean.garantiaOut}" required="true" requiredMessage="O campo 'Outubro' é obrigatório">
+				    <f:convertNumber type="percent" />				
+				    </p:inputMask>
 	                
 	                <p:outputLabel value="Novembro:" />                   
-	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	               <p:inputMask id="novembro" mask="99%" maxlength="5" size="5"  value="#{itemDeVendaBean.garantiaNov}" required="true" requiredMessage="O campo 'Novembro' é obrigatório">
+				    <f:convertNumber type="percent" />				
+				    </p:inputMask>
 	                
 	                <p:outputLabel value="Dezembro:" />                   
-	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/>                 
+	                <p:inputMask id="dezembro" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaDez}" required="true" requiredMessage="O campo 'Dezembro' é obrigatório">
+				    <f:convertNumber type="percent" />			
+				    </p:inputMask>          
                 </p:panelGrid>                 
             </p:fieldset> 		 
 		     
@@ -97,40 +125,40 @@
                      <p:panelGrid columns="8" style="width: 100%" > 
 
                     <p:outputLabel value="Janeiro:" />
-                    <p:inputText value="#{enderecoBean.endereco.logradouro}" required="true" label="Logradouro" size="5" requiredMessage="Logradouro deve ser informado." immediate="true"/>
+                    <p:inputText value="#{itemDeVendaBean.rgarantiaJan}" size="5"/>
 
                     <p:outputLabel value="Fevereiro" />
-                    <p:inputText value="#{enderecoBean.endereco.logradouro}" required="true" label="Logradouro" size="5" requiredMessage="Logradouro deve ser informado." immediate="true"/>
+                    <p:inputText value="#{itemDeVendaBean.rgarantiaFev}" size="5"/>
 
                     <p:outputLabel value="Março:" />
-                    <p:inputMask  value="#{enderecoBean.endereco.numero}" required="true" label="Nº" size="5" maxlength="5" requiredMessage="Número deve ser informado." immediate="true"/>                  
+                    <p:inputMask  value="#{itemDeVendaBean.rgarantiaMar}" size="5"/>                  
 
                     <p:outputLabel value="Abril:" />
-                    <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/>
+                    <p:inputText  value="#{itemDeVendaBean.rgarantiaAbr}" size="5"/>
                     
                     <p:outputLabel value="Maio:" />                   
-	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                <p:inputText value="#{itemDeVendaBean.rgarantiaMai}" size="5"/> 
 	                
 	                <p:outputLabel value="Junho:" />                   
-	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                <p:inputText value="#{itemDeVendaBean.rgarantiaJun}" size="5"/> 
 	                
 	                <p:outputLabel value="Julho:" />                   
-	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/>
+	                <p:inputText value="#{itemDeVendaBean.rgarantiaJul}" size="5"/>
 	                
 	                <p:outputLabel value="Agosto:" />                   
-	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                <p:inputText  value="#{itemDeVendaBean.rgarantiaAgo}" size="5"/> 
 	                
 	                <p:outputLabel value="Setembro:" />                   
-	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                <p:inputText value="#{itemDeVendaBean.rgarantiaSet}" size="5"/> 
 	                
 	                <p:outputLabel value="Outubro:" />                   
-	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                <p:inputText value="#{itemDeVendaBean.rgarantiaOut}" size="5"/> 
 	                
 	                <p:outputLabel value="Novembro:" />                   
-	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/> 
+	                <p:inputText value="#{itemDeVendaBean.rgarantiaNov}" size="5"/> 
 	                
 	                <p:outputLabel value="Dezembro:" />                   
-	                <p:inputText value="#{enderecoBean.endereco.bairro}" label="Bairro" required="true" size="5" maxlength="50" requiredMessage="Bairro deve ser informado." immediate="true"/>                 
+	                <p:inputText value="#{itemDeVendaBean.rgarantiaDez}" size="5"/>                 
                 </p:panelGrid>
         </p:fieldset>
         </h:form>
