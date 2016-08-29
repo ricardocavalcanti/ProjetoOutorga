@@ -8,6 +8,7 @@
 <h:head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
      <title>Simulação Vazão</title>
+     <h:outputScript library="js" name="scripts.js" />
  </h:head>
     <h:body> 
       <p:growl id="mensagem"/>
@@ -23,11 +24,11 @@
                  
                  <p:commandButton value="Salvar" ajax="false" icon="ui-icon-disk"/>
                 </p:toolbarGroup>                           
-            </p:toolbar> 
+          </p:toolbar> 
 
             <p:fieldset legend="Dados da Vazão" style="margin-top: 2px">         
 
-                <h:panelGrid id="painel"  columns="2" style="width: 100%" > 
+                <h:panelGrid id="painel"  columns="4" style="width: 100%" > 
 
                     <p:outputLabel value="Numero Da UA:" />
                     <p:inputText value="#{itemDeVendaBean.num}" required="true" id="numerUa" size="11" requiredMessage="O campo numero da 'Ua' é obrigatório">
@@ -57,9 +58,22 @@
 	                
 	                <f:selectItems value="#{itemDeVendaBean.listaOutorgantes}" var="outorgantes" itemValue="#{outorgantes}" itemLabel="#{outorgantes.nomeRazao} - #{outorgantes.processoApac}"/>	     
 	                </p:selectOneMenu> 
-	                                 
+	                
+	                <p:outputLabel value="Usuário:" />                   
+	                <p:selectOneMenu id="usuario" value="#{itemDeVendaBean.venda.usuario}" converter="omnifaces.SelectItemsConverter" filter="true" required="true" 
+	                requiredMessage="O campo 'Processo Apac' é obrigatório">	                
+	   
+	                <f:selectItem noSelectionOption="true" itemLabel="Selecione"/>
+	                
+	                <f:selectItems value="#{itemDeVendaBean.listaUsuarios}" var="usuarios" itemValue="#{usuarios}" itemLabel="#{usuarios.login}"/>	     
+	                </p:selectOneMenu>
+	                
+	                <p:outputLabel value="Vencimento: "/>
+	                   <p:calendar pattern="dd/MM/yyyy" local="pt_BR" value="#{itemDeVendaBean.venda.vencimento}" required="true"
+				    requiredMessage="O campo 'Vencimento' é obrigatório" size="11" navigator="true"/>				                  
+	                	                                 
                 </h:panelGrid>
-                </p:fieldset>  
+            </p:fieldset>  
             
                 <p:fieldset legend="Informe o percentual" style="margin-top: 2px">               
 
@@ -67,8 +81,8 @@
 
                    <p:outputLabel value="Janeiro:" />
                    <p:inputMask id="janeiro" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaJan}" required="true" requiredMessage="O campo 'Janeiro' é obrigatório">				    
-                    <f:convertNumber type="percent"/>						
-				    </p:inputMask>	  
+                   <f:convertNumber type="percent"/>						
+				   </p:inputMask>	  
 
                     <p:outputLabel value="Fevereiro" />
                     <p:inputMask id="fevereiro" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaFev}" required="true" requiredMessage="O campo 'Fevereiro' é obrigatório">
@@ -125,12 +139,10 @@
 				    <f:convertNumber type="percent" />			
 				    </p:inputMask>          
                 </h:panelGrid>                 
-            </p:fieldset> 		 
-		     
-     
+            </p:fieldset>     
       
              <p:fieldset  legend="Dados Da Simulação" style="margin-top: 2px"> 
-                     <h:panelGrid id="painel3" columns="8" style="width: 100%" > 
+                    <h:panelGrid id="painel3" columns="8" style="width: 100%" > 
 
                     <p:outputLabel value="Janeiro:" />
                     <p:inputText value="#{itemDeVendaBean.rgarantiaJan}" size="6"/>                
@@ -166,10 +178,14 @@
 	                <p:inputText value="#{itemDeVendaBean.rgarantiaNov}" size="6"/> 
 	                
 	                <p:outputLabel value="Dezembro:" />                   
-	                <p:inputText value="#{itemDeVendaBean.rgarantiaDez}" size="6"/>                 
+	                <p:inputText value="#{itemDeVendaBean.rgarantiaDez}" size="6"/>	                
+	                
+	                <p:outputLabel value="Valor outorgado:" />
+                    <p:inputText  value="#{itemDeVendaBean.venda.valorOutorgado}" required="true" id="valorOutorgado" size="6" maxlength="11" requiredMessage="O campo 'Valor Outorgado' é obrigatório">
+                    <f:validateDoubleRange minimum="1" maximum="10000000"/>
+                    </p:inputText>                  
                 </h:panelGrid>
-        </p:fieldset>
-        </h:form>
-
-</h:body>
+           </p:fieldset>
+       </h:form>
+  </h:body>
 </html>

@@ -27,10 +27,10 @@ public class Venda extends GenericDomain {
 
 	@Column(length = 50, nullable = false)
 	private int numeroUa;
-	
+
 	@Column(length = 50, nullable = false)
 	private int processoMotante;
-	
+
 	@Column(length = 50, nullable = false)
 	private int processoJusante;
 
@@ -39,6 +39,9 @@ public class Venda extends GenericDomain {
 
 	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal areaDrenagem;
+
+	@Column(nullable = false, precision = 6, scale = 2)
+	private BigDecimal valorOutorgado;
 
 	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal jan;
@@ -75,9 +78,17 @@ public class Venda extends GenericDomain {
 
 	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal dez;
-	
+
 	public Venda() {
 
+	}
+
+	public BigDecimal getValorOutorgado() {
+		return valorOutorgado;
+	}
+
+	public void setValorOutorgado(BigDecimal valorOutorgado) {
+		this.valorOutorgado = valorOutorgado;
 	}
 
 	public Date getVencimento() {
@@ -232,18 +243,12 @@ public class Venda extends GenericDomain {
 		this.processoJusante = processoJusante;
 	}
 
-
-
 	public Outorgante getOutorgante() {
 		return outorgante;
 	}
 
-
-
 	public void setOutorgante(Outorgante outorgante) {
 		this.outorgante = outorgante;
 	}
-	
-	
 
 }
