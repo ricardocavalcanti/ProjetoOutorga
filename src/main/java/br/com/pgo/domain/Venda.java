@@ -75,7 +75,7 @@ public class Venda extends GenericDomain {
 
 	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal dez;
-
+	
 	public Venda() {
 
 	}
@@ -216,14 +216,6 @@ public class Venda extends GenericDomain {
 		this.usuario = usuario;
 	}
 
-	public Outorgante getOutorgante() {
-		return outorgante;
-	}
-
-	public void setOutorgante(Outorgante outorgante) {
-		this.outorgante = outorgante;
-	}
-
 	public int getProcessoMotante() {
 		return processoMotante;
 	}
@@ -238,6 +230,18 @@ public class Venda extends GenericDomain {
 
 	public void setProcessoJusante(int processoJusante) {
 		this.processoJusante = processoJusante;
+	}
+
+
+
+	public Outorgante getOutorgante() {
+		return outorgante;
+	}
+
+
+
+	public void setOutorgante(Outorgante outorgante) {
+		this.outorgante = outorgante;
 	}
 	
 	

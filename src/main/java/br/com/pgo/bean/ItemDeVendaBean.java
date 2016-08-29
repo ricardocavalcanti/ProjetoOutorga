@@ -20,6 +20,7 @@ import org.omnifaces.util.Messages;
 import br.com.pgo.dao.OutorganteDAO;
 import br.com.pgo.dao.UaDAO;
 import br.com.pgo.dao.UsuarioDAO;
+import br.com.pgo.dao.VendaDAO;
 import br.com.pgo.domain.Outorgante;
 import br.com.pgo.domain.Ua;
 import br.com.pgo.domain.Usuario;
@@ -32,7 +33,7 @@ import br.com.pgo.util.Interpolar;
 public class ItemDeVendaBean implements Serializable {
 
 	private Ua ua;
-	private Outorgante outorgante;
+	//private Outorgante outorgante;
 	private Usuario usuario;
 	private int num;
 	private int processoMontante;
@@ -54,7 +55,16 @@ public class ItemDeVendaBean implements Serializable {
 	
     public ItemDeVendaBean(){
     	finalizar();
+    	novo();
     }
+    
+    public Venda getVenda() {
+		return venda;
+	}
+
+	public void setVenda(Venda venda) {
+		this.venda = venda;
+	}
     
     public int getProcessoMontante() {
 		return processoMontante;
@@ -70,16 +80,7 @@ public class ItemDeVendaBean implements Serializable {
 
 	public void setProcessoJusante(int processoJusante) {
 		this.processoJusante = processoJusante;
-	}
-    
-    
-    public Outorgante getOutorgante() {
-		return outorgante;
-	}
-
-	public void setOutorgante(Outorgante outorgante) {
-		this.outorgante = outorgante;
-	}
+	}   
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -129,13 +130,7 @@ public class ItemDeVendaBean implements Serializable {
 		this.num = num;
 	}	
 
-	public Venda getVenda() {
-		return venda;
-	}
-
-	public void setVenda(Venda venda) {
-		this.venda = venda;
-	}
+	
 
 	public List<Ua> getListaUa() {
 		return listaUa;
@@ -372,6 +367,13 @@ public class ItemDeVendaBean implements Serializable {
 		this.garantiaDez = garantiaDez;
 	}
 	
+public void novo(){
+		
+		venda = new Venda();
+		
+	}
+	
+	
 	public void finalizar(){
 		
 		try{
@@ -429,32 +431,37 @@ public class ItemDeVendaBean implements Serializable {
 	}
 
 
-	public void adicionar(ActionEvent evento) {
+	public void adicionar() {
 		
 	//CHAMAR O DAO VENDA PARA BUSCAR A UA CORRENTE NA TELA USANDO O getCOMPONETE.
 	//USA O ATRIBUTO 'NUM' JÁ DECLARADO PARA RECEBER O NÚMERO DA UA.	
 
-		ua = (Ua) evento.getComponent().getAttributes().get("uaSelecionada");		
+		VendaDAO BuscarUA = new VendaDAO();
+		listaItensVenda = BuscarUA.buscarUa(num);
+		areaUa = listaItensVenda.get(1).getAreaUa();
+		num = listaItensVenda.get(1).getNumeroUa();
 		
-		ua.setAno(ua.getAno());
-		ua.setNumeroUa(ua.getNumeroUa());
-		ua.setAreaUa(ua.getAreaUa());
-		areaUa = ua.getAreaUa();
-		num = ua.getNumeroUa();
-		ua.setJan(ua.getJan());
-		ua.setFev(ua.getFev());
-		ua.setMar(ua.getMar());
-		ua.setAbr(ua.getAbr());
-		ua.setMai(ua.getMai());
-		ua.setJun(ua.getJun());
-		ua.setJul(ua.getJul());
-		ua.setAgo(ua.getAgo());
-		ua.setSet(ua.getSet());
-		ua.setOut(ua.getOut());
-		ua.setNov(ua.getNov());
-		ua.setDez(ua.getDez());
+        
+		if (listaItensVenda.isEmpty()) {
+			
+			System.out.println("Nenhum registro encontrado");
+			
+		} else {
+            int i=0;
+			for (Ua ua : listaItensVenda) {
+				i++;
+				
+				
+				System.out.println(ua.getNumeroUa());
+				System.out.println("Ano da UA: "+ua.getAno());
+				
+			}
+			System.out.println("Quantidade Ua encontrada: "+i);
+		}
+		
+		
 
-		listaItensVenda.add(ua);
+		//listaItensVenda.add(ua);
 		
 		System.out.println(num);
 
@@ -462,14 +469,16 @@ public class ItemDeVendaBean implements Serializable {
 
 	// Método para calcular a interpolação dos pontos
 	public void calcular() {
-			
+		
+		adicionar();
+		
 		ua = new Ua();
-	
+		//areaUa = ua.getAreaUa();
 		System.out.println(num);
 		ua.setNumeroUa(num);
 		ua.setAno(0);
 		
-	///IF NUMERO PROCESSO == 0 *** FAZER VAZAO DO PONTO	
+	    ///IF NUMERO PROCESSO == 0 *** FAZER VAZAO DO PONTO	
 		
 		// Para contar o tamanho da quantidade de elementos da lista, para ser
 		// utilizado na divisão = (posiçãoJan/Quantidade).
@@ -479,7 +488,7 @@ public class ItemDeVendaBean implements Serializable {
 		// -------------------------------------INICIO//
 		// JANEIRO---------------------------------------------------------------------------------------------------------//
 		
-		rgarantiaJan=garantiaJan;
+		//rgarantiaJan=garantiaJan;
 		if(!garantiaJan.equals(BigDecimal.ZERO)){
 		
 		// Para fazer a ordenação Janeiro em ordem descrescente.
@@ -646,16 +655,16 @@ public class ItemDeVendaBean implements Serializable {
 			garantiaJan = BigDecimal.ZERO;
 		}
 		
+		rgarantiaJan=garantiaJan;
 		
-		
-		ua.setJan(garantiaJan);
+	//	ua.setJan(garantiaJan);
 		
 	//	listaGarantiaVazao.add(garantiaVazao);
 		System.out.println(ua.getJan());
 		
 		System.out.println("GARANTIA JAN FINAL"+garantiaJan);
 		
-		rgarantiaFev=garantiaFev;
+		//rgarantiaFev=garantiaFev;
 		if(!garantiaFev.equals(BigDecimal.ZERO)){
 		
 		// Ordenação Fevereiro
@@ -785,12 +794,14 @@ public class ItemDeVendaBean implements Serializable {
 			
 		}
 		
-		ua.setFev(garantiaFev);
+		rgarantiaFev=garantiaFev;
+		
+		//ua.setFev(garantiaFev);
 		
 		System.out.println("GARANTIA FEVEREIRO FINAL"+garantiaFev);
 		// FIM FEVEREIRO
  System.out.println("##########INICIO MARÇO##############");
- rgarantiaMar=garantiaMar;
+ //rgarantiaMar=garantiaMar;
  if(!garantiaMar.equals(BigDecimal.ZERO)){
 		// Ordenação Março
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
@@ -911,8 +922,10 @@ public class ItemDeVendaBean implements Serializable {
 	 
  }
  
- ua.setMar(garantiaMar);
- rgarantiaAbr=garantiaAbr;
+ rgarantiaMar=garantiaMar;
+ 
+ //ua.setMar(garantiaMar);
+ //rgarantiaAbr=garantiaAbr;
  if(!garantiaAbr.equals(BigDecimal.ZERO)){
 		
 		
@@ -1037,9 +1050,11 @@ public class ItemDeVendaBean implements Serializable {
 	 
 	 garantiaAbr = BigDecimal.ZERO;
  }
- ua.setAbr(garantiaAbr);
  
- rgarantiaMai=garantiaMai;
+ rgarantiaAbr=garantiaAbr;
+ //ua.setAbr(garantiaAbr);
+ 
+// rgarantiaMai=garantiaMai;
 		// FIM ABRIL
  if(!garantiaMai.equals(BigDecimal.ZERO)){
  
@@ -1162,13 +1177,15 @@ public class ItemDeVendaBean implements Serializable {
 	  garantiaMai = BigDecimal.ZERO;
 	 
  }
-ua.setMai(garantiaMai);
+ 
+ rgarantiaMai=garantiaMai;
+//ua.setMai(garantiaMai);
  
  System.out.println("GARANTIA MAIO FINAL"+garantiaMai);
 		// FIM MAIO
 		System.out.println("##########INICIO JUNHO##############");
 		// Ordenação Junho
-		rgarantiaJun=garantiaJun;
+		//rgarantiaJun=garantiaJun;
 		if(!garantiaJun.equals(BigDecimal.ZERO)){		
 		Collections.sort(listaItensVenda, new Comparator<Ua>() {
 			@Override
@@ -1288,8 +1305,10 @@ ua.setMai(garantiaMai);
 			garantiaJun = BigDecimal.ZERO;
 			
 		}
-		ua.setJun(garantiaJun);
-		rgarantiaJul=garantiaJul;
+		
+		rgarantiaJun=garantiaJun;
+		//ua.setJun(garantiaJun);
+		//rgarantiaJul=garantiaJul;
 		if(!garantiaJul.equals(BigDecimal.ZERO)){
 		
 		// FIM JUNHO
@@ -1411,12 +1430,14 @@ ua.setMai(garantiaMai);
 			garantiaJul = BigDecimal.ZERO;
 			
 		}
-		ua.setJul(garantiaJul);
+		
+		rgarantiaJul=garantiaJul;
+		//ua.setJul(garantiaJul);
 		
 		
 		
 		System.out.println("GARANTIA JULHO FINAL"+garantiaJul);
-		rgarantiaAgo=garantiaAgo;
+		//rgarantiaAgo=garantiaAgo;
 		
 		if(!garantiaAgo.equals(BigDecimal.ZERO)){	
 		
@@ -1539,12 +1560,14 @@ ua.setMai(garantiaMai);
 			
 		}
 		
-		ua.setAgo(garantiaAgo);
+		rgarantiaAgo=garantiaAgo;
+		
+		//ua.setAgo(garantiaAgo);
 		
 		System.out.println("GARANTIA AGOSTO FINAL"+garantiaAgo);
 		
 		// FIM AGOSTO
-		rgarantiaSet=garantiaSet;
+		//rgarantiaSet=garantiaSet;
 		if(!garantiaSet.equals(BigDecimal.ZERO)){
 		
 		System.out.println("##########INICIO SETEMBRO##############");
@@ -1668,11 +1691,12 @@ ua.setMai(garantiaMai);
 			
 		}
 		
-		ua.setSet(garantiaSet);
+		rgarantiaSet=garantiaSet;
+		//ua.setSet(garantiaSet);
 		
 		System.out.println("GARANTIA SETEMBRO FINAL"+garantiaSet);
 		// FIM SETEMBRO
-		rgarantiaOut=garantiaOut;
+		//rgarantiaOut=garantiaOut;
 		if(!garantiaOut.equals(BigDecimal.ZERO)){
 		
 		
@@ -1792,9 +1816,9 @@ ua.setMai(garantiaMai);
 			
 			 garantiaOut = BigDecimal.ZERO;
 		}
-		
-		ua.setOut(garantiaOut);
-		rgarantiaNov=garantiaNov;
+		rgarantiaOut=garantiaOut;
+		//ua.setOut(garantiaOut);
+		//rgarantiaNov=garantiaNov;
 		System.out.println("GARANTIA OUTUBRO FINAL"+garantiaOut);
 		
 		// FIM OUTUBRO
@@ -1916,10 +1940,12 @@ ua.setMai(garantiaMai);
 			
 			garantiaNov = BigDecimal.ZERO;
 		}
-		ua.setNov(garantiaNov);
+		
+		rgarantiaNov=garantiaNov;
+		//ua.setNov(garantiaNov);
 		System.out.println("GARANTIA NOVEMBRO FINAL"+garantiaNov);
 		// FIM NOVEMBRO
-		rgarantiaDez=garantiaDez;
+		//rgarantiaDez=garantiaDez;
 		if(!garantiaDez.equals(BigDecimal.ZERO)){
 		System.out.println("##########INICIO DEZEMBRO##############");
 		// Ordenanação Dezembro
@@ -2040,8 +2066,9 @@ ua.setMai(garantiaMai);
 			garantiaDez = BigDecimal.ZERO;
 			
 		}
+		rgarantiaDez=garantiaDez;
 		
-		ua.setDez(garantiaDez);
+		//ua.setDez(garantiaDez);
 		
 		System.out.println("GARANTIA FINAL DEZEMBRO"+garantiaDez);
 		//Ua ua = new Ua();
@@ -2077,6 +2104,8 @@ ua.setMai(garantiaMai);
 		
 		
 	}
+
+	
 
 	
 	

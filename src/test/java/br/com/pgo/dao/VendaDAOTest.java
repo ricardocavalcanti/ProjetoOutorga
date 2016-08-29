@@ -11,7 +11,8 @@ public class VendaDAOTest {
 
 	
 	
-	@Test	
+	@Test
+	@Ignore
 	public void buscar() {
 
 		int numeroUa = 0;
