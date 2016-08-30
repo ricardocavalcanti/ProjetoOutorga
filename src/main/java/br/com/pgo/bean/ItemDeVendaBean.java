@@ -388,37 +388,130 @@ public class ItemDeVendaBean implements Serializable {
 		}
 
 	}
+	
+	public void listarVenda(){
+
+		try{
+			
+		 VendaDAO  vendaDAO = new VendaDAO();
+		 listaVenda = vendaDAO.listar();
+
+		}catch(RuntimeException erro){
+		 Messages.addGlobalInfo("Erro ao tentar listar Venda"); 
+		 erro.printStackTrace();
+		}
+	}
 
 	@PostConstruct
-	public void listar() {
+	public void encaixar() {
   
 		try {
 			
 			VendaDAO vendaDAO = new VendaDAO();
 			listaVenda = vendaDAO.listar();	
 			
-			for (int posicao = 0; posicao < listaVenda.size(); posicao++) {
+		for (int posicao = 0; posicao < listaVenda.size(); posicao++) {
 				
-		if(listaVenda.get(posicao).getProcessoMotante()==processoMontante){
+		if(listaVenda.get(posicao).getOutorgante().getProcessoApac()==venda.getProcessoMotante()){
 			
 		listaVenda.get(posicao).setProcessoMotante(venda.getOutorgante().getProcessoApac());
+		       
 		
+		} if(listaVenda.get(posicao).getOutorgante().getProcessoApac()==venda.getProcessoJusante()){
+		listaVenda.get(posicao).setProcessoJusante(venda.getOutorgante().getProcessoApac());
+			
+		listaVenda.add(venda);
 		
-				} if(listaVenda.get(posicao).getProcessoJusante()==processoJusante){
-		listaVenda.get(posicao).setProcessoJusante(venda.getOutorgante().getProcessoApac());		
-			}
+		} 
+		  }
+		} catch (RuntimeException erro){
 			
-			
-			}
-
-		} catch (RuntimeException erro) {
-
-			Messages.addGlobalInfo("Erro ao tentar listar 'Venda'");
+			Messages.addGlobalInfo("Erro ao tentar inserir 'Venda' na lista");
 			erro.printStackTrace();
+			
+		  }   
+
+}
+
+		public void cacularDisponibilidade(){
+		
+		for(int posicao = 0 ; posicao <listaVenda.size(); posicao++){
+        	
+         if(listaVenda.get(posicao).getOutorgante().getProcessoApac()==listaVenda.get(posicao+1).getProcessoMotante()){
+        	
+	       // venda = new Venda();
+	 
+        	BigDecimal dispJan0 = listaVenda.get(posicao).getJan();
+        	BigDecimal dispJan1 = listaVenda.get(posicao+1).getJan();
+        	BigDecimal resultDispJan = new BigDecimal(String.valueOf(dispJan0)).subtract(new BigDecimal(String.valueOf(dispJan1)));
+        	//rgarantiaJan
+        	venda.setJan(resultDispJan);
+        	
+        	BigDecimal dispFev0 = listaVenda.get(posicao).getFev();
+        	BigDecimal dispFev1 = listaVenda.get(posicao+1).getFev();
+        	BigDecimal resultDispFev = new BigDecimal(String.valueOf(dispFev0)).subtract(new BigDecimal(String.valueOf(dispFev1)));
+        	
+        	venda.setFev(resultDispFev);
+        	
+        	BigDecimal dispMar0 = listaVenda.get(posicao).getMar();
+        	BigDecimal dispMar1 = listaVenda.get(posicao+1).getMar();
+        	BigDecimal resultDispMar = new BigDecimal(String.valueOf(dispMar0)).subtract(new BigDecimal(String.valueOf(dispMar1)));
+        	
+        	venda.setMar(resultDispMar);
+        	
+        	BigDecimal dispAbr0 = listaVenda.get(posicao).getAbr();
+        	BigDecimal dispAbr1 = listaVenda.get(posicao+1).getAbr();
+        	BigDecimal resultDispAbr = new BigDecimal(String.valueOf(dispAbr0)).subtract(new BigDecimal(String.valueOf(dispAbr1)));
+        	
+        	venda.setAbr(resultDispAbr);
+        	
+        	BigDecimal dispJun0 = listaVenda.get(posicao).getJun();
+        	BigDecimal dispJun1 = listaVenda.get(posicao+1).getJun();
+        	BigDecimal resultDispJun = new BigDecimal(String.valueOf(dispJun0)).subtract(new BigDecimal(String.valueOf(dispJun1)));
+        	
+        	venda.setJun(resultDispJun);
+        	
+        	BigDecimal dispJul0 = listaVenda.get(posicao).getJul();
+        	BigDecimal dispJul1 = listaVenda.get(posicao+1).getJul();
+        	BigDecimal resultDispJul = new BigDecimal(String.valueOf(dispJul0)).subtract(new BigDecimal(String.valueOf(dispJul1)));
+        	
+        	venda.setJul(resultDispJul);
+        	
+        	BigDecimal dispAgo0 = listaVenda.get(posicao).getAgo();
+        	BigDecimal dispAgo1 = listaVenda.get(posicao+1).getAgo();
+        	BigDecimal resultDispAgo = new BigDecimal(String.valueOf(dispAgo0)).subtract(new BigDecimal(String.valueOf(dispAgo1)));
+        	
+        	venda.setAgo(resultDispAgo);
+        	
+        	BigDecimal dispSet0 = listaVenda.get(posicao).getSet();
+        	BigDecimal dispSet1 = listaVenda.get(posicao+1).getSet();
+        	BigDecimal resultDispSet = new BigDecimal(String.valueOf(dispSet0)).subtract(new BigDecimal(String.valueOf(dispSet1)));
+        	
+        	venda.setSet(resultDispSet);
+        	
+        	BigDecimal dispOut0 = listaVenda.get(posicao).getOut();
+        	BigDecimal dispOut1 = listaVenda.get(posicao+1).getOut();
+        	BigDecimal resultDispOut = new BigDecimal(String.valueOf(dispOut0)).subtract(new BigDecimal(String.valueOf(dispOut1)));
+        	
+        	venda.setOut(resultDispOut);
+        	
+        	BigDecimal dispNov0 = listaVenda.get(posicao).getNov();
+        	BigDecimal dispNov1 = listaVenda.get(posicao+1).getNov();
+        	BigDecimal resultDispNov = new BigDecimal(String.valueOf(dispNov0)).subtract(new BigDecimal(String.valueOf(dispNov1)));
+        	
+        	venda.setNov(resultDispNov);
+        	
+        	BigDecimal dispDez0 = listaVenda.get(posicao).getDez();
+        	BigDecimal dispDez1 = listaVenda.get(posicao+1).getDez();
+        	BigDecimal resultDispDez = new BigDecimal(String.valueOf(dispDez0)).subtract(new BigDecimal(String.valueOf(dispDez1)));
+        	
+        	venda.setDez(resultDispDez);       	
+        	
+        	listaVenda.set(posicao+1,venda);    	
+             }
+          }
 		}
-
-	}
-
+		
 	public void remover(ActionEvent evento) {
 
 		Ua ua = (Ua) evento.getComponent().getAttributes().get("itemSelecionado");
@@ -474,7 +567,7 @@ public class ItemDeVendaBean implements Serializable {
 
 	// Método para calcular a interpolação dos pontos
 	public void calcular() {
-
+		//listarVenda();
 		adicionar();
 
 		ua = new Ua();
@@ -2081,7 +2174,25 @@ public class ItemDeVendaBean implements Serializable {
 		garantiaOut = BigDecimal.ZERO;
 		garantiaNov = BigDecimal.ZERO;
 		garantiaDez = BigDecimal.ZERO;
-
+		
+		venda.setNumeroUa(num);
+		venda.setJan(rgarantiaJan);
+		venda.setFev(garantiaFev);
+        venda.setMar(rgarantiaMar);
+        venda.setAbr(garantiaAbr);
+        venda.setMai(rgarantiaMai);
+        venda.setJun(rgarantiaJun);
+        venda.setJul(rgarantiaJul);
+        venda.setAgo(rgarantiaAgo);
+        venda.setSet(rgarantiaSet);
+        venda.setOut(rgarantiaOut);
+        venda.setNov(rgarantiaNov);
+        venda.setDez(rgarantiaDez);
+        venda.setProcessoJusante(processoJusante);
+        venda.setProcessoMotante(processoMontante);
+        
+        //listaVenda.add(venda);
+        
 	}
 
 }

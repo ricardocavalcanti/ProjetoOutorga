@@ -44,6 +44,9 @@ public class Venda extends GenericDomain {
 	private BigDecimal valorOutorgado;
 
 	@Column(nullable = false, precision = 6, scale = 2)
+	private BigDecimal vazaoDisponivel;
+
+	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal jan;
 
 	@Column(nullable = false, precision = 6, scale = 2)
@@ -81,6 +84,14 @@ public class Venda extends GenericDomain {
 
 	public Venda() {
 
+	}
+
+	public BigDecimal getVazaoDisponivel() {
+		return vazaoDisponivel;
+	}
+
+	public void setVazaoDisponivel(BigDecimal vazaoDisponivel) {
+		this.vazaoDisponivel = vazaoDisponivel;
 	}
 
 	public BigDecimal getValorOutorgado() {
