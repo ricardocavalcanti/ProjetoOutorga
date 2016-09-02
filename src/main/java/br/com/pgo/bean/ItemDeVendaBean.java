@@ -9,17 +9,12 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-
-import org.omnifaces.util.Components.ForEach;
 import org.omnifaces.util.Messages;
-
 import br.com.pgo.dao.OutorganteDAO;
-import br.com.pgo.dao.UaDAO;
 import br.com.pgo.dao.UsuarioDAO;
 import br.com.pgo.dao.VendaDAO;
 import br.com.pgo.domain.Outorgante;
@@ -33,24 +28,20 @@ import br.com.pgo.util.Interpolar;
 @ViewScoped
 public class ItemDeVendaBean implements Serializable {
 
-	private Ua ua;
-	// private Outorgante outorgante;
+	private Ua ua;	
 	private Usuario usuario;
 	private int num;
 	private int processoMontante;
 	private int processoJusante;
 	private BigDecimal areaUa;
-	private BigDecimal areaDrenagem;
-	// private List<Venda> garantiaVazao;
+	private BigDecimal areaDrenagem;	
 	private List<Ua> listaItensVenda;
 	private List<Ua> listaUa;
 	private BigDecimal garantiaJan, garantiaFev, garantiaMar, garantiaAbr, garantiaMai, garantiaJun, garantiaJul,
-			garantiaAgo, garantiaSet, garantiaOut, garantiaNov, garantiaDez;
+	garantiaAgo, garantiaSet, garantiaOut, garantiaNov, garantiaDez;
 	private BigDecimal rgarantiaJan, rgarantiaFev, rgarantiaMar, rgarantiaAbr, rgarantiaMai, rgarantiaJun, rgarantiaJul,
-			rgarantiaAgo, rgarantiaSet, rgarantiaOut, rgarantiaNov, rgarantiaDez;
-	private java.util.Date data;
+	rgarantiaAgo, rgarantiaSet, rgarantiaOut, rgarantiaNov, rgarantiaDez;	
 	private Venda venda;
-
 	private List<Outorgante> listaOutorgantes;
 	private List<Usuario> listaUsuarios;
 	private List<Venda> listaVenda;
@@ -146,15 +137,7 @@ public class ItemDeVendaBean implements Serializable {
 
 	public void setListaUa(List<Ua> listaUa) {
 		this.listaUa = listaUa;
-	}
-
-	public java.util.Date getData() {
-		return data;
-	}
-
-	public void setData(java.util.Date data) {
-		this.data = data;
-	}
+	}	
 
 	public BigDecimal getRgarantiaJan() {
 		return rgarantiaJan;
@@ -407,108 +390,110 @@ public class ItemDeVendaBean implements Serializable {
   
 		try {
 			
-			VendaDAO vendaDAO = new VendaDAO();
-			listaVenda = vendaDAO.listar();	
+		VendaDAO vendaDAO = new VendaDAO();
+		listaVenda = vendaDAO.listar();	
+		} catch (RuntimeException erro){
 			
+			Messages.addGlobalInfo("Erro ao tentar criar 'Lista de Venda' ");
+			erro.printStackTrace();
+			
+		  } 		
+		
+		
 		for (int posicao = 0; posicao < listaVenda.size(); posicao++) {
-				
-		if(listaVenda.get(posicao).getOutorgante().getProcessoApac()==venda.getProcessoMotante()){
+		
+			
+		if(listaVenda.get(posicao).getOutorgante().equals(venda.getProcessoJusante())){
 			
 		listaVenda.get(posicao).setProcessoMotante(venda.getOutorgante().getProcessoApac());
 		       
 		
-		} if(listaVenda.get(posicao).getOutorgante().getProcessoApac()==venda.getProcessoJusante()){
+		} if(listaVenda.get(posicao).getOutorgante().equals(venda.getProcessoJusante())){
 		listaVenda.get(posicao).setProcessoJusante(venda.getOutorgante().getProcessoApac());
 			
 		listaVenda.add(venda);
 		
 		} 
-		  }
-		} catch (RuntimeException erro){
-			
-			Messages.addGlobalInfo("Erro ao tentar inserir 'Venda' na lista");
-			erro.printStackTrace();
-			
-		  }   
-
+		  }		  
 }
 
 		public void cacularDisponibilidade(){
 		
 		for(int posicao = 0 ; posicao <listaVenda.size(); posicao++){
         	
-         if(listaVenda.get(posicao).getOutorgante().getProcessoApac()==listaVenda.get(posicao+1).getProcessoMotante()){
+         if(listaVenda.get(posicao).getOutorgante().equals(listaVenda.get(posicao+1).getProcessoMotante()) 
+        		 && listaVenda.get(posicao).getProcessoMotante()!=0 ){
         	
 	       // venda = new Venda();
 	 
-        	BigDecimal dispJan0 = listaVenda.get(posicao).getJan();
-        	BigDecimal dispJan1 = listaVenda.get(posicao+1).getJan();
+        	BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+        	BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
         	BigDecimal resultDispJan = new BigDecimal(String.valueOf(dispJan0)).subtract(new BigDecimal(String.valueOf(dispJan1)));
         	//rgarantiaJan
         	venda.setJan(resultDispJan);
         	
-        	BigDecimal dispFev0 = listaVenda.get(posicao).getFev();
-        	BigDecimal dispFev1 = listaVenda.get(posicao+1).getFev();
+        	BigDecimal dispFev0 = listaVenda.get(posicao-1).getCaptacao();
+        	BigDecimal dispFev1 = listaVenda.get(posicao).getFev();
         	BigDecimal resultDispFev = new BigDecimal(String.valueOf(dispFev0)).subtract(new BigDecimal(String.valueOf(dispFev1)));
         	
         	venda.setFev(resultDispFev);
         	
-        	BigDecimal dispMar0 = listaVenda.get(posicao).getMar();
-        	BigDecimal dispMar1 = listaVenda.get(posicao+1).getMar();
+        	BigDecimal dispMar0 = listaVenda.get(posicao-1).getCaptacao();
+        	BigDecimal dispMar1 = listaVenda.get(posicao).getMar();
         	BigDecimal resultDispMar = new BigDecimal(String.valueOf(dispMar0)).subtract(new BigDecimal(String.valueOf(dispMar1)));
         	
         	venda.setMar(resultDispMar);
         	
-        	BigDecimal dispAbr0 = listaVenda.get(posicao).getAbr();
-        	BigDecimal dispAbr1 = listaVenda.get(posicao+1).getAbr();
+        	BigDecimal dispAbr0 = listaVenda.get(posicao-1).getCaptacao();
+        	BigDecimal dispAbr1 = listaVenda.get(posicao).getAbr();
         	BigDecimal resultDispAbr = new BigDecimal(String.valueOf(dispAbr0)).subtract(new BigDecimal(String.valueOf(dispAbr1)));
         	
         	venda.setAbr(resultDispAbr);
         	
-        	BigDecimal dispJun0 = listaVenda.get(posicao).getJun();
-        	BigDecimal dispJun1 = listaVenda.get(posicao+1).getJun();
+        	BigDecimal dispJun0 = listaVenda.get(posicao-1).getCaptacao();
+        	BigDecimal dispJun1 = listaVenda.get(posicao).getJun();
         	BigDecimal resultDispJun = new BigDecimal(String.valueOf(dispJun0)).subtract(new BigDecimal(String.valueOf(dispJun1)));
         	
         	venda.setJun(resultDispJun);
         	
-        	BigDecimal dispJul0 = listaVenda.get(posicao).getJul();
+        	BigDecimal dispJul0 = listaVenda.get(posicao-1).getCaptacao();
         	BigDecimal dispJul1 = listaVenda.get(posicao+1).getJul();
         	BigDecimal resultDispJul = new BigDecimal(String.valueOf(dispJul0)).subtract(new BigDecimal(String.valueOf(dispJul1)));
         	
         	venda.setJul(resultDispJul);
         	
-        	BigDecimal dispAgo0 = listaVenda.get(posicao).getAgo();
-        	BigDecimal dispAgo1 = listaVenda.get(posicao+1).getAgo();
+        	BigDecimal dispAgo0 = listaVenda.get(posicao-1).getCaptacao();
+        	BigDecimal dispAgo1 = listaVenda.get(posicao).getAgo();
         	BigDecimal resultDispAgo = new BigDecimal(String.valueOf(dispAgo0)).subtract(new BigDecimal(String.valueOf(dispAgo1)));
         	
         	venda.setAgo(resultDispAgo);
         	
-        	BigDecimal dispSet0 = listaVenda.get(posicao).getSet();
-        	BigDecimal dispSet1 = listaVenda.get(posicao+1).getSet();
+        	BigDecimal dispSet0 = listaVenda.get(posicao-1).getCaptacao();
+        	BigDecimal dispSet1 = listaVenda.get(posicao).getSet();
         	BigDecimal resultDispSet = new BigDecimal(String.valueOf(dispSet0)).subtract(new BigDecimal(String.valueOf(dispSet1)));
         	
         	venda.setSet(resultDispSet);
         	
-        	BigDecimal dispOut0 = listaVenda.get(posicao).getOut();
-        	BigDecimal dispOut1 = listaVenda.get(posicao+1).getOut();
+        	BigDecimal dispOut0 = listaVenda.get(posicao-1).getCaptacao();
+        	BigDecimal dispOut1 = listaVenda.get(posicao).getOut();
         	BigDecimal resultDispOut = new BigDecimal(String.valueOf(dispOut0)).subtract(new BigDecimal(String.valueOf(dispOut1)));
         	
         	venda.setOut(resultDispOut);
         	
-        	BigDecimal dispNov0 = listaVenda.get(posicao).getNov();
-        	BigDecimal dispNov1 = listaVenda.get(posicao+1).getNov();
+        	BigDecimal dispNov0 = listaVenda.get(posicao-1).getCaptacao();
+        	BigDecimal dispNov1 = listaVenda.get(posicao).getNov();
         	BigDecimal resultDispNov = new BigDecimal(String.valueOf(dispNov0)).subtract(new BigDecimal(String.valueOf(dispNov1)));
         	
         	venda.setNov(resultDispNov);
         	
-        	BigDecimal dispDez0 = listaVenda.get(posicao).getDez();
-        	BigDecimal dispDez1 = listaVenda.get(posicao+1).getDez();
+        	BigDecimal dispDez0 = listaVenda.get(posicao-1).getCaptacao();
+        	BigDecimal dispDez1 = listaVenda.get(posicao).getDez();
         	BigDecimal resultDispDez = new BigDecimal(String.valueOf(dispDez0)).subtract(new BigDecimal(String.valueOf(dispDez1)));
         	
         	venda.setDez(resultDispDez);       	
         	
-        	listaVenda.set(posicao+1,venda);    	
-             }
+        	listaVenda.set(posicao,venda);    	
+             } 
           }
 		}
 		
@@ -2176,6 +2161,7 @@ public class ItemDeVendaBean implements Serializable {
 		garantiaDez = BigDecimal.ZERO;
 		
 		venda.setNumeroUa(num);
+		venda.setAreaDrenagem(areaDrenagem);
 		venda.setJan(rgarantiaJan);
 		venda.setFev(garantiaFev);
         venda.setMar(rgarantiaMar);
@@ -2192,6 +2178,10 @@ public class ItemDeVendaBean implements Serializable {
         venda.setProcessoMotante(processoMontante);
         
         //listaVenda.add(venda);
+        
+        encaixar();
+        cacularDisponibilidade();
+        
         
 	}
 

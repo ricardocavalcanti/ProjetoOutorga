@@ -18,7 +18,7 @@
          <p:toolbar style="margin-top: 20px">
                 <p:toolbarGroup align="right">
                 
-                 <p:commandButton value="Simular" icon="ui-icon-star" actionListener="#{itemDeVendaBean.calcular}" update=":frmCadastro:painel :frmCadastro:painel2 :frmCadastro:painel3 :mensagem">
+                 <p:commandButton value="Simular" icon="ui-icon-star" actionListener="#{itemDeVendaBean.calcular}" update=":mensagem :frmCadastro:painel3 ">
                     <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
                  </p:commandButton>
                  
@@ -70,7 +70,7 @@
 	                
 	                <p:outputLabel value="Vencimento: "/>
 	                   <p:calendar pattern="dd/MM/yyyy" local="pt_BR" value="#{itemDeVendaBean.venda.vencimento}" required="true"
-				    requiredMessage="O campo 'Vencimento' é obrigatório" size="11" navigator="true"/>				                  
+				    requiredMessage="O campo 'Vencimento' é obrigatório" size="11" navigator="true"/>				    			                  
 	                	                                 
                 </h:panelGrid>
             </p:fieldset>  
@@ -145,43 +145,43 @@
                     <h:panelGrid id="painel3" columns="8" style="width: 100%" > 
 
                     <p:outputLabel value="Janeiro:" />
-                    <p:inputText value="#{itemDeVendaBean.rgarantiaJan}" size="6"/>                
+                    <p:inputText value="#{itemDeVendaBean.venda.jan}" size="6"/>                
                     
                     <p:outputLabel value="Fevereiro" />
-                    <p:inputText value="#{itemDeVendaBean.rgarantiaFev}" size="6"/>
+                    <p:inputText value="#{itemDeVendaBean.venda.fev}" size="6"/>
 
                     <p:outputLabel value="Março:" />
-                    <p:inputMask  value="#{itemDeVendaBean.rgarantiaMar}" size="6"/>                  
+                    <p:inputMask  value="#{itemDeVendaBean.venda.mar}" size="6"/>                  
 
                     <p:outputLabel value="Abril:" />
-                    <p:inputText  value="#{itemDeVendaBean.rgarantiaAbr}" size="6"/>
+                    <p:inputText  value="#{itemDeVendaBean.venda.abr}" size="6"/>
                     
                     <p:outputLabel value="Maio:" />                   
-	                <p:inputText value="#{itemDeVendaBean.rgarantiaMai}" size="6"/> 
+	                <p:inputText value="#{itemDeVendaBean.venda.mai}" size="6"/> 
 	                
 	                <p:outputLabel value="Junho:" />                   
-	                <p:inputText value="#{itemDeVendaBean.rgarantiaJun}" size="6"/> 
+	                <p:inputText value="#{itemDeVendaBean.venda.jun}" size="6"/> 
 	                
 	                <p:outputLabel value="Julho:" />                   
-	                <p:inputText value="#{itemDeVendaBean.rgarantiaJul}" size="6"/>
+	                <p:inputText value="#{itemDeVendaBean.venda.jul}" size="6"/>
 	                
 	                <p:outputLabel value="Agosto:" />                   
-	                <p:inputText  value="#{itemDeVendaBean.rgarantiaAgo}" size="6"/> 
+	                <p:inputText  value="#{itemDeVendaBean.venda.ago}" size="6"/> 
 	                
 	                <p:outputLabel value="Setembro:" />                   
-	                <p:inputText value="#{itemDeVendaBean.rgarantiaSet}" size="6"/> 
+	                <p:inputText value="#{itemDeVendaBean.venda.set}" size="6"/> 
 	                
 	                <p:outputLabel value="Outubro:" />                   
-	                <p:inputText value="#{itemDeVendaBean.rgarantiaOut}" size="6"/> 
+	                <p:inputText value="#{itemDeVendaBean.venda.out}" size="6"/> 
 	                
 	                <p:outputLabel value="Novembro:" />                   
-	                <p:inputText value="#{itemDeVendaBean.rgarantiaNov}" size="6"/> 
+	                <p:inputText value="#{itemDeVendaBean.venda.nov}" size="6"/> 
 	                
 	                <p:outputLabel value="Dezembro:" />                   
-	                <p:inputText value="#{itemDeVendaBean.rgarantiaDez}" size="6"/>	                
+	                <p:inputText value="#{itemDeVendaBean.venda.dez}" size="6"/>	                
 	                
-	                <p:outputLabel value="Valor outorgado:" />
-                    <p:inputText  value="#{itemDeVendaBean.venda.valorOutorgado}" required="true" id="valorOutorgado" size="6" maxlength="11" requiredMessage="O campo 'Valor Outorgado' é obrigatório">
+	                <p:outputLabel value="Captacao:" />
+                    <p:inputText  value="#{itemDeVendaBean.venda.captacao}" required="true" id="captacao" size="6" maxlength="11" requiredMessage="O campo 'Valor Outorgado' é obrigatório">
                     <f:validateDoubleRange minimum="1" maximum="10000000"/>
                     </p:inputText>                  
                 </h:panelGrid>
