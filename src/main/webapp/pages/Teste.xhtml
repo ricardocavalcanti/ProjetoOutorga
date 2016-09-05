@@ -179,8 +179,8 @@
 	                <p:inputText value="#{itemDeVendaBean.venda.dez}" size="6"/>	                
 	                
 	                <p:outputLabel value="Captacao:" />
-                    <p:inputText  value="#{itemDeVendaBean.venda.captacao}" required="true" id="captacao" size="6" maxlength="11" requiredMessage="O campo 'Valor Outorgado' é obrigatório">
-                    <f:validateDoubleRange minimum="1" maximum="10000000"/>
+                    <p:inputText  value="#{itemDeVendaBean.venda.captacao}" id="captacao" size="6" maxlength="11">
+                    
                     </p:inputText>                  
                 </h:panelGrid>
            </p:fieldset>

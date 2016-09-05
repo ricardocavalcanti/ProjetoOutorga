@@ -9,11 +9,13 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-import javax.annotation.PostConstruct;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+
 import org.omnifaces.util.Messages;
+
 import br.com.pgo.dao.OutorganteDAO;
 import br.com.pgo.dao.UsuarioDAO;
 import br.com.pgo.dao.VendaDAO;
@@ -350,6 +352,8 @@ public class ItemDeVendaBean implements Serializable {
 	public void novo() {
 
 		venda = new Venda();
+		listaVenda = new ArrayList<Venda>();
+		
 
 	}
 
@@ -385,13 +389,18 @@ public class ItemDeVendaBean implements Serializable {
 		}
 	}
 
-	@PostConstruct
+	//@PostConstruct
 	public void encaixar() {
-  
+      System.out.println("Metodo Encaixar!");
+     
 		try {
 			
 		VendaDAO vendaDAO = new VendaDAO();
-		listaVenda = vendaDAO.listar();	
+		listaVenda = vendaDAO.listar();
+		listaVenda.add(venda);
+		
+		System.out.println("Tamanho lista ENCAIXAR: "+listaVenda.size());
+		
 		} catch (RuntimeException erro){
 			
 			Messages.addGlobalInfo("Erro ao tentar criar 'Lista de Venda' ");
@@ -399,11 +408,22 @@ public class ItemDeVendaBean implements Serializable {
 			
 		  } 		
 		
-		
-		for (int posicao = 0; posicao < listaVenda.size(); posicao++) {
-		
+		for (int posicao = 0; posicao < listaVenda.size(); posicao++) {	
 			
-		if(listaVenda.get(posicao).getOutorgante().equals(venda.getProcessoJusante())){
+			int atual = listaVenda.get(posicao).getOutorgante().getProcessoApac();
+			System.out.println("ATUAL: "+atual);			
+			System.out.println("TESTE PROCESSO: "+venda.getOutorgante().getProcessoApac());
+			if(atual==processoJusante){
+				listaVenda.get(posicao).setProcessoMotante(venda.getOutorgante().getProcessoApac());
+				//System.out.println("TESTE PROCESSO: "+venda.getOutorgante().getProcessoApac());
+			}
+			
+            if(atual==processoMontante){            	
+            	listaVenda.get(posicao).setProcessoJusante(venda.getOutorgante().getProcessoApac());
+				
+			}
+			
+		/*if(listaVenda.get(posicao).getOutorgante().equals(venda.getProcessoJusante())){
 			
 		listaVenda.get(posicao).setProcessoMotante(venda.getOutorgante().getProcessoApac());
 		       
@@ -413,7 +433,7 @@ public class ItemDeVendaBean implements Serializable {
 			
 		listaVenda.add(venda);
 		
-		} 
+		} */
 		  }		  
 }
 
@@ -2162,10 +2182,11 @@ public class ItemDeVendaBean implements Serializable {
 		
 		venda.setNumeroUa(num);
 		venda.setAreaDrenagem(areaDrenagem);
+		venda.setAreaUa(areaUa);
 		venda.setJan(rgarantiaJan);
-		venda.setFev(garantiaFev);
+		venda.setFev(rgarantiaFev);
         venda.setMar(rgarantiaMar);
-        venda.setAbr(garantiaAbr);
+        venda.setAbr(rgarantiaAbr);
         venda.setMai(rgarantiaMai);
         venda.setJun(rgarantiaJun);
         venda.setJul(rgarantiaJul);
@@ -2177,10 +2198,53 @@ public class ItemDeVendaBean implements Serializable {
         venda.setProcessoJusante(processoJusante);
         venda.setProcessoMotante(processoMontante);
         
-        //listaVenda.add(venda);
+       // listaVenda.add(venda);
         
-        encaixar();
-        cacularDisponibilidade();
+       encaixar();
+       // cacularDisponibilidade();
+        
+        System.out.println("DADOS DA VAZÃO");
+        System.out.println("Outorgante ProcessoAPAC"+venda.getOutorgante());
+        System.out.println("USUARIO"+venda.getUsuario());
+        System.out.println("Processo JUSANTE"+venda.getProcessoJusante());
+        System.out.println("Processo MONTANTE"+venda.getProcessoMotante());
+        System.out.println("Processo NUMERO UA"+venda.getNumeroUa());
+        System.out.println("Processo VENCIMENTO"+venda.getVencimento());
+        
+        System.out.println("00000000000000000000000000000000000000000000");
+        System.out.println("Lista de venda!");
+        System.out.println("Quantidade elementos Lista Venda: "+listaVenda.size());
+        
+        for (int posicao = 0; posicao < listaVenda.size(); posicao++){
+         
+        	System.out.println("DADOS DA LISTA");
+            System.out.println("NUMERO UA: "+listaVenda.get(posicao).getNumeroUa());
+            System.out.println("JUSANTE: "+listaVenda.get(posicao).getProcessoJusante());
+            System.out.println("MONTANTE: "+listaVenda.get(posicao).getProcessoMotante());
+            System.out.println("AREA DRENAGEM: "+listaVenda.get(posicao).getAreaDrenagem());
+            System.out.println("AREA UA: "+listaVenda.get(posicao).getAreaUa());
+            System.out.println("CAPTAÇAO: "+listaVenda.get(posicao).getCaptacao());
+            System.out.println("OUTORGANTE: "+listaVenda.get(posicao).getOutorgante());
+            System.out.println("USUARIO: "+listaVenda.get(posicao).getUsuario());
+            System.out.println("VAZAO DISPONIVEL: "+listaVenda.get(posicao).getVazaoDisponivel());
+            System.out.println("VENCIMENTO: "+listaVenda.get(posicao).getVencimento());
+            System.out.println("JAN: "+listaVenda.get(posicao).getJan());
+            System.out.println("FEV: "+listaVenda.get(posicao).getFev());
+            System.out.println("MAR: "+listaVenda.get(posicao).getMar());
+            System.out.println("ABR: "+listaVenda.get(posicao).getAbr());
+            System.out.println("MAI: "+listaVenda.get(posicao).getMai());
+            System.out.println("JUN: "+listaVenda.get(posicao).getJun());
+            System.out.println("JUL: "+listaVenda.get(posicao).getJul());
+            System.out.println("AGO: "+listaVenda.get(posicao).getAgo());
+            System.out.println("SET: "+listaVenda.get(posicao).getSet());
+            System.out.println("OUT: "+listaVenda.get(posicao).getOut());
+            System.out.println("NOV: "+listaVenda.get(posicao).getNov());
+            System.out.println("DEZ: "+listaVenda.get(posicao).getDez());
+            
+           
+        	
+
+        }
         
         
 	}
