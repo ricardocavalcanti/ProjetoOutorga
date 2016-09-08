@@ -388,12 +388,30 @@ public class ItemDeVendaBean implements Serializable {
 		 erro.printStackTrace();
 		}
 	}
+	
+	public void salvar(){
+		
+	   VendaDAO BuscarProcesso = new VendaDAO();
+	   Venda Jusante = BuscarProcesso.buscarProcesso(processoJusante);
+	   Jusante.setProcessoMotante(processoMontante);
+	   
+	   BuscarProcesso.merge(Jusante);
+	   Venda Montante = BuscarProcesso.buscarProcesso(processoMontante);
+	   Montante.setProcessoJusante(processoJusante);
+	   
+	  
+	    
+	    BuscarProcesso.merge(venda);
+		
+		
+	}
 
 	//@PostConstruct
 	public void encaixar() {
       System.out.println("Metodo Encaixar!");
+      
      
-		try {
+		try {			
 			
 		VendaDAO vendaDAO = new VendaDAO();
 		listaVenda = vendaDAO.listar();
@@ -411,15 +429,16 @@ public class ItemDeVendaBean implements Serializable {
 		for (int posicao = 0; posicao < listaVenda.size(); posicao++) {	
 			
 			int atual = listaVenda.get(posicao).getOutorgante().getProcessoApac();
+			
 			System.out.println("ATUAL: "+atual);			
 			System.out.println("TESTE PROCESSO: "+venda.getOutorgante().getProcessoApac());
 			if(atual==processoJusante){
-				listaVenda.get(posicao).setProcessoMotante(venda.getOutorgante().getProcessoApac());
+			listaVenda.get(posicao).setProcessoMotante(venda.getOutorgante().getProcessoApac());
 				//System.out.println("TESTE PROCESSO: "+venda.getOutorgante().getProcessoApac());
 			}
 			
             if(atual==processoMontante){            	
-            	listaVenda.get(posicao).setProcessoJusante(venda.getOutorgante().getProcessoApac());
+            listaVenda.get(posicao).setProcessoJusante(venda.getOutorgante().getProcessoApac());
 				
 			}
 			
@@ -437,19 +456,22 @@ public class ItemDeVendaBean implements Serializable {
 		  }		  
 }
 
-		public void cacularDisponibilidade(){
-		
+		public void cacularDisponibilidade(){		
+			
+			
 		for(int posicao = 0 ; posicao <listaVenda.size(); posicao++){
-        	
-         if(listaVenda.get(posicao).getOutorgante().equals(listaVenda.get(posicao+1).getProcessoMotante()) 
-        		 && listaVenda.get(posicao).getProcessoMotante()!=0 ){
-        	
-	       // venda = new Venda();
+			
+		 int ProcessoApac = listaVenda.get(posicao).getOutorgante().getProcessoApac();	
+		 int ProcessoMotante = listaVenda.get(posicao+1).getProcessoMotante();
+		 int ProcessoMotanteAtual = listaVenda.get(posicao).getProcessoMotante();
+				 
+         if(ProcessoApac==ProcessoMotante && ProcessoMotanteAtual!=0){        	
+	     
 	 
         	BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
         	BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
         	BigDecimal resultDispJan = new BigDecimal(String.valueOf(dispJan0)).subtract(new BigDecimal(String.valueOf(dispJan1)));
-        	//rgarantiaJan
+        	
         	venda.setJan(resultDispJan);
         	
         	BigDecimal dispFev0 = listaVenda.get(posicao-1).getCaptacao();
@@ -545,8 +567,7 @@ public class ItemDeVendaBean implements Serializable {
 		VendaDAO BuscarUA = new VendaDAO();
 		listaItensVenda = BuscarUA.buscarUa(num);
 		areaUa = listaItensVenda.get(1).getAreaUa();
-		num = listaItensVenda.get(1).getNumeroUa();		
-		
+		num = listaItensVenda.get(1).getNumeroUa();			
 
 		if (listaItensVenda.isEmpty()) {
 
