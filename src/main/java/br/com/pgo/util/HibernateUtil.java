@@ -14,6 +14,7 @@ public class HibernateUtil {
 	}
 
 	private static SessionFactory criarFabricaDeSessoes() {
+		
 		try {
 			Configuration configuracao = new Configuration().configure();
 

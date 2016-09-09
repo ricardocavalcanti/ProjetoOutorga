@@ -35,6 +35,7 @@ public class ItemDeVendaBean implements Serializable {
 	private int num;
 	private int processoMontante;
 	private int processoJusante;
+	private BigDecimal captacao;
 	private BigDecimal areaUa;
 	private BigDecimal areaDrenagem;	
 	private List<Ua> listaItensVenda;
@@ -52,6 +53,15 @@ public class ItemDeVendaBean implements Serializable {
 		finalizar();
 		novo();
 	}
+	
+	public BigDecimal getCaptacao() {
+		return captacao;
+	}
+
+	public void setCaptacao(BigDecimal captacao) {
+		this.captacao = captacao;
+	}	
+	
 
 	public List<Venda> getListaVenda() {
 		return listaVenda;
@@ -391,18 +401,44 @@ public class ItemDeVendaBean implements Serializable {
 	
 	public void salvar(){
 		
-	   VendaDAO BuscarProcesso = new VendaDAO();
-	   Venda Jusante = BuscarProcesso.buscarProcesso(processoJusante);
-	   Jusante.setProcessoMotante(processoMontante);
-	   
-	   BuscarProcesso.merge(Jusante);
-	   Venda Montante = BuscarProcesso.buscarProcesso(processoMontante);
-	   Montante.setProcessoJusante(processoJusante);
-	   
-	  
-	    
-	    BuscarProcesso.merge(venda);
 		
+	    venda.setCaptacao(captacao);
+		venda.setJan(garantiaJan);
+		venda.setFev(garantiaFev);
+        venda.setMar(garantiaMar);
+        venda.setAbr(garantiaAbr);
+        venda.setMai(garantiaMai);
+        venda.setJun(garantiaJun);
+        venda.setJul(garantiaJul);
+        venda.setAgo(garantiaAgo);
+        venda.setSet(garantiaSet);
+        venda.setOut(garantiaOut);
+        venda.setNov(garantiaNov);
+        venda.setDez(garantiaDez);
+	    
+        listaVenda.set(1, venda);
+        
+        cacularDisponibilidade();
+		
+		
+		
+	   VendaDAO BuscarProcesso = new VendaDAO();
+	   
+	  /* Venda jusante =  BuscarProcesso.buscarProcessoApac(processoJusante);   
+	   jusante.setProcessoJusante(venda.getOutorgante().getProcessoApac());	    
+	   BuscarProcesso.merge(jusante);
+	   
+	   Venda montante = BuscarProcesso.buscarProcessoApac(processoMontante);
+	   montante.setProcessoMotante(venda.getOutorgante().getProcessoApac());
+	   BuscarProcesso.merge(montante);
+	   
+	   BuscarProcesso.merge(venda);*/
+	   
+		for(int posicao = 0 ; posicao <listaVenda.size(); posicao++){
+	           
+			Venda atual = listaVenda.get(posicao);
+			BuscarProcesso.merge(atual);
+		}
 		
 	}
 
@@ -2188,7 +2224,7 @@ public class ItemDeVendaBean implements Serializable {
 		System.out.println("NOVEMBRO: " + ua.getNov());
 		System.out.println("DEZEMBRO: " + ua.getDez());
 
-		garantiaJan = BigDecimal.ZERO;
+		/*garantiaJan = BigDecimal.ZERO;
 		garantiaFev = BigDecimal.ZERO;
 		garantiaMar = BigDecimal.ZERO;
 		garantiaAbr = BigDecimal.ZERO;
@@ -2199,7 +2235,7 @@ public class ItemDeVendaBean implements Serializable {
 		garantiaSet = BigDecimal.ZERO;
 		garantiaOut = BigDecimal.ZERO;
 		garantiaNov = BigDecimal.ZERO;
-		garantiaDez = BigDecimal.ZERO;
+		garantiaDez = BigDecimal.ZERO;*/
 		
 		venda.setNumeroUa(num);
 		venda.setAreaDrenagem(areaDrenagem);
@@ -2269,5 +2305,10 @@ public class ItemDeVendaBean implements Serializable {
         
         
 	}
+
+
+
+
+	
 
 }

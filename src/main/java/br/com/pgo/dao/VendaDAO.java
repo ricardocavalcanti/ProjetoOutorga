@@ -5,7 +5,8 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import br.com.pgo.domain.Ua;
 import br.com.pgo.domain.Venda;
@@ -69,15 +70,52 @@ public class VendaDAO extends GenericDAO<Venda> {
 			sessao.close();
 		}
 	}
-	public void venda2(int venda){
-		
+	
+	public Venda buscarProcessoApac (int processo){
+		 
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-		
-		 Criteria criteria = sessao.createCriteria(Venda.class);
-		 List lista = criteria.list();
-		
+
+		try{
+
+		Criteria busca = sessao.createCriteria(Venda.class);
+		busca.add(Restrictions.idEq(processo)).createAlias("processo", "p").add(Restrictions.like("p.processoApac", processo));
+		Venda resultado = (Venda) busca.uniqueResult();
+		return resultado;
+
+		}catch (RuntimeException erro){
+
+		throw(erro);
+
+		}finally{
+
+		sessao.close();
+
+
+		}
+	}    
+	
+	public Venda procurarProcesso(int processo) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+
+		try {
+			Criteria consulta = sessao.createCriteria(Venda.class);
+			consulta.createAlias("outorgante", "o");
+			consulta.add(Restrictions.eq("o.processoApac", processo));   
+			Venda resultado = (Venda) consulta.uniqueResult();
+			return resultado;
+			
+		} catch (RuntimeException erro) {
+
+			throw erro;
+
+		} finally {
+			sessao.close();
+		}
+
 	}
-	       
+	
+	
+	
 	
 }
 
