@@ -400,8 +400,8 @@ erro.printStackTrace();
 	}
 }
 	
-public void salvar(){			
-				
+public void salvar(){
+	
 venda.setCaptacao(captacao);
 System.out.println("Adicionando captação!");	    
 encaixar();
@@ -418,8 +418,7 @@ salvarProcesso.mergeVenda(atual);
 
 //@PostConstruct
 public void encaixar() {
-System.out.println("Metodo Encaixar!");   
-      
+System.out.println("Metodo Encaixar!");       
 try {			
 		
 VendaDAO vendaDAO = new VendaDAO();
@@ -470,7 +469,7 @@ BigDecimal dispJan0 = atual.getCaptacao();
 BigDecimal dispJan1 = proximo.getCaptacao();
 	//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
 BigDecimal resultDispJan = new BigDecimal(String.valueOf(dispJan0)).subtract(new BigDecimal(String.valueOf(dispJan1)));
-	    	    	
+
 venda.setJan(resultDispJan);	    						
 }
   }					
