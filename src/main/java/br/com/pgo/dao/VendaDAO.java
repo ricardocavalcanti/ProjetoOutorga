@@ -1,10 +1,13 @@
 package br.com.pgo.dao;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
@@ -114,6 +117,62 @@ public class VendaDAO extends GenericDAO<Venda> {
 
 	}
 	
+	@SuppressWarnings("unchecked")
+	public HashSet<Venda> listarHashSet() {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+
+		try {
+			Criteria consulta = sessao.createCriteria(Venda.class);
+			HashSet<Venda> resultado = (HashSet<Venda>) consulta.list();
+			return resultado;
+
+		} catch (RuntimeException erro) {
+
+			throw erro;
+
+		} finally {
+			sessao.close();
+		}
+
+	}
+	public void mergeVenda(Iterator<Venda> atual) {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		Transaction transacao = null;
+
+		try {
+			transacao = sessao.beginTransaction();
+			sessao.merge(atual);
+			transacao.commit();
+		} catch (RuntimeException erro) {
+
+			if (transacao != null) {
+				transacao.rollback();
+				throw erro;
+
+			}
+		} finally {
+			sessao.close();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public HashSet<Venda> listarVenda() {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+
+		try {
+			Criteria consulta = sessao.createCriteria(Venda.class);
+			HashSet<Venda> resultado = (HashSet<Venda>) consulta.list();
+			return resultado;
+
+		} catch (RuntimeException erro) {
+
+			throw erro;
+
+		} finally {
+			sessao.close();
+		}
+
+	}
 	
 	
 	

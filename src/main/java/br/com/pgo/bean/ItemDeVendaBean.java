@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -47,7 +49,7 @@ public class ItemDeVendaBean implements Serializable {
 	private Venda venda;
 	private List<Outorgante> listaOutorgantes;
 	private List<Usuario> listaUsuarios;
-	private List<Venda> listaVenda;
+	private HashSet<Venda> listaVenda;
 
 	public ItemDeVendaBean() {
 		finalizar();
@@ -60,14 +62,13 @@ public class ItemDeVendaBean implements Serializable {
 
 	public void setCaptacao(BigDecimal captacao) {
 		this.captacao = captacao;
-	}	
-	
+	}		
 
-	public List<Venda> getListaVenda() {
+	public HashSet<Venda> getListaVenda() {
 		return listaVenda;
 	}
 
-	public void setListaVenda(List<Venda> listaVenda) {
+	public void setListaVenda(HashSet<Venda> listaVenda) {
 		this.listaVenda = listaVenda;
 	}
 
@@ -362,7 +363,7 @@ public class ItemDeVendaBean implements Serializable {
 	public void novo() {
 
 		venda = new Venda();
-		listaVenda = new ArrayList<Venda>();
+		listaVenda = new HashSet<Venda>();
 		
 
 	}
@@ -386,113 +387,102 @@ public class ItemDeVendaBean implements Serializable {
 
 	}
 	
-	public void listarVenda(){
+public void listarVenda(){
 
-		try{
+try{
 			
-		 VendaDAO  vendaDAO = new VendaDAO();
-		 listaVenda = vendaDAO.listar();
+VendaDAO  vendaDAO = new VendaDAO();
+listaVenda = vendaDAO.listarHashSet();
 
-		}catch(RuntimeException erro){
-		 Messages.addGlobalInfo("Erro ao tentar listar Venda"); 
-		 erro.printStackTrace();
-		}
+}catch(RuntimeException erro){
+Messages.addGlobalInfo("Erro ao tentar listar Venda"); 
+erro.printStackTrace();
 	}
-	
-	public void salvar(){
-		
-		
-	    venda.setCaptacao(captacao);
-		venda.setJan(garantiaJan);
-		venda.setFev(garantiaFev);
-        venda.setMar(garantiaMar);
-        venda.setAbr(garantiaAbr);
-        venda.setMai(garantiaMai);
-        venda.setJun(garantiaJun);
-        venda.setJul(garantiaJul);
-        venda.setAgo(garantiaAgo);
-        venda.setSet(garantiaSet);
-        venda.setOut(garantiaOut);
-        venda.setNov(garantiaNov);
-        venda.setDez(garantiaDez);
-	    
-        listaVenda.set(1, venda);
-        
-        cacularDisponibilidade();
-		
-		
-		
-	   VendaDAO BuscarProcesso = new VendaDAO();
-	   
-	  /* Venda jusante =  BuscarProcesso.buscarProcessoApac(processoJusante);   
-	   jusante.setProcessoJusante(venda.getOutorgante().getProcessoApac());	    
-	   BuscarProcesso.merge(jusante);
-	   
-	   Venda montante = BuscarProcesso.buscarProcessoApac(processoMontante);
-	   montante.setProcessoMotante(venda.getOutorgante().getProcessoApac());
-	   BuscarProcesso.merge(montante);
-	   
-	   BuscarProcesso.merge(venda);*/
-	   
-		for(int posicao = 0 ; posicao <listaVenda.size(); posicao++){
-	           
-			Venda atual = listaVenda.get(posicao);
-			BuscarProcesso.merge(atual);
-		}
-		
-	}
-
-	//@PostConstruct
-	public void encaixar() {
-      System.out.println("Metodo Encaixar!");
-      
-     
-		try {			
-			
-		VendaDAO vendaDAO = new VendaDAO();
-		listaVenda = vendaDAO.listar();
-		listaVenda.add(venda);
-		
-		System.out.println("Tamanho lista ENCAIXAR: "+listaVenda.size());
-		
-		} catch (RuntimeException erro){
-			
-			Messages.addGlobalInfo("Erro ao tentar criar 'Lista de Venda' ");
-			erro.printStackTrace();
-			
-		  } 		
-		
-		for (int posicao = 0; posicao < listaVenda.size(); posicao++) {	
-			
-			int atual = listaVenda.get(posicao).getOutorgante().getProcessoApac();
-			
-			System.out.println("ATUAL: "+atual);			
-			System.out.println("TESTE PROCESSO: "+venda.getOutorgante().getProcessoApac());
-			if(atual==processoJusante){
-			listaVenda.get(posicao).setProcessoMotante(venda.getOutorgante().getProcessoApac());
-				//System.out.println("TESTE PROCESSO: "+venda.getOutorgante().getProcessoApac());
-			}
-			
-            if(atual==processoMontante){            	
-            listaVenda.get(posicao).setProcessoJusante(venda.getOutorgante().getProcessoApac());
-				
-			}
-			
-		/*if(listaVenda.get(posicao).getOutorgante().equals(venda.getProcessoJusante())){
-			
-		listaVenda.get(posicao).setProcessoMotante(venda.getOutorgante().getProcessoApac());
-		       
-		
-		} if(listaVenda.get(posicao).getOutorgante().equals(venda.getProcessoJusante())){
-		listaVenda.get(posicao).setProcessoJusante(venda.getOutorgante().getProcessoApac());
-			
-		listaVenda.add(venda);
-		
-		} */
-		  }		  
 }
+	
+public void salvar(){			
+				
+venda.setCaptacao(captacao);
+System.out.println("Adicionando captação!");	    
+encaixar();
+		
+VendaDAO salvarProcesso = new VendaDAO();	   
+		
+Iterator<Venda> atual = listaVenda.iterator();
+	  
+while(atual.hasNext()){
+	    	 
+salvarProcesso.mergeVenda(atual);			   
+}		
+ }
 
-		public void cacularDisponibilidade(){		
+//@PostConstruct
+public void encaixar() {
+System.out.println("Metodo Encaixar!");   
+      
+try {			
+		
+VendaDAO vendaDAO = new VendaDAO();
+listaVenda = vendaDAO.listarVenda();
+listaVenda.add(venda);
+		
+System.out.println("Tamanho lista ENCAIXAR: "+listaVenda.size());
+		
+} catch (RuntimeException erro){
+			
+Messages.addGlobalInfo("Erro ao tentar criar 'Lista de Venda' ");
+erro.printStackTrace();
+			
+} 			
+Iterator<Venda>posicao=listaVenda.iterator();
+while(posicao.hasNext()){
+			
+Venda atual = posicao.next();
+		    
+if(atual.getOutorgante().getProcessoApac()==processoJusante){
+atual.setProcessoMotante(processoJusante);
+}
+if(atual.getOutorgante().getProcessoApac()==processoMontante){
+atual.setProcessoJusante(processoMontante);
+}
+if(atual.getProcessoJusante()==processoMontante && 
+atual.getProcessoMotante()==processoJusante){
+break;            
+}            
+  }		
+}	
+
+public void cacularDisponibilidade(){		
+			
+Iterator<Venda>posicao=listaVenda.iterator();
+	
+while(posicao.hasNext()){
+		
+Venda atual = posicao.next();	
+				
+while(posicao.hasNext()){
+Venda proximo = posicao.next();
+	                                         
+if(atual.getOutorgante().getProcessoApac()==proximo.getProcessoMotante() && proximo.getProcessoMotante()!=0){
+	
+BigDecimal dispJan0 = atual.getCaptacao();	
+	//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispJan1 = proximo.getCaptacao();
+	//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispJan = new BigDecimal(String.valueOf(dispJan0)).subtract(new BigDecimal(String.valueOf(dispJan1)));
+	    	    	
+venda.setJan(resultDispJan);	    						
+}
+  }					
+}
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			
 		for(int posicao = 0 ; posicao <listaVenda.size(); posicao++){
