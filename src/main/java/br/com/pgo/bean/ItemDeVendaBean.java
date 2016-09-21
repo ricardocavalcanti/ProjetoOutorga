@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.faces.bean.ManagedBean;
@@ -434,22 +435,27 @@ erro.printStackTrace();
 			
 } 			
 Iterator<Venda>posicao=listaVenda.iterator();
+
 while(posicao.hasNext()){
-			
+		
 Venda atual = posicao.next();
-		    
+boolean condicao1 = false;
+boolean condicao2 = false;
+
 if(atual.getOutorgante().getProcessoApac()==processoJusante){
 atual.setProcessoMotante(processoJusante);
+condicao1 = true;
 }
 if(atual.getOutorgante().getProcessoApac()==processoMontante){
 atual.setProcessoJusante(processoMontante);
+condicao2 = true;
 }
-if(atual.getProcessoJusante()==processoMontante && 
-atual.getProcessoMotante()==processoJusante){
-break;            
-}            
-  }		
-}	
+if(condicao1==true && condicao2==true) {
+	break;
+   }
+}
+            
+}
 
 public void cacularDisponibilidade(){		
 			
@@ -470,100 +476,101 @@ BigDecimal dispJan1 = proximo.getCaptacao();
 	//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
 BigDecimal resultDispJan = new BigDecimal(String.valueOf(dispJan0)).subtract(new BigDecimal(String.valueOf(dispJan1)));
 
-venda.setJan(resultDispJan);	    						
-}
-  }					
-}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		for(int posicao = 0 ; posicao <listaVenda.size(); posicao++){
-			
-		 int ProcessoApac = listaVenda.get(posicao).getOutorgante().getProcessoApac();	
-		 int ProcessoMotante = listaVenda.get(posicao+1).getProcessoMotante();
-		 int ProcessoMotanteAtual = listaVenda.get(posicao).getProcessoMotante();
-				 
-         if(ProcessoApac==ProcessoMotante && ProcessoMotanteAtual!=0){        	
-	     
-	 
-        	BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
-        	BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
-        	BigDecimal resultDispJan = new BigDecimal(String.valueOf(dispJan0)).subtract(new BigDecimal(String.valueOf(dispJan1)));
-        	
-        	venda.setJan(resultDispJan);
-        	
-        	BigDecimal dispFev0 = listaVenda.get(posicao-1).getCaptacao();
-        	BigDecimal dispFev1 = listaVenda.get(posicao).getFev();
-        	BigDecimal resultDispFev = new BigDecimal(String.valueOf(dispFev0)).subtract(new BigDecimal(String.valueOf(dispFev1)));
-        	
-        	venda.setFev(resultDispFev);
-        	
-        	BigDecimal dispMar0 = listaVenda.get(posicao-1).getCaptacao();
-        	BigDecimal dispMar1 = listaVenda.get(posicao).getMar();
-        	BigDecimal resultDispMar = new BigDecimal(String.valueOf(dispMar0)).subtract(new BigDecimal(String.valueOf(dispMar1)));
-        	
-        	venda.setMar(resultDispMar);
-        	
-        	BigDecimal dispAbr0 = listaVenda.get(posicao-1).getCaptacao();
-        	BigDecimal dispAbr1 = listaVenda.get(posicao).getAbr();
-        	BigDecimal resultDispAbr = new BigDecimal(String.valueOf(dispAbr0)).subtract(new BigDecimal(String.valueOf(dispAbr1)));
-        	
-        	venda.setAbr(resultDispAbr);
-        	
-        	BigDecimal dispJun0 = listaVenda.get(posicao-1).getCaptacao();
-        	BigDecimal dispJun1 = listaVenda.get(posicao).getJun();
-        	BigDecimal resultDispJun = new BigDecimal(String.valueOf(dispJun0)).subtract(new BigDecimal(String.valueOf(dispJun1)));
-        	
-        	venda.setJun(resultDispJun);
-        	
-        	BigDecimal dispJul0 = listaVenda.get(posicao-1).getCaptacao();
-        	BigDecimal dispJul1 = listaVenda.get(posicao+1).getJul();
-        	BigDecimal resultDispJul = new BigDecimal(String.valueOf(dispJul0)).subtract(new BigDecimal(String.valueOf(dispJul1)));
-        	
-        	venda.setJul(resultDispJul);
-        	
-        	BigDecimal dispAgo0 = listaVenda.get(posicao-1).getCaptacao();
-        	BigDecimal dispAgo1 = listaVenda.get(posicao).getAgo();
-        	BigDecimal resultDispAgo = new BigDecimal(String.valueOf(dispAgo0)).subtract(new BigDecimal(String.valueOf(dispAgo1)));
-        	
-        	venda.setAgo(resultDispAgo);
-        	
-        	BigDecimal dispSet0 = listaVenda.get(posicao-1).getCaptacao();
-        	BigDecimal dispSet1 = listaVenda.get(posicao).getSet();
-        	BigDecimal resultDispSet = new BigDecimal(String.valueOf(dispSet0)).subtract(new BigDecimal(String.valueOf(dispSet1)));
-        	
-        	venda.setSet(resultDispSet);
-        	
-        	BigDecimal dispOut0 = listaVenda.get(posicao-1).getCaptacao();
-        	BigDecimal dispOut1 = listaVenda.get(posicao).getOut();
-        	BigDecimal resultDispOut = new BigDecimal(String.valueOf(dispOut0)).subtract(new BigDecimal(String.valueOf(dispOut1)));
-        	
-        	venda.setOut(resultDispOut);
-        	
-        	BigDecimal dispNov0 = listaVenda.get(posicao-1).getCaptacao();
-        	BigDecimal dispNov1 = listaVenda.get(posicao).getNov();
-        	BigDecimal resultDispNov = new BigDecimal(String.valueOf(dispNov0)).subtract(new BigDecimal(String.valueOf(dispNov1)));
-        	
-        	venda.setNov(resultDispNov);
-        	
-        	BigDecimal dispDez0 = listaVenda.get(posicao-1).getCaptacao();
-        	BigDecimal dispDez1 = listaVenda.get(posicao).getDez();
-        	BigDecimal resultDispDez = new BigDecimal(String.valueOf(dispDez0)).subtract(new BigDecimal(String.valueOf(dispDez1)));
-        	
-        	venda.setDez(resultDispDez);       	
-        	
-        	listaVenda.set(posicao,venda);    	
-             } 
-          }
-		}
-		
+
+venda.setJan(resultDispJan);
+
+BigDecimal dispFev0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispFev1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispFev = new BigDecimal(String.valueOf(dispFev0)).subtract(new BigDecimal(String.valueOf(dispFev1)));
+
+venda.setFev(resultDispFev);
+
+BigDecimal dispMar0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispMar1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispMar = new BigDecimal(String.valueOf(dispMar0)).subtract(new BigDecimal(String.valueOf(dispMar1)));
+
+venda.setMar(resultDispMar);
+
+BigDecimal dispAbr0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispAbr1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispAbr = new BigDecimal(String.valueOf(dispAbr0)).subtract(new BigDecimal(String.valueOf(dispAbr1)));
+
+venda.setAbr(resultDispAbr);
+
+BigDecimal dispMai0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispMai1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispMai = new BigDecimal(String.valueOf(dispMai0)).subtract(new BigDecimal(String.valueOf(dispMai1)));
+
+venda.setMai(resultDispMai);
+
+BigDecimal dispJun0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispJun1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispJun = new BigDecimal(String.valueOf(dispJun0)).subtract(new BigDecimal(String.valueOf(dispJun1)));
+
+venda.setJun(resultDispJun);
+
+BigDecimal dispJul0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispJul1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispJul = new BigDecimal(String.valueOf(dispJul0)).subtract(new BigDecimal(String.valueOf(dispJul1)));
+
+venda.setJul(resultDispJul);
+
+BigDecimal dispAgo0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispAgo1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispAgo = new BigDecimal(String.valueOf(dispAgo0)).subtract(new BigDecimal(String.valueOf(dispAgo1)));
+
+venda.setAgo(resultDispAgo);
+
+BigDecimal dispSet0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispSet1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispSet = new BigDecimal(String.valueOf(dispSet0)).subtract(new BigDecimal(String.valueOf(dispSet1)));
+
+venda.setSet(resultDispSet);
+
+BigDecimal dispOut0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispOut1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispOut = new BigDecimal(String.valueOf(dispOut0)).subtract(new BigDecimal(String.valueOf(dispOut1)));
+
+venda.setOut(resultDispOut);
+
+BigDecimal dispNov0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispNov1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispNov = new BigDecimal(String.valueOf(dispNov0)).subtract(new BigDecimal(String.valueOf(dispNov1)));
+
+venda.setNov(resultDispNov);
+
+BigDecimal dispDez0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispDez1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispDez = new BigDecimal(String.valueOf(dispDez0)).subtract(new BigDecimal(String.valueOf(dispDez1)));
+
+venda.setDez(resultDispDez);
+             }					
+        }
+     }
+ }
+	
 	public void remover(ActionEvent evento) {
 
 		Ua ua = (Ua) evento.getComponent().getAttributes().get("itemSelecionado");
@@ -2194,37 +2201,7 @@ venda.setJan(resultDispJan);
 
 		// ua.setDez(garantiaDez);
 
-		System.out.println("GARANTIA FINAL DEZEMBRO" + garantiaDez);
-		// Ua ua = new Ua();
-		System.out.println("VALORES FINAIS!!!!!!!!!");
-		// listaGarantiaVazao.add(garantiaVazao);
-		System.out.println("ANO: " + ua.getAno());
-		System.out.println("NUMERO UA: " + ua.getNumeroUa());
-		System.out.println("JANEIRO: " + ua.getJan());
-		System.out.println("FEVEREIRO: " + ua.getFev());
-		System.out.println("MARÇO: " + ua.getMar());
-		System.out.println("ABRIL: " + ua.getAbr());
-		System.out.println("MAIO: " + ua.getMai());
-		System.out.println("JUNHO: " + ua.getJun());
-		System.out.println("JULHO: " + ua.getJul());
-		System.out.println("AGOSTO: " + ua.getAgo());
-		System.out.println("SETEMBRO: " + ua.getSet());
-		System.out.println("OUTUBRO: " + ua.getOut());
-		System.out.println("NOVEMBRO: " + ua.getNov());
-		System.out.println("DEZEMBRO: " + ua.getDez());
-
-		/*garantiaJan = BigDecimal.ZERO;
-		garantiaFev = BigDecimal.ZERO;
-		garantiaMar = BigDecimal.ZERO;
-		garantiaAbr = BigDecimal.ZERO;
-		garantiaMai = BigDecimal.ZERO;
-		garantiaJun = BigDecimal.ZERO;
-		garantiaJul = BigDecimal.ZERO;
-		garantiaAgo = BigDecimal.ZERO;
-		garantiaSet = BigDecimal.ZERO;
-		garantiaOut = BigDecimal.ZERO;
-		garantiaNov = BigDecimal.ZERO;
-		garantiaDez = BigDecimal.ZERO;*/
+		System.out.println("GARANTIA FINAL DEZEMBRO" + garantiaDez);			
 		
 		venda.setNumeroUa(num);
 		venda.setAreaDrenagem(areaDrenagem);
@@ -2244,60 +2221,10 @@ venda.setJan(resultDispJan);
         venda.setProcessoJusante(processoJusante);
         venda.setProcessoMotante(processoMontante);
         
-       // listaVenda.add(venda);
+        listaVenda.add(venda);
         
-       encaixar();
-       // cacularDisponibilidade();
-        
-        System.out.println("DADOS DA VAZÃO");
-        System.out.println("Outorgante ProcessoAPAC"+venda.getOutorgante());
-        System.out.println("USUARIO"+venda.getUsuario());
-        System.out.println("Processo JUSANTE"+venda.getProcessoJusante());
-        System.out.println("Processo MONTANTE"+venda.getProcessoMotante());
-        System.out.println("Processo NUMERO UA"+venda.getNumeroUa());
-        System.out.println("Processo VENCIMENTO"+venda.getVencimento());
-        
-        System.out.println("00000000000000000000000000000000000000000000");
-        System.out.println("Lista de venda!");
-        System.out.println("Quantidade elementos Lista Venda: "+listaVenda.size());
-        
-        for (int posicao = 0; posicao < listaVenda.size(); posicao++){
-         
-        	System.out.println("DADOS DA LISTA");
-            System.out.println("NUMERO UA: "+listaVenda.get(posicao).getNumeroUa());
-            System.out.println("JUSANTE: "+listaVenda.get(posicao).getProcessoJusante());
-            System.out.println("MONTANTE: "+listaVenda.get(posicao).getProcessoMotante());
-            System.out.println("AREA DRENAGEM: "+listaVenda.get(posicao).getAreaDrenagem());
-            System.out.println("AREA UA: "+listaVenda.get(posicao).getAreaUa());
-            System.out.println("CAPTAÇAO: "+listaVenda.get(posicao).getCaptacao());
-            System.out.println("OUTORGANTE: "+listaVenda.get(posicao).getOutorgante());
-            System.out.println("USUARIO: "+listaVenda.get(posicao).getUsuario());
-            System.out.println("VAZAO DISPONIVEL: "+listaVenda.get(posicao).getVazaoDisponivel());
-            System.out.println("VENCIMENTO: "+listaVenda.get(posicao).getVencimento());
-            System.out.println("JAN: "+listaVenda.get(posicao).getJan());
-            System.out.println("FEV: "+listaVenda.get(posicao).getFev());
-            System.out.println("MAR: "+listaVenda.get(posicao).getMar());
-            System.out.println("ABR: "+listaVenda.get(posicao).getAbr());
-            System.out.println("MAI: "+listaVenda.get(posicao).getMai());
-            System.out.println("JUN: "+listaVenda.get(posicao).getJun());
-            System.out.println("JUL: "+listaVenda.get(posicao).getJul());
-            System.out.println("AGO: "+listaVenda.get(posicao).getAgo());
-            System.out.println("SET: "+listaVenda.get(posicao).getSet());
-            System.out.println("OUT: "+listaVenda.get(posicao).getOut());
-            System.out.println("NOV: "+listaVenda.get(posicao).getNov());
-            System.out.println("DEZ: "+listaVenda.get(posicao).getDez());
-            
-           
-        	
-
-        }
-        
-        
-	}
-
-
-
-
-	
+        encaixar();        
+        cacularDisponibilidade();        
+	}	
 
 }
