@@ -4,474 +4,186 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
+
 <h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Venda - Listagem</title>
-	<h:outputScript library="js" name="scripts.js" />
-</h:head>
-<h:body>
-	<p:growl id="mensagem" />
-
-	<h:form id="formulario">
-		<p:panel header="Adicione Unidades de Análise"> 
-			<p:dataTable id="adicioneUnidadeDeAnalise" emptyMessage="Nenhum registro encontrado." paginator="true" value="#{itemDeVendaBean.listaUa}" var="listaUas" rows="3">
-				<!-- rows: Informa a paginação -->
-                    
-				<p:column headerText="UA" sortBy="#{listaUas.numeroUa}" filterBy="#{listaUas.numeroUa}" style="width:100px">					
-					<h:outputText value="#{listaUas.numeroUa}" />					
-				</p:column>
-
-				<p:column headerText="Ano">
-					<h:outputText value="#{listaUas.ano}" />
-				</p:column>
-
-				<p:column headerText="Jan">
-					<h:outputText value="#{listaUas.jan}">
-						<!-- convertNumber serve para mudar para o padrão BR a emprego de virgula no padrão númerico -->
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Fev">
-					<h:outputText value="#{listaUas.fev}">
-						<!-- convertNumber serve para mudar para o padrão BR a emprego de virgula no padrão númerico -->
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Mar">
-					<h:outputText value="#{listaUas.mar}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Abr">
-					<h:outputText value="#{listaUas.abr}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Mai">
-					<h:outputText value="#{listaUas.mai}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Jun">
-					<h:outputText value="#{listaUas.jun}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Jul">
-					<h:outputText value="#{listaUas.jul}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Ago">
-					<h:outputText value="#{listaUas.ago}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Set">
-					<h:outputText value="#{listaUas.set}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Out">
-					<h:outputText value="#{listaUas.out}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Nov">
-					<h:outputText value="#{listaUas.nov}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Dez">
-					<h:outputText value="#{listaUas.dez}">
-						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Adicionar" style="text-align:center">
-					<p:commandButton icon="ui-icon-plus" actionListener="#{itemDeVendaBean.adicionar}" update="formulario:garantiaDaVazao">
-						<f:attribute name="uaSelecionada" value="#{listaUas}" />
-					</p:commandButton>
-				</p:column>
-
-			</p:dataTable>
-		</p:panel>
-
-		<p:panel header="Unidade de Análise Selecionada">  
-		
-			<p:dataTable id="garantiaDaVazao" emptyMessage="Nenhum registro encontrado." paginator="true" value="#{itemDeVendaBean.listaItensVenda}" var="listaItensVendas" rows="10">
-				<f:facet name="footer">
-				<p:commandButton value="SIMULAR" oncomplete="PF('dialogo').show();" update=":mensagem :formCadastro:painel">
-				  <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
-				</p:commandButton>
-				</f:facet>
-
-				<p:column headerText="Ua">
-					<h:outputText value="#{listaItensVendas.numeroUa}"/>
-				</p:column>
-				
-				<p:column headerText="Ano">
-					<h:outputText value="#{listaItensVendas.ano}" />
-				</p:column>
-
-				<p:column headerText="Jan">
-					<h:outputText value="#{listaItensVendas.jan}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					</h:outputText>					
-				</p:column>
-
-				<p:column headerText="Fev">
-					<h:outputText value="#{listaItensVendas.fev}">	
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>	
-					 </h:outputText>		
-				</p:column>
-				
-				<p:column headerText="Mar">
-					<h:outputText value="#{listaItensVendas.mar}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					 </h:outputText>
-				</p:column>
-				
-				<p:column headerText="Abr">
-					<h:outputText value="#{listaItensVendas.abr}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					 </h:outputText>
-				</p:column>
-				
-				<p:column headerText="Mai">
-					<h:outputText value="#{listaItensVendas.mai}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					 </h:outputText>
-				</p:column>
-				
-				<p:column headerText="Jun">
-					<h:outputText value="#{listaItensVendas.jun}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					 </h:outputText>
-				</p:column>
-				
-				<p:column headerText="Jul">
-					<h:outputText value="#{listaItensVendas.jul}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					 </h:outputText>
-				</p:column>
-				
-				<p:column headerText="Ago">
-					<h:outputText value="#{listaItensVendas.ago}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					 </h:outputText>
-				</p:column>
-				
-				<p:column headerText="Set">
-					<h:outputText value="#{listaItensVendas.set}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					 </h:outputText>
-				</p:column>
-				
-				<p:column headerText="Out">
-					<h:outputText value="#{listaItensVendas.out}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					 </h:outputText>
-				</p:column>
-				
-				<p:column headerText="Nov">
-					<h:outputText value="#{listaItensVendas.nov}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					 </h:outputText>
-				</p:column>
-				
-				<p:column headerText="Dez">
-					<h:outputText value="#{listaItensVendas.dez}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					 </h:outputText>
-				</p:column>	
-								
-				<p:column headerText="Excluir" style="text-align:center">
-				  <p:commandButton icon="ui-icon-minus" actionListener="#{itemDeVendaBean.remover}" update="formulario:garantiaDaVazao">
-				   <f:attribute name="itemSelecionado" value="#{listaItensVendas}"></f:attribute>
-				  </p:commandButton>
-				</p:column>			
-
-			</p:dataTable>
-		</p:panel>		
-	</h:form>
-	<p:dialog header="Simulação de vazão - Informe o percentual da captação" widgetVar="dialogo" draggable="false" resizable="false" modal="true" closable="false">
-	
-        <h:form id="formCadastro">	
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+     <title>Simulação Vazão</title>
+     <h:outputScript library="js" name="scripts.js" />
+ </h:head>
+    <h:body> 
+      <p:growl id="mensagem"/>
+      
+        <h:form id="frmCadastro">
         
-              	<h:panelGrid id="painel" columns="10">  
-              	
-                 	<p:outputLabel for="janeiro" value="Janeiro" />
-				    <p:inputMask id="janeiro" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaJan}" required="true" requiredMessage="O campo 'Janeiro' é obrigatório">				    
-                    <f:convertNumber type="percent"/>						
-				    </p:inputMask>	  
-                          
-				    <p:outputLabel for="fevereiro" value="Fevereiro" />
-				    <p:inputMask id="fevereiro" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaFev}" required="true" requiredMessage="O campo 'Fevereiro' é obrigatório">
+         <p:toolbar style="margin-top: 20px">
+                <p:toolbarGroup align="right">
+                
+                 <p:commandButton value="Simular" icon="ui-icon-star" actionListener="#{itemDeVendaBean.calcular}" update=":mensagem :frmCadastro:painel3 ">
+                    <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+                 </p:commandButton>
+                 
+                 <p:commandButton value="Salvar" ajax="false" icon="ui-icon-disk"/>
+                </p:toolbarGroup>                           
+          </p:toolbar> 
+
+            <p:fieldset legend="Dados da Vazão" style="margin-top: 2px">         
+
+                <h:panelGrid id="painel"  columns="4" style="width: 100%" > 
+
+                    <p:outputLabel value="Numero Da UA:" />
+                    <p:inputText value="#{itemDeVendaBean.num}" required="true" id="numerUa" size="11" requiredMessage="O campo numero da 'Ua' é obrigatório">
+                    <f:validateDoubleRange minimum="1" maximum="10000000"/>
+                    </p:inputText>
+                     
+                    <p:outputLabel value="Área De Drenagem:" />
+                    <p:inputText value="#{itemDeVendaBean.areaDrenagem}" required="true" id="areDrenagem" size="11" requiredMessage="O campo 'Área de Drenagem é obrigatório">
+                    <f:validateDoubleRange minimum="1" maximum="10000000"/>
+                    </p:inputText>
+
+                    <p:outputLabel value="Processo Montante:" />
+                    <p:inputText  value="#{itemDeVendaBean.processoMontante}" required="true" id="processoMontante" size="11" maxlength="11" requiredMessage="O campo 'Processo Montante' é obrigatório">
+                    </p:inputText>                  
+
+                    <p:outputLabel value="Processo Jusante:" />
+                    <p:inputText value="#{itemDeVendaBean.processoJusante}" id="processoJusante" required="true" size="11" maxlength="50" requiredMessage="O campo 'Processo Jusante' é obrigatório">
+                    </p:inputText>    
+                    
+                    <p:outputLabel value="Processo APAC:" />                   
+	                <p:selectOneMenu id="processoApac" value="#{itemDeVendaBean.venda.outorgante}" converter="omnifaces.SelectItemsConverter" filter="true" required="true" 
+	                requiredMessage="O campo 'Processo Apac' é obrigatório">	                
+	   
+	                <f:selectItem noSelectionOption="true" itemLabel="Selecione"/>
+	                
+	                <f:selectItems value="#{itemDeVendaBean.listaOutorgantes}" var="outorgantes" itemValue="#{outorgantes}" itemLabel="#{outorgantes.nomeRazao} - #{outorgantes.processoApac}"/>	     
+	                </p:selectOneMenu> 
+	                
+	                <p:outputLabel value="Usuário:" />                   
+	                <p:selectOneMenu id="usuario" value="#{itemDeVendaBean.venda.usuario}" converter="omnifaces.SelectItemsConverter" filter="true" required="true" 
+	                requiredMessage="O campo 'Processo Apac' é obrigatório">	                
+	   
+	                <f:selectItem noSelectionOption="true" itemLabel="Selecione"/>
+	                
+	                <f:selectItems value="#{itemDeVendaBean.listaUsuarios}" var="usuarios" itemValue="#{usuarios}" itemLabel="#{usuarios.login}"/>	     
+	                </p:selectOneMenu>
+	                
+	                <p:outputLabel value="Vencimento: "/>
+	                   <p:calendar pattern="dd/MM/yyyy" local="pt_BR" value="#{itemDeVendaBean.venda.vencimento}" required="true"
+				    requiredMessage="O campo 'Vencimento' é obrigatório" size="11" navigator="true"/>				    			                  
+	                	                                 
+                </h:panelGrid>
+            </p:fieldset>  
+            
+                <p:fieldset legend="Informe o percentual" style="margin-top: 2px">               
+
+                <h:panelGrid id="painel2" columns="8" style="width: 100%"> 
+
+                   <p:outputLabel value="Janeiro:" />
+                   <p:inputMask id="janeiro" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaJan}" required="true" requiredMessage="O campo 'Janeiro' é obrigatório">				    
+                   <f:convertNumber type="percent"/>						
+				   </p:inputMask>	  
+
+                    <p:outputLabel value="Fevereiro" />
+                    <p:inputMask id="fevereiro" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaFev}" required="true" requiredMessage="O campo 'Fevereiro' é obrigatório">
 				    <f:convertNumber type="percent"/>				 		
 				    </p:inputMask>
-				
-				    <p:outputLabel for="marco" value="Março"/>
-				    <p:inputMask id="marco" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaMar}" required="true" requiredMessage="O campo 'Março' é obrigatório">
+
+                    <p:outputLabel value="Março:" />
+                    <p:inputMask id="marco" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaMar}" required="true" requiredMessage="O campo 'Março' é obrigatório">
 				    <f:convertNumber type="percent"/>				
-				    </p:inputMask>
+				    </p:inputMask>                  
 
-				    <p:outputLabel for="abril" value="Abril"/>
-				    <p:inputMask id="abril" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaAbr}" required="true" requiredMessage="O campo 'Abril' é obrigatório">
+                    <p:outputLabel value="Abril:" />
+                    <p:inputMask id="abril" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaAbr}" required="true" requiredMessage="O campo 'Abril' é obrigatório">
 				    <f:convertNumber type="percent" />				
-				    </p:inputMask>		
-
-				    <p:outputLabel for="maio" value="Maio"/>
-				    <p:inputMask id="maio" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaMai}" required="true" requiredMessage="O campo 'Mai' é obrigatório">
+				    </p:inputMask>	
+                    
+                    <p:outputLabel value="Maio:" />                   
+	                <p:inputMask id="maio" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaMai}" required="true" requiredMessage="O campo 'Maio' é obrigatório">
 				    <f:convertNumber type="percent" />			
 				    </p:inputMask>
-				    
-				    <p:outputLabel for="junho" value="Junho"/>
-				    <p:inputMask id="junho" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaJun}" required="true" requiredMessage="O campo 'Junho' é obrigatório">
+	                
+	                <p:outputLabel value="Junho:" />                   
+	                <p:inputMask id="junho" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaJun}" required="true" requiredMessage="O campo 'Junho' é obrigatório">
 				    <f:convertNumber type="percent"/>		
 				    </p:inputMask>
-				    
-				    <p:outputLabel for="julho" value="Julho"/>
-				    <p:inputMask id="julho" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaJul}" required="true" requiredMessage="O campo 'Julho' é obrigatório">
+	                
+	                <p:outputLabel value="Julho:" />                   
+	                <p:inputMask id="julho" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaJul}" required="true" requiredMessage="O campo 'Julho' é obrigatório">
 				    <f:convertNumber type="percent"/>				
 				    </p:inputMask>
-				    
-				    <p:outputLabel for="agosto" value="Agosto"/>
-				    <p:inputMask id="agosto" mask="99%" maxlength="5" size="5"  value="#{itemDeVendaBean.garantiaAgo}" required="true" requiredMessage="O campo 'Agosto' é obrigatório">
+	                
+	                <p:outputLabel value="Agosto:" />                   
+	                <p:inputMask id="agosto" mask="99%" maxlength="5" size="5"  value="#{itemDeVendaBean.garantiaAgo}" required="true" requiredMessage="O campo 'Agosto' é obrigatório">
 				    <f:convertNumber type="percent" />				
 				    </p:inputMask>
-				    
-				    <p:outputLabel for="setembro" value="Setembro" />
-				    <p:inputMask id="setembro" mask="99%" maxlength="5" size="5"  value="#{itemDeVendaBean.garantiaSet}" required="true" requiredMessage="O campo 'Setembro' é obrigatório">
+	                
+	                <p:outputLabel value="Setembro:" />                   
+	                <p:inputMask id="setembro" mask="99%" maxlength="5" size="5"  value="#{itemDeVendaBean.garantiaSet}" required="true" requiredMessage="O campo 'Setembro' é obrigatório">
 				    <f:convertNumber type="percent" />			
 				    </p:inputMask>
-				    
-				    <p:outputLabel for="outubro" value="Outubro" />
-				    <p:inputMask id="outubro" mask="99%" maxlength="5" size="5"  value="#{itemDeVendaBean.garantiaOut}" required="true" requiredMessage="O campo 'Outubro' é obrigatório">
+	                
+	                <p:outputLabel value="Outubro:" />                   
+	                <p:inputMask id="outubro" mask="99%" maxlength="5" size="5"  value="#{itemDeVendaBean.garantiaOut}" required="true" requiredMessage="O campo 'Outubro' é obrigatório">
 				    <f:convertNumber type="percent" />				
 				    </p:inputMask>
-				    
-				    <p:outputLabel for="novembro" value="Novembro" />
-				    <p:inputMask id="novembro" mask="99%" maxlength="5" size="5"  value="#{itemDeVendaBean.garantiaNov}" required="true" requiredMessage="O campo 'Novembro' é obrigatório">
+	                
+	                <p:outputLabel value="Novembro:" />                   
+	                <p:inputMask id="novembro" mask="99%" maxlength="5" size="5"  value="#{itemDeVendaBean.garantiaNov}" required="true" requiredMessage="O campo 'Novembro' é obrigatório">
 				    <f:convertNumber type="percent" />				
 				    </p:inputMask>
-				    
-				    <p:outputLabel for="dezembro" value="Dezembro"/>
-				    <p:inputMask id="dezembro" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaDez}" required="true" requiredMessage="O campo 'Dezembro' é obrigatório">
+	                
+	                <p:outputLabel value="Dezembro:" />                   
+	                <p:inputMask id="dezembro" mask="99%" maxlength="5" size="5" value="#{itemDeVendaBean.garantiaDez}" required="true" requiredMessage="O campo 'Dezembro' é obrigatório">
 				    <f:convertNumber type="percent" />			
-				    </p:inputMask>
-				    
-				    <p:outputLabel for="areaDrenagem" value="Área de Drenagem:" />
-				    <p:inputText id="areaDrenagem" maxlength="50" size="5" value="#{itemDeVendaBean.areaDrenagem}" required="true" requiredMessage="O campo 'Área de Drenagem' é obrigatório">
-				    <f:convertNumber locale="pt_BR"/>	
-				    <f:validateDoubleRange minimum="0.01" maximum="10000000"/>			
-				    </p:inputText>	
-				
-			   </h:panelGrid>
-			   
-			  <h:panelGrid columns="3">
-				<p:commandButton value="Calcular" actionListener="#{itemDeVendaBean.calcular}" update=":mensagem :formCadastro:painel :novo"  oncomplete="PF('dialogo').hide()"/>											
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()"/>				
-			</h:panelGrid>
-			</h:form>
-	</p:dialog>	
-	
-	<h:form id="novo"> 
-	<p:panel header="Garantia da Vazão no Ponto">  
-		
-			<p:dataTable id="garantiaDaVazao" emptyMessage="Nenhum registro encontrado." value="#{itemDeVendaBean.ua}" var="listaItensVendas" paginator="true" rows="10">				
+				    </p:inputMask>          
+                </h:panelGrid>                 
+            </p:fieldset>     
+      
+             <p:fieldset  legend="Dados Da Simulação" style="margin-top: 2px"> 
+                    <h:panelGrid id="painel3" columns="8" style="width: 100%" > 
 
-				
-				<p:column headerText="Ua" style="width:105px">
-				<h:outputText value="#{itemDeVendaBean.num}"/>										
-				</p:column>
-							
-		
-				<p:column headerText="Jan" style="width:105px">
-				
-				<h:outputText value="#{itemDeVendaBean.rgarantiaJan}">
-					<f:convertNumber type="percent"/>
-				</h:outputText>
-				   <h:outputText value=" - "/>
-					<h:outputText value="#{listaItensVendas.jan}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>  
-					</h:outputText>								
-				</p:column>
+                    <p:outputLabel value="Janeiro:" />
+                    <p:inputText value="#{itemDeVendaBean.venda.jan}" size="6"/>                
+                    
+                    <p:outputLabel value="Fevereiro" />
+                    <p:inputText value="#{itemDeVendaBean.venda.fev}" size="6"/>
 
-				<p:column headerText="Fev" style="width:105px">
-				
-				<h:outputText value="#{itemDeVendaBean.rgarantiaFev}">
-					<f:convertNumber type="percent"/>
-				</h:outputText>
-				 <h:outputText value=" - "/>
-					<h:outputText value="#{listaItensVendas.fev}">	
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>	
-					 </h:outputText>				 
-					 		
-				</p:column>
-				
-				<p:column headerText="Mar" style="width:105px">
-				
-				<h:outputText value="#{itemDeVendaBean.rgarantiaMar}">
-					<f:convertNumber type="percent"/>
-				</h:outputText>
-				 <h:outputText value=" - "/>
-					<h:outputText value="#{listaItensVendas.mar}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					 </h:outputText>
-				</p:column>
-				
-				<p:column headerText="Abr" style="width:105px">
-				
-				<h:outputText value="#{itemDeVendaBean.rgarantiaAbr}">
-					<f:convertNumber type="percent"/>
-				</h:outputText>
-				 <h:outputText value=" - "/>
-					<h:outputText value="#{listaItensVendas.abr}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					 </h:outputText>
-				</p:column>
-				
-				<p:column headerText="Mai" style="width:105px">
-				
-				<h:outputText value="#{itemDeVendaBean.rgarantiaMai}">
-					<f:convertNumber type="percent"/>
-				</h:outputText>
-				 <h:outputText value=" - "/>
-					<h:outputText value="#{listaItensVendas.mai}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					 </h:outputText>
-				</p:column>
-				
-				<p:column headerText="Jun" style="width:105px">
-				
-				<h:outputText value="#{itemDeVendaBean.rgarantiaJun}">
-					<f:convertNumber type="percent"/>
-				</h:outputText>
-				 <h:outputText value=" - "/>
-					<h:outputText value="#{listaItensVendas.jun}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					 </h:outputText>
-				</p:column>
-				
-				<p:column headerText="Jul" style="width:105px">
-				
-				<h:outputText value="#{itemDeVendaBean.rgarantiaJul}">
-					<f:convertNumber type="percent"/>
-				</h:outputText>
-				 <h:outputText value=" - "/>
-					<h:outputText value="#{listaItensVendas.jul}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					 </h:outputText>
-				</p:column>
-				
-				<p:column headerText="Ago" style="width:105px">
-				  
-				  <h:outputText value="#{itemDeVendaBean.rgarantiaAgo}">
-					<f:convertNumber type="percent"/>
-				</h:outputText>
-				
-				 <h:outputText value=" - "/>
-					<h:outputText value="#{listaItensVendas.ago}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					 </h:outputText>
-				</p:column>
-				
-				<p:column headerText="Set" style="width:105px">
-				
-				
-				<h:outputText value="#{itemDeVendaBean.rgarantiaSet}">
-					<f:convertNumber type="percent"/>
-				</h:outputText>
-				 <h:outputText value=" - "/>
-					<h:outputText value="#{listaItensVendas.set}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					 </h:outputText>
-				</p:column>
-				
-				<p:column headerText="Out" style="width:105px">
-				
-				<h:outputText value="#{itemDeVendaBean.rgarantiaOut}">
-					<f:convertNumber type="percent"/>
-				</h:outputText>
-				 <h:outputText value=" - "/>
-					<h:outputText value="#{listaItensVendas.out}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					 </h:outputText>
-				</p:column>
-				
-				<p:column headerText="Nov" style="width:105px">
-				
-				<h:outputText value="#{itemDeVendaBean.rgarantiaNov}">
-					<f:convertNumber type="percent"/>
-				</h:outputText>
-				 <h:outputText value=" - "/>
-					<h:outputText value="#{listaItensVendas.nov}">
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					 </h:outputText>
-				</p:column>
-				
-				<p:column headerText="Dez" style="width:105px">
-				
-				<h:outputText value="#{itemDeVendaBean.rgarantiaDez}">
-					<f:convertNumber type="percent"/>
-				</h:outputText>
-				 <h:outputText value=" - "/>
-					<h:outputText value="#{listaItensVendas.dez}" >
-					 <f:convertNumber local="pt_BR" minFractionDigits="2"/>
-					 </h:outputText>
-				</p:column>		
-											
-				<p:column headerText="Vencimento" style="text-align:center">				 
-				    <p:calendar pattern="dd/MM/yyyy" local="pt_BR" value="#{itemDeVendaBean.venda.vencimento}" required="true"
-				    requiredMessage="O campo 'Vencimento' é obrigatório" size="11" navigator="true"/>																
-				</p:column>			
+                    <p:outputLabel value="Março:" />
+                    <p:inputMask  value="#{itemDeVendaBean.venda.mar}" size="6"/>                  
 
-			</p:dataTable>
-		</p:panel>
-		
-		<p:panel header="Criar Processo" >
-		   <p:commandButton value="Sim" oncomplete="PF('dialogo2').show();" actionListener="#{itemDeVendaBean.finalizar}" update=":mensagem :formularioFinalizar:painelFinalizar"/>
-		</p:panel>	
-	</h:form>
-	
-	<p:dialog header="Criar processo" widgetVar="dialogo2" draggable="false" resizable="false" modal="true" closable="false">
-	<h:form id="formularioFinalizar">
-	
-	<h:panelGrid columns="2" id="painelFinalizar">
-	   <p:outputLabel value="Usuário: "/>
-	   <p:selectOneMenu value="#{itemDeVendaBean.venda.usuario}" converter="omnifaces.SelectItemsConverter" filter="true">
-	   
-	     <f:selectItem noSelectionOption="true" itemLabel="Selecione um usuário"/>
-	     <f:selectItems value="#{itemDeVendaBean.listaUsuarios}" var="usuarios" itemValue="#{usuarios}" itemLabel="#{usuarios.login}"/>
-	     
-	   </p:selectOneMenu>
-	   
-	   <p:outputLabel value="Processo: "/>
-	   <p:selectOneMenu value="#{itemDeVendaBean.venda.outorgante}" converter="omnifaces.SelectItemsConverter" filter="true">
-	   
-	     <f:selectItem noSelectionOption="true" itemLabel="Selecione um processo"/>
-	     <f:selectItems value="#{itemDeVendaBean.listaOutorgantes}" var="outorgantes" itemValue="#{outorgantes}" itemLabel="#{outorgantes.nomeRazao} - #{outorgantes.processoApac}"/>
-	     
-	   </p:selectOneMenu>	
-	</h:panelGrid>
-	
-	<h:panelGrid columns="2"> 
-	   <p:commandButton value="Criar"/> 
-	   <p:commandButton value="Fechar" oncomplete="PF('dialogo').hide()"/>
-	  </h:panelGrid>	
-	</h:form>
-	</p:dialog>
-</h:body>
+                    <p:outputLabel value="Abril:" />
+                    <p:inputText  value="#{itemDeVendaBean.venda.abr}" size="6"/>
+                    
+                    <p:outputLabel value="Maio:" />                   
+	                <p:inputText value="#{itemDeVendaBean.venda.mai}" size="6"/> 
+	                
+	                <p:outputLabel value="Junho:" />                   
+	                <p:inputText value="#{itemDeVendaBean.venda.jun}" size="6"/> 
+	                
+	                <p:outputLabel value="Julho:" />                   
+	                <p:inputText value="#{itemDeVendaBean.venda.jul}" size="6"/>
+	                
+	                <p:outputLabel value="Agosto:" />                   
+	                <p:inputText  value="#{itemDeVendaBean.venda.ago}" size="6"/> 
+	                
+	                <p:outputLabel value="Setembro:" />                   
+	                <p:inputText value="#{itemDeVendaBean.venda.set}" size="6"/> 
+	                
+	                <p:outputLabel value="Outubro:" />                   
+	                <p:inputText value="#{itemDeVendaBean.venda.out}" size="6"/> 
+	                
+	                <p:outputLabel value="Novembro:" />                   
+	                <p:inputText value="#{itemDeVendaBean.venda.nov}" size="6"/> 
+	                
+	                <p:outputLabel value="Dezembro:" />                   
+	                <p:inputText value="#{itemDeVendaBean.venda.dez}" size="6"/>	                
+	                
+	                <p:outputLabel value="Captacao:" />
+                    <p:inputText  value="#{itemDeVendaBean.venda.captacao}" id="captacao" size="6" maxlength="11">
+                    
+                    </p:inputText>                  
+                </h:panelGrid>
+           </p:fieldset>
+       </h:form>
+  </h:body>
 </html>

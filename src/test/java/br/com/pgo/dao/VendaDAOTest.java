@@ -2,13 +2,12 @@ package br.com.pgo.dao;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
+
 import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.pgo.domain.Ua;
-import br.com.pgo.domain.Venda;
+
 
 public class VendaDAOTest {
 

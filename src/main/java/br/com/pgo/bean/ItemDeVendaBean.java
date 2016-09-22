@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.faces.bean.ManagedBean;
@@ -468,104 +467,100 @@ Venda atual = posicao.next();
 while(posicao.hasNext()){
 Venda proximo = posicao.next();
 	                                         
-if(atual.getOutorgante().getProcessoApac()==proximo.getProcessoMotante() && proximo.getProcessoMotante()!=0){
+if(atual.getOutorgante().getProcessoApac()==proximo.getProcessoMotante()){
 	
 BigDecimal dispJan0 = atual.getCaptacao();	
 	//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
-BigDecimal dispJan1 = proximo.getCaptacao();
+BigDecimal dispJan1 = proximo.getCaptacao(); 
 	//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
-BigDecimal resultDispJan = new BigDecimal(String.valueOf(dispJan0)).subtract(new BigDecimal(String.valueOf(dispJan1)));
+BigDecimal resultDispJan = new BigDecimal(String.valueOf(dispJan0)).subtract(new BigDecimal(String.valueOf(dispJan1))); 
+proximo.setJan(resultDispJan);
 
 
-venda.setJan(resultDispJan);
 
 BigDecimal dispFev0 = atual.getCaptacao();	
 //BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
 BigDecimal dispFev1 = proximo.getCaptacao();
 //BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
 BigDecimal resultDispFev = new BigDecimal(String.valueOf(dispFev0)).subtract(new BigDecimal(String.valueOf(dispFev1)));
+proximo.setFev(resultDispFev);
 
-venda.setFev(resultDispFev);
 
 BigDecimal dispMar0 = atual.getCaptacao();	
 //BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
 BigDecimal dispMar1 = proximo.getCaptacao();
 //BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
 BigDecimal resultDispMar = new BigDecimal(String.valueOf(dispMar0)).subtract(new BigDecimal(String.valueOf(dispMar1)));
-
-venda.setMar(resultDispMar);
+proximo.setMar(resultDispMar);
 
 BigDecimal dispAbr0 = atual.getCaptacao();	
 //BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
 BigDecimal dispAbr1 = proximo.getCaptacao();
 //BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
 BigDecimal resultDispAbr = new BigDecimal(String.valueOf(dispAbr0)).subtract(new BigDecimal(String.valueOf(dispAbr1)));
+proximo.setAbr(resultDispAbr);
 
-venda.setAbr(resultDispAbr);
 
 BigDecimal dispMai0 = atual.getCaptacao();	
 //BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
 BigDecimal dispMai1 = proximo.getCaptacao();
 //BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
 BigDecimal resultDispMai = new BigDecimal(String.valueOf(dispMai0)).subtract(new BigDecimal(String.valueOf(dispMai1)));
-
-venda.setMai(resultDispMai);
+proximo.setMai(resultDispMai);
 
 BigDecimal dispJun0 = atual.getCaptacao();	
 //BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
 BigDecimal dispJun1 = proximo.getCaptacao();
 //BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
 BigDecimal resultDispJun = new BigDecimal(String.valueOf(dispJun0)).subtract(new BigDecimal(String.valueOf(dispJun1)));
-
-venda.setJun(resultDispJun);
+proximo.setJun(resultDispJun);
 
 BigDecimal dispJul0 = atual.getCaptacao();	
 //BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
 BigDecimal dispJul1 = proximo.getCaptacao();
 //BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
 BigDecimal resultDispJul = new BigDecimal(String.valueOf(dispJul0)).subtract(new BigDecimal(String.valueOf(dispJul1)));
-
-venda.setJul(resultDispJul);
+proximo.setJul(resultDispJul);
 
 BigDecimal dispAgo0 = atual.getCaptacao();	
 //BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
 BigDecimal dispAgo1 = proximo.getCaptacao();
 //BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
 BigDecimal resultDispAgo = new BigDecimal(String.valueOf(dispAgo0)).subtract(new BigDecimal(String.valueOf(dispAgo1)));
+proximo.setAgo(resultDispAgo);
 
-venda.setAgo(resultDispAgo);
 
 BigDecimal dispSet0 = atual.getCaptacao();	
 //BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
 BigDecimal dispSet1 = proximo.getCaptacao();
 //BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
 BigDecimal resultDispSet = new BigDecimal(String.valueOf(dispSet0)).subtract(new BigDecimal(String.valueOf(dispSet1)));
+proximo.setSet(resultDispSet);
 
-venda.setSet(resultDispSet);
 
 BigDecimal dispOut0 = atual.getCaptacao();	
 //BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
 BigDecimal dispOut1 = proximo.getCaptacao();
 //BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
 BigDecimal resultDispOut = new BigDecimal(String.valueOf(dispOut0)).subtract(new BigDecimal(String.valueOf(dispOut1)));
+proximo.setOut(resultDispOut);
 
-venda.setOut(resultDispOut);
 
 BigDecimal dispNov0 = atual.getCaptacao();	
 //BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
 BigDecimal dispNov1 = proximo.getCaptacao();
 //BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
 BigDecimal resultDispNov = new BigDecimal(String.valueOf(dispNov0)).subtract(new BigDecimal(String.valueOf(dispNov1)));
+proximo.setNov(resultDispNov);
 
-venda.setNov(resultDispNov);
 
 BigDecimal dispDez0 = atual.getCaptacao();	
 //BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
 BigDecimal dispDez1 = proximo.getCaptacao();
 //BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
 BigDecimal resultDispDez = new BigDecimal(String.valueOf(dispDez0)).subtract(new BigDecimal(String.valueOf(dispDez1)));
+proximo.setDez(resultDispDez);
 
-venda.setDez(resultDispDez);
              }					
         }
      }
