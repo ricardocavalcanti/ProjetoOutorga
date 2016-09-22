@@ -3,19 +3,18 @@ package br.com.pgo.dao;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
-
 import br.com.pgo.domain.Ua;
 import br.com.pgo.domain.Venda;
 import br.com.pgo.util.HibernateUtil;
 
 public class VendaDAO extends GenericDAO<Venda> {
 
+	//Buscar Ua pelo número informado
 	@SuppressWarnings("unchecked")
 	public List<Ua> buscarUa(int numeroUa) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
@@ -34,7 +33,54 @@ public class VendaDAO extends GenericDAO<Venda> {
 		} finally {
 			sessao.close();
 		}
-	}
+	 }
+	
+	    //Buscar Processo Montante pelo número informado
+		@SuppressWarnings("unchecked")
+		public List<Ua> buscarProcessoMontante(int numeroProcessoMontante) {
+			Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+
+			try {
+
+				Query consulta = sessao.createQuery("from Ua where numeroUa=?");
+				consulta.setParameter(0, numeroProcessoMontante);
+				List<Ua> resultado = consulta.list();
+				return resultado;
+
+			} catch (RuntimeException erro) {
+
+				throw erro;
+
+			} finally {
+				sessao.close();
+			}
+		}
+		
+		//Buscar Processo Jusante pelo número informado
+		@SuppressWarnings("unchecked")
+		public List<Ua> buscarProcessoJusante(int numeroProcessoJusante) {
+					Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+
+				try {
+
+					Query consulta = sessao.createQuery("from Ua where numeroUa=?");
+					consulta.setParameter(0, numeroProcessoJusante);
+					List<Ua> resultado = consulta.list();
+					return resultado;
+
+				} catch (RuntimeException erro) {
+
+					throw erro;
+
+				} finally {
+					sessao.close();
+				}
+			}
+	
+	
+	
+	
+	
 
 	
 	/*public Venda buscarProcesso(Class processo) {

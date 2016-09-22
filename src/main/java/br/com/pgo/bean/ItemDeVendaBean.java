@@ -11,13 +11,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-
 import org.omnifaces.util.Messages;
-
 import br.com.pgo.dao.OutorganteDAO;
 import br.com.pgo.dao.UsuarioDAO;
 import br.com.pgo.dao.VendaDAO;
@@ -363,8 +360,7 @@ public class ItemDeVendaBean implements Serializable {
 	public void novo() {
 
 		venda = new Venda();
-		listaVenda = new HashSet<Venda>();
-		
+		listaVenda = new HashSet<Venda>();		
 
 	}
 
@@ -400,11 +396,48 @@ erro.printStackTrace();
 	}
 }
 	
-public void salvar(){
+public void salvar() {
 	
-venda.setCaptacao(captacao);
-System.out.println("Adicionando captação!");	    
+BigDecimal dispFinalJan = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaJan))); 
+venda.setJan(dispFinalJan);		
+
+BigDecimal dispFinalFev = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaFev)));
+venda.setFev(dispFinalFev);
+
+BigDecimal dispFinalMar = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaMar)));
+venda.setMar(dispFinalMar);
+
+BigDecimal dispFinalAbr = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaAbr)));
+venda.setAbr(dispFinalAbr);
+
+BigDecimal dispFinalMai = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaMai)));
+venda.setMai(dispFinalMai);
+
+BigDecimal dispFinalJun = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaJun)));
+venda.setJun(dispFinalJun);
+
+BigDecimal dispFinalJul = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaJul)));
+venda.setJul(dispFinalJul);
+
+BigDecimal dispFinalAgo = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaAgo)));
+venda.setAgo(dispFinalAgo);
+
+BigDecimal dispFinalSet = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaSet)));
+venda.setSet(dispFinalSet);
+
+BigDecimal dispFinalOut = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaOut)));
+venda.setOut(dispFinalOut);
+
+BigDecimal dispFinalNov = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaNov)));
+venda.setNov(dispFinalNov);
+
+BigDecimal dispFinalDez = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaDez)));
+venda.setDez(dispFinalDez);
+
+listaVenda.clear();
 encaixar();
+cacularDisponibilidade();
+
 		
 VendaDAO salvarProcesso = new VendaDAO();	   
 		
@@ -412,7 +445,8 @@ Iterator<Venda> atual = listaVenda.iterator();
 	  
 while(atual.hasNext()){
 	    	 
-salvarProcesso.mergeVenda(atual);			   
+salvarProcesso.mergeVenda(atual);	
+
 }		
  }
 
@@ -529,14 +563,12 @@ BigDecimal dispAgo1 = proximo.getCaptacao();
 BigDecimal resultDispAgo = new BigDecimal(String.valueOf(dispAgo0)).subtract(new BigDecimal(String.valueOf(dispAgo1)));
 proximo.setAgo(resultDispAgo);
 
-
 BigDecimal dispSet0 = atual.getCaptacao();	
 //BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
 BigDecimal dispSet1 = proximo.getCaptacao();
 //BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
 BigDecimal resultDispSet = new BigDecimal(String.valueOf(dispSet0)).subtract(new BigDecimal(String.valueOf(dispSet1)));
 proximo.setSet(resultDispSet);
-
 
 BigDecimal dispOut0 = atual.getCaptacao();	
 //BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
@@ -585,12 +617,9 @@ proximo.setDez(resultDispDez);
 		}
 	}
 
-	public void adicionar() {
-
-		// CHAMAR O DAO VENDA PARA BUSCAR A UA CORRENTE NA TELA USANDO O
-		// getCOMPONETE.
-		// USA O ATRIBUTO 'NUM' JÁ DECLARADO PARA RECEBER O NÚMERO DA UA.
-
+public void adicionar() {
+		
+        //Pesquisa Ua pelo número informado pelo usuário em venda.xhtml
 		VendaDAO BuscarUA = new VendaDAO();
 		listaItensVenda = BuscarUA.buscarUa(num);
 		areaUa = listaItensVenda.get(1).getAreaUa();
@@ -610,11 +639,11 @@ proximo.setDez(resultDispDez);
 
 			}
 			System.out.println("Quantidade Ua encontrada: " + i);
-		}
-
-		// listaItensVenda.add(ua);
-
+		}		
+		
 		System.out.println(num);
+		
+		
 
 	}
 
@@ -2201,7 +2230,7 @@ proximo.setDez(resultDispDez);
 		venda.setNumeroUa(num);
 		venda.setAreaDrenagem(areaDrenagem);
 		venda.setAreaUa(areaUa);
-		venda.setJan(rgarantiaJan);
+		venda.setJan(rgarantiaJan); //Valores do método calcular incluso
 		venda.setFev(rgarantiaFev);
         venda.setMar(rgarantiaMar);
         venda.setAbr(rgarantiaAbr);
@@ -2214,9 +2243,8 @@ proximo.setDez(resultDispDez);
         venda.setNov(rgarantiaNov);
         venda.setDez(rgarantiaDez);
         venda.setProcessoJusante(processoJusante);
-        venda.setProcessoMotante(processoMontante);
-        
-        listaVenda.add(venda);
+        venda.setProcessoMotante(processoMontante);        
+       
         
         encaixar();        
         cacularDisponibilidade();        
