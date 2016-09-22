@@ -437,7 +437,6 @@ venda.setDez(dispFinalDez);
 listaVenda.clear();
 encaixar();
 cacularDisponibilidade();
-
 		
 VendaDAO salvarProcesso = new VendaDAO();	   
 		
