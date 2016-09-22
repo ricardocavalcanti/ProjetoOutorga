@@ -27,19 +27,19 @@ import br.com.pgo.util.Interpolar;
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
-public class ItemDeVendaBean implements Serializable {
+public class VendaBeanController implements Serializable {
 
-	private Ua ua;	
+	private Ua ua;	//Ok
 	private Usuario usuario;
-	private int num;
+	public static int num; //Ok
 	private int processoMontante;
 	private int processoJusante;
 	private BigDecimal captacao;
 	private BigDecimal areaUa;
 	private BigDecimal areaDrenagem;	
-	private List<Ua> listaItensVenda;
-	private List<Ua> listaUa;
-	private BigDecimal garantiaJan, garantiaFev, garantiaMar, garantiaAbr, garantiaMai, garantiaJun, garantiaJul,
+	private List<Ua> listaItensVenda; //Ok
+	private List<Ua> listaUa; 
+	public static BigDecimal garantiaJan, garantiaFev, garantiaMar, garantiaAbr, garantiaMai, garantiaJun, garantiaJul,
 	garantiaAgo, garantiaSet, garantiaOut, garantiaNov, garantiaDez;
 	private BigDecimal rgarantiaJan, rgarantiaFev, rgarantiaMar, rgarantiaAbr, rgarantiaMai, rgarantiaJun, rgarantiaJul,
 	rgarantiaAgo, rgarantiaSet, rgarantiaOut, rgarantiaNov, rgarantiaDez;	
@@ -48,7 +48,7 @@ public class ItemDeVendaBean implements Serializable {
 	private List<Usuario> listaUsuarios;
 	private HashSet<Venda> listaVenda;
 
-	public ItemDeVendaBean() {
+	public VendaBeanController() {
 		finalizar();
 		novo();
 	}
@@ -509,15 +509,12 @@ BigDecimal dispJan1 = proximo.getCaptacao();
 BigDecimal resultDispJan = new BigDecimal(String.valueOf(dispJan0)).subtract(new BigDecimal(String.valueOf(dispJan1))); 
 proximo.setJan(resultDispJan);
 
-
-
 BigDecimal dispFev0 = atual.getCaptacao();	
 //BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
 BigDecimal dispFev1 = proximo.getCaptacao();
 //BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
 BigDecimal resultDispFev = new BigDecimal(String.valueOf(dispFev0)).subtract(new BigDecimal(String.valueOf(dispFev1)));
 proximo.setFev(resultDispFev);
-
 
 BigDecimal dispMar0 = atual.getCaptacao();	
 //BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
@@ -532,7 +529,6 @@ BigDecimal dispAbr1 = proximo.getCaptacao();
 //BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
 BigDecimal resultDispAbr = new BigDecimal(String.valueOf(dispAbr0)).subtract(new BigDecimal(String.valueOf(dispAbr1)));
 proximo.setAbr(resultDispAbr);
-
 
 BigDecimal dispMai0 = atual.getCaptacao();	
 //BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
@@ -576,14 +572,12 @@ BigDecimal dispOut1 = proximo.getCaptacao();
 BigDecimal resultDispOut = new BigDecimal(String.valueOf(dispOut0)).subtract(new BigDecimal(String.valueOf(dispOut1)));
 proximo.setOut(resultDispOut);
 
-
 BigDecimal dispNov0 = atual.getCaptacao();	
 //BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
 BigDecimal dispNov1 = proximo.getCaptacao();
 //BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
 BigDecimal resultDispNov = new BigDecimal(String.valueOf(dispNov0)).subtract(new BigDecimal(String.valueOf(dispNov1)));
 proximo.setNov(resultDispNov);
-
 
 BigDecimal dispDez0 = atual.getCaptacao();	
 //BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
