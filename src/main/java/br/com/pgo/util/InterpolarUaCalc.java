@@ -1,60 +1,50 @@
-package br.com.pgo.bean;
+package br.com.pgo.util;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+
 import br.com.pgo.domain.Ua;
-import br.com.pgo.util.InterpolarCalc;
 
-public class VendaBeanInterpolarCalc {
+public class InterpolarUaCalc {
 
-	public BigDecimal vendaInterpolar(int num, List<Ua> listaItensVenda, BigDecimal areaUa, BigDecimal garantia, BigDecimal areaDrenagem) {
+	// O calculo é o mesmo para todos os meses a única coisa que muda é o valor
+	// garantia
+	public BigDecimal vendaInterpolar(List<Ua> listaItensVenda, BigDecimal areaUa, BigDecimal garantia,
+			BigDecimal areaDrenagem) {
 
 		BigDecimal qtdBigDec = new BigDecimal(String.valueOf(listaItensVenda.size()));
 
 		if (!garantia.equals(BigDecimal.ZERO)) {
 
-			// Ordenar em ordem decrescente
-			Collections.sort(listaItensVenda, new Comparator<Ua>() {
-				@Override
-				public int compare(Ua ua1, Ua ua2) {
+			// Posição inicial utilizado na divisão = (posiçãoJan/Quantidade)
+			int posicao = 1;
 
-					if (ua2.getJan().compareTo(ua1.getJan()) == 1) {
-						return 1;
-					} else if (ua1.getJan().compareTo(ua2.getJan()) == 1) {
-						return -1;
-					} else {
-						return 0;
-					}
-				}
-			});
-		
-			// Posição inicial de Janeiro para ser utilizado na divisão = (posiçãoJan/Quantidade)
-			int posicaoJan = 1;
-			
-			// Adiconar os valores percentuais para fazer a busca dos valores que estão antes de depois do valor informado para ser interpolado.
+			// Adiconar os valores percentuais para fazer a busca dos valores
+			// que estão antes de depois do valor informado para ser
+			// interpolado.
 			List<BigDecimal> percentJan = new ArrayList<BigDecimal>();
-			
-			HashMap<String, BigDecimal> mapJan = new HashMap<>();
-			// Para calcular os percentuais (posição/quantidade)
-			
-			for (Ua janeiro : listaItensVenda) {
-				
-				// Adiconando a media ao List percentJan
-				BigDecimal media = new BigDecimal(String.valueOf(posicaoJan)).divide(qtdBigDec, 4, RoundingMode.UP);
-				percentJan.add(media);
 
+			// Para calcular os percentuais (posição/quantidade)
+			HashMap<String, BigDecimal> mapJan = new HashMap<>();
+			// O calculo é o mesmo para todos os meses a única coisa que muda é
+			// o valor garantia
+			for (Ua janeiro : listaItensVenda) {
+
+				// Adiconando a media ao List percentJan
+				BigDecimal media = new BigDecimal(String.valueOf(posicao)).divide(qtdBigDec, 4, RoundingMode.UP);
+				percentJan.add(media);
+				// O calculo é o mesmo para todos os meses a única coisa que
+				// muda é o valor garantia
 				mapJan.merge(String.valueOf(media), new BigDecimal(String.valueOf(janeiro.getJan())), BigDecimal::add);
 
 				System.out.println("TAMANHO DA LISTA: " + qtdBigDec);
-				System.out.println("MEDIA : " + media + " POSICAO " + posicaoJan);
+				System.out.println("MEDIA : " + media + " POSICAO " + posicao);
 
-				posicaoJan++;
+				posicao++;
 
 				// Aqui ficaria o HasMap index 'percentJan(i)' e o valor seria
 				// janeito.getJan(i)
@@ -87,14 +77,14 @@ public class VendaBeanInterpolarCalc {
 			// BigDecimal(String.valueOf(garantiaJan)).divide(new
 			// BigDecimal("100"),2,RoundingMode.DOWN); // Valor informado pelo
 			// usuário
-			System.out.println(VendaBeanController.garantiaJan);
+			System.out.println(garantia);
 			// Pegar as keys do HashMap da lista de Janeiro
 			Set<String> chaves = mapJan.keySet();
 
 			// Achar maior valor x2
 			for (BigDecimal valor : percentJan) {
 
-				if (valor.compareTo(VendaBeanController.garantiaJan) == 1) {
+				if (valor.compareTo(garantia) == 1) {
 
 					x2 = valor;
 
@@ -119,7 +109,7 @@ public class VendaBeanInterpolarCalc {
 
 				BigDecimal valor = percentJan.get(i);
 
-				if (valor.compareTo(VendaBeanController.garantiaJan) == -1) {
+				if (valor.compareTo(garantia) == -1) {
 
 					x1 = valor;
 					break;
@@ -147,6 +137,8 @@ public class VendaBeanInterpolarCalc {
 			System.out.println("Y2: " + y2);
 			System.out.println("--------------------------------------------");
 
+			// Invocando o metodo InterpolarCalc do pacote br.com.pgo.Util
+
 			InterpolarCalc InterpolarJan = new InterpolarCalc();
 
 			System.out.println(" 0 INTERPOLACAO: " + InterpolarJan.calcular(x1, x2, garantia, y1, y2));
@@ -155,16 +147,16 @@ public class VendaBeanInterpolarCalc {
 			System.out.println("1 AREA UA: " + areaUa);
 
 			BigDecimal calc1 = InterpolarJan.calcular(x1, x2, garantia, y1, y2);
-			
 
-			BigDecimal calc2 = new BigDecimal(String.valueOf(calc1)).divide(new BigDecimal(String.valueOf(areaUa)), 4, RoundingMode.UP);
-			System.out.println("3 AREA UA JANEIRO: " + areaUa);
+			BigDecimal calc2 = new BigDecimal(String.valueOf(calc1)).divide(new BigDecimal(String.valueOf(areaUa)), 4,
+					RoundingMode.UP);
+			System.out.println("3 AREA UA : " + areaUa);
 
 			garantia = new BigDecimal(String.valueOf(calc2)).multiply(new BigDecimal(String.valueOf(areaDrenagem)));
-			System.out.println("4 AREA UA JANEIRO: " + areaUa);
+			System.out.println("4 AREA UA: " + areaUa);
 
 			System.out.println("GARANTIA FINAL" + garantia);
-			
+
 		} else {
 
 			garantia = BigDecimal.ZERO;

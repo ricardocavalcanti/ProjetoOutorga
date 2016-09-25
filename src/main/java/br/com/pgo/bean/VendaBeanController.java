@@ -29,17 +29,17 @@ import br.com.pgo.util.InterpolarCalc;
 @ViewScoped
 public class VendaBeanController implements Serializable {
 
-	private Ua ua;	//Ok
+	private Ua ua;
 	private Usuario usuario;
-	public static int num; //Ok
+	public static int num;
 	private int processoMontante;
 	private int processoJusante;
 	private BigDecimal captacao;
 	private BigDecimal areaUa;
 	private BigDecimal areaDrenagem;	
-	private List<Ua> listaItensVenda; //Ok
+	private List<Ua> listaItensVenda;
 	private List<Ua> listaUa; 
-	public static BigDecimal garantiaJan, garantiaFev, garantiaMar, garantiaAbr, garantiaMai, garantiaJun, garantiaJul,
+	private BigDecimal garantiaJan, garantiaFev, garantiaMar, garantiaAbr, garantiaMai, garantiaJun, garantiaJul,
 	garantiaAgo, garantiaSet, garantiaOut, garantiaNov, garantiaDez;
 	private BigDecimal rgarantiaJan, rgarantiaFev, rgarantiaMar, rgarantiaAbr, rgarantiaMai, rgarantiaJun, rgarantiaJul,
 	rgarantiaAgo, rgarantiaSet, rgarantiaOut, rgarantiaNov, rgarantiaDez;	
@@ -48,10 +48,19 @@ public class VendaBeanController implements Serializable {
 	private List<Usuario> listaUsuarios;
 	private HashSet<Venda> listaVenda;
 
-	public VendaBeanController() {
-		finalizar();
+	public VendaBeanController() {	
 		novo();
+	}		
+
+	public static int getNum() {
+		return num;
 	}
+
+
+	public static void setNum(int num) {
+		VendaBeanController.num = num;
+	}	
+	
 	
 	public BigDecimal getCaptacao() {
 		return captacao;
@@ -117,9 +126,6 @@ public class VendaBeanController implements Serializable {
 		this.listaUsuarios = listaUsuarios;
 	}
 
-	public int getNum() {
-		return num;
-	}
 
 	public BigDecimal getAreaDrenagem() {
 		return areaDrenagem;
@@ -135,10 +141,6 @@ public class VendaBeanController implements Serializable {
 
 	public void setAreaUa(BigDecimal areaUa) {
 		this.areaUa = areaUa;
-	}
-
-	public void setNum(int num) {
-		this.num = num;
 	}
 
 	public List<Ua> getListaUa() {
@@ -2241,6 +2243,8 @@ public void adicionar() {
         
         encaixar();        
         cacularDisponibilidade();        
-	}	
+	}
+
+
 
 }
