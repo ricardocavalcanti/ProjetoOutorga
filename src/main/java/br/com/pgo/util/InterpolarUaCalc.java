@@ -3,22 +3,38 @@ package br.com.pgo.util;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-import br.com.pgo.domain.Ua;
-
 public class InterpolarUaCalc {
 
 	// O calculo é o mesmo para todos os meses a única coisa que muda é o valor
-	// garantia
-	public BigDecimal vendaInterpolar(List<Ua> listaItensVenda, BigDecimal areaUa, BigDecimal garantia,
-			BigDecimal areaDrenagem) {
+	// garantia, recebe por paramento um list do mes especifico Ex:.
+	// List<BigDecimal> listaItensVenda = ua.getJan()
+	
+	public BigDecimal vendaInterpolar(List<BigDecimal> mesInterpolar, BigDecimal areaUa, BigDecimal garantia,	BigDecimal areaDrenagem) {
 
-		BigDecimal qtdBigDec = new BigDecimal(String.valueOf(listaItensVenda.size()));
+		BigDecimal qtdBigDec = new BigDecimal(String.valueOf(mesInterpolar.size()));
 
 		if (!garantia.equals(BigDecimal.ZERO)) {
+           
+			//Ordenando a lista em ordem decrescente
+			Collections.sort(mesInterpolar, new Comparator<BigDecimal>() {
+				public int compare(BigDecimal ua1, BigDecimal ua2) {
+
+					if (ua2.compareTo(ua1) == 1) {
+						return 1;
+					} else if (ua1.compareTo(ua2) == 1) {
+						return -1;
+					} else {
+						return 0;
+					}
+				}
+
+			});
 
 			// Posição inicial utilizado na divisão = (posiçãoJan/Quantidade)
 			int posicao = 1;
@@ -26,63 +42,34 @@ public class InterpolarUaCalc {
 			// Adiconar os valores percentuais para fazer a busca dos valores
 			// que estão antes de depois do valor informado para ser
 			// interpolado.
-			List<BigDecimal> percentJan = new ArrayList<BigDecimal>();
+			List<BigDecimal> percent = new ArrayList<BigDecimal>();
 
 			// Para calcular os percentuais (posição/quantidade)
-			HashMap<String, BigDecimal> mapJan = new HashMap<>();
-			// O calculo é o mesmo para todos os meses a única coisa que muda é
-			// o valor garantia
-			for (Ua janeiro : listaItensVenda) {
+			HashMap<String, BigDecimal> mapChave = new HashMap<>();
+			for (int i = 0; i < mesInterpolar.size(); i++) {
+
+				BigDecimal ua = mesInterpolar.get(i);
 
 				// Adiconando a media ao List percentJan
 				BigDecimal media = new BigDecimal(String.valueOf(posicao)).divide(qtdBigDec, 4, RoundingMode.UP);
-				percentJan.add(media);
+				percent.add(media);
 				// O calculo é o mesmo para todos os meses a única coisa que
 				// muda é o valor garantia
-				mapJan.merge(String.valueOf(media), new BigDecimal(String.valueOf(janeiro.getJan())), BigDecimal::add);
+				mapChave.merge(String.valueOf(media), new BigDecimal(String.valueOf(ua)), BigDecimal::add);
 
 				System.out.println("TAMANHO DA LISTA: " + qtdBigDec);
 				System.out.println("MEDIA : " + media + " POSICAO " + posicao);
 
 				posicao++;
-
-				// Aqui ficaria o HasMap index 'percentJan(i)' e o valor seria
-				// janeito.getJan(i)
 			}
-			System.out.println("--------------------------------------------");
-
-			// Trabalhando com valores HashMap
-			System.out.println("HashMap - 0.33 : " + mapJan.get("0.33"));
-			System.out.println("HashMap - 0.66 : " + mapJan.get("0.66"));
-			System.out.println("HashMap - 1.00 : " + mapJan.get("1.00"));
-
-			System.out.println("--------------------------------------------");
-			System.out.println("Percent Jan");
-
-			percentJan.forEach(media -> System.out.println(media));
-
-			System.out.println("--------------------------------------------");
-
-			System.out.println("INTERPOLAÇÃO!");
-
-			// double x1 = 0; Ver quem vai ser o maior e menor valor
-			// double x2 = 0; Ver quem vai ser o maior e menor valor
-
-			// double y1 = 0; Pegar a vazao da posição da outra lista
-			// double y2 = 0; Pegar a vazao da posição da outra lista
 
 			BigDecimal x2 = BigDecimal.ZERO;
 			BigDecimal x1 = BigDecimal.ZERO;
-			// garantiaJan = new
-			// BigDecimal(String.valueOf(garantiaJan)).divide(new
-			// BigDecimal("100"),2,RoundingMode.DOWN); // Valor informado pelo
-			// usuário
-			System.out.println(garantia);
-			// Pegar as keys do HashMap da lista de Janeiro
-			Set<String> chaves = mapJan.keySet();
+
+			Set<String> chaves = mapChave.keySet();
 
 			// Achar maior valor x2
-			for (BigDecimal valor : percentJan) {
+			for (BigDecimal valor : percent) {
 
 				if (valor.compareTo(garantia) == 1) {
 
@@ -95,9 +82,9 @@ public class InterpolarUaCalc {
 			// Achar menor valor y2
 			BigDecimal y2 = BigDecimal.ZERO;
 			for (String c : chaves) {
-				if (mapJan.get(c) == mapJan.get(String.valueOf(x2))) {
+				if (mapChave.get(c) == mapChave.get(String.valueOf(x2))) {
 
-					y2 = mapJan.get(c);
+					y2 = mapChave.get(c);
 					System.out.println("TESTE_y2: " + y2);
 
 				}
@@ -105,9 +92,9 @@ public class InterpolarUaCalc {
 			}
 
 			// Achar menor valor x1
-			for (int i = percentJan.size() - 1; i > -1; i--) {
+			for (int i = percent.size() - 1; i > -1; i--) {
 
-				BigDecimal valor = percentJan.get(i);
+				BigDecimal valor = percent.get(i);
 
 				if (valor.compareTo(garantia) == -1) {
 
@@ -119,9 +106,9 @@ public class InterpolarUaCalc {
 			// Achar maior valor y1
 			BigDecimal y1 = BigDecimal.ZERO;
 			for (String c : chaves) {
-				if (mapJan.get(c) == mapJan.get(String.valueOf(x1))) {
+				if (mapChave.get(c) == mapChave.get(String.valueOf(x1))) {
 
-					y1 = mapJan.get(c);
+					y1 = mapChave.get(c);
 					System.out.println("TESTE_y1: " + y1);
 
 				}

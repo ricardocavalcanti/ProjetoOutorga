@@ -38,7 +38,7 @@ public class VendaBeanController implements Serializable {
 	private BigDecimal areaUa;
 	private BigDecimal areaDrenagem;	
 	private List<Ua> listaItensVenda;
-	private List<Ua> listaUa; 
+	//private List<Ua> listaUa; 
 	private BigDecimal garantiaJan, garantiaFev, garantiaMar, garantiaAbr, garantiaMai, garantiaJun, garantiaJul,
 	garantiaAgo, garantiaSet, garantiaOut, garantiaNov, garantiaDez;
 	private BigDecimal rgarantiaJan, rgarantiaFev, rgarantiaMar, rgarantiaAbr, rgarantiaMai, rgarantiaJun, rgarantiaJul,
@@ -143,13 +143,13 @@ public class VendaBeanController implements Serializable {
 		this.areaUa = areaUa;
 	}
 
-	public List<Ua> getListaUa() {
+/*	public List<Ua> getListaUa() {
 		return listaUa;
 	}
 
 	public void setListaUa(List<Ua> listaUa) {
 		this.listaUa = listaUa;
-	}	
+	}	*/
 
 	public BigDecimal getRgarantiaJan() {
 		return rgarantiaJan;
