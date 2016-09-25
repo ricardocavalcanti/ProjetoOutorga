@@ -28,7 +28,7 @@ public class VendaBeanControllerTest implements Serializable {
 	private List<Ua> listaUas; 
 	private BigDecimal areaUa;
 	private BigDecimal garantiaJan, garantiaFev, garantiaMar, garantiaAbr, garantiaMai, garantiaJun, garantiaJul,
-			garantiaAgo, garantiaSet, garantiaOut, garantiaNov, garantiaDez;
+	garantiaAgo, garantiaSet, garantiaOut, garantiaNov, garantiaDez;
 	private BigDecimal areaDrenagem;
 	private Venda venda;
 	private int num;
