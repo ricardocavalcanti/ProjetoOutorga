@@ -1,23 +1,673 @@
 package br.com.pgo.bean;
 
+
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
+import org.omnifaces.util.Messages;
+import br.com.pgo.dao.OutorganteDAO;
+import br.com.pgo.dao.UsuarioDAO;
+import br.com.pgo.dao.VendaDAO;
+import br.com.pgo.domain.Outorgante;
 import br.com.pgo.domain.Ua;
-import br.com.pgo.util.Interpolar;
+import br.com.pgo.domain.Usuario;
+import br.com.pgo.domain.Venda;
+import br.com.pgo.util.InterpolarCalc;
 
-public class VendaBeanInterpolar {
 
-	public static void vendaInterpolar(int num, List<Ua> listaItensVenda) {
 
+@SuppressWarnings("serial")
+@ManagedBean
+@ViewScoped
+public class VendaBeanControllerTest implements Serializable {
+	
+	
+	private Ua ua;	//Ok
+	private Usuario usuario;
+	public static int num; //Ok
+	private int processoMontante;
+	private int processoJusante;
+	private BigDecimal captacao;
+	private BigDecimal areaUa;
+	private BigDecimal areaDrenagem;	
+	private List<Ua> listaItensVenda; //Ok
+	private List<Ua> listaUa; 
+	public static BigDecimal garantiaJan, garantiaFev, garantiaMar, garantiaAbr, garantiaMai, garantiaJun, garantiaJul,
+	garantiaAgo, garantiaSet, garantiaOut, garantiaNov, garantiaDez;
+	private BigDecimal rgarantiaJan, rgarantiaFev, rgarantiaMar, rgarantiaAbr, rgarantiaMai, rgarantiaJun, rgarantiaJul,
+	rgarantiaAgo, rgarantiaSet, rgarantiaOut, rgarantiaNov, rgarantiaDez;	
+	private Venda venda;
+	private List<Outorgante> listaOutorgantes;
+	private List<Usuario> listaUsuarios;
+	private HashSet<Venda> listaVenda;
+
+	public VendaBeanControllerTest() {
+		finalizar();
+		novo();
+	}
+	
+	public BigDecimal getCaptacao() {
+		return captacao;
+	}
+
+	public void setCaptacao(BigDecimal captacao) {
+		this.captacao = captacao;
+	}		
+
+	public HashSet<Venda> getListaVenda() {
+		return listaVenda;
+	}
+
+	public void setListaVenda(HashSet<Venda> listaVenda) {
+		this.listaVenda = listaVenda;
+	}
+
+	public Venda getVenda() {
+		return venda;
+	}
+
+	public void setVenda(Venda venda) {
+		this.venda = venda;
+	}
+
+	public int getProcessoMontante() {
+		return processoMontante;
+	}
+
+	public void setProcessoMontante(int processoMontante) {
+		this.processoMontante = processoMontante;
+	}
+
+	public int getProcessoJusante() {
+		return processoJusante;
+	}
+
+	public void setProcessoJusante(int processoJusante) {
+		this.processoJusante = processoJusante;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public List<Outorgante> getListaOutorgantes() {
+		return listaOutorgantes;
+	}
+
+	public void setListaOutorgantes(List<Outorgante> listaOutorgantes) {
+		this.listaOutorgantes = listaOutorgantes;
+	}
+
+	public List<Usuario> getListaUsuarios() {
+		return listaUsuarios;
+	}
+
+	public void setListaUsuarios(List<Usuario> listaUsuarios) {
+		this.listaUsuarios = listaUsuarios;
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public BigDecimal getAreaDrenagem() {
+		return areaDrenagem;
+	}
+
+	public void setAreaDrenagem(BigDecimal areaDrenagem) {
+		this.areaDrenagem = areaDrenagem;
+	}
+
+	public BigDecimal getAreaUa() {
+		return areaUa;
+	}
+
+	public void setAreaUa(BigDecimal areaUa) {
+		this.areaUa = areaUa;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
+	public List<Ua> getListaUa() {
+		return listaUa;
+	}
+
+	public void setListaUa(List<Ua> listaUa) {
+		this.listaUa = listaUa;
+	}	
+
+	public BigDecimal getRgarantiaJan() {
+		return rgarantiaJan;
+	}
+
+	public void setRgarantiaJan(BigDecimal rgarantiaJan) {
+		this.rgarantiaJan = rgarantiaJan;
+	}
+
+	public BigDecimal getRgarantiaFev() {
+		return rgarantiaFev;
+	}
+
+	public void setRgarantiaFev(BigDecimal rgarantiaFev) {
+		this.rgarantiaFev = rgarantiaFev;
+	}
+
+	public BigDecimal getRgarantiaMar() {
+		return rgarantiaMar;
+	}
+
+	public void setRgarantiaMar(BigDecimal rgarantiaMar) {
+		this.rgarantiaMar = rgarantiaMar;
+	}
+
+	public BigDecimal getRgarantiaAbr() {
+		return rgarantiaAbr;
+	}
+
+	public void setRgarantiaAbr(BigDecimal rgarantiaAbr) {
+		this.rgarantiaAbr = rgarantiaAbr;
+	}
+
+	public BigDecimal getRgarantiaMai() {
+		return rgarantiaMai;
+	}
+
+	public void setRgarantiaMai(BigDecimal rgarantiaMai) {
+		this.rgarantiaMai = rgarantiaMai;
+	}
+
+	public BigDecimal getRgarantiaJun() {
+		return rgarantiaJun;
+	}
+
+	public void setRgarantiaJun(BigDecimal rgarantiaJun) {
+		this.rgarantiaJun = rgarantiaJun;
+	}
+
+	public BigDecimal getRgarantiaJul() {
+		return rgarantiaJul;
+	}
+
+	public void setRgarantiaJul(BigDecimal rgarantiaJul) {
+		this.rgarantiaJul = rgarantiaJul;
+	}
+
+	public BigDecimal getRgarantiaAgo() {
+		return rgarantiaAgo;
+	}
+
+	public void setRgarantiaAgo(BigDecimal rgarantiaAgo) {
+		this.rgarantiaAgo = rgarantiaAgo;
+	}
+
+	public BigDecimal getRgarantiaSet() {
+		return rgarantiaSet;
+	}
+
+	public void setRgarantiaSet(BigDecimal rgarantiaSet) {
+		this.rgarantiaSet = rgarantiaSet;
+	}
+
+	public BigDecimal getRgarantiaOut() {
+		return rgarantiaOut;
+	}
+
+	public void setRgarantiaOut(BigDecimal rgarantiaOut) {
+		this.rgarantiaOut = rgarantiaOut;
+	}
+
+	public BigDecimal getRgarantiaNov() {
+		return rgarantiaNov;
+	}
+
+	public void setRgarantiaNov(BigDecimal rgarantiaNov) {
+		this.rgarantiaNov = rgarantiaNov;
+	}
+
+	public BigDecimal getRgarantiaDez() {
+		return rgarantiaDez;
+	}
+
+	public void setRgarantiaDez(BigDecimal rgarantiaDez) {
+		this.rgarantiaDez = rgarantiaDez;
+	}
+
+	public Ua getUa() {
+		return ua;
+	}
+
+	public void setUa(Ua ua) {
+		this.ua = ua;
+	}
+
+	public List<Ua> getListaItensVenda() {
+		return listaItensVenda;
+	}
+
+	public void setListaItensVenda(List<Ua> listaItensVenda) {
+		this.listaItensVenda = listaItensVenda;
+	}
+
+	public BigDecimal getGarantiaJan() {
+		return garantiaJan;
+	}
+
+	public void setGarantiaJan(BigDecimal garantiaJan) {
+		this.garantiaJan = garantiaJan;
+	}
+
+	public BigDecimal getGarantiaFev() {
+		return garantiaFev;
+	}
+
+	public void setGarantiaFev(BigDecimal garantiaFev) {
+		this.garantiaFev = garantiaFev;
+	}
+
+	public BigDecimal getGarantiaMar() {
+		return garantiaMar;
+	}
+
+	public void setGarantiaMar(BigDecimal garantiaMar) {
+		this.garantiaMar = garantiaMar;
+	}
+
+	public BigDecimal getGarantiaAbr() {
+		return garantiaAbr;
+	}
+
+	public void setGarantiaAbr(BigDecimal garantiaAbr) {
+		this.garantiaAbr = garantiaAbr;
+	}
+
+	public BigDecimal getGarantiaMai() {
+		return garantiaMai;
+	}
+
+	public void setGarantiaMai(BigDecimal garantiaMai) {
+		this.garantiaMai = garantiaMai;
+	}
+
+	public BigDecimal getGarantiaJun() {
+		return garantiaJun;
+	}
+
+	public void setGarantiaJun(BigDecimal garantiaJun) {
+		this.garantiaJun = garantiaJun;
+	}
+
+	public BigDecimal getGarantiaJul() {
+		return garantiaJul;
+	}
+
+	public void setGarantiaJul(BigDecimal garantiaJul) {
+		this.garantiaJul = garantiaJul;
+	}
+
+	public BigDecimal getGarantiaAgo() {
+		return garantiaAgo;
+	}
+
+	public void setGarantiaAgo(BigDecimal garantiaAgo) {
+		this.garantiaAgo = garantiaAgo;
+	}
+
+	public BigDecimal getGarantiaSet() {
+		return garantiaSet;
+	}
+
+	public void setGarantiaSet(BigDecimal garantiaSet) {
+		this.garantiaSet = garantiaSet;
+	}
+
+	public BigDecimal getGarantiaOut() {
+		return garantiaOut;
+	}
+
+	public void setGarantiaOut(BigDecimal garantiaOut) {
+		this.garantiaOut = garantiaOut;
+	}
+
+	public BigDecimal getGarantiaNov() {
+		return garantiaNov;
+	}
+
+	public void setGarantiaNov(BigDecimal garantiaNov) {
+		this.garantiaNov = garantiaNov;
+	}
+
+	public BigDecimal getGarantiaDez() {
+		return garantiaDez;
+	}
+
+	public void setGarantiaDez(BigDecimal garantiaDez) {
+		this.garantiaDez = garantiaDez;
+	}
+
+	public void novo() {
+
+		venda = new Venda();
+		listaVenda = new HashSet<Venda>();		
+
+	}
+
+	public void finalizar() {
+
+		try {
+
+			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			listaUsuarios = usuarioDAO.listar("login");
+
+			OutorganteDAO outorganteDAO = new OutorganteDAO();
+			listaOutorgantes = outorganteDAO.listar("processoApac");
+
+		} catch (RuntimeException erro) {
+
+			Messages.addGlobalError("Ocorreu um erro ao criar processo");
+			erro.printStackTrace();
+
+		}
+
+	}
+	
+public void listarVenda(){
+
+try{
+			
+VendaDAO  vendaDAO = new VendaDAO();
+listaVenda = vendaDAO.listarHashSet();
+
+}catch(RuntimeException erro){
+Messages.addGlobalInfo("Erro ao tentar listar Venda"); 
+erro.printStackTrace();
+	}
+}
+	
+public void salvar() {
+	
+BigDecimal dispFinalJan = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaJan))); 
+venda.setJan(dispFinalJan);		
+
+BigDecimal dispFinalFev = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaFev)));
+venda.setFev(dispFinalFev);
+
+BigDecimal dispFinalMar = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaMar)));
+venda.setMar(dispFinalMar);
+
+BigDecimal dispFinalAbr = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaAbr)));
+venda.setAbr(dispFinalAbr);
+
+BigDecimal dispFinalMai = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaMai)));
+venda.setMai(dispFinalMai);
+
+BigDecimal dispFinalJun = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaJun)));
+venda.setJun(dispFinalJun);
+
+BigDecimal dispFinalJul = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaJul)));
+venda.setJul(dispFinalJul);
+
+BigDecimal dispFinalAgo = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaAgo)));
+venda.setAgo(dispFinalAgo);
+
+BigDecimal dispFinalSet = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaSet)));
+venda.setSet(dispFinalSet);
+
+BigDecimal dispFinalOut = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaOut)));
+venda.setOut(dispFinalOut);
+
+BigDecimal dispFinalNov = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaNov)));
+venda.setNov(dispFinalNov);
+
+BigDecimal dispFinalDez = new BigDecimal(String.valueOf(captacao)).subtract(new BigDecimal(String.valueOf(rgarantiaDez)));
+venda.setDez(dispFinalDez);
+
+listaVenda.clear();
+encaixar();
+cacularDisponibilidade();
+		
+VendaDAO salvarProcesso = new VendaDAO();	   
+		
+Iterator<Venda> atual = listaVenda.iterator();
+	  
+while(atual.hasNext()){
+	    	 
+salvarProcesso.mergeVenda(atual);	
+
+}		
+ }
+
+//@PostConstruct
+public void encaixar() {
+System.out.println("Metodo Encaixar!");       
+try {			
+		
+VendaDAO vendaDAO = new VendaDAO();
+listaVenda = vendaDAO.listarVenda();
+listaVenda.add(venda);
+		
+System.out.println("Tamanho lista ENCAIXAR: "+listaVenda.size());
+		
+} catch (RuntimeException erro){
+			
+Messages.addGlobalInfo("Erro ao tentar criar 'Lista de Venda' ");
+erro.printStackTrace();
+			
+} 			
+Iterator<Venda>posicao=listaVenda.iterator();
+
+while(posicao.hasNext()){
+		
+Venda atual = posicao.next();
+boolean condicao1 = false;
+boolean condicao2 = false;
+
+if(atual.getOutorgante().getProcessoApac()==processoJusante){
+atual.setProcessoMotante(processoJusante);
+condicao1 = true;
+}
+if(atual.getOutorgante().getProcessoApac()==processoMontante){
+atual.setProcessoJusante(processoMontante);
+condicao2 = true;
+}
+if(condicao1==true && condicao2==true) {
+	break;
+   }
+}
+            
+}
+
+public void cacularDisponibilidade(){		
+			
+Iterator<Venda>posicao=listaVenda.iterator();
+	
+while(posicao.hasNext()){
+		
+Venda atual = posicao.next();	
+				
+while(posicao.hasNext()){
+Venda proximo = posicao.next();
+	                                         
+if(atual.getOutorgante().getProcessoApac()==proximo.getProcessoMotante()){
+	
+BigDecimal dispJan0 = atual.getCaptacao();	
+	//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispJan1 = proximo.getCaptacao(); 
+	//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispJan = new BigDecimal(String.valueOf(dispJan0)).subtract(new BigDecimal(String.valueOf(dispJan1))); 
+proximo.setJan(resultDispJan);
+
+BigDecimal dispFev0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispFev1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispFev = new BigDecimal(String.valueOf(dispFev0)).subtract(new BigDecimal(String.valueOf(dispFev1)));
+proximo.setFev(resultDispFev);
+
+BigDecimal dispMar0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispMar1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispMar = new BigDecimal(String.valueOf(dispMar0)).subtract(new BigDecimal(String.valueOf(dispMar1)));
+proximo.setMar(resultDispMar);
+
+BigDecimal dispAbr0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispAbr1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispAbr = new BigDecimal(String.valueOf(dispAbr0)).subtract(new BigDecimal(String.valueOf(dispAbr1)));
+proximo.setAbr(resultDispAbr);
+
+BigDecimal dispMai0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispMai1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispMai = new BigDecimal(String.valueOf(dispMai0)).subtract(new BigDecimal(String.valueOf(dispMai1)));
+proximo.setMai(resultDispMai);
+
+BigDecimal dispJun0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispJun1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispJun = new BigDecimal(String.valueOf(dispJun0)).subtract(new BigDecimal(String.valueOf(dispJun1)));
+proximo.setJun(resultDispJun);
+
+BigDecimal dispJul0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispJul1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispJul = new BigDecimal(String.valueOf(dispJul0)).subtract(new BigDecimal(String.valueOf(dispJul1)));
+proximo.setJul(resultDispJul);
+
+BigDecimal dispAgo0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispAgo1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispAgo = new BigDecimal(String.valueOf(dispAgo0)).subtract(new BigDecimal(String.valueOf(dispAgo1)));
+proximo.setAgo(resultDispAgo);
+
+BigDecimal dispSet0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispSet1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispSet = new BigDecimal(String.valueOf(dispSet0)).subtract(new BigDecimal(String.valueOf(dispSet1)));
+proximo.setSet(resultDispSet);
+
+BigDecimal dispOut0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispOut1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispOut = new BigDecimal(String.valueOf(dispOut0)).subtract(new BigDecimal(String.valueOf(dispOut1)));
+proximo.setOut(resultDispOut);
+
+BigDecimal dispNov0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispNov1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispNov = new BigDecimal(String.valueOf(dispNov0)).subtract(new BigDecimal(String.valueOf(dispNov1)));
+proximo.setNov(resultDispNov);
+
+BigDecimal dispDez0 = atual.getCaptacao();	
+//BigDecimal dispJan0 = listaVenda.get(posicao-1).getCaptacao();
+BigDecimal dispDez1 = proximo.getCaptacao();
+//BigDecimal dispJan1 = listaVenda.get(posicao).getJan();
+BigDecimal resultDispDez = new BigDecimal(String.valueOf(dispDez0)).subtract(new BigDecimal(String.valueOf(dispDez1)));
+proximo.setDez(resultDispDez);
+
+             }					
+        }
+     }
+ }
+	
+	public void remover(ActionEvent evento) {
+
+		Ua ua = (Ua) evento.getComponent().getAttributes().get("itemSelecionado");
+
+		int achou = -1;
+
+		for (int posicao = 0; posicao < listaItensVenda.size(); posicao++) {
+			if (listaItensVenda.get(posicao).equals(ua)) {
+				achou = posicao;
+			}
+
+		}
+
+		if (achou > -1) {
+			listaItensVenda.remove(achou);
+
+		}
+	}
+
+public void adicionar() {
+		
+        //Pesquisa Ua pelo número informado pelo usuário em venda.xhtml
+		VendaDAO BuscarUA = new VendaDAO();
+		listaItensVenda = BuscarUA.buscarUa(num);
+		areaUa = listaItensVenda.get(1).getAreaUa();
+		num = listaItensVenda.get(1).getNumeroUa();			
+
+		if (listaItensVenda.isEmpty()) {
+
+			System.out.println("Nenhum registro encontrado");
+
+		} else {
+			int i = 0;
+			for (Ua ua : listaItensVenda) {
+				i++;
+
+				System.out.println(ua.getNumeroUa());
+				System.out.println("Ano da UA: " + ua.getAno());
+
+			}
+			System.out.println("Quantidade Ua encontrada: " + i);
+		}		
+		
+		System.out.println(num);
+		
+		
+
+	}
+
+	// Método para calcular a interpolação dos pontos
+	public void calcular() {
+		//listarVenda();
+		adicionar();
+
+		ua = new Ua();
+		// areaUa = ua.getAreaUa();
+		System.out.println(num);
+		ua.setNumeroUa(num);
+		ua.setAno(0);
+
+		/// IF NUMERO PROCESSO == 0 *** FAZER VAZAO DO PONTO
+
+		// Para contar o tamanho da quantidade de elementos da lista, para ser
+		// utilizado na divisão = (posiçãoJan/Quantidade).
+		// double quantidade = listaItensVenda.size();
 		BigDecimal qtdBigDec = new BigDecimal(String.valueOf(listaItensVenda.size()));
 
-		if (!VendaBeanController.garantiaJan.equals(BigDecimal.ZERO)) {
+		// -------------------------------------INICIO//
+		// JANEIRO---------------------------------------------------------------------------------------------------------//
+
+		// rgarantiaJan=garantiaJan;
+		if (!garantiaJan.equals(BigDecimal.ZERO)) {
 
 			// Para fazer a ordenação Janeiro em ordem descrescente.
 			Collections.sort(listaItensVenda, new Comparator<Ua>() {
@@ -35,7 +685,7 @@ public class VendaBeanInterpolar {
 			});
 
 			System.out.println("##########INICIO JANEIRO##############");
-			System.out.println(VendaBeanController.garantiaJan);
+			System.out.println(garantiaJan);
 			// Posição inicial de Janeiro para ser utilizado na divisão =
 			// (posiçãoJan/Quantidade)
 			int posicaoJan = 1;
@@ -92,14 +742,14 @@ public class VendaBeanInterpolar {
 			// BigDecimal(String.valueOf(garantiaJan)).divide(new
 			// BigDecimal("100"),2,RoundingMode.DOWN); // Valor informado pelo
 			// usuário
-			System.out.println(VendaBeanController.garantiaJan);
+			System.out.println(garantiaJan);
 			// Pegar as keys do HashMap da lista de Janeiro
 			Set<String> chaves = mapJan.keySet();
 
 			// Achar maior valor x2
 			for (BigDecimal valor : percentJan) {
 
-				if (valor.compareTo(VendaBeanController.garantiaJan) == 1) {
+				if (valor.compareTo(garantiaJan) == 1) {
 
 					x2 = valor;
 
@@ -124,7 +774,7 @@ public class VendaBeanInterpolar {
 
 				BigDecimal valor = percentJan.get(i);
 
-				if (valor.compareTo(VendaBeanController.garantiaJan) == -1) {
+				if (valor.compareTo(garantiaJan) == -1) {
 
 					x1 = valor;
 					break;
@@ -147,19 +797,19 @@ public class VendaBeanInterpolar {
 			System.out.println("PONTOS DE REFERENCIA PARA INTERPOLAR");
 			System.out.println("X1: " + x1);
 			System.out.println("X2: " + x2);
-			System.out.println("Z: " + VendaBeanController.garantiaJan);
+			System.out.println("Z: " + garantiaJan);
 			System.out.println("Y1: " + y1);
 			System.out.println("Y2: " + y2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar InterpolarJan = new Interpolar();
+			InterpolarCalc InterpolarJan = new InterpolarCalc();
 
-			System.out.println("INTERPOLACAO JAN: " + InterpolarJan.calcular(x1, x2, VendaBeanController.garantiaJan, y1, y2));
+			System.out.println("INTERPOLACAO JAN: " + InterpolarJan.calcular(x1, x2, garantiaJan, y1, y2));
 			System.out.println("--------------------------------------------");
 
 			System.out.println("1 AREA UA JANEIRO: " + areaUa);
 
-			BigDecimal calc1 = InterpolarJan.calcular(x1, x2, VendaBeanController.garantiaJan, y1, y2);
+			BigDecimal calc1 = InterpolarJan.calcular(x1, x2, garantiaJan, y1, y2);
 			System.out.println("2 AREA UA JANEIRO: " + areaUa);
 
 			BigDecimal calc2 = new BigDecimal(String.valueOf(calc1)).divide(new BigDecimal(String.valueOf(areaUa)), 4,
@@ -169,7 +819,7 @@ public class VendaBeanInterpolar {
 			garantiaJan = new BigDecimal(String.valueOf(calc2)).multiply(new BigDecimal(String.valueOf(areaDrenagem)));
 			System.out.println("4 AREA UA JANEIRO: " + areaUa);
 
-			System.out.println("GARANTIA JAN FINAL" + VendaBeanController.garantiaJan);
+			System.out.println("GARANTIA JAN FINAL" + garantiaJan);
 			// Ua ua = new Ua();
 
 			// Interpolar.calcular(x1, x2, z, y1, y2) ;
@@ -181,7 +831,7 @@ public class VendaBeanInterpolar {
 			garantiaJan = BigDecimal.ZERO;
 		}
 
-		rgarantiaJan = VendaBeanController.garantiaJan;
+		rgarantiaJan = garantiaJan;
 
 		// ua.setJan(garantiaJan);
 
@@ -295,7 +945,7 @@ public class VendaBeanInterpolar {
 			System.out.println("FevY2: " + fevY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarFev = new Interpolar();
+			InterpolarCalc interpolarFev = new InterpolarCalc();
 			System.out.println("INTERPOLACAO FEV: " + interpolarFev.calcular(fevX1, fevX2, garantiaFev, fevY1, fevY2));
 			System.out.println("--------------------------------------------");
 
@@ -420,7 +1070,7 @@ public class VendaBeanInterpolar {
 			System.out.println("MarY2: " + marY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarMar = new Interpolar();
+			InterpolarCalc interpolarMar = new InterpolarCalc();
 			System.out.println("INTERPOLACAO MAR: " + interpolarMar.calcular(marX1, marX2, garantiaMar, marY1, marY2));
 			System.out.println("--------------------------------------------");
 			// FIM DE MARÇO
@@ -545,7 +1195,7 @@ public class VendaBeanInterpolar {
 			System.out.println("AbrY2: " + abrY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarAbr = new Interpolar();
+			InterpolarCalc interpolarAbr = new InterpolarCalc();
 			System.out
 					.println("INTERPOLACAO ABRIL: " + interpolarAbr.calcular(abrX1, abrX2, garantiaAbr, abrY1, abrY2));
 			System.out.println("--------------------------------------------");
@@ -672,7 +1322,7 @@ public class VendaBeanInterpolar {
 			System.out.println("MaiY2: " + maiY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarMai = new Interpolar();
+			InterpolarCalc interpolarMai = new InterpolarCalc();
 			System.out.println("INTERPOLACAO MAIO: " + interpolarMai.calcular(maiX1, maiX2, garantiaMai, maiY1, maiY2));
 			System.out.println("--------------------------------------------");
 
@@ -795,7 +1445,7 @@ public class VendaBeanInterpolar {
 			System.out.println("JunY2: " + junY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarJun = new Interpolar();
+			InterpolarCalc interpolarJun = new InterpolarCalc();
 			System.out.println("INTERPOLACAO JUN: " + interpolarJun.calcular(junX1, junX2, garantiaJun, junY1, junY2));
 			System.out.println("--------------------------------------------");
 
@@ -920,7 +1570,7 @@ public class VendaBeanInterpolar {
 			System.out.println("JulY2: " + julY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarJul = new Interpolar();
+			InterpolarCalc interpolarJul = new InterpolarCalc();
 			System.out
 					.println("INTERPOLACAO JULHO: " + interpolarJul.calcular(julX1, julX2, garantiaJul, julY1, julY2));
 			System.out.println("--------------------------------------------");
@@ -1048,7 +1698,7 @@ public class VendaBeanInterpolar {
 			System.out.println("AgoY2: " + agoY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarAgo = new Interpolar();
+			InterpolarCalc interpolarAgo = new InterpolarCalc();
 			System.out
 					.println("INTERPOLACAO AGOSTO: " + interpolarAgo.calcular(agoX1, agoX2, garantiaAgo, agoY1, agoY2));
 			System.out.println("--------------------------------------------");
@@ -1177,7 +1827,7 @@ public class VendaBeanInterpolar {
 			System.out.println("FevY2: " + setY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarSet = new Interpolar();
+			InterpolarCalc interpolarSet = new InterpolarCalc();
 			System.out.println(
 					"INTERPOLACAO SETEMBRO: " + interpolarSet.calcular(setX1, setX2, garantiaSet, setY1, setY2));
 			System.out.println("--------------------------------------------");
@@ -1302,7 +1952,7 @@ public class VendaBeanInterpolar {
 			System.out.println("OutY2: " + outY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarOut = new Interpolar();
+			InterpolarCalc interpolarOut = new InterpolarCalc();
 			System.out.println("INTERPOLACAO OUT: " + interpolarOut.calcular(outX1, outX2, garantiaOut, outY1, outY2));
 			System.out.println("--------------------------------------------");
 
@@ -1425,7 +2075,7 @@ public class VendaBeanInterpolar {
 			System.out.println("NovY2: " + novY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarNov = new Interpolar();
+			InterpolarCalc interpolarNov = new InterpolarCalc();
 			System.out.println(
 					"INTERPOLACAO NOVEMBRO: " + interpolarNov.calcular(novX1, novX2, garantiaNov, novY1, novY2));
 			System.out.println("--------------------------------------------");
@@ -1549,7 +2199,7 @@ public class VendaBeanInterpolar {
 			System.out.println("DezY2: " + dezY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarDez = new Interpolar();
+			InterpolarCalc interpolarDez = new InterpolarCalc();
 			System.out.println(
 					"INTERPOLACAO DEZEMBRO: " + interpolarDez.calcular(dezX1, dezX2, garantiaDez, dezY1, dezY2));
 			System.out.println("--------------------------------------------");
@@ -1573,28 +2223,35 @@ public class VendaBeanInterpolar {
 
 		// ua.setDez(garantiaDez);
 
-		System.out.println("GARANTIA FINAL DEZEMBRO" + garantiaDez);
-
+		System.out.println("GARANTIA FINAL DEZEMBRO" + garantiaDez);			
+		
 		venda.setNumeroUa(num);
 		venda.setAreaDrenagem(areaDrenagem);
 		venda.setAreaUa(areaUa);
-		venda.setJan(rgarantiaJan); // Valores do método calcular incluso
+		venda.setJan(rgarantiaJan); //Valores do método calcular incluso
 		venda.setFev(rgarantiaFev);
-		venda.setMar(rgarantiaMar);
-		venda.setAbr(rgarantiaAbr);
-		venda.setMai(rgarantiaMai);
-		venda.setJun(rgarantiaJun);
-		venda.setJul(rgarantiaJul);
-		venda.setAgo(rgarantiaAgo);
-		venda.setSet(rgarantiaSet);
-		venda.setOut(rgarantiaOut);
-		venda.setNov(rgarantiaNov);
-		venda.setDez(rgarantiaDez);
-		venda.setProcessoJusante(processoJusante);
-		venda.setProcessoMotante(processoMontante);
-
-		encaixar();
-		cacularDisponibilidade();
-	}
+        venda.setMar(rgarantiaMar);
+        venda.setAbr(rgarantiaAbr);
+        venda.setMai(rgarantiaMai);
+        venda.setJun(rgarantiaJun);
+        venda.setJul(rgarantiaJul);
+        venda.setAgo(rgarantiaAgo);
+        venda.setSet(rgarantiaSet);
+        venda.setOut(rgarantiaOut);
+        venda.setNov(rgarantiaNov);
+        venda.setDez(rgarantiaDez);
+        venda.setProcessoJusante(processoJusante);
+        venda.setProcessoMotante(processoMontante);        
+       
+        
+        encaixar();        
+        cacularDisponibilidade();        
+	}	
 
 }
+
+	
+	
+	
+
+

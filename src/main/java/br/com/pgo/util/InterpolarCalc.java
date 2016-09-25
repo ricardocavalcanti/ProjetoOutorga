@@ -3,7 +3,7 @@ package br.com.pgo.util;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Interpolar {
+public class InterpolarCalc {
 	
 	
 	public  BigDecimal calcular(BigDecimal x1, BigDecimal x2, BigDecimal z, BigDecimal y1, BigDecimal y2) {

@@ -22,7 +22,7 @@ import br.com.pgo.domain.Outorgante;
 import br.com.pgo.domain.Ua;
 import br.com.pgo.domain.Usuario;
 import br.com.pgo.domain.Venda;
-import br.com.pgo.util.Interpolar;
+import br.com.pgo.util.InterpolarCalc;
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -797,7 +797,7 @@ public void adicionar() {
 			System.out.println("Y2: " + y2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar InterpolarJan = new Interpolar();
+			InterpolarCalc InterpolarJan = new InterpolarCalc();
 
 			System.out.println("INTERPOLACAO JAN: " + InterpolarJan.calcular(x1, x2, garantiaJan, y1, y2));
 			System.out.println("--------------------------------------------");
@@ -940,7 +940,7 @@ public void adicionar() {
 			System.out.println("FevY2: " + fevY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarFev = new Interpolar();
+			InterpolarCalc interpolarFev = new InterpolarCalc();
 			System.out.println("INTERPOLACAO FEV: " + interpolarFev.calcular(fevX1, fevX2, garantiaFev, fevY1, fevY2));
 			System.out.println("--------------------------------------------");
 
@@ -1065,7 +1065,7 @@ public void adicionar() {
 			System.out.println("MarY2: " + marY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarMar = new Interpolar();
+			InterpolarCalc interpolarMar = new InterpolarCalc();
 			System.out.println("INTERPOLACAO MAR: " + interpolarMar.calcular(marX1, marX2, garantiaMar, marY1, marY2));
 			System.out.println("--------------------------------------------");
 			// FIM DE MARÇO
@@ -1190,7 +1190,7 @@ public void adicionar() {
 			System.out.println("AbrY2: " + abrY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarAbr = new Interpolar();
+			InterpolarCalc interpolarAbr = new InterpolarCalc();
 			System.out
 					.println("INTERPOLACAO ABRIL: " + interpolarAbr.calcular(abrX1, abrX2, garantiaAbr, abrY1, abrY2));
 			System.out.println("--------------------------------------------");
@@ -1317,7 +1317,7 @@ public void adicionar() {
 			System.out.println("MaiY2: " + maiY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarMai = new Interpolar();
+			InterpolarCalc interpolarMai = new InterpolarCalc();
 			System.out.println("INTERPOLACAO MAIO: " + interpolarMai.calcular(maiX1, maiX2, garantiaMai, maiY1, maiY2));
 			System.out.println("--------------------------------------------");
 
@@ -1440,7 +1440,7 @@ public void adicionar() {
 			System.out.println("JunY2: " + junY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarJun = new Interpolar();
+			InterpolarCalc interpolarJun = new InterpolarCalc();
 			System.out.println("INTERPOLACAO JUN: " + interpolarJun.calcular(junX1, junX2, garantiaJun, junY1, junY2));
 			System.out.println("--------------------------------------------");
 
@@ -1565,7 +1565,7 @@ public void adicionar() {
 			System.out.println("JulY2: " + julY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarJul = new Interpolar();
+			InterpolarCalc interpolarJul = new InterpolarCalc();
 			System.out
 					.println("INTERPOLACAO JULHO: " + interpolarJul.calcular(julX1, julX2, garantiaJul, julY1, julY2));
 			System.out.println("--------------------------------------------");
@@ -1693,7 +1693,7 @@ public void adicionar() {
 			System.out.println("AgoY2: " + agoY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarAgo = new Interpolar();
+			InterpolarCalc interpolarAgo = new InterpolarCalc();
 			System.out
 					.println("INTERPOLACAO AGOSTO: " + interpolarAgo.calcular(agoX1, agoX2, garantiaAgo, agoY1, agoY2));
 			System.out.println("--------------------------------------------");
@@ -1822,7 +1822,7 @@ public void adicionar() {
 			System.out.println("FevY2: " + setY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarSet = new Interpolar();
+			InterpolarCalc interpolarSet = new InterpolarCalc();
 			System.out.println(
 					"INTERPOLACAO SETEMBRO: " + interpolarSet.calcular(setX1, setX2, garantiaSet, setY1, setY2));
 			System.out.println("--------------------------------------------");
@@ -1947,7 +1947,7 @@ public void adicionar() {
 			System.out.println("OutY2: " + outY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarOut = new Interpolar();
+			InterpolarCalc interpolarOut = new InterpolarCalc();
 			System.out.println("INTERPOLACAO OUT: " + interpolarOut.calcular(outX1, outX2, garantiaOut, outY1, outY2));
 			System.out.println("--------------------------------------------");
 
@@ -2070,7 +2070,7 @@ public void adicionar() {
 			System.out.println("NovY2: " + novY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarNov = new Interpolar();
+			InterpolarCalc interpolarNov = new InterpolarCalc();
 			System.out.println(
 					"INTERPOLACAO NOVEMBRO: " + interpolarNov.calcular(novX1, novX2, garantiaNov, novY1, novY2));
 			System.out.println("--------------------------------------------");
@@ -2194,7 +2194,7 @@ public void adicionar() {
 			System.out.println("DezY2: " + dezY2);
 			System.out.println("--------------------------------------------");
 
-			Interpolar interpolarDez = new Interpolar();
+			InterpolarCalc interpolarDez = new InterpolarCalc();
 			System.out.println(
 					"INTERPOLACAO DEZEMBRO: " + interpolarDez.calcular(dezX1, dezX2, garantiaDez, dezY1, dezY2));
 			System.out.println("--------------------------------------------");
