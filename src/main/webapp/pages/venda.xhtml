@@ -68,8 +68,12 @@
 	                
 	                <p:outputLabel value="Vencimento: "/>
 	                   <p:calendar pattern="dd/MM/yyyy" local="pt_BR" value="#{itemDeVendaBean.venda.vencimento}" required="true"
-				    requiredMessage="O campo 'Vencimento' é obrigatório" size="11" navigator="true"/>				    			                  
-	                	                                 
+				    requiredMessage="O campo 'Vencimento' é obrigatório" size="11" navigator="true"/>
+				    
+				    <p:outputLabel value="Captacao:" />
+                    <p:inputText  value="#{itemDeVendaBean.venda.captacao}" id="captacao" size="6" maxlength="11">				    			                  
+	                </p:inputText>    	
+	                                                 
                 </h:panelGrid>
             </p:fieldset>  
             
@@ -176,12 +180,8 @@
 	                <p:inputText value="#{itemDeVendaBean.venda.nov}" size="6"/> 
 	                
 	                <p:outputLabel value="Dezembro:" />                   
-	                <p:inputText value="#{itemDeVendaBean.venda.dez}" size="6"/>	                
-	                
-	                <p:outputLabel value="Captacao:" />
-                    <p:inputText  value="#{itemDeVendaBean.venda.captacao}" id="captacao" size="6" maxlength="11">
-                    
-                    </p:inputText>                  
+	                <p:inputText value="#{itemDeVendaBean.venda.dez}" size="6"/>   
+	                	                                 
                 </h:panelGrid>
            </p:fieldset>
        </h:form>
