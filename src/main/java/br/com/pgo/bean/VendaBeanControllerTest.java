@@ -39,7 +39,183 @@ public class VendaBeanControllerTest implements Serializable {
 	private int processoMontante;
 	private int processoJusante;
 	private List<Outorgante> listaOutorgantes;
-	private List<Usuario> listaUsuarios;
+	private List<Usuario> listaUsuarios;	
+
+	public List<Ua> getListaUas() {
+		return listaUas;
+	}
+
+	public void setListaUas(List<Ua> listaUas) {
+		this.listaUas = listaUas;
+	}
+
+	public BigDecimal getAreaUa() {
+		return areaUa;
+	}
+
+	public void setAreaUa(BigDecimal areaUa) {
+		this.areaUa = areaUa;
+	}
+
+	public BigDecimal getGarantiaJan() {
+		return garantiaJan;
+	}
+
+	public void setGarantiaJan(BigDecimal garantiaJan) {
+		this.garantiaJan = garantiaJan;
+	}
+
+	public BigDecimal getGarantiaFev() {
+		return garantiaFev;
+	}
+
+	public void setGarantiaFev(BigDecimal garantiaFev) {
+		this.garantiaFev = garantiaFev;
+	}
+
+	public BigDecimal getGarantiaMar() {
+		return garantiaMar;
+	}
+
+	public void setGarantiaMar(BigDecimal garantiaMar) {
+		this.garantiaMar = garantiaMar;
+	}
+
+	public BigDecimal getGarantiaAbr() {
+		return garantiaAbr;
+	}
+
+	public void setGarantiaAbr(BigDecimal garantiaAbr) {
+		this.garantiaAbr = garantiaAbr;
+	}
+
+	public BigDecimal getGarantiaMai() {
+		return garantiaMai;
+	}
+
+	public void setGarantiaMai(BigDecimal garantiaMai) {
+		this.garantiaMai = garantiaMai;
+	}
+
+	public BigDecimal getGarantiaJun() {
+		return garantiaJun;
+	}
+
+	public void setGarantiaJun(BigDecimal garantiaJun) {
+		this.garantiaJun = garantiaJun;
+	}
+
+	public BigDecimal getGarantiaJul() {
+		return garantiaJul;
+	}
+
+	public void setGarantiaJul(BigDecimal garantiaJul) {
+		this.garantiaJul = garantiaJul;
+	}
+
+	public BigDecimal getGarantiaAgo() {
+		return garantiaAgo;
+	}
+
+	public void setGarantiaAgo(BigDecimal garantiaAgo) {
+		this.garantiaAgo = garantiaAgo;
+	}
+
+	public BigDecimal getGarantiaSet() {
+		return garantiaSet;
+	}
+
+	public void setGarantiaSet(BigDecimal garantiaSet) {
+		this.garantiaSet = garantiaSet;
+	}
+
+	public BigDecimal getGarantiaOut() {
+		return garantiaOut;
+	}
+
+	public void setGarantiaOut(BigDecimal garantiaOut) {
+		this.garantiaOut = garantiaOut;
+	}
+
+	public BigDecimal getGarantiaNov() {
+		return garantiaNov;
+	}
+
+	public void setGarantiaNov(BigDecimal garantiaNov) {
+		this.garantiaNov = garantiaNov;
+	}
+
+	public BigDecimal getGarantiaDez() {
+		return garantiaDez;
+	}
+
+	public void setGarantiaDez(BigDecimal garantiaDez) {
+		this.garantiaDez = garantiaDez;
+	}
+
+	public BigDecimal getAreaDrenagem() {
+		return areaDrenagem;
+	}
+
+	public void setAreaDrenagem(BigDecimal areaDrenagem) {
+		this.areaDrenagem = areaDrenagem;
+	}
+
+	public Venda getVenda() {
+		return venda;
+	}
+
+	public void setVenda(Venda venda) {
+		this.venda = venda;
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
+	public HashSet<Venda> getListaVenda() {
+		return listaVenda;
+	}
+
+	public void setListaVenda(HashSet<Venda> listaVenda) {
+		this.listaVenda = listaVenda;
+	}
+
+	public int getProcessoMontante() {
+		return processoMontante;
+	}
+
+	public void setProcessoMontante(int processoMontante) {
+		this.processoMontante = processoMontante;
+	}
+
+	public int getProcessoJusante() {
+		return processoJusante;
+	}
+
+	public void setProcessoJusante(int processoJusante) {
+		this.processoJusante = processoJusante;
+	}
+
+	public List<Outorgante> getListaOutorgantes() {
+		return listaOutorgantes;
+	}
+
+	public void setListaOutorgantes(List<Outorgante> listaOutorgantes) {
+		this.listaOutorgantes = listaOutorgantes;
+	}
+
+	public List<Usuario> getListaUsuarios() {
+		return listaUsuarios;
+	}
+
+	public void setListaUsuarios(List<Usuario> listaUsuarios) {
+		this.listaUsuarios = listaUsuarios;
+	}
 
 	// Instancia elementos para serem trabalhados na tela.
 	@PostConstruct
@@ -48,7 +224,7 @@ public class VendaBeanControllerTest implements Serializable {
 		venda = new Venda();
 		listaVenda = new HashSet<Venda>();
 
-	}
+		}
 
 	// Listar usuários e outorgante para serem usando no
 	// venda.xhtml (<p:outputLabel>)
@@ -151,24 +327,23 @@ public class VendaBeanControllerTest implements Serializable {
 	// INTERPOLAR!
 
 	// Calculo de interpolação de todos os meses Jan - Dez da Ua selecionada
-	// pelo usuário
-	@SuppressWarnings("unchecked")
+	// pelo usuário	
 	public void interpolarMeses() {
 
-		List<BigDecimal> ListaJan = new ArrayList<BigDecimal>();
+		List<BigDecimal> ListaJan = new ArrayList<BigDecimal>();		
 		for (Ua ua : listaUas) {
-
-			ListaJan = (List<BigDecimal>) ua.getJan();
-
+			ListaJan.add(ua.getJan());			
 		}
 		// Receber List de Janeiro que foi setada dentro do listUas
 		InterpolarUaCalc interpolarJan = new InterpolarUaCalc();
 		venda.setJan(interpolarJan.vendaInterpolar(ListaJan, areaUa, garantiaJan, areaDrenagem));
+		
+		
 
 		List<BigDecimal> ListaFev = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
 
-			ListaFev = (List<BigDecimal>) ua.getFev();
+			ListaFev.add(ua.getFev());
 
 		}
 		// Receber List de Fevereiro que foi setada dentro do listUas
@@ -178,7 +353,7 @@ public class VendaBeanControllerTest implements Serializable {
 		List<BigDecimal> ListaMar = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
 
-			ListaMar = (List<BigDecimal>) ua.getMar();
+			ListaMar.add(ua.getMar());
 
 		}
 
@@ -189,7 +364,7 @@ public class VendaBeanControllerTest implements Serializable {
 		List<BigDecimal> ListaAbr = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
 
-			ListaAbr = (List<BigDecimal>) ua.getAbr();
+			ListaAbr.add(ua.getAbr());
 
 		}
 		// Receber List de Abril que foi setada dentro do listUas
@@ -199,7 +374,7 @@ public class VendaBeanControllerTest implements Serializable {
 		List<BigDecimal> ListaMai = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
 
-			ListaMai = (List<BigDecimal>) ua.getMai();
+			ListaMai.add(ua.getMai());
 
 		}
 		// Receber List de Maio que foi setada dentro do listUas
@@ -209,7 +384,7 @@ public class VendaBeanControllerTest implements Serializable {
 		List<BigDecimal> ListaJun = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
 
-			ListaJun = (List<BigDecimal>) ua.getJun();
+			ListaJun.add(ua.getJun());
 
 		}
 		// Receber List de Junho que foi setada dentro do listUas
@@ -219,7 +394,7 @@ public class VendaBeanControllerTest implements Serializable {
 		List<BigDecimal> ListaJul = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
 
-			ListaJul = (List<BigDecimal>) ua.getJul();
+			ListaJul.add(ua.getJul());
 
 		}
 		// Receber List de Julho que foi setada dentro do listUas
@@ -229,7 +404,7 @@ public class VendaBeanControllerTest implements Serializable {
 		List<BigDecimal> ListaAgo = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
 
-			ListaAgo = (List<BigDecimal>) ua.getAgo();
+			ListaAgo.add(ua.getAgo());
 
 		}
 		// Receber List de Agosto que foi setada dentro do listUas
@@ -239,7 +414,7 @@ public class VendaBeanControllerTest implements Serializable {
 		List<BigDecimal> ListaSet = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
 
-			ListaSet = (List<BigDecimal>) ua.getSet();
+			ListaSet.add(ua.getSet());
 
 		}
 		// Receber List de Setembro que foi setada dentro do listUas
@@ -249,7 +424,7 @@ public class VendaBeanControllerTest implements Serializable {
 		List<BigDecimal> ListaOut = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
 
-			ListaOut = (List<BigDecimal>) ua.getOut();
+			ListaOut.add(ua.getOut());
 
 		}
 		// Receber List de Outubro que foi setada dentro do listUas
@@ -259,7 +434,7 @@ public class VendaBeanControllerTest implements Serializable {
 		List<BigDecimal> ListaNov = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
 
-			ListaNov = (List<BigDecimal>) ua.getNov();
+			ListaNov.add(ua.getNov());
 
 		}
 		// Receber List de Novembro que foi setada dentro do listUas
@@ -269,7 +444,7 @@ public class VendaBeanControllerTest implements Serializable {
 		List<BigDecimal> ListaDez = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
 
-			ListaDez = (List<BigDecimal>) ua.getDez();
+			ListaDez.add(ua.getDez());
 
 		}
 		// Receber List de Dezembro que foi setada dentro do listUas.
