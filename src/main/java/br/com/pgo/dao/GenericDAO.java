@@ -40,6 +40,7 @@ public class GenericDAO<Entidade> {
 
 	@SuppressWarnings("unchecked")
 	public List<Entidade> listar() {
+		
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 
 		try {

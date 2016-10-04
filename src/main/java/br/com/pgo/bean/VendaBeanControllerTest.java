@@ -15,6 +15,7 @@ import javax.faces.bean.ViewScoped;
 import org.omnifaces.util.Messages;
 
 import br.com.pgo.dao.OutorganteDAO;
+import br.com.pgo.dao.PessoaDAO;
 import br.com.pgo.dao.UsuarioDAO;
 import br.com.pgo.dao.VendaDAO;
 import br.com.pgo.domain.Outorgante;
@@ -33,13 +34,14 @@ public class VendaBeanControllerTest implements Serializable {
 	private BigDecimal garantiaJan, garantiaFev, garantiaMar, garantiaAbr, garantiaMai, garantiaJun, garantiaJul,
 			garantiaAgo, garantiaSet, garantiaOut, garantiaNov, garantiaDez;
 	private BigDecimal areaDrenagem;
-	private Venda venda; // processoAPAC //Vencimento // Captação - Itens que vem do venda.xhtml 
+	private Venda venda; // processoAPAC //Vencimento // Captação - Itens que
+							// vem do venda.xhtml
 	private int num;
 	private HashSet<Venda> listaVenda;
 	private int processoMontante;
 	private int processoJusante;
 	private List<Outorgante> listaOutorgantes;
-	private List<Usuario> listaUsuarios;	
+	private List<Usuario> listaUsuarios;
 
 	public List<Ua> getListaUas() {
 		return listaUas;
@@ -224,7 +226,7 @@ public class VendaBeanControllerTest implements Serializable {
 		venda = new Venda();
 		listaVenda = new HashSet<Venda>();
 
-		}
+	}
 
 	// Listar usuários e outorgante para serem usando no
 	// venda.xhtml (<p:outputLabel>)
@@ -321,24 +323,23 @@ public class VendaBeanControllerTest implements Serializable {
 		encaixar();
 		cacularDisponibilidade();
 		consultar();
+		salvar();
 
 	}
 
 	// INTERPOLAR!
 
 	// Calculo de interpolação de todos os meses Jan - Dez da Ua selecionada
-	// pelo usuário	
+	// pelo usuário
 	public void interpolarMeses() {
 
-		List<BigDecimal> ListaJan = new ArrayList<BigDecimal>();		
+		List<BigDecimal> ListaJan = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
-			ListaJan.add(ua.getJan());			
+			ListaJan.add(ua.getJan());
 		}
 		// Receber List de Janeiro que foi setada dentro do listUas
 		InterpolarUaCalc interpolarJan = new InterpolarUaCalc();
 		venda.setJan(interpolarJan.vendaInterpolar(ListaJan, areaUa, garantiaJan, areaDrenagem));
-		
-		
 
 		List<BigDecimal> ListaFev = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
@@ -462,11 +463,18 @@ public class VendaBeanControllerTest implements Serializable {
 	public void encaixar() {
 
 		System.out.println("Metodo Encaixar!");
+		listaVenda.add(venda);
+
 		try {
 
 			VendaDAO vendaDAO = new VendaDAO();
-			listaVenda = vendaDAO.listarVenda();
-			listaVenda.add(venda);
+			HashSet<Venda> listaVendaBD = vendaDAO.listarVenda();
+
+			if (listaVendaBD != null) {
+
+				listaVenda = listaVendaBD;
+
+			}
 
 			System.out.println("Tamanho lista ENCAIXAR: " + listaVenda.size());
 
@@ -476,34 +484,43 @@ public class VendaBeanControllerTest implements Serializable {
 			erro.printStackTrace();
 
 		}
+
 		Iterator<Venda> posicao = listaVenda.iterator();
 
 		// Encaixa novo elemento na lista, quando as duas condições foram
 		// verdadeiras para o laço.
 		while (posicao.hasNext()) {
 
+			System.out.println("Dentro do While!");
+
 			Venda atual = posicao.next();
 			boolean condicao1 = false;
 			boolean condicao2 = false;
 
-			if (atual.getOutorgante().getProcessoApac() == processoJusante) {
-				atual.setProcessoMotante(processoJusante);
-				condicao1 = true;
-			}
-			if (atual.getOutorgante().getProcessoApac() == processoMontante) {
-				atual.setProcessoJusante(processoMontante);
-				condicao2 = true;
-			}
-			if (condicao1 == true && condicao2 == true) {
-				break;
+			if (processoMontante != 0) {
+
+				System.out.println("Dentro do IF!");
+
+				if (atual.getOutorgante().getProcessoApac() == processoJusante) {
+					atual.setProcessoMotante(processoJusante);
+					condicao1 = true;
+				}
+				if (atual.getOutorgante().getProcessoApac() == processoMontante) {
+					atual.setProcessoJusante(processoMontante);
+					condicao2 = true;
+				}
+				if (condicao1 == true && condicao2 == true) {
+					break;
+				}
+
 			}
 		}
-
+		System.out.println("FIM do While!");
 	}
 
 	// Calcular disponibilidade
 	public void cacularDisponibilidade() {
-
+		System.out.println("Dentro método Disponibilidade!");
 		Iterator<Venda> posicao = listaVenda.iterator();
 
 		Venda jusante = null;
@@ -666,15 +683,36 @@ public class VendaBeanControllerTest implements Serializable {
 
 	// SALVAR
 
-	public void salvar() {
+	public void salvar() {		
+		
+   System.out.println("Dentro do método SALVAR!");
+   
+   try{
+	   
+	   System.out.println("Dentro do TRY no método SALVAR!");
+	   
+	   VendaDAO salvarProcesso = new VendaDAO();
+	   
+	   Iterator<Venda> posicao = listaVenda.iterator();
+	   
+	   while (posicao.hasNext()) {
+		   
+		 System.out.println("Dentro do  WHILE no método SALVAR!");
+		 
+		 Venda venda = posicao.next();
+		 salvarProcesso.merge(venda);
+		 System.out.println(venda.getNumeroUa());
+		 
+     }
+	   Messages.addGlobalInfo("Usuário salvo com sucesso!");
+	   
+   } catch (RuntimeException erro) {
 
-		VendaDAO salvarProcesso = new VendaDAO();
-
-		Iterator<Venda> atual = listaVenda.iterator();
-
-		while (atual.hasNext()) {
-			salvarProcesso.mergeVenda(atual);
+		Messages.addGlobalInfo("Erro ao salvar usuário!");
+		erro.printStackTrace();
+	}				
+			
 
 		}
 	}
-}
+

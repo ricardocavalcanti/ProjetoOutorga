@@ -180,14 +180,17 @@ public class VendaDAO extends GenericDAO<Venda> {
 		}
 
 	}
-	public void mergeVenda(Iterator<Venda> atual) {
+	public void mergeVenda(Venda venda) {
+		
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction transacao = null;
 
 		try {
+			
 			transacao = sessao.beginTransaction();
-			sessao.merge(atual);
+			sessao.merge(venda);
 			transacao.commit();
+			
 		} catch (RuntimeException erro) {
 
 			if (transacao != null) {
@@ -202,11 +205,17 @@ public class VendaDAO extends GenericDAO<Venda> {
 	
 	@SuppressWarnings("unchecked")
 	public HashSet<Venda> listarVenda() {
+		
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 
 		try {
 			Criteria consulta = sessao.createCriteria(Venda.class);
-			HashSet<Venda> resultado = (HashSet<Venda>) consulta.list();
+			List <Venda> resultadoList = consulta.list();
+			HashSet<Venda> resultado = new HashSet<>();
+			
+			for(Venda venda: resultadoList){
+				resultado.add(venda);
+			}			
 			return resultado;
 
 		} catch (RuntimeException erro) {
@@ -218,6 +227,8 @@ public class VendaDAO extends GenericDAO<Venda> {
 		}
 
 	}
+	
+	
 	
 	
 	
