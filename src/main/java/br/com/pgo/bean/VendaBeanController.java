@@ -440,13 +440,13 @@ listaVenda.clear();
 encaixar();
 cacularDisponibilidade();
 		
-VendaDAO salvarProcesso = new VendaDAO();	   
+//VendaDAO salvarProcesso = new VendaDAO();	   
 		
 Iterator<Venda> atual = listaVenda.iterator();
 	  
 while(atual.hasNext()){
 	    	 
-salvarProcesso.mergeVenda(atual);	
+//salvarProcesso.mergeVenda(atual);	
 
 }		
  }
