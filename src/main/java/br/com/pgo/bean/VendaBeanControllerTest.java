@@ -419,6 +419,7 @@ public class VendaBeanControllerTest implements Serializable {
 		encaixar();
 		cacularDisponibilidade();
 		consultar();
+		salvar();
 	}
 
 	// INTERPOLAR!

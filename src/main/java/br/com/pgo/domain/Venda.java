@@ -41,10 +41,7 @@ public class Venda extends GenericDomain {
 	private BigDecimal areaDrenagem;
 
 	@Column(nullable = false, precision = 6, scale = 2)
-	private BigDecimal captacao;
-
-	@Column(nullable = false, precision = 6, scale = 2)
-	private BigDecimal vazaoDisponivel;
+	private BigDecimal captacao;	
 
 	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal jan;
@@ -92,15 +89,7 @@ public class Venda extends GenericDomain {
 
 	public void setCaptacao(BigDecimal captacao) {
 		this.captacao = captacao;
-	}
-
-	public BigDecimal getVazaoDisponivel() {
-		return vazaoDisponivel;
-	}
-
-	public void setVazaoDisponivel(BigDecimal vazaoDisponivel) {
-		this.vazaoDisponivel = vazaoDisponivel;
-	}
+	}	
 
 	public Date getVencimento() {
 		return vencimento;
