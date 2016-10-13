@@ -2,6 +2,7 @@ package br.com.pgo.bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -28,6 +29,8 @@ public class VendaBeanControllerTest implements Serializable {
 	private BigDecimal areaUa;
 	private BigDecimal garantiaJan, garantiaFev, garantiaMar, garantiaAbr, garantiaMai, garantiaJun, garantiaJul,
 	garantiaAgo, garantiaSet, garantiaOut, garantiaNov, garantiaDez;
+	private BigDecimal resultJan, resultFev, resultMar, resultAbr, resultMai, resultJun, resultJul,
+	resultAgo, resultSet, resultOut, resultNov, resultDez;
 	private BigDecimal areaDrenagem;
 	private Venda venda; // processoAPAC //Vencimento // Captação - Itens que // vem do venda.xhtml
 	private int num;
@@ -36,6 +39,105 @@ public class VendaBeanControllerTest implements Serializable {
 	private int processoJusante;
 	private List<Outorgante> listaOutorgantes;
 	private List<Usuario> listaUsuarios;
+	
+	
+	
+
+	public BigDecimal getResultJan() {
+		return resultJan;
+	}
+
+	public void setResultJan(BigDecimal resultJan) {
+		this.resultJan = resultJan;
+	}
+
+	public BigDecimal getResultFev() {
+		return resultFev;
+	}
+
+	public void setResultFev(BigDecimal resultFev) {
+		this.resultFev = resultFev;
+	}
+
+	public BigDecimal getResultMar() {
+		return resultMar;
+	}
+
+	public void setResultMar(BigDecimal resultMar) {
+		this.resultMar = resultMar;
+	}
+
+	public BigDecimal getResultAbr() {
+		return resultAbr;
+	}
+
+	public void setResultAbr(BigDecimal resultAbr) {
+		this.resultAbr = resultAbr;
+	}
+
+	public BigDecimal getResultMai() {
+		return resultMai;
+	}
+
+	public void setResultMai(BigDecimal resultMai) {
+		this.resultMai = resultMai;
+	}
+
+	public BigDecimal getResultJun() {
+		return resultJun;
+	}
+
+	public void setResultJun(BigDecimal resultJun) {
+		this.resultJun = resultJun;
+	}
+
+	public BigDecimal getResultJul() {
+		return resultJul;
+	}
+
+	public void setResultJul(BigDecimal resultJul) {
+		this.resultJul = resultJul;
+	}
+
+	public BigDecimal getResultAgo() {
+		return resultAgo;
+	}
+
+	public void setResultAgo(BigDecimal resultAgo) {
+		this.resultAgo = resultAgo;
+	}
+
+	public BigDecimal getResultSet() {
+		return resultSet;
+	}
+
+	public void setResultSet(BigDecimal resultSet) {
+		this.resultSet = resultSet;
+	}
+
+	public BigDecimal getResultOut() {
+		return resultOut;
+	}
+
+	public void setResultOut(BigDecimal resultOut) {
+		this.resultOut = resultOut;
+	}
+
+	public BigDecimal getResultNov() {
+		return resultNov;
+	}
+
+	public void setResultNov(BigDecimal resultNov) {
+		this.resultNov = resultNov;
+	}
+
+	public BigDecimal getResultDez() {
+		return resultDez;
+	}
+
+	public void setResultDez(BigDecimal resultDez) {
+		this.resultDez = resultDez;
+	}
 
 	public List<Ua> getListaUas() {
 		return listaUas;
@@ -553,7 +655,13 @@ public class VendaBeanControllerTest implements Serializable {
 	// Calcular disponibilidade
 	public void cacularDisponibilidade() {
 		
-		System.out.println("Dentro método Disponibilidade!");
+		
+		System.out.println("Dentro método Disponibilidade!"+venda.getCaptacao());
+		
+		venda.setCaptacao(new BigDecimal(String.valueOf(venda.getCaptacao()))
+		.divide(new BigDecimal(String.valueOf(100)),4,RoundingMode.UP));
+		
+		System.out.println("Depois da conversao em percentual!"+venda.getCaptacao());
 		
 		Iterator<Venda> posicao = listaVenda.iterator();
 
@@ -570,73 +678,91 @@ public class VendaBeanControllerTest implements Serializable {
 				// Captação primeiro outorgante do rio
 				System.out.println("getCaptação ANTES - "+atual.getCaptacao());
 				System.out.println("getJan ANTES - "+atual.getJan());
+				
 				// Disponibilidade Janeiro
-				BigDecimal calcDispJanIni = new BigDecimal(String.valueOf(atual.getCaptacao()))
-				.subtract(new BigDecimal(String.valueOf(atual.getJan())));
+				BigDecimal calcDispJanIni = new BigDecimal(String.valueOf(atual.getJan()))
+				.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
 				atual.setJan(calcDispJanIni);
+				resultJan=calcDispJanIni;
+				
+				System.out.println("CALCULO"+calcDispJanIni);
                  
 				System.out.println("getCaptação DEPOIS - "+atual.getCaptacao());
 				System.out.println("getJan DEPOIS - "+atual.getJan());
+				System.out.println("getJan vendaJAN - "+venda.getJan());
 				
 				// Disponibilidade Fevereiro
-				BigDecimal calcDispFevIni = new BigDecimal(String.valueOf(atual.getCaptacao()))
-				.subtract(new BigDecimal(String.valueOf(atual.getFev())));
+				BigDecimal calcDispFevIni = new BigDecimal(String.valueOf(atual.getFev()))
+				.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
 				atual.setFev(calcDispFevIni);
+				resultFev=calcDispFevIni;
 
 				// Disponibilidade Março
-				BigDecimal calcDispMarIni = new BigDecimal(String.valueOf(atual.getCaptacao()))
-				.subtract(new BigDecimal(String.valueOf(atual.getMar())));
-				atual.setFev(calcDispMarIni);
+				BigDecimal calcDispMarIni = new BigDecimal(String.valueOf(atual.getMar()))
+				.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
+				atual.setMar(calcDispMarIni);
+				resultMar=calcDispMarIni;
 
 				// Disponibilidade Abril
-				BigDecimal calcDispAbrIni = new BigDecimal(String.valueOf(atual.getCaptacao()))
-						.subtract(new BigDecimal(String.valueOf(atual.getAbr())));
-				atual.setFev(calcDispAbrIni);
+				BigDecimal calcDispAbrIni = new BigDecimal(String.valueOf(atual.getAbr()))
+						.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
+				atual.setAbr(calcDispAbrIni);
+				resultAbr=calcDispAbrIni;
 
 				// Disponibilidade Maio
-				BigDecimal calcDispMaiIni = new BigDecimal(String.valueOf(atual.getCaptacao()))
-						.subtract(new BigDecimal(String.valueOf(atual.getMai())));
-				atual.setFev(calcDispMaiIni);
+				BigDecimal calcDispMaiIni = new BigDecimal(String.valueOf(atual.getMai()))
+						.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
+				atual.setMai(calcDispMaiIni);
+				resultMai=calcDispMaiIni;
 
 				// Disponibilidade Junho
-				BigDecimal calcDispJunIni = new BigDecimal(String.valueOf(atual.getCaptacao()))
-						.subtract(new BigDecimal(String.valueOf(atual.getJun())));
-				atual.setFev(calcDispJunIni);
+				BigDecimal calcDispJunIni = new BigDecimal(String.valueOf(atual.getJun()))
+						.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
+				atual.setJun(calcDispJunIni);
+				resultJun=calcDispJunIni;
 
 				// Disponibilidade Julho
-				BigDecimal calcDispJulIni = new BigDecimal(String.valueOf(atual.getCaptacao()))
-						.subtract(new BigDecimal(String.valueOf(atual.getJul())));
-				atual.setFev(calcDispJulIni);
+				BigDecimal calcDispJulIni = new BigDecimal(String.valueOf(atual.getJul()))
+						.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
+				atual.setJul(calcDispJulIni);
+				resultJul=calcDispJulIni;
 
 				// Disponibilidade Ago
-				BigDecimal calcDispAgoIni = new BigDecimal(String.valueOf(atual.getCaptacao()))
-						.subtract(new BigDecimal(String.valueOf(atual.getAgo())));
-				atual.setFev(calcDispAgoIni);
+				BigDecimal calcDispAgoIni = new BigDecimal(String.valueOf(atual.getAgo()))
+						.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
+				atual.setAgo(calcDispAgoIni);
+				resultAgo=calcDispAgoIni;
 
 				// Disponibilidade Set
-				BigDecimal calcDispSetIni = new BigDecimal(String.valueOf(atual.getCaptacao()))
-						.subtract(new BigDecimal(String.valueOf(atual.getSet())));
-				atual.setFev(calcDispSetIni);
+				BigDecimal calcDispSetIni = new BigDecimal(String.valueOf(atual.getSet()))
+						.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
+				atual.setSet(calcDispSetIni);
+				resultSet=calcDispSetIni;
 
 				// Disponibilidade Out
-				BigDecimal calcDispOutIni = new BigDecimal(String.valueOf(atual.getCaptacao()))
-						.subtract(new BigDecimal(String.valueOf(atual.getOut())));
-				atual.setFev(calcDispOutIni);
+				BigDecimal calcDispOutIni = new BigDecimal(String.valueOf(atual.getOut()))
+						.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
+				atual.setOut(calcDispOutIni);
+				resultOut=calcDispOutIni;
 
 				// Disponibilidade Nov
-				BigDecimal calcDispNovIni = new BigDecimal(String.valueOf(atual.getCaptacao()))
-						.subtract(new BigDecimal(String.valueOf(atual.getNov())));
-				atual.setFev(calcDispNovIni);
+				BigDecimal calcDispNovIni = new BigDecimal(String.valueOf(atual.getNov()))
+						.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
+				atual.setNov(calcDispNovIni);
+				resultNov=calcDispNovIni;
 
 				// Disponibilidade Dez
-				BigDecimal calcDispDezIni = new BigDecimal(String.valueOf(atual.getCaptacao()))
-						.subtract(new BigDecimal(String.valueOf(atual.getDez())));
-				atual.setFev(calcDispDezIni);
+				BigDecimal calcDispDezIni = new BigDecimal(String.valueOf(atual.getDez()))
+						.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
+				atual.setDez(calcDispDezIni);
+				resultDez=calcDispDezIni;
 
 				break;
 			}
 		}
 		
+		// Dois laços While separado pois antes de começar precisamos calcular o montante para depois fazer o resto das operações
+		// de calculo
 
 		while (posicao.hasNext()) {
 
@@ -651,67 +777,67 @@ public class VendaBeanControllerTest implements Serializable {
 					BigDecimal captacao0 = atual.getCaptacao();
 					BigDecimal captacao1 = proximo.getCaptacao();
 					BigDecimal somaCaptacao = new BigDecimal(String.valueOf(captacao0))
-							.add(new BigDecimal(String.valueOf(captacao1)));
+					.add(new BigDecimal(String.valueOf(captacao1)));
 					atual.setCaptacao(somaCaptacao);
 
 					// Disponibilidade Janeiro
-					BigDecimal calcDispJan = new BigDecimal(String.valueOf(atual.getCaptacao()))
-							.subtract(new BigDecimal(String.valueOf(atual.getJan())));
+					BigDecimal calcDispJan = new BigDecimal(String.valueOf(atual.getJan()))
+							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
 					atual.setJan(calcDispJan);
 
 					// Disponibilidade Fevereiro
-					BigDecimal calcDispFev = new BigDecimal(String.valueOf(atual.getCaptacao()))
-							.subtract(new BigDecimal(String.valueOf(atual.getFev())));
+					BigDecimal calcDispFev = new BigDecimal(String.valueOf(atual.getFev()))
+							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
 					atual.setFev(calcDispFev);
 
 					// Disponibilidade Março
-					BigDecimal calcDispMar = new BigDecimal(String.valueOf(atual.getCaptacao()))
-							.subtract(new BigDecimal(String.valueOf(atual.getMar())));
+					BigDecimal calcDispMar = new BigDecimal(String.valueOf(atual.getMar()))
+							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
 					atual.setFev(calcDispMar);
 
 					// Disponibilidade Abril
-					BigDecimal calcDispAbr = new BigDecimal(String.valueOf(atual.getCaptacao()))
-							.subtract(new BigDecimal(String.valueOf(atual.getAbr())));
+					BigDecimal calcDispAbr = new BigDecimal(String.valueOf(atual.getAbr()))
+							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
 					atual.setFev(calcDispAbr);
 
 					// Disponibilidade Maio
-					BigDecimal calcDispMai = new BigDecimal(String.valueOf(atual.getCaptacao()))
-							.subtract(new BigDecimal(String.valueOf(atual.getMai())));
+					BigDecimal calcDispMai = new BigDecimal(String.valueOf(atual.getMai()))
+							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
 					atual.setFev(calcDispMai);
 
 					// Disponibilidade Junho
-					BigDecimal calcDispJun = new BigDecimal(String.valueOf(atual.getCaptacao()))
-							.subtract(new BigDecimal(String.valueOf(atual.getJun())));
+					BigDecimal calcDispJun = new BigDecimal(String.valueOf(atual.getJun()))
+							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
 					atual.setFev(calcDispJun);
 
 					// Disponibilidade Julho
-					BigDecimal calcDispJul = new BigDecimal(String.valueOf(atual.getCaptacao()))
-							.subtract(new BigDecimal(String.valueOf(atual.getJul())));
+					BigDecimal calcDispJul = new BigDecimal(String.valueOf(atual.getJul()))
+							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
 					atual.setFev(calcDispJul);
 
 					// Disponibilidade Ago
-					BigDecimal calcDispAgo = new BigDecimal(String.valueOf(atual.getCaptacao()))
-							.subtract(new BigDecimal(String.valueOf(atual.getAgo())));
+					BigDecimal calcDispAgo = new BigDecimal(String.valueOf(atual.getAgo()))
+							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
 					atual.setFev(calcDispAgo);
 
 					// Disponibilidade Set
-					BigDecimal calcDispSet = new BigDecimal(String.valueOf(atual.getCaptacao()))
-							.subtract(new BigDecimal(String.valueOf(atual.getSet())));
+					BigDecimal calcDispSet = new BigDecimal(String.valueOf(atual.getSet()))
+							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
 					atual.setFev(calcDispSet);
 
 					// Disponibilidade Out
-					BigDecimal calcDispOut = new BigDecimal(String.valueOf(atual.getCaptacao()))
-							.subtract(new BigDecimal(String.valueOf(atual.getOut())));
+					BigDecimal calcDispOut = new BigDecimal(String.valueOf(atual.getOut()))
+							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
 					atual.setFev(calcDispOut);
 
 					// Disponibilidade Nov
-					BigDecimal calcDispNov = new BigDecimal(String.valueOf(atual.getCaptacao()))
-							.subtract(new BigDecimal(String.valueOf(atual.getNov())));
+					BigDecimal calcDispNov = new BigDecimal(String.valueOf(atual.getNov()))
+							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
 					atual.setFev(calcDispNov);
 
 					// Disponibilidade Dez
-					BigDecimal calcDispDez = new BigDecimal(String.valueOf(atual.getCaptacao()))
-							.subtract(new BigDecimal(String.valueOf(atual.getDez())));
+					BigDecimal calcDispDez = new BigDecimal(String.valueOf(atual.getDez()))
+							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
 					atual.setFev(calcDispDez);
 
 				}
