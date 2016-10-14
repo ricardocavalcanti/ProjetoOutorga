@@ -657,12 +657,12 @@ public class VendaBeanControllerTest implements Serializable {
 				System.out.println("Dentro do IF!");
 
 				if (atual.getOutorgante().getProcessoApac() == venda.getProcessoJusante()) {
-					atual.setProcessoMontante(venda.getProcessoJusante());
+					atual.setProcessoMontante(venda.getOutorgante().getProcessoApac());
 					condicao1 = true;
 				}
 				
 				if (atual.getOutorgante().getProcessoApac() == venda.getProcessoMontante()) {
-					atual.setProcessoJusante(venda.getProcessoMontante());
+					atual.setProcessoJusante(venda.getOutorgante().getProcessoApac());
 					condicao2 = true;
 				}
 				
