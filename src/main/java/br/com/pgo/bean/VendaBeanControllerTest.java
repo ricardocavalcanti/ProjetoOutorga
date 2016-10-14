@@ -31,12 +31,12 @@ public class VendaBeanControllerTest implements Serializable {
 	garantiaAgo, garantiaSet, garantiaOut, garantiaNov, garantiaDez;
 	private BigDecimal resultJan, resultFev, resultMar, resultAbr, resultMai, resultJun, resultJul,
 	resultAgo, resultSet, resultOut, resultNov, resultDez;
-	private BigDecimal areaDrenagem;
+	//private BigDecimal areaDrenagem;
 	private Venda venda; // processoAPAC //Vencimento // Captação - Itens que // vem do venda.xhtml
 	private int num;
 	private HashSet<Venda> listaVenda;
-	private int processoMontante;
-	private int processoJusante;
+	//private int processoMontante;
+	//private int processoJusante;
 	private List<Outorgante> listaOutorgantes;
 	private List<Usuario> listaUsuarios;
 	
@@ -251,13 +251,13 @@ public class VendaBeanControllerTest implements Serializable {
 		this.garantiaDez = garantiaDez;
 	}
 
-	public BigDecimal getAreaDrenagem() {
+	/*public BigDecimal getAreaDrenagem() {
 		return areaDrenagem;
 	}
 
 	public void setAreaDrenagem(BigDecimal areaDrenagem) {
 		this.areaDrenagem = areaDrenagem;
-	}
+	}*/
 
 	public Venda getVenda() {
 		return venda;
@@ -283,7 +283,7 @@ public class VendaBeanControllerTest implements Serializable {
 		this.listaVenda = listaVenda;
 	}
 
-	public int getProcessoMontante() {
+	/*public int getProcessoMontante() {
 		return processoMontante;
 	}
 
@@ -297,7 +297,7 @@ public class VendaBeanControllerTest implements Serializable {
 
 	public void setProcessoJusante(int processoJusante) {
 		this.processoJusante = processoJusante;
-	}
+	}*/
 
 	public List<Outorgante> getListaOutorgantes() {
 		return listaOutorgantes;
@@ -428,7 +428,7 @@ public class VendaBeanControllerTest implements Serializable {
 	// pelo usuário
 	public void interpolarMeses() {
 		
-        venda.setAreaDrenagem(areaDrenagem); //Adicionando Area Drenagem Outorgante ao Objeto Venda
+       // venda.setAreaDrenagem(areaDrenagem); //Adicionando Area Drenagem Outorgante ao Objeto Venda
         
 		List<BigDecimal> ListaJan = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
@@ -436,9 +436,9 @@ public class VendaBeanControllerTest implements Serializable {
 		}
 		// Receber List de Janeiro que foi setada dentro do listUas
 		InterpolarUaCalc interpolarJan = new InterpolarUaCalc();
-		venda.setJan(interpolarJan.vendaInterpolar(ListaJan, areaUa, garantiaJan, areaDrenagem));
+		venda.setJan(interpolarJan.vendaInterpolar(ListaJan, areaUa, garantiaJan, venda.getAreaDrenagem()));
 		
-        System.out.println("AREA DRENAGEM DENTRO DO CALC "+areaDrenagem);
+        System.out.println("AREA DRENAGEM DENTRO DO CALC "+venda.getAreaDrenagem());
         
 		List<BigDecimal> ListaFev = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
@@ -448,7 +448,7 @@ public class VendaBeanControllerTest implements Serializable {
 		}
 		// Receber List de Fevereiro que foi setada dentro do listUas
 		InterpolarUaCalc interpolarFev = new InterpolarUaCalc();
-		venda.setFev(interpolarFev.vendaInterpolar(ListaFev, areaUa, garantiaFev, areaDrenagem));
+		venda.setFev(interpolarFev.vendaInterpolar(ListaFev, areaUa, garantiaFev, venda.getAreaDrenagem()));
 
 		List<BigDecimal> ListaMar = new ArrayList<BigDecimal>();
 		
@@ -460,7 +460,7 @@ public class VendaBeanControllerTest implements Serializable {
 
 		// Receber List de Março que foi setada dentro do listUas
 		InterpolarUaCalc interpolarMar = new InterpolarUaCalc();
-		venda.setMar(interpolarMar.vendaInterpolar(ListaMar, areaUa, garantiaMar, areaDrenagem));
+		venda.setMar(interpolarMar.vendaInterpolar(ListaMar, areaUa, garantiaMar, venda.getAreaDrenagem()));
 
 		List<BigDecimal> ListaAbr = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
@@ -470,7 +470,7 @@ public class VendaBeanControllerTest implements Serializable {
 		}
 		// Receber List de Abril que foi setada dentro do listUas
 		InterpolarUaCalc interpolarAbr = new InterpolarUaCalc();
-		venda.setAbr(interpolarAbr.vendaInterpolar(ListaAbr, areaUa, garantiaAbr, areaDrenagem));
+		venda.setAbr(interpolarAbr.vendaInterpolar(ListaAbr, areaUa, garantiaAbr, venda.getAreaDrenagem()));
 
 		List<BigDecimal> ListaMai = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
@@ -480,7 +480,7 @@ public class VendaBeanControllerTest implements Serializable {
 		}
 		// Receber List de Maio que foi setada dentro do listUas
 		InterpolarUaCalc interpolarMai = new InterpolarUaCalc();
-		venda.setMai(interpolarMai.vendaInterpolar(ListaMai, areaUa, garantiaMai, areaDrenagem));
+		venda.setMai(interpolarMai.vendaInterpolar(ListaMai, areaUa, garantiaMai, venda.getAreaDrenagem()));
 
 		List<BigDecimal> ListaJun = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
@@ -490,7 +490,7 @@ public class VendaBeanControllerTest implements Serializable {
 		}
 		// Receber List de Junho que foi setada dentro do listUas
 		InterpolarUaCalc interpolarJun = new InterpolarUaCalc();
-		venda.setJun(interpolarJun.vendaInterpolar(ListaJun, areaUa, garantiaJun, areaDrenagem));
+		venda.setJun(interpolarJun.vendaInterpolar(ListaJun, areaUa, garantiaJun, venda.getAreaDrenagem()));
 
 		List<BigDecimal> ListaJul = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
@@ -500,7 +500,7 @@ public class VendaBeanControllerTest implements Serializable {
 		}
 		// Receber List de Julho que foi setada dentro do listUas
 		InterpolarUaCalc interpolarJul = new InterpolarUaCalc();
-		venda.setJul(interpolarJul.vendaInterpolar(ListaJul, areaUa, garantiaJul, areaDrenagem));
+		venda.setJul(interpolarJul.vendaInterpolar(ListaJul, areaUa, garantiaJul, venda.getAreaDrenagem()));
 
 		List<BigDecimal> ListaAgo = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
@@ -510,7 +510,7 @@ public class VendaBeanControllerTest implements Serializable {
 		}
 		// Receber List de Agosto que foi setada dentro do listUas
 		InterpolarUaCalc interpolarAgo = new InterpolarUaCalc();
-		venda.setAgo(interpolarAgo.vendaInterpolar(ListaAgo, areaUa, garantiaAgo, areaDrenagem));
+		venda.setAgo(interpolarAgo.vendaInterpolar(ListaAgo, areaUa, garantiaAgo, venda.getAreaDrenagem()));
 
 		List<BigDecimal> ListaSet = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
@@ -520,7 +520,7 @@ public class VendaBeanControllerTest implements Serializable {
 		}
 		// Receber List de Setembro que foi setada dentro do listUas
 		InterpolarUaCalc interpolarSet = new InterpolarUaCalc();
-		venda.setSet(interpolarSet.vendaInterpolar(ListaSet, areaUa, garantiaSet, areaDrenagem));
+		venda.setSet(interpolarSet.vendaInterpolar(ListaSet, areaUa, garantiaSet, venda.getAreaDrenagem()));
 
 		List<BigDecimal> ListaOut = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
@@ -530,7 +530,7 @@ public class VendaBeanControllerTest implements Serializable {
 		}
 		// Receber List de Outubro que foi setada dentro do listUas
 		InterpolarUaCalc interpolarOut = new InterpolarUaCalc();
-		venda.setOut(interpolarOut.vendaInterpolar(ListaOut, areaUa, garantiaOut, areaDrenagem));
+		venda.setOut(interpolarOut.vendaInterpolar(ListaOut, areaUa, garantiaOut, venda.getAreaDrenagem()));
 
 		List<BigDecimal> ListaNov = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
@@ -540,7 +540,7 @@ public class VendaBeanControllerTest implements Serializable {
 		}
 		// Receber List de Novembro que foi setada dentro do listUas
 		InterpolarUaCalc interpolarNov = new InterpolarUaCalc();
-		venda.setNov(interpolarNov.vendaInterpolar(ListaNov, areaUa, garantiaNov, areaDrenagem));
+		venda.setNov(interpolarNov.vendaInterpolar(ListaNov, areaUa, garantiaNov, venda.getAreaDrenagem()));
 
 		List<BigDecimal> ListaDez = new ArrayList<BigDecimal>();
 		for (Ua ua : listaUas) {
@@ -550,7 +550,7 @@ public class VendaBeanControllerTest implements Serializable {
 		}
 		// Receber List de Dezembro que foi setada dentro do listUas.
 		InterpolarUaCalc interpolarDez = new InterpolarUaCalc();
-		venda.setDez(interpolarDez.vendaInterpolar(ListaDez, areaUa, garantiaDez, areaDrenagem));
+		venda.setDez(interpolarDez.vendaInterpolar(ListaDez, areaUa, garantiaDez, venda.getAreaDrenagem()));
 
 		// Amarrar controler a tela e testa interpolação!
 
@@ -561,9 +561,50 @@ public class VendaBeanControllerTest implements Serializable {
 	// Faz consultado o BD e coloca na listaVenda e adicionar nova venda a
 	// Lista.
 	public void encaixar() {
+		
+		//venda.setProcessoMotante(processoMontante);
+		//venda.setProcessoJusante(processoJusante);
+		
+		// SALVA VENDA NO BANCO ANTES DE JOGAR NA LISTA
+		try{
+			
+			VendaDAO vendaDAO = new VendaDAO();
+			vendaDAO.mergeVenda(venda);
+			
+		}
+		catch (RuntimeException erro) {
+
+			Messages.addGlobalInfo("Erro ao salvar usuário no método encaixar!");
+			erro.printStackTrace();
+		}	
+		
+		//FAZ CONSULTA NO BANCO E COLOCA NA LISTA!
+		try {
+
+			VendaDAO vendaDAO = new VendaDAO();
+			HashSet<Venda> listaVendaBD = vendaDAO.listarVenda();				
+			listaVenda = listaVendaBD;			
+
+			System.out.println("Tamanho lista ENCAIXAR no TRY: " + listaVenda.size());
+
+		} catch (RuntimeException erro) {
+
+			Messages.addGlobalInfo("Erro ao tentar criar 'Lista de Venda' ");
+			erro.printStackTrace();
+
+		}
+		
+		System.out.println("Tamanho lista ENCAIXAR depois do CATCH: " + listaVenda.size());
+		
+		
+		
 
 		System.out.println("Metodo Encaixar!");
-		listaVenda.add(venda);
+		
+		System.out.println("Processo MONTANTE"+venda.getProcessoMontante());
+		System.out.println("Processo JUSANTE"+venda.getProcessoJusante());
+		
+		
 		System.out.println("Tamanho lista ENCAIXAR: " + listaVenda.size());
 		
 		for(Venda venda: listaVenda){
@@ -571,7 +612,7 @@ public class VendaBeanControllerTest implements Serializable {
 			System.out.println("LISTA DENTRO DO MÉTODO ENCAIXAR");
 			
 			System.out.println("Processo APAC" +venda.getOutorgante().getProcessoApac());
-			System.out.println("Processo Montante " +venda.getProcessoMotante());
+			System.out.println("Processo Montante " +venda.getProcessoMontante());
 			System.out.println("Processo Jusante " +venda.getProcessoJusante());
 			System.out.println("Usuario Sistema" +venda.getUsuario());
 			System.out.println("Numero da UA " +venda.getNumeroUa());			
@@ -598,33 +639,11 @@ public class VendaBeanControllerTest implements Serializable {
 		
 		System.out.println("Tamanho lista ENCAIXAR: " + listaVenda.size());
 
-		try {
-
-			VendaDAO vendaDAO = new VendaDAO();
-			HashSet<Venda> listaVendaBD = vendaDAO.listarVenda();
-			
-             System.out.println(listaVendaBD.size());
-             
-			if (listaVendaBD.size()!=0) {
-				
-				System.out.println("Dentro do IF");
-				listaVenda = listaVendaBD;
-                
-			}
-
-			System.out.println("Tamanho lista ENCAIXAR: " + listaVenda.size());
-
-		} catch (RuntimeException erro) {
-
-			Messages.addGlobalInfo("Erro ao tentar criar 'Lista de Venda' ");
-			erro.printStackTrace();
-
-		}
-		System.out.println("Tamanho lista ENCAIXAR: " + listaVenda.size());
-		Iterator<Venda> posicao = listaVenda.iterator();
+	
 
 		// Encaixa novo elemento na lista, quando as duas condições foram
 		// verdadeiras para o laço.
+		Iterator<Venda> posicao = listaVenda.iterator();
 		while (posicao.hasNext()) {
 
 			System.out.println("Dentro do While!");
@@ -633,24 +652,27 @@ public class VendaBeanControllerTest implements Serializable {
 			boolean condicao1 = false;
 			boolean condicao2 = false;
 
-			if (processoMontante != 0) {
+			if (venda.getProcessoMontante()!= 0) {
 
 				System.out.println("Dentro do IF!");
 
-				if (atual.getOutorgante().getProcessoApac() == processoJusante) {
-					atual.setProcessoMotante(processoJusante);
+				if (atual.getOutorgante().getProcessoApac() == venda.getProcessoJusante()) {
+					atual.setProcessoMontante(venda.getProcessoJusante());
 					condicao1 = true;
 				}
-				if (atual.getOutorgante().getProcessoApac() == processoMontante) {
-					atual.setProcessoJusante(processoMontante);
+				
+				if (atual.getOutorgante().getProcessoApac() == venda.getProcessoMontante()) {
+					atual.setProcessoJusante(venda.getProcessoMontante());
 					condicao2 = true;
 				}
+				
 				if (condicao1 == true && condicao2 == true) {
 					break;
-				}
+				}				
 
 			}
 		}
+		
 		System.out.println("FIM do While!");
 	}
 
@@ -673,7 +695,7 @@ public class VendaBeanControllerTest implements Serializable {
 			System.out.println("Dentro método Disponibilidade - WHILE!");
 			Venda atual = posicao.next();
 
-			if (atual.getProcessoMotante() == 0) {
+			if (atual.getProcessoMontante() == 0) {
 				// Primeiro processo do rio
 				  //jusante = posicao.next();
 
@@ -774,7 +796,7 @@ public class VendaBeanControllerTest implements Serializable {
 
 				Venda proximo = posicao.next();
 
-				if (atual.getOutorgante().getProcessoApac() == proximo.getProcessoMotante()) {
+				if (atual.getOutorgante().getProcessoApac() == proximo.getProcessoMontante()) {
 
 					BigDecimal captacao0 = atual.getCaptacao();
 					BigDecimal captacao1 = proximo.getCaptacao();
@@ -878,7 +900,6 @@ public class VendaBeanControllerTest implements Serializable {
 		Messages.addGlobalInfo("Erro ao salvar usuário!");
 		erro.printStackTrace();
 	}				
-			
 
 		}
 	}

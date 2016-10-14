@@ -36,16 +36,16 @@
                     </p:inputText>
                      
                     <p:outputLabel value="Área De Drenagem:" />
-                    <p:inputText value="#{vendaBeanControllerTest.areaDrenagem}" required="true" id="areDrenagem" size="11" requiredMessage="O campo 'Área de Drenagem é obrigatório">
+                    <p:inputText value="#{vendaBeanControllerTest.venda.areaDrenagem}" required="true" id="areDrenagem" size="11" requiredMessage="O campo 'Área de Drenagem é obrigatório">
                     <f:validateDoubleRange minimum="1" maximum="10000000"/>
                     </p:inputText>
 
                     <p:outputLabel value="Processo Montante:" />
-                    <p:inputText  value="#{vendaBeanControllerTest.processoMontante}" required="true" id="processoMontante" size="11" maxlength="11" requiredMessage="O campo 'Processo Montante' é obrigatório">
+                    <p:inputText  value="#{vendaBeanControllerTest.venda.processoMontante}" required="true" id="processoMontante" size="11" maxlength="11" requiredMessage="O campo 'Processo Montante' é obrigatório">
                     </p:inputText>                  
 
                     <p:outputLabel value="Processo Jusante:" />
-                    <p:inputText value="#{vendaBeanControllerTest.processoJusante}" id="processoJusante" required="true" size="11" maxlength="50" requiredMessage="O campo 'Processo Jusante' é obrigatório">
+                    <p:inputText value="#{vendaBeanControllerTest.venda.processoJusante}" id="processoJusante" required="true" size="11" maxlength="50" requiredMessage="O campo 'Processo Jusante' é obrigatório">
                     </p:inputText>    
                     
                     <p:outputLabel value="Processo APAC:" />                   
