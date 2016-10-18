@@ -30,18 +30,13 @@ public class VendaBeanControllerTest implements Serializable {
 	private BigDecimal garantiaJan, garantiaFev, garantiaMar, garantiaAbr, garantiaMai, garantiaJun, garantiaJul,
 	garantiaAgo, garantiaSet, garantiaOut, garantiaNov, garantiaDez;
 	private BigDecimal resultJan, resultFev, resultMar, resultAbr, resultMai, resultJun, resultJul,
-	resultAgo, resultSet, resultOut, resultNov, resultDez;
-	//private BigDecimal areaDrenagem;
+	resultAgo, resultSet, resultOut, resultNov, resultDez;	
 	private Venda venda; // processoAPAC //Vencimento // Captação - Itens que // vem do venda.xhtml
 	private int num;
-	private HashSet<Venda> listaVenda;
-	//private int processoMontante;
-	//private int processoJusante;
+	private HashSet<Venda> listaVenda;	
 	private List<Outorgante> listaOutorgantes;
 	private List<Usuario> listaUsuarios;
-	
-	
-	
+	private List<Venda> ordenacaoRio;	
 
 	public BigDecimal getResultJan() {
 		return resultJan;
@@ -251,14 +246,6 @@ public class VendaBeanControllerTest implements Serializable {
 		this.garantiaDez = garantiaDez;
 	}
 
-	/*public BigDecimal getAreaDrenagem() {
-		return areaDrenagem;
-	}
-
-	public void setAreaDrenagem(BigDecimal areaDrenagem) {
-		this.areaDrenagem = areaDrenagem;
-	}*/
-
 	public Venda getVenda() {
 		return venda;
 	}
@@ -281,23 +268,7 @@ public class VendaBeanControllerTest implements Serializable {
 
 	public void setListaVenda(HashSet<Venda> listaVenda) {
 		this.listaVenda = listaVenda;
-	}
-
-	/*public int getProcessoMontante() {
-		return processoMontante;
-	}
-
-	public void setProcessoMontante(int processoMontante) {
-		this.processoMontante = processoMontante;
-	}
-
-	public int getProcessoJusante() {
-		return processoJusante;
-	}
-
-	public void setProcessoJusante(int processoJusante) {
-		this.processoJusante = processoJusante;
-	}*/
+	}	
 
 	public List<Outorgante> getListaOutorgantes() {
 		return listaOutorgantes;
@@ -323,7 +294,6 @@ public class VendaBeanControllerTest implements Serializable {
 		listaVenda = new HashSet<Venda>();
 
 	}
-
 	// Listar usuários e outorgante para serem usando no
 	// venda.xhtml (<p:outputLabel>)
 	public void listar() {
@@ -344,10 +314,10 @@ public class VendaBeanControllerTest implements Serializable {
 		}
 
 	}
-
 	// CONSULTAR!
-	// Dados serão consultados e lançados novamente na tela dentro das mesmas
-	// variáveis
+	/** Dados serão consultados na lista SET listaVenda e lançados novamente na tela dentro das mesmas
+	variáveis **/
+	
 	public void consultar() {
 
 		Iterator<Venda> posicao = listaVenda.iterator();
@@ -380,14 +350,11 @@ public class VendaBeanControllerTest implements Serializable {
 	// Adiconar Ua selecionada pelo usuário
 	public void adicionar() {
 
-		// Pesquisa Ua pelo número informado pelo usuário em venda.xhtml e
-		// adiciona
-		// na "listaUas" para ser usada no metódo para calcular interpolação das
-		// Uas
-		VendaDAO BuscarUA = new VendaDAO();
-		listaUas = BuscarUA.buscarUa(num);
-		areaUa = listaUas.get(1).getAreaUa();
-		num = listaUas.get(1).getNumeroUa();
+		/** Pesquisa Ua pelo número informado pelo usuário em venda.xhtml e
+		 adiciona na "listaUas" para ser usada no metódo para calcular 
+		 interpolação das Uas VendaDAO BuscarUA = new VendaDAO();
+		listaUas = BuscarUA.buscarUa(num); areaUa = listaUas.get(1).getAreaUa();
+		num = listaUas.get(1).getNumeroUa(); */
 
 		if (listaUas.isEmpty()) {
 
@@ -424,8 +391,8 @@ public class VendaBeanControllerTest implements Serializable {
 
 	// INTERPOLAR!
 
-	// Calculo de interpolação de todos os meses Jan - Dez da Ua selecionada
-	// pelo usuário
+	/** Calculo de interpolação de todos os meses Jan - Dez da Ua selecionada
+	 pelo usuário, capturara no metodo Adicionar() **/
 	public void interpolarMeses() {
 		
        // venda.setAreaDrenagem(areaDrenagem); //Adicionando Area Drenagem Outorgante ao Objeto Venda
@@ -558,12 +525,9 @@ public class VendaBeanControllerTest implements Serializable {
 
 	// ENCAIXAR!
 
-	// Faz consultado o BD e coloca na listaVenda e adicionar nova venda a
-	// Lista.
-	public void encaixar() {
-		
-		//venda.setProcessoMotante(processoMontante);
-		//venda.setProcessoJusante(processoJusante);
+	/** Faz consultado o BD e coloca na listaVenda e adicionar nova venda a
+	 Lista. **/
+	public void encaixar() {		
 		
 		// SALVA VENDA NO BANCO ANTES DE JOGAR NA LISTA
 		try{
@@ -578,7 +542,7 @@ public class VendaBeanControllerTest implements Serializable {
 			erro.printStackTrace();
 		}	
 		
-		//FAZ CONSULTA NO BANCO E COLOCA NA LISTA!
+		//FAZ CONSULTA NO BANCO E COLOCA NA listaVenda do tipo SET!
 		try {
 
 			VendaDAO vendaDAO = new VendaDAO();
@@ -641,8 +605,9 @@ public class VendaBeanControllerTest implements Serializable {
 
 	
 
-		// Encaixa novo elemento na lista, quando as duas condições foram
-		// verdadeiras para o laço.
+		/** Encaixa novo elemento na lista, quando as duas condições foram
+		 verdadeiras para o laço. **/
+		
 		Iterator<Venda> posicao = listaVenda.iterator();
 		while (posicao.hasNext()) {
 
@@ -676,10 +641,10 @@ public class VendaBeanControllerTest implements Serializable {
 		System.out.println("FIM do While!");
 	}
 
-	// Calcular disponibilidade
+	//Calcular disponibilidade
 	public void cacularDisponibilidade() {
 		
-		
+		//Transformando em percentual o valor da captação, divido o valor por 100		
 		System.out.println("Dentro método Disponibilidade!"+venda.getCaptacao());
 		
 		venda.setCaptacao(new BigDecimal(String.valueOf(venda.getCaptacao()))
@@ -688,191 +653,176 @@ public class VendaBeanControllerTest implements Serializable {
 		System.out.println("Depois da conversao em percentual!"+venda.getCaptacao());
 		
 		Iterator<Venda> posicao = listaVenda.iterator();
-
-		//Venda atual = null;
-
-		while (posicao.hasNext()) {
+		
+        //Ordenação dos processos do Rio para calcular disponibilidade
+		while (posicao.hasNext()) {			
+		
 			System.out.println("Dentro método Disponibilidade - WHILE!");
+			
 			Venda atual = posicao.next();
 
 			if (atual.getProcessoMontante() == 0) {
-				// Primeiro processo do rio
-				  //jusante = posicao.next();
-
-				// Captação primeiro outorgante do rio
-				System.out.println("getCaptação ANTES - "+atual.getCaptacao());
-				System.out.println("getJan ANTES - "+atual.getJan());
 				
-				// Disponibilidade Janeiro
-				BigDecimal calcDispJanIni = new BigDecimal(String.valueOf(atual.getJan()))
-				.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-				atual.setJan(calcDispJanIni);
-				//resultJan=calcDispJanIni;
+				// Primeiro processo do rio					
 				
-				System.out.println("CALCULO"+calcDispJanIni);
-                 
-				System.out.println("getCaptação DEPOIS - "+atual.getCaptacao());
-				System.out.println("getJan DEPOIS - "+atual.getJan());
-				System.out.println("getJan vendaJAN - "+venda.getJan());
+				ordenacaoRio = null;
 				
-				// Disponibilidade Fevereiro
-				BigDecimal calcDispFevIni = new BigDecimal(String.valueOf(atual.getFev()))
-				.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-				atual.setFev(calcDispFevIni);
-				//resultFev=calcDispFevIni;
-
-				// Disponibilidade Março
-				BigDecimal calcDispMarIni = new BigDecimal(String.valueOf(atual.getMar()))
-				.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-				atual.setMar(calcDispMarIni);
-				resultMar=calcDispMarIni;
-
-				// Disponibilidade Abril
-				BigDecimal calcDispAbrIni = new BigDecimal(String.valueOf(atual.getAbr()))
-				.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-				atual.setAbr(calcDispAbrIni);
-				//resultAbr=calcDispAbrIni;
-
-				// Disponibilidade Maio
-				BigDecimal calcDispMaiIni = new BigDecimal(String.valueOf(atual.getMai()))
-				.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-				atual.setMai(calcDispMaiIni);
-				//resultMai=calcDispMaiIni;
-
-				// Disponibilidade Junho
-				BigDecimal calcDispJunIni = new BigDecimal(String.valueOf(atual.getJun()))
-				.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-				atual.setJun(calcDispJunIni);
-				//resultJun=calcDispJunIni;
-
-				// Disponibilidade Julho
-				BigDecimal calcDispJulIni = new BigDecimal(String.valueOf(atual.getJul()))
-				.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-				atual.setJul(calcDispJulIni);
-				//resultJul=calcDispJulIni;
-
-				// Disponibilidade Ago
-				BigDecimal calcDispAgoIni = new BigDecimal(String.valueOf(atual.getAgo()))
-				.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-				atual.setAgo(calcDispAgoIni);
-				//resultAgo=calcDispAgoIni;
-
-				// Disponibilidade Set
-				BigDecimal calcDispSetIni = new BigDecimal(String.valueOf(atual.getSet()))
-				.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-				atual.setSet(calcDispSetIni);
-				//resultSet=calcDispSetIni;
-
-				// Disponibilidade Out
-				BigDecimal calcDispOutIni = new BigDecimal(String.valueOf(atual.getOut()))
-				.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-				atual.setOut(calcDispOutIni);
-				//resultOut=calcDispOutIni;
-
-				// Disponibilidade Nov
-				BigDecimal calcDispNovIni = new BigDecimal(String.valueOf(atual.getNov()))
-				.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-				atual.setNov(calcDispNovIni);
-				//resultNov=calcDispNovIni;
-
-				// Disponibilidade Dez
-				BigDecimal calcDispDezIni = new BigDecimal(String.valueOf(atual.getDez()))
-				.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-				atual.setDez(calcDispDezIni);
-				//resultDez=calcDispDezIni;
-
+				ordenacaoRio.add(atual);
+				
+				while (posicao.hasNext()) {
+					
+					Venda proximo = posicao.next();					
+					
+					if(atual.getProcessoJusante() == proximo.getProcessoMontante()){	
+						
+						ordenacaoRio.add(proximo);										
+						
+						atual = proximo;
+						
+				            }				
+			         }
 				break;
-			}
-		}
+		       }
+		  }
 		
-		// Dois laços While separado pois antes de começar precisamos calcular o montante para depois fazer o resto das operações
-		// de calculo
-
-		while (posicao.hasNext()) {
-
-			Venda atual = posicao.next();
-
-			while (posicao.hasNext()) {
-
-				Venda proximo = posicao.next();
-
-				if (atual.getOutorgante().getProcessoApac() == proximo.getProcessoMontante()) {
-
-					BigDecimal captacao0 = atual.getCaptacao();
-					BigDecimal captacao1 = proximo.getCaptacao();
-					BigDecimal somaCaptacao = new BigDecimal(String.valueOf(captacao0))
-					.add(new BigDecimal(String.valueOf(captacao1)));
-					atual.setCaptacao(somaCaptacao);
-
-					// Disponibilidade Janeiro
-					BigDecimal calcDispJan = new BigDecimal(String.valueOf(atual.getJan()))
-							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-					atual.setJan(calcDispJan);
-
-					// Disponibilidade Fevereiro
-					BigDecimal calcDispFev = new BigDecimal(String.valueOf(atual.getFev()))
-							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-					atual.setFev(calcDispFev);
-
-					// Disponibilidade Março
-					BigDecimal calcDispMar = new BigDecimal(String.valueOf(atual.getMar()))
-							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-					atual.setFev(calcDispMar);
-
-					// Disponibilidade Abril
-					BigDecimal calcDispAbr = new BigDecimal(String.valueOf(atual.getAbr()))
-							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-					atual.setFev(calcDispAbr);
-
-					// Disponibilidade Maio
-					BigDecimal calcDispMai = new BigDecimal(String.valueOf(atual.getMai()))
-							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-					atual.setFev(calcDispMai);
-
-					// Disponibilidade Junho
-					BigDecimal calcDispJun = new BigDecimal(String.valueOf(atual.getJun()))
-							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-					atual.setFev(calcDispJun);
-
-					// Disponibilidade Julho
-					BigDecimal calcDispJul = new BigDecimal(String.valueOf(atual.getJul()))
-							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-					atual.setFev(calcDispJul);
-
-					// Disponibilidade Ago
-					BigDecimal calcDispAgo = new BigDecimal(String.valueOf(atual.getAgo()))
-							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-					atual.setFev(calcDispAgo);
-
-					// Disponibilidade Set
-					BigDecimal calcDispSet = new BigDecimal(String.valueOf(atual.getSet()))
-							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-					atual.setFev(calcDispSet);
-
-					// Disponibilidade Out
-					BigDecimal calcDispOut = new BigDecimal(String.valueOf(atual.getOut()))
-							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-					atual.setFev(calcDispOut);
-
-					// Disponibilidade Nov
-					BigDecimal calcDispNov = new BigDecimal(String.valueOf(atual.getNov()))
-							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-					atual.setFev(calcDispNov);
-
-					// Disponibilidade Dez
-					BigDecimal calcDispDez = new BigDecimal(String.valueOf(atual.getDez()))
-							.subtract(new BigDecimal(String.valueOf(atual.getCaptacao())));
-					atual.setFev(calcDispDez);
-
-				}
-			}
+		int i = 0;
+		for(Venda ordem : ordenacaoRio){
+			
+			System.out.println("Processo: "+i+": "+ordem.getProcessoJusante());
+			
+		}	
+	
+          //Calculo da disponibilidade do primeiro rio onde processo montante é igual a zero
+		 // essa lista ordenacaoRio já está em ordem portanto o indice zero é o primeiro rio 
+		
+		 System.out.println("Primeiro Rio: "+ordenacaoRio.get(0).getProcessoMontante());
+		 
+		 BigDecimal calcDispJanIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getJan()))
+		 .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getJan())));		 
+		 ordenacaoRio.get(0).setJan(calcDispJanIni1);
+		 
+		 BigDecimal calcDispFevIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getFev()))
+		 .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getFev())));		 
+		 ordenacaoRio.get(0).setFev(calcDispFevIni1);
+		 
+		 BigDecimal calcDispMarIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getMar()))
+		 .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getMar())));		 
+		 ordenacaoRio.get(0).setMar(calcDispMarIni1);
+		 
+		 BigDecimal calcDispAbrIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getAbr()))
+		 .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getAbr())));		 
+		 ordenacaoRio.get(0).setAbr(calcDispAbrIni1);
+		 
+		 BigDecimal calcDispMaiIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getMai()))
+		 .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getMai())));		 
+		 ordenacaoRio.get(0).setMai(calcDispMaiIni1);
+		 
+		 BigDecimal calcDispJunIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getJun()))
+		 .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getJun())));		 
+		 ordenacaoRio.get(0).setJun(calcDispJunIni1);
+		 
+		 BigDecimal calcDispJulIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getJul()))
+		.subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getJul())));		 
+	    ordenacaoRio.get(0).setJul(calcDispJulIni1);
+	    
+	    BigDecimal calcDispAgoIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getAgo()))
+	    .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getAgo())));		 
+	   	ordenacaoRio.get(0).setAgo(calcDispAgoIni1);
+	   	
+	   	BigDecimal calcDispSetIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getSet()))
+	   	.subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getSet())));		 
+	    ordenacaoRio.get(0).setSet(calcDispSetIni1);
+	    
+	    BigDecimal calcDispOutIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getOut()))
+	   	.subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getOut())));		 
+	   	ordenacaoRio.get(0).setOut(calcDispOutIni1);
+	   	
+	   	BigDecimal calcDispNovIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getNov()))
+	   	.subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getNov())));		 
+	   	ordenacaoRio.get(0).setNov(calcDispNovIni1);
+	   	
+	   	BigDecimal calcDispDezIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getDez()))
+	    .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getDez())));		 
+	   	ordenacaoRio.get(0).setDez(calcDispDezIni1);		 
+		 
+		
+		//Calculo da vazao menos a disponibilidade do Rio
+	   	//Dos outros processos menos o primeiro processo que o montante é igual a zero
+        for(int z = 0; i<ordenacaoRio.size(); z++){ 
+     
+        Venda processoRio = ordenacaoRio.get(z);
+        	
+        if(processoRio.getProcessoMontante()!=0){
+        	
+        	BigDecimal captacao0 = processoRio.getCaptacao();
+			BigDecimal captacao1 = ordenacaoRio.get(z-1).getCaptacao();
+			BigDecimal somaCaptacao = new BigDecimal(String.valueOf(captacao0))
+			.add(new BigDecimal(String.valueOf(captacao1)));
+			processoRio.setCaptacao(somaCaptacao);
+        	
+        	
+             BigDecimal calcDispJanIni2 = new BigDecimal(String.valueOf(processoRio.getJan()))
+            .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao()))); 
+             processoRio.setJan(calcDispJanIni2);
+             
+             BigDecimal calcDispFevIni2 = new BigDecimal(String.valueOf(processoRio.getFev()))
+             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
+             processoRio.setFev(calcDispFevIni2);
+             
+             BigDecimal calcDispMarIni2 = new BigDecimal(String.valueOf(processoRio.getMar()))
+             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
+             processoRio.setMar(calcDispMarIni2);
+             
+             BigDecimal calcDispAbrIni2 = new BigDecimal(String.valueOf(processoRio.getAbr()))
+             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
+             processoRio.setAbr(calcDispAbrIni2);
+             
+             BigDecimal calcDispMaiIni2 = new BigDecimal(String.valueOf(processoRio.getMai()))
+             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
+             processoRio.setMai(calcDispMaiIni2);
+             
+             BigDecimal calcDispJunIni2 = new BigDecimal(String.valueOf(processoRio.getJun()))
+             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
+             processoRio.setJun(calcDispJunIni2);
+             
+             BigDecimal calcDispJulIni2 = new BigDecimal(String.valueOf(processoRio.getJul()))
+             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
+             processoRio.setJul(calcDispJulIni2);
+             
+             BigDecimal calcDispAgoIni2 = new BigDecimal(String.valueOf(processoRio.getAgo()))
+             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
+             processoRio.setAgo(calcDispAgoIni2);
+             
+             BigDecimal calcDispSetIni2 = new BigDecimal(String.valueOf(processoRio.getSet()))
+             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
+             processoRio.setSet(calcDispSetIni2);
+             
+             BigDecimal calcDispOutIni2 = new BigDecimal(String.valueOf(processoRio.getOut()))
+             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
+             processoRio.setOut(calcDispOutIni2);
+             
+             BigDecimal calcDispNovIni2 = new BigDecimal(String.valueOf(processoRio.getNov()))
+             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
+             processoRio.setNov(calcDispNovIni2);
+             
+             BigDecimal calcDispDezIni2 = new BigDecimal(String.valueOf(processoRio.getDez()))
+             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
+             processoRio.setDez(calcDispDezIni2);           
+  }		
 		}
-
-	}
+        
+        //Limpando a lista e colocando novamente dentro de uma lista SET
+        listaVenda.clear();
+        
+        for(Venda rio: ordenacaoRio){
+       	 
+       	 listaVenda.add(rio);
+        }
+	}		
 
 	// SALVAR
 
-	public void salvar() {		
+public void salvar() { 	 
 		
    System.out.println("Dentro do método SALVAR!");
    
@@ -881,6 +831,7 @@ public class VendaBeanControllerTest implements Serializable {
 	   System.out.println("Dentro do TRY no método SALVAR!");
 	   
 	   VendaDAO salvarProcesso = new VendaDAO();
+	  
 	   
 	   Iterator<Venda> posicao = listaVenda.iterator();
 	   
