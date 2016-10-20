@@ -352,9 +352,11 @@ public class VendaBeanControllerTest implements Serializable {
 
 		/** Pesquisa Ua pelo número informado pelo usuário em venda.xhtml e
 		 adiciona na "listaUas" para ser usada no metódo para calcular 
-		 interpolação das Uas VendaDAO BuscarUA = new VendaDAO();
+		 interpolação das Uas */
+		
+		VendaDAO BuscarUA = new VendaDAO();
 		listaUas = BuscarUA.buscarUa(num); areaUa = listaUas.get(1).getAreaUa();
-		num = listaUas.get(1).getNumeroUa(); */
+		num = listaUas.get(1).getNumeroUa();
 
 		if (listaUas.isEmpty()) {
 
