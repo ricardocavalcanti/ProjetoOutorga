@@ -23,7 +23,7 @@ import br.com.pgo.util.InterpolarUaCalc;
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
-public class VendaBeanControllerTest implements Serializable {
+public class VendaBean implements Serializable {
 
 	private List<Ua> listaUas;
 	private BigDecimal areaUa;
