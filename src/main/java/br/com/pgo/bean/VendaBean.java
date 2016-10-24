@@ -530,7 +530,7 @@ public class VendaBean implements Serializable {
 	/** Faz consultado o BD e coloca na listaVenda e adicionar nova venda a
 	 Lista. **/
 	public void encaixar() {		
-		
+		/*
 		// SALVA VENDA NO BANCO ANTES DE JOGAR NA LISTA
 		try{
 			
@@ -542,14 +542,18 @@ public class VendaBean implements Serializable {
 
 			Messages.addGlobalInfo("Erro ao salvar usuário no método encaixar!");
 			erro.printStackTrace();
-		}	
+		}	*/
 		
 		//FAZ CONSULTA NO BANCO E COLOCA NA listaVenda do tipo SET!
+		
 		try {
 
 			VendaDAO vendaDAO = new VendaDAO();
 			HashSet<Venda> listaVendaBD = vendaDAO.listarVenda();				
-			listaVenda = listaVendaBD;			
+			listaVenda = listaVendaBD;
+			listaVenda.add(venda);
+			System.out.println("LISTA: "+listaVenda.size());
+		
 
 			System.out.println("Tamanho lista ENCAIXAR no TRY: " + listaVenda.size());
 
@@ -646,6 +650,9 @@ public class VendaBean implements Serializable {
 	//Calcular disponibilidade
 	public void cacularDisponibilidade() {
 		
+		
+		ordenacaoRio = new ArrayList<Venda>();
+		
 		//Transformando em percentual o valor da captação, divido o valor por 100		
 		System.out.println("Dentro método Disponibilidade!"+venda.getCaptacao());
 		
@@ -656,43 +663,59 @@ public class VendaBean implements Serializable {
 		
 		Iterator<Venda> posicao = listaVenda.iterator();
 		
-        //Ordenação dos processos do Rio para calcular disponibilidade
-		while (posicao.hasNext()) {			
+		System.out.println("TAMANHO DA LISTA VENDA: "+listaVenda.size());
 		
-			System.out.println("Dentro método Disponibilidade - WHILE!");
+	   //Ordenação dos processos do Rio para calcular disponibilidade		
+		List <Venda> listaAux = new ArrayList<Venda>();		
+		
+		while (posicao.hasNext()){
 			
-			Venda atual = posicao.next();
-
-			if (atual.getProcessoMontante() == 0) {
-				
-				// Primeiro processo do rio					
-				
-				ordenacaoRio = null;
-				
-				ordenacaoRio.add(atual);
-				
-				while (posicao.hasNext()) {
-					
-					Venda proximo = posicao.next();					
-					
-					if(atual.getProcessoJusante() == proximo.getProcessoMontante()){	
-						
-						ordenacaoRio.add(proximo);										
-						
-						atual = proximo;
-						
-				            }				
-			         }
-				break;
-		       }
-		  }
+			Venda rio = posicao.next(); 
+			listaAux.add(rio);
+		}
 		
-		int i = 0;
+		System.out.println("LISTA AUX: "+ listaAux.size());
+		
+		for(Venda rio : listaAux){
+			
+			if (rio.getProcessoMontante() == 0){
+				 ordenacaoRio.add(rio);
+				 System.out.println("PRIMEIRO RIO: "+rio.getProcessoMontante());
+			}
+		}
+		
+		System.out.println("INICIO LISTA: "+ordenacaoRio.size());
+		
+	   Venda rio = ordenacaoRio.get(0);
+	   Venda rio2 = null;
+	   
+	   for(int i = 0; i< listaAux.size(); ++i){ 
+		   
+		   System.out.println(i);
+		   		
+		   for(int z = 0; z< listaAux.size(); ++z){	
+		 
+			rio2 = listaAux.get(z);   
+			
+			if (rio.getProcessoJusante() == rio2.getOutorgante().getProcessoApac()){ 
+				
+				ordenacaoRio.add(rio2);
+				System.out.println(z);
+				System.out.println("ORDENAÇÃO: "+rio2.getProcessoMontante());
+				rio = rio2;	
+				System.out.println("RIO RECEBENDO RIO 2"+rio.getProcessoMontante());
+			  }
+    	    }	   	   
+	   }		 
+		 
+        int i=0;	
 		for(Venda ordem : ordenacaoRio){
-			
-			System.out.println("Processo: "+i+": "+ordem.getProcessoJusante());
+			i++;
+			System.out.println("Processo: "+i+": "+ordem.getProcessoMontante());
 			
 		}	
+		
+		if(venda.getProcessoMontante() == 0){
 	
           //Calculo da disponibilidade do primeiro rio onde processo montante é igual a zero
 		 // essa lista ordenacaoRio já está em ordem portanto o indice zero é o primeiro rio 
@@ -700,58 +723,60 @@ public class VendaBean implements Serializable {
 		 System.out.println("Primeiro Rio: "+ordenacaoRio.get(0).getProcessoMontante());
 		 
 		 BigDecimal calcDispJanIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getJan()))
-		 .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getJan())));		 
+		 .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getCaptacao())));		 
 		 ordenacaoRio.get(0).setJan(calcDispJanIni1);
 		 
 		 BigDecimal calcDispFevIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getFev()))
-		 .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getFev())));		 
+		 .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getCaptacao())));		 
 		 ordenacaoRio.get(0).setFev(calcDispFevIni1);
 		 
 		 BigDecimal calcDispMarIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getMar()))
-		 .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getMar())));		 
+		 .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getCaptacao())));		 
 		 ordenacaoRio.get(0).setMar(calcDispMarIni1);
 		 
 		 BigDecimal calcDispAbrIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getAbr()))
-		 .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getAbr())));		 
+		 .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getCaptacao())));		 
 		 ordenacaoRio.get(0).setAbr(calcDispAbrIni1);
 		 
 		 BigDecimal calcDispMaiIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getMai()))
-		 .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getMai())));		 
+		 .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getCaptacao())));		 
 		 ordenacaoRio.get(0).setMai(calcDispMaiIni1);
 		 
 		 BigDecimal calcDispJunIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getJun()))
-		 .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getJun())));		 
+		 .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getCaptacao())));		 
 		 ordenacaoRio.get(0).setJun(calcDispJunIni1);
 		 
 		 BigDecimal calcDispJulIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getJul()))
-		.subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getJul())));		 
+		.subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getCaptacao())));		 
 	    ordenacaoRio.get(0).setJul(calcDispJulIni1);
 	    
 	    BigDecimal calcDispAgoIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getAgo()))
-	    .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getAgo())));		 
+	    .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getCaptacao())));		 
 	   	ordenacaoRio.get(0).setAgo(calcDispAgoIni1);
 	   	
 	   	BigDecimal calcDispSetIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getSet()))
-	   	.subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getSet())));		 
+	   	.subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getCaptacao())));		 
 	    ordenacaoRio.get(0).setSet(calcDispSetIni1);
 	    
 	    BigDecimal calcDispOutIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getOut()))
-	   	.subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getOut())));		 
+	   	.subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getCaptacao())));		 
 	   	ordenacaoRio.get(0).setOut(calcDispOutIni1);
 	   	
 	   	BigDecimal calcDispNovIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getNov()))
-	   	.subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getNov())));		 
+	   	.subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getCaptacao())));		 
 	   	ordenacaoRio.get(0).setNov(calcDispNovIni1);
 	   	
 	   	BigDecimal calcDispDezIni1 = new BigDecimal(String.valueOf(ordenacaoRio.get(0).getDez()))
-	    .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getDez())));		 
+	    .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getCaptacao())));		 
 	   	ordenacaoRio.get(0).setDez(calcDispDezIni1);		 
 		 
-		
+		}
+
 		//Calculo da vazao menos a disponibilidade do Rio
 	   	//Dos outros processos menos o primeiro processo que o montante é igual a zero
-        for(int z = 0; i<ordenacaoRio.size(); z++){ 
+        for(int z = 0; z<ordenacaoRio.size(); ++z){ 
      
+        	
         Venda processoRio = ordenacaoRio.get(z);
         	
         if(processoRio.getProcessoMontante()!=0){
@@ -812,21 +837,38 @@ public class VendaBean implements Serializable {
              processoRio.setDez(calcDispDezIni2);           
   }		
 		}
-        
+        System.out.println("TAMANHO DA LISTA VENDA: "+listaVenda.size());
+        System.out.println("TAMANHO DA LISTA ORDENACAO: "+ordenacaoRio.size());
         //Limpando a lista e colocando novamente dentro de uma lista SET
-        listaVenda.clear();
-        
-        for(Venda rio: ordenacaoRio){
+       
+        listaVenda.clear(); 
+        for(Venda rio10: ordenacaoRio){
        	 
-       	 listaVenda.add(rio);
+       	 listaVenda.add(rio10);
+       	  
+       	  /*System.out.println("Tamanho da lista: "+listaVenda.size());
+          System.out.println("RIO: "+z+" "+rio.getOutorgante().getProcessoApac());*/
+       	  
         }
-	}		
 
+			
+}
 	// SALVAR
 
-public void salvar() { 	 
+public void salvar() { 
+	
+	for(int z = 0; z<ordenacaoRio.size(); z++){ 
+		
+		 System.out.println("RIO: "+z+" "+ordenacaoRio.get(z).getProcessoMontante());
+		 System.out.println(listaVenda.size());
+		
+	}	
+	
+	
 		
    System.out.println("Dentro do método SALVAR!");
+   
+       
    
    try{
 	   
