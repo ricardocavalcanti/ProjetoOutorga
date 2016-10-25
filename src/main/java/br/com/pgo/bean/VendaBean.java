@@ -286,13 +286,30 @@ public class VendaBean implements Serializable {
 		this.listaUsuarios = listaUsuarios;
 	}
 
-	// Instancia elementos para serem trabalhados na tela.
-	@PostConstruct
+	/** Instancia elementos para serem trabalhados na tela.
+	 * Limpa a tela zerando todas as listas e variaveis para nova simulação
+	 */
+	@PostConstruct	
 	public void novo() {
+		
 		listar();
 		venda = new Venda();
 		listaVenda = new HashSet<Venda>();
-
+		listaUas = new ArrayList<Ua>();
+		ordenacaoRio = new ArrayList<Venda>();
+		areaUa = BigDecimal.ZERO;
+		
+		garantiaJan = BigDecimal.ZERO; garantiaFev = BigDecimal.ZERO; garantiaMar = BigDecimal.ZERO; garantiaAbr = BigDecimal.ZERO;
+		garantiaMai = BigDecimal.ZERO; garantiaJun = BigDecimal.ZERO; garantiaJul = BigDecimal.ZERO;garantiaAgo = BigDecimal.ZERO; 
+		garantiaSet = BigDecimal.ZERO; garantiaOut = BigDecimal.ZERO; garantiaNov = BigDecimal.ZERO;
+		garantiaDez = BigDecimal.ZERO;	
+		
+		resultJan = BigDecimal.ZERO; resultFev = BigDecimal.ZERO; resultMar = BigDecimal.ZERO; resultAbr = BigDecimal.ZERO; 
+		resultMai = BigDecimal.ZERO; resultJun = BigDecimal.ZERO; resultJul = BigDecimal.ZERO; resultAgo = BigDecimal.ZERO; 
+		resultSet = BigDecimal.ZERO; resultOut = BigDecimal.ZERO; resultNov = BigDecimal.ZERO;
+		resultDez = BigDecimal.ZERO;
+		
+		num = 0;
 	}
 	// Listar usuários e outorgante para serem usando no
 	// venda.xhtml (<p:outputLabel>)
@@ -383,7 +400,6 @@ public class VendaBean implements Serializable {
 
 	// SIMULAR
 	public void simular() {
-
 		adicionar();
 		interpolarMeses();
 		encaixar();
@@ -825,22 +841,17 @@ public class VendaBean implements Serializable {
 		}
         System.out.println("TAMANHO DA LISTA VENDA: "+listaVenda.size());
         System.out.println("TAMANHO DA LISTA ORDENACAO: "+ordenacaoRio.size());
+        
         //Limpando a lista e colocando novamente dentro de uma lista SET
-       
         listaVenda.clear(); 
-        for(Venda rio10: ordenacaoRio){
-       	 
-       	 listaVenda.add(rio10);
-       	  
-       	  /*System.out.println("Tamanho da lista: "+listaVenda.size());
-          System.out.println("RIO: "+z+" "+rio.getOutorgante().getProcessoApac());*/
-       	  
+        for(Venda rio10: ordenacaoRio){       	 
+       	 listaVenda.add(rio10);      	  
         }
 
 			
 }
-	// SALVAR
-
+	
+// SALVAR
 public void salvar() { 
 	
 	for(int z = 0; z<ordenacaoRio.size(); z++){ 
@@ -882,6 +893,7 @@ public void salvar() {
 		erro.printStackTrace();
 	}				
 
+     novo();
 		}
 	}
 
