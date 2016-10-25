@@ -355,7 +355,8 @@ public class VendaBean implements Serializable {
 		 interpolação das Uas */
 		
 		VendaDAO BuscarUA = new VendaDAO();
-		listaUas = BuscarUA.buscarUa(num); areaUa = listaUas.get(1).getAreaUa();
+		listaUas = BuscarUA.buscarUa(num); 
+		areaUa = listaUas.get(1).getAreaUa();
 		num = listaUas.get(1).getNumeroUa();
 
 		if (listaUas.isEmpty()) {
@@ -388,7 +389,7 @@ public class VendaBean implements Serializable {
 		encaixar();
 		cacularDisponibilidade();
 		consultar();
-		salvar();
+		//salvar();
 	}
 
 	// INTERPOLAR!
@@ -529,22 +530,7 @@ public class VendaBean implements Serializable {
 
 	/** Faz consultado o BD e coloca na listaVenda e adicionar nova venda a
 	 Lista. **/
-	public void encaixar() {		
-		/*
-		// SALVA VENDA NO BANCO ANTES DE JOGAR NA LISTA
-		try{
-			
-			VendaDAO vendaDAO = new VendaDAO();
-			vendaDAO.mergeVenda(venda);
-			
-		}
-		catch (RuntimeException erro) {
-
-			Messages.addGlobalInfo("Erro ao salvar usuário no método encaixar!");
-			erro.printStackTrace();
-		}	*/
-		
-		//FAZ CONSULTA NO BANCO E COLOCA NA listaVenda do tipo SET!
+	public void encaixar() {				
 		
 		try {
 

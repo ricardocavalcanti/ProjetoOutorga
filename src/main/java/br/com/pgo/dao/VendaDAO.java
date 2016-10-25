@@ -1,12 +1,9 @@
 package br.com.pgo.dao;
-
 import java.util.HashSet;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 import br.com.pgo.domain.Ua;
 import br.com.pgo.domain.Venda;
 import br.com.pgo.util.HibernateUtil;
@@ -34,7 +31,33 @@ public class VendaDAO extends GenericDAO<Venda> {
 		}
 	 }
 	
-	    //Buscar Processo Montante pelo número informado
+	//Listar venda
+	@SuppressWarnings("unchecked")
+	public HashSet<Venda> listarVenda() {
+		
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+
+		try {
+			Criteria consulta = sessao.createCriteria(Venda.class);
+			List <Venda> resultadoList = consulta.list();
+			HashSet<Venda> resultado = new HashSet<>();
+			
+			for(Venda venda: resultadoList){
+				resultado.add(venda);
+			}			
+			return resultado;
+
+		} catch (RuntimeException erro) {
+
+			throw erro;
+
+		} finally {
+			sessao.close();
+		} 
+
+	}
+	
+	 /*   //Buscar Processo Montante pelo número informado
 		@SuppressWarnings("unchecked")
 		public List<Ua> buscarProcessoMontante(int numeroProcessoMontante) {
 			Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
@@ -76,30 +99,7 @@ public class VendaDAO extends GenericDAO<Venda> {
 				}
 			}
 	
-	
-	
-	
-	
-
-	
-	/*public Venda buscarProcesso(Class processo) {
-		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-		try {
-			Criteria busca = sessao.createCriteria(processo);
-			busca.add(Restrictions.idEq(processo));
-			Venda resultado = (Venda) busca.uniqueResult();
-			return resultado;
-		} catch (RuntimeException erro) {
-
-			throw erro;
-		} finally {
-			sessao.close();
-		}
-
-	}*/
-	
-	
-	public Venda buscarProcesso (int processo) {
+		public Venda buscarProcesso (int processo) {
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 
 		try {
@@ -202,31 +202,8 @@ public class VendaDAO extends GenericDAO<Venda> {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
-	public HashSet<Venda> listarVenda() {
-		
-		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
-
-		try {
-			Criteria consulta = sessao.createCriteria(Venda.class);
-			List <Venda> resultadoList = consulta.list();
-			HashSet<Venda> resultado = new HashSet<>();
-			
-			for(Venda venda: resultadoList){
-				resultado.add(venda);
-			}			
-			return resultado;
-
-		} catch (RuntimeException erro) {
-
-			throw erro;
-
-		} finally {
-			sessao.close();
-		}
-
-	}
 	
+	*/
 	
 	
 	

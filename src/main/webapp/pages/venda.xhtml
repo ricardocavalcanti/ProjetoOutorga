@@ -18,11 +18,11 @@
          <p:toolbar style="margin-top: 20px">
                 <p:toolbarGroup align="right">
                 
-                 <p:commandButton value="Simular" icon="ui-icon-star" actionListener="#{vendaBean.simular}" update=":mensagem :frmCadastro:painel3 ">
+                 <p:commandButton value="Simular" icon="ui-icon-star" actionListener="#{vendaBean.simular}" update=":frmCadastro:painel3">
                     <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
                  </p:commandButton>
                  
-                 <p:commandButton value="Salvar" ajax="false" icon="ui-icon-disk"/>
+                 <p:commandButton value="Salvar" icon="ui-icon-disk" actionListener="#{vendaBean.salvar}" update=":mensagem"/>
                 </p:toolbarGroup>                           
           </p:toolbar> 
 
