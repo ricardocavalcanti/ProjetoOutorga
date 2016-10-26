@@ -7,17 +7,41 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>SiGO</title>
+	<h:outputStylesheet library="css" name="estilos.css"/>
 </h:head>
 <h:body>
+  <h:form>
      <div id="geral">
-         <div id="topo">             
+         <div id="topo" class="divTopo"> 
+           <p:graphicImage library="images" name="banner.jpg" styleClass="imagemCentralizada"/>            
          </div>
          
          <div id="cabecalho">
+            <p:menubar>
+              <p:submenu label="Arquivo">
+                <p:menuitem value="Sair"/>
+              </p:submenu>
+              
+              <p:submenu label="Cadastro">
+                <p:menuitem value="Unidade Análise"/>
+                <p:menuitem value="Outorgante"/>
+                <p:menuitem value="Pessoa"/>                
+                <p:menuitem value="Usuário"/>
+              </p:submenu>
+              
+              <p:submenu label="Movimentação">
+                <p:menuitem value="Outorgas"/>
+              </p:submenu>
+              
+              <p:submenu label="Ajuda">
+                <p:menuitem value="Sobre"/>
+              </p:submenu>
+            </p:menubar>
          </div>
          
          <div id="conteudo">
          </div>
      </div>
+  </h:form>     
 </h:body>
 </html>

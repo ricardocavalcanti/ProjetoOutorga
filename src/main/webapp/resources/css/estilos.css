@@ -1,0 +1,14 @@
+@CHARSET "UTF-8";
+
+.imagemCentralizada{
+	
+	display: block;
+	height: 10%;
+	width: 38%;	
+}
+
+.divTopo{
+	
+	padding-bottom: 5px;
+	
+}
