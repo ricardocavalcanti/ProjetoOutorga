@@ -1,25 +1,24 @@
 @CHARSET "UTF-8";
 
-.imagemCentralizada{
-	
+.imagemCentralizada {
 	display: block;
 	height: 10%;
-	width: 38%;	
+	width: 38%;
 }
 
-.divTopo{
-	
+.divTopo {
 	padding-bottom: 5px;
-	
 }
 
-.footer{
-	
+.footer {
 	background-color: #729fcf;
-    width: 99%;
-    color: white;
-    height: 35px;
-    padding: 8px;
-    margin: 10px 0;
-	
+	width: 99%;
+	color: white;
+	height: 35px;
+	padding: 8px;
+	margin: 10px 0;
+}
+
+.ui-widget, .ui-widget .ui-widget{
+	font-size: 90% !important;
 }
