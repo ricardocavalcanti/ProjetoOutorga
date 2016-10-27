@@ -7,53 +7,56 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>SiGO</title>
-	<h:outputStylesheet library="css" name="estilos.css"/>
+	<title>Apac - Sistema Outorga</title>
+	<h:outputStylesheet library="css" name="estilos.css" />
+	<link rel="shortcut icon" type="image/x-icon"
+		href="#{request.contextPath}/resources/images/favicon.ico" />
 </h:head>
 <h:body>
 
-     <div id="geral">
-         <div id="topo" class="divTopo"> 
-         <p:graphicImage library="images" name="banner.jpg" styleClass="imagemCentralizada"/>         
-         </div>
-         
-         <div id="cabecalho">
-           <h:form id="formMenu"> 
-            <p:menubar>
-              <p:submenu label="Arquivo">
-                <p:menuitem value="Simulação" url="/pages/venda.xhtml"/>
-                <p:menuitem value="Sair"/>
-              </p:submenu>
-              
-              <p:submenu label="Cadastro">
-                <p:menuitem value="Unidade Análise" url="/pages/ua.xhtml"/>
-                <p:menuitem value="Outorgante" url="/pages/outorgante.xhtml" />
-                <p:menuitem value="Pessoa" url="/pages/pessoa.xhtml"/>                
-                <p:menuitem value="Usuário" url="/pages/usuario.xhtml"/>
-                
-              </p:submenu>
-              
-              <p:submenu label="Movimentação">
-                <p:menuitem value="Outorgas"/>
-              </p:submenu>
-              
-              <p:submenu label="Ajuda">
-                <p:menuitem value="Sobre"/>
-              </p:submenu>
-            </p:menubar>
-           </h:form>  
-         </div>
-         
-         <div id="conteudo">
-            <ui:insert name="conteudo"/>
-         </div>
-         
-         <div id="footer" class="footer">
-             <p> Suporte TI Ramal: 222</p>
-         </div>
-         
-         
-     </div>
-     
+	<div id="geral">
+		<div id="topo" class="divTopo">
+			<p:graphicImage library="images" name="banner.jpg"
+				styleClass="imagemCentralizada" />
+		</div>
+
+		<div id="cabecalho">
+			<h:form id="formMenu">
+				<p:menubar>
+					<p:submenu label="Arquivo">
+						<p:menuitem value="Simulação" url="/pages/venda.xhtml" />
+						<p:menuitem value="Sair" />
+					</p:submenu>
+
+					<p:submenu label="Cadastro">
+						<p:menuitem value="Unidade Análise" url="/pages/ua.xhtml" />
+						<p:menuitem value="Outorgante" url="/pages/outorgante.xhtml" />
+						<p:menuitem value="Pessoa" url="/pages/pessoa.xhtml" />
+						<p:menuitem value="Usuário" url="/pages/usuario.xhtml" />
+
+					</p:submenu>
+
+					<p:submenu label="Movimentação">
+						<p:menuitem value="Outorgas" />
+					</p:submenu>
+
+					<p:submenu label="Ajuda">
+						<p:menuitem value="Sobre" />
+					</p:submenu>
+				</p:menubar>
+			</h:form>
+		</div>
+
+		<div id="conteudo">
+			<ui:insert name="conteudo" />
+		</div>
+
+		<div id="footer" class="footer">
+			<p>Suporte TI Ramal: 222</p>
+		</div>
+
+
+	</div>
+
 </h:body>
 </html>
