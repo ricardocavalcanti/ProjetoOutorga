@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-01T11:41:19 -->
+<!-- 2016-11-01T21:24:11 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Outorgante" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9b7607d7-d2d8-4070-9ea0-2c8264e28963">
-	<property name="com.jaspersoft.studio.data.sql.tables" value="cHVibGljLnVzdWFyaW8gQVMgLDc1MiwxNTYsY2FiNmFiN2YtOTRjZS00ZTFjLWJmZjQtM2RiOGM3&#xA;N2E1OGJiO3B1YmxpYy5vdXRvcmdhbnRlIEFTICw0NjAsNjQsNjBjOWRlODYtZGFkOC00Y2ZkLTgy&#xA;NTQtYTVhNTUwNmUzOWE2O3B1YmxpYy52ZW5kYSBBUyAsNTEsMzgsMGUzMGQzODQtYzZjZS00MDdk&#xA;LTliMWQtOGE5MDgyOGVjN2ZjOw=="/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value="cHVibGljLnVzdWFyaW8gLDIzMywxNSxkZGUxMjdjNS1jZWFiLTRmZDYtOWYyYS05MTU2OGI5YmY5&#xA;NDg7cHVibGljLm91dG9yZ2FudGUgLDIzMywyNDgsZTIxZWMyZWEtOGQ5My00ZDQxLTk5ODQtYzM1&#xA;Y2IyOTkxMDY4O3B1YmxpYy52ZW5kYSAsMTUsMTQ1LDdmOGI0MmNhLWM0ZTMtNGFhYy04ZDllLTVk&#xA;MWY3NWI5M2NlZTs="/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="142"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="853"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Outorga Data Adapter "/>
+	<parameter name="LOGIN" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT public.venda.numeroua,
 	public.venda.vencimento,
@@ -25,6 +26,8 @@ FROM public.venda
 	 public.venda.usuario_codigo = public.usuario.codigo 
 	INNER JOIN public.outorgante ON 
 	 public.venda.outorgante_codigo = public.outorgante.codigo 
+WHERE 
+	 public.usuario.login LIKE $P{LOGIN} 
 ORDER BY public.outorgante.nomerazao ASC]]>
 	</queryString>
 	<field name="vencimento" class="java.sql.Date"/>
@@ -51,7 +54,7 @@ ORDER BY public.outorgante.nomerazao ASC]]>
 			<staticText>
 				<reportElement x="0" y="0" width="555" height="30" uuid="564ff3c0-cb71-462f-bb9e-cccd04bc576f"/>
 				<textElement textAlignment="Left">
-					<font size="18" isBold="true" isItalic="true" isUnderline="false"/>
+					<font size="12" isBold="true" isItalic="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[RELATÓRIO DE OUTORGAS]]></text>
 			</staticText>
@@ -95,7 +98,7 @@ ORDER BY public.outorgante.nomerazao ASC]]>
 				<text><![CDATA[Tecnico]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="468" y="1" width="75" height="30" uuid="4d4df822-2370-4926-a494-b23419474062"/>
+				<reportElement x="468" y="1" width="86" height="30" uuid="4d4df822-2370-4926-a494-b23419474062"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -145,7 +148,7 @@ ORDER BY public.outorgante.nomerazao ASC]]>
 				<textFieldExpression><![CDATA[$F{nometecnico}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="470" y="-1" width="75" height="30" uuid="732f505d-a484-4b9b-9ee8-907982a274cf"/>
+				<reportElement x="470" y="-1" width="84" height="30" uuid="732f505d-a484-4b9b-9ee8-907982a274cf"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{login}]]></textFieldExpression>
 			</textField>
