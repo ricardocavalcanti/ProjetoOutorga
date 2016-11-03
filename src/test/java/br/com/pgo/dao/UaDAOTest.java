@@ -7,8 +7,7 @@ import br.com.pgo.domain.Ua;
 
 public class UaDAOTest {
 
-	@Test
-	// Ignore
+	@Test	
 	public void salvar() {
 
 		Ua cadastrarUa = new Ua();
@@ -106,4 +105,6 @@ public class UaDAOTest {
 		}
 
 	}
+	
+	
 }

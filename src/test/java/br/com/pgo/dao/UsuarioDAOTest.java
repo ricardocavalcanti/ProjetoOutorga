@@ -2,6 +2,7 @@ package br.com.pgo.dao;
 
 import java.util.List;
 
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.junit.Ignore;
 import org.junit.Test;
 import br.com.pgo.domain.Pessoa;
@@ -13,13 +14,20 @@ public class UsuarioDAOTest {
 	public void salvar() {
 
 		PessoaDAO pessoaDAO = new PessoaDAO();
-		Pessoa pessoa = pessoaDAO.buscar(1L);
+		Pessoa pessoa = pessoaDAO.buscar(3L);
 		Usuario usuario = new Usuario();
 
+		
+		
 		usuario.setAtivo(true);
-		usuario.setLogin("ricardo.cavalcanti");
+		usuario.setLogin("renato.cavalcanti");
 		usuario.setPessoa(pessoa);
-		usuario.setSenha("37eyrue");
+		usuario.setSenhaSemCriptografia("renato123");
+		
+		SimpleHash hash = new SimpleHash("md5", usuario.getSenhaSemCriptografia());
+		
+		usuario.setSenha(hash.toHex());
+		
 		usuario.setTipo('A');
 
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -27,7 +35,7 @@ public class UsuarioDAOTest {
 
 		System.out.println("Usuário salvo com sucesso!");
 	}
-
+	@Ignore
 	public void buscar() {
 
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -44,7 +52,7 @@ public class UsuarioDAOTest {
 
 		}
 	}
-
+	@Ignore
 	public void listar() {
 
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -59,7 +67,7 @@ public class UsuarioDAOTest {
 		}
 
 	}
-
+	@Ignore
 	public void excluir() {
 
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -73,6 +81,20 @@ public class UsuarioDAOTest {
 			usuarioDAO.excluir(usuario);
 		}
 
+	}
+	
+	@Test
+	public void autenticar(){
+		
+		String login = "renato.cavalcanti";
+		String senha = "renato1234";
+		
+		UsuarioDAO usuDAO = new UsuarioDAO();		
+		Usuario usuario = usuDAO.autenticar(login, senha);
+		
+		System.out.println("Usuario autenticado: "+usuario);
+		
+		
 	}
 
 }
