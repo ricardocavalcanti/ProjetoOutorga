@@ -10,19 +10,19 @@ import br.com.pgo.domain.Usuario;
 
 public class UsuarioDAOTest {
 	@Test
-	@Ignore
+	//@Ignore
 	public void salvar() {
 
 		PessoaDAO pessoaDAO = new PessoaDAO();
-		Pessoa pessoa = pessoaDAO.buscar(3L);
+		Pessoa pessoa = pessoaDAO.buscar(55L);
 		Usuario usuario = new Usuario();
 
 		
 		
 		usuario.setAtivo(true);
-		usuario.setLogin("renato.cavalcanti");
+		usuario.setLogin("antonio.silva");
 		usuario.setPessoa(pessoa);
-		usuario.setSenhaSemCriptografia("renato123");
+		usuario.setSenhaSemCriptografia("12345678");
 		
 		SimpleHash hash = new SimpleHash("md5", usuario.getSenhaSemCriptografia());
 		
@@ -43,7 +43,9 @@ public class UsuarioDAOTest {
 		Usuario usuario = usuarioDAO.buscar(codigo);
 
 		if (usuario == null) {
+			
 			System.out.println("Usuario não encontrado!");
+			
 		} else {
 
 			System.out.println(usuario.getLogin());
@@ -84,6 +86,7 @@ public class UsuarioDAOTest {
 	}
 	
 	@Test
+	@Ignore
 	public void autenticar(){
 		
 		String login = "renato.cavalcanti";

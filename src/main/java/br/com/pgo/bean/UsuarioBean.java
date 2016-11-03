@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.omnifaces.util.Messages;
 
 import br.com.pgo.dao.PessoaDAO;
@@ -66,11 +67,17 @@ public class UsuarioBean implements Serializable {
 	}
 
 	public void salvar() {
+		
+		SimpleHash hash = new SimpleHash("md5",usuario.getSenha()); 
+		usuario.setSenha(hash.toHex());
 
 		try {
 
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			
+			
 			usuarioDAO.merge(usuario);
+			
 			usuario = new Usuario();
 			listaUsuario = usuarioDAO.listar();
 
