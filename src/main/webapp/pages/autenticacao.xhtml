@@ -26,16 +26,16 @@
 
 				<p:outputLabel for="login" value="Login:" />
 				<p:inputText id="login" required="true"
-					requiredMessage="Campo 'Login' é obrigatório" />
+					requiredMessage="Campo 'Login' é obrigatório" value="#{autenticacaoBean.usuario.login}" />
 
 				<p:outputLabel for="senha" value="Senha:" />
 				<p:password id="senha" maxlength="8" required="true"
-					requiredMessage="Campo 'Senha' é obrigatório" />
+					requiredMessage="Campo 'Senha' é obrigatório" value="#{autenticacaoBean.usuario.senha}" />
 
 			</h:panelGrid>
 
 			<h:panelGrid columns="1">
-				<p:commandButton value="Entrar" update=":mensagem" />
+				<p:commandButton value="Entrar" update=":mensagem" actionListener="#{autenticacaoBean.autenticar}"/>
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>
