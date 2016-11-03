@@ -14,6 +14,8 @@ import org.omnifaces.util.Messages;
 import br.com.pgo.util.HibernateUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -28,7 +30,8 @@ public class ImprimirBean implements Serializable {
 			Map<String, Object> parametros = new HashMap<>();
 			Connection conexao = HibernateUtil.getConexao();
 
-			JasperFillManager.fillReport(caminho, parametros, conexao);
+			JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros, conexao);
+			JasperPrintManager.printReport(relatorio, true);
 
 		} catch (JRException erro) {
 			Messages.addGlobalError("Erro ao tentar gerar relatório");

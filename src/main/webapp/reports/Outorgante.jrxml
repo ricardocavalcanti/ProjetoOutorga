@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-01T21:24:11 -->
+<!-- 2016-11-02T23:13:18 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Outorgante" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9b7607d7-d2d8-4070-9ea0-2c8264e28963">
-	<property name="com.jaspersoft.studio.data.sql.tables" value="cHVibGljLnVzdWFyaW8gLDIzMywxNSxkZGUxMjdjNS1jZWFiLTRmZDYtOWYyYS05MTU2OGI5YmY5&#xA;NDg7cHVibGljLm91dG9yZ2FudGUgLDIzMywyNDgsZTIxZWMyZWEtOGQ5My00ZDQxLTk5ODQtYzM1&#xA;Y2IyOTkxMDY4O3B1YmxpYy52ZW5kYSAsMTUsMTQ1LDdmOGI0MmNhLWM0ZTMtNGFhYy04ZDllLTVk&#xA;MWY3NWI5M2NlZTs="/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value="cHVibGljLnVzdWFyaW8gQVMgLDc1MiwxNTYsY2FiNmFiN2YtOTRjZS00ZTFjLWJmZjQtM2RiOGM3&#xA;N2E1OGJiO3B1YmxpYy5vdXRvcmdhbnRlIEFTICw0NjAsNjQsNjBjOWRlODYtZGFkOC00Y2ZkLTgy&#xA;NTQtYTVhNTUwNmUzOWE2O3B1YmxpYy52ZW5kYSBBUyAsNTEsMzgsMGUzMGQzODQtYzZjZS00MDdk&#xA;LTliMWQtOGE5MDgyOGVjN2ZjOw=="/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="142"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="853"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Outorga Data Adapter "/>
@@ -26,8 +26,6 @@ FROM public.venda
 	 public.venda.usuario_codigo = public.usuario.codigo 
 	INNER JOIN public.outorgante ON 
 	 public.venda.outorgante_codigo = public.outorgante.codigo 
-WHERE 
-	 public.usuario.login LIKE $P{LOGIN} 
 ORDER BY public.outorgante.nomerazao ASC]]>
 	</queryString>
 	<field name="vencimento" class="java.sql.Date"/>
@@ -45,7 +43,7 @@ ORDER BY public.outorgante.nomerazao ASC]]>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<imageExpression><![CDATA["src/main/webapp/resources/images/banner.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["logo.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>
