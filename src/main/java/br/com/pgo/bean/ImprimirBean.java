@@ -24,8 +24,8 @@ public class ImprimirBean implements Serializable {
 
 	public void imprimir() {
 
-		try {
-
+		try {			         
+            
 			String caminho = Faces.getRealPath("/reports/Outorgante.jasper");
 			Map<String, Object> parametros = new HashMap<>();
 			Connection conexao = HibernateUtil.getConexao();
@@ -34,6 +34,7 @@ public class ImprimirBean implements Serializable {
 			JasperPrintManager.printReport(relatorio, true);
 
 		} catch (JRException erro) {
+			
 			Messages.addGlobalError("Erro ao tentar gerar relatório");
 			erro.printStackTrace();
 
