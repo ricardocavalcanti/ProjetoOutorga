@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/templates/modelo.xhtml">
+	
+<f:metadata>
+
+  <f:viewAction action="#{outorganteListagemBean.listar}"/>
+
+</f:metadata>	
+
+ <ui:define name="conteudo">
+     
+    <h:form id="formListagem">
+    
+      <p:toolbar style="margin-top: 20px">
+                <p:toolbarGroup align="right">
+                
+                 <p:commandButton value="Novo" icon="ui-icon-star"/>             
+                 
+                 <p:commandButton value="Imprimir" icon="ui-icon-print"/>
+                </p:toolbarGroup>                           
+          </p:toolbar> 
+
+		<p:panel header="Outorgante - Listagem"> 			 		
+            
+			<p:dataTable  id="tabela" emptyMessage="Nenhum registro encontrado." paginator="true" value="#{outorganteListagemBean.listaOutorgante}" var="listaOutorgantes" rows="10">
+		
+				<p:column headerText="Nome/Razao" sortBy="#{listaOutorgantes.nomeRazao}">
+					<h:outputText value="#{listaOutorgantes.nomeRazao}" />
+				</p:column>
+				
+				<p:column headerText="Processo APAC"> 
+				<h:outputText value="#{listaOutorgantes.processoApac}" />
+				</p:column>
+
+				<p:column headerText="Telefone">
+					<h:outputText value="#{listaOutorgantes.telefone}" />
+				</p:column>
+
+				<p:column headerText="Email">
+					<h:outputText value="#{listaOutorgantes.email}" />
+				</p:column>				
+
+				<p:column headerText="Opções">
+
+					<p:commandButton icon="ui-icon-trash"/>
+					<p:commandButton icon="ui-icon-pencil"/>
+						
+					
+				</p:column>
+			</p:dataTable>
+			
+		</p:panel>
+	</h:form>
+       
+</ui:define>
+</ui:composition>
