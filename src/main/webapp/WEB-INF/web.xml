@@ -1,43 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	version="2.5">
-	
-	<!-- Nome da aplicação -->
-	<display-name>ProjetoPGO</display-name>
-	
-	<!-- Página principal -->
-	<welcome-file-list>
-		<welcome-file>pages/autenticacao.xhtml</welcome-file>		
-	</welcome-file-list>	
-
-	<!-- Estagio do projeto -->
-	<context-param>
-		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Development</param-value>
-	</context-param>
-
-	<!-- Tema do PrimeFaces -->
-	<context-param>
-		<param-name>primefaces.THEME</param-name>
-		<param-value>redmond </param-value>
-	</context-param>
-
-	<!-- Configuração do JSF -->
-	<servlet>
-		<servlet-name>Faces Servlet</servlet-name>
-		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.xhtml</url-pattern>
-	</servlet-mapping>
-
-	<!-- Serve para registrar ouvintes no Tomcat "Carregar Hibernate" -->
-	<listener>
-		<listener-class>br.com.pgo.util.HibernateContexto</listener-class>
-	</listener>
-
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+ <!-- Nome da aplicação -->
+ <display-name>ProjetoPGO</display-name>
+ 
+ <!-- Local do Faces-Config -->
+ <context-param>
+  <param-name>javax.faces.CONFIG_FILES</param-name>
+  <param-value>/WEB-INF/faces-config.xml</param-value>
+ </context-param> 
+ 
+ <!-- Estagio do projeto -->
+ <context-param>
+  <param-name>javax.faces.PROJECT_STAGE</param-name>
+  <param-value>Development</param-value>
+ </context-param>
+ <!-- Tema do PrimeFaces -->
+ <context-param>
+  <param-name>primefaces.THEME</param-name>
+  <param-value>redmond</param-value>
+ </context-param>
+ <!-- Serve para registrar ouvintes no Tomcat "Carregar Hibernate" -->
+ <listener>
+  <listener-class>br.com.pgo.util.HibernateContexto</listener-class>
+ </listener>
+ <!-- Configuração do JSF -->
+ <servlet>
+  <servlet-name>Faces Servlet</servlet-name>
+  <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>Faces Servlet</servlet-name>
+  <url-pattern>*.xhtml</url-pattern>
+ </servlet-mapping>
+ <!-- Página principal -->
+ <welcome-file-list>
+  <welcome-file>pages/autenticacao.xhtml</welcome-file>
+ </welcome-file-list>
 </web-app>
