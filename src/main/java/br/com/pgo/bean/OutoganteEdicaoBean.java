@@ -43,7 +43,7 @@ public class OutoganteEdicaoBean implements Serializable {
 
 	}
 
-	public void carregarEdicao(){
+	public void carregarEdicao() {
 
 		try {
 
@@ -56,21 +56,21 @@ public class OutoganteEdicaoBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
-	
-	public void salvarEdicao(){
-		
-		try{
-		
-		outorganteDAO.merge(outorgante);
-		
-		Messages.addGlobalInfo("Outorgante editado com sucesso");
-		
-		}catch (RuntimeException erro){
-			
-		Messages.addGlobalError("Erro ao editar Outorgante");
-			
+
+	public void salvarEdicao() {
+
+		try {
+
+			outorganteDAO.merge(outorgante);
+
+			Messages.addGlobalInfo("Outorgante editado com sucesso");
+
+		} catch (RuntimeException erro) {
+
+			Messages.addGlobalError("Erro ao editar Outorgante");
+
 		}
-		
+
 	}
 
 }
