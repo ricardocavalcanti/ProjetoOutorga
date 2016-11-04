@@ -24,11 +24,17 @@
    <p:growl id="mensagem"/>
      
      <h:form id="formCadastro">			
-      <p:panel header="Outorgante - Edição">
-   
-        <p:commandButton value="Voltar" icon="ui-icon-trash"/>                 
-        <p:commandButton value="Editar" icon="ui-icon-disk" update=":mensagem"/>
-
+      <p:panel header="Outorgante - Edição">  
+      
+      
+        <p:toolbar style="margin-top: 20px">
+                <p:toolbarGroup align="right">
+                
+                <p:button value="Voltar" icon="ui-icon-trash" outcome="/pages/outorganteListagem.xhtml"/>                 
+        <p:commandButton value="Editar" icon="ui-icon-disk" update=":mensagem" actionListener="#{outoganteEdicaoBean.salvarEdicao}"/>
+                 
+                </p:toolbarGroup>                           
+          </p:toolbar> 
 
 			<p:tabView id="painel">
 
@@ -92,7 +98,7 @@
 				<p:tab id="contato" title="Tipo">
 					<h:panelGrid columns="5">
 					<p:outputLabel for="tipoRequerimento" value="Tipo do Requerimento:" />
-			  	           <p:selectOneMenu id="tipoRequerimento" value="#{outorganteEdicaoBean.outorgante.tipoRequerimento}" required="true" requiredMessage="O campo 'Tipo' é obrigatório">
+			  	           <p:selectOneMenu id="tipoRequerimento" value="#{outoganteEdicaoBean.outorgante.tipoRequerimento}" required="true" requiredMessage="O campo 'Tipo' é obrigatório">
 				                     <f:selectItem itemValue="O" itemLabel="Outorga"/>
 				                     <f:selectItem itemValue="R" itemLabel="Renovação" />
 				                     <f:selectItem itemValue="T" itemLabel="Transferência"/>
@@ -193,7 +199,7 @@
 				<p:inputText id="outros" label="outros" size="15" maxlength="20" value="#{outoganteEdicaoBean.outorgante.outrasModalidades}" />
 					
 			    <p:outputLabel for="barragem" value="Barragem:" />
-				<p:selectOneMenu id="barragem" value="#{outorganteEdicaoBean.outorgante.barragem}">
+				<p:selectOneMenu id="barragem" value="#{outoganteEdicaoBean.outorgante.barragem}">
                          <f:selectItem itemValue="0" itemLabel="0"/>				        
 				         <f:selectItem itemValue="1" itemLabel="Maior 500.000m³"/>
 				         <f:selectItem itemValue="2" itemLabel="Menor 500.000m³"/>				       			      
