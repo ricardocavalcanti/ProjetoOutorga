@@ -10,13 +10,200 @@
 	
 <f:metadata>
 
-  <f:viewAction action="#{outorganteListagemBean.listar}"/>
-
+   <!-- Recebe dados para outra tela para fazer a edicao -->
+   <f:viewParam name="codigo" value="#{outoganteEdicaoBean.codigoOutorgante}" required="true" 
+    requiredMessage="Campo código é obrigatório"/>
+   
+   <!-- Acao/metodo que pagina chama do bean  -->
+   <f:viewAction action="#{outoganteEdicaoBean.carregarEdicao}"/>     
+   
 </f:metadata>	
 
  <ui:define name="conteudo">
+ 
+   <p:growl id="mensagem"/>
      
-     
+     <h:form id="formCadastro">			
+      <p:panel header="Outorgante - Edição">
+   
+        <p:commandButton value="Voltar" icon="ui-icon-trash"/>                 
+        <p:commandButton value="Editar" icon="ui-icon-disk" update=":mensagem"/>
+
+
+			<p:tabView id="painel">
+
+				<p:tab id="processo" title="Processo">				
+				<h:panelGrid columns="2">
+						<h:outputText value="Processo APAC: " />
+						<p:inputText id="processoApac" maxlength="1000" size="10" value="#{outoganteEdicaoBean.outorgante.processoApac}" required="true" requiredMessage="Campo 'Processo APAC' obrigatório"
+                         validatorMessage="Informe processoApac diferente de '0' ">
+					    <f:validateLongRange minimum="1"/>					    
+					    </p:inputText>
+					     					      
+						<h:outputText for="processoCprh" value="Processo CPRH:" />						
+						<p:inputText id="processoCprh" maxlength="1000" size="10" value="#{outoganteEdicaoBean.outorgante.processoCprh}" required="true" requiredMessage="Campo 'Processo CPRH' obrigatório"
+						 validatorMessage="Informe um processoCprh diferente de '0'">
+					    <f:validateLongRange minimum="1"/>   
+					    </p:inputText>
+				</h:panelGrid>
+				</p:tab>
+				
+				<p:tab id="dadosClientes" title="Dados">
+				<h:panelGrid columns="2">						
+
+						<h:outputText for="nomeOutorgante" value="Nome/Razão Social:" />
+						<p:inputText id="nomeOutorgante" maxlength="50" size="50" value="#{outoganteEdicaoBean.outorgante.nomeRazao}" required="true" requiredMessage="Campo 'Razão Social' obrigatório"/>
+						
+						<h:outputText for="cpfCnpj" value="CPF/CNPJ:" />
+						<p:inputText id="cpfCnpj" maxlength="20" size="20" value="#{outoganteEdicaoBean.outorgante.cpfCnpj}" required="true" requiredMessage="Campo 'CPF/CNPJ' obrigatório"/>
+						
+						<h:outputText for="telefone" value="Telefone:" />
+						<p:inputMask id="telefone" mask="(99) 9 9999-9999" maxlength="9" size="18" value="#{outoganteEdicaoBean.outorgante.telefone}" required="true" requiredMessage="Campo 'Telefone' obrigatório" />
+						
+						<h:outputText for="email" value="Email:" />
+						<p:inputText id="email" maxlength="50" size="40" value="#{outoganteEdicaoBean.outorgante.email}" required="true" requiredMessage="Campo 'Email Outorgante' obrigatório"/>				
+						
+				</h:panelGrid>					
+				</p:tab>
+
+				<p:tab id="enderecoClientes" title="Endereço">
+				
+					<h:panelGrid columns="4">
+						<h:outputText for="rua" value="Rua:" />
+						<p:inputText id="rua" maxlength="40" size="30" value="#{outoganteEdicaoBean.outorgante.rua}" required="true" requiredMessage="Campo 'Rua' obrigatório" />				
+				
+						<h:outputText for="bairro" value="Bairro:" />
+						<p:inputText id="bairro" maxlength="40" size="30" value="#{outoganteEdicaoBean.outorgante.bairro}" required="true" requiredMessage="Campo 'Bairro' obrigatório"/>
+						
+						<h:outputText for="cidade" value="Cidade:" />
+						<p:inputText id="cidade" maxlength="40" size="30" value="#{outoganteEdicaoBean.outorgante.cidade}" required="true" requiredMessage="Campo 'Cidade' obrigatório"/>				
+
+						<h:outputText value="Número:" />
+						<p:inputText id="numero" maxlength="10" size="4" value="#{outoganteEdicaoBean.outorgante.numero}" required="true" requiredMessage="Campo 'Numero' obrigatório" />						
+
+						<h:outputText value="Complemento:" />
+						<p:inputText id="complemento" maxlength="40" size="30" value="#{outoganteEdicaoBean.outorgante.complemento}" required="true" requiredMessage="Campo 'Complemento' obrigatório" />									
+
+						<h:outputText value="UF: " />
+						<p:inputText id="uf" maxlength="2" size="2" value="#{outoganteEdicaoBean.outorgante.uf}" required="true" requiredMessage="Campo 'UF' obrigatório" />			
+					</h:panelGrid>
+				</p:tab>
+
+				<p:tab id="contato" title="Tipo">
+					<h:panelGrid columns="5">
+					<p:outputLabel for="tipoRequerimento" value="Tipo do Requerimento:" />
+			  	           <p:selectOneMenu id="tipoRequerimento" value="#{outorganteEdicaoBean.outorgante.tipoRequerimento}" required="true" requiredMessage="O campo 'Tipo' é obrigatório">
+				                     <f:selectItem itemValue="O" itemLabel="Outorga"/>
+				                     <f:selectItem itemValue="R" itemLabel="Renovação" />
+				                     <f:selectItem itemValue="T" itemLabel="Transferência"/>
+				                     <f:selectItem itemValue="A" itemLabel="Alteração"/>
+				                     <f:selectItem itemValue="N" itemLabel="Outros"/>
+				          </p:selectOneMenu>						
+					</h:panelGrid>
+				</p:tab>
+
+				<p:tab id="tecnico" title="Técnico">
+					<h:panelGrid columns="2">
+					
+					<h:outputText value="Registro:" />
+					<p:inputText id="registro" maxlength="10" size="10" value="#{outoganteEdicaoBean.outorgante.registroTecnico}" required="true" requiredMessage="Campo 'Registro' obrigatório"
+					validatorMessage="Informe um registro diferente de '0'">
+					<f:validateLongRange minimum="1"/>
+					</p:inputText>
+					
+					<h:outputText value="Nome:" />
+					<p:inputText id="nomeTecnico" maxlength="50" size="50" value="#{outoganteEdicaoBean.outorgante.nomeTecnico}" required="true" requiredMessage="Campo 'Nome Tecnico' obrigatório"/>			
+					
+					<h:outputText value="Telefone:" />
+					<p:inputMask id="telefoneTecnico" mask="(99) 9 9999-9999" maxlength="18" size="18" value="#{outoganteEdicaoBean.outorgante.telefoneTecnico}" required="true" requiredMessage="Campo 'Telefone' obrigatório"/>				
+				    
+					<h:outputText value="Email:" />
+					<p:inputText id="emailTecnico"  maxlength="50" size="40" value="#{outoganteEdicaoBean.outorgante.emailTecnico}" required="true" requiredMessage="Campo 'Email Tecnico' obrigatório"/>	
+						
+					</h:panelGrid>
+				</p:tab>
+
+				<p:tab id="finalidade" title="Finalidade">
+					<h:panelGrid columns="4">					
+					
+				<p:selectBooleanCheckbox id="captacao" value="#{outoganteEdicaoBean.outorgante.captacao}"/>
+				<p:outputLabel for="captacao" value="Captação"/> 
+			
+				<p:selectBooleanCheckbox id="diluicao" value="#{outoganteEdicaoBean.outorgante.diluicao}"/>
+				<p:outputLabel for="diluicao" value="Diluição" /> 
+			
+				<p:selectBooleanCheckbox id="drdh" value="#{outoganteEdicaoBean.outorgante.drdh}"/>
+				<p:outputLabel for="drdh" value="DRDH" /> 
+				
+				<p:selectBooleanCheckbox id="construcaoObra" value="#{outoganteEdicaoBean.outorgante.construcaoObra}"/>
+				<p:outputLabel for="construcaoObra" value="Construção Obra" /> 
+				
+				<p:selectBooleanCheckbox id="irrigacao" value="#{outoganteEdicaoBean.outorgante.irrigacao}"/>
+				<p:outputLabel for="irrigacao" value="Construção Obra" /> 
+				
+				<p:selectBooleanCheckbox id="abastecimentoInCom" value="#{outoganteEdicaoBean.outorgante.abastecimentoInCom}"/>
+				<p:outputLabel for="abastecimentoInCom" value="Abast.Ind/Comer" /> 
+				
+				<p:selectBooleanCheckbox id="dessentacaoAnimal" value="#{outoganteEdicaoBean.outorgante.dessentacaoAnimal}"/>
+				<p:outputLabel for="dessentacaoAnimal" value="Dessendentação Animal" /> 
+				
+				<p:selectBooleanCheckbox id="abastecimentoHum" value="#{outoganteEdicaoBean.outorgante.abastecimentoHum}"/>
+				<p:outputLabel for="abastecimentoHum" value="Abast.Humano" /> 
+				
+				<p:selectBooleanCheckbox id="aquiculturaCarcini" value="#{outoganteEdicaoBean.outorgante.aquiculturaCarcini}"/>
+				<p:outputLabel for="aquiculturaCarcini" value="Aquicultura/Carcinicultura" /> 				
+				
+				<p:selectBooleanCheckbox id="ponte" value="#{outoganteEdicaoBean.outorgante.ponte}"/>
+				<p:outputLabel for="ponte" value="Ponte" /> 
+			
+				<p:selectBooleanCheckbox id="travessiaDutos" value="#{outoganteEdicaoBean.outorgante.travessiaDutos}"/>
+				<p:outputLabel for="travessiaDutos" value="Travessia de Dutos" /> 
+				
+				<p:selectBooleanCheckbox id="terraplanagem" value="#{outoganteEdicaoBean.outorgante.terraplanagem}"/>
+				<p:outputLabel for="terraplanagem" value="Terraplanagem" /> 
+				
+				<p:selectBooleanCheckbox id="geracaoEnergia" value="#{outoganteEdicaoBean.outorgante.geracaoEnergia}"/>
+				<p:outputLabel for="geracaoEnergia" value="Geracao de Energia" /> 
+				
+					<p:selectBooleanCheckbox id="lancamentoEfluentes" value="#{outoganteEdicaoBean.outorgante.lancamentoEfluentes}"/>
+				<p:outputLabel for="lancamentoEfluentes" value="Lancamento de Efluentes" /> 
+			
+				<p:selectBooleanCheckbox id="extracaoMineral" value="#{outoganteEdicaoBean.outorgante.extracaoMineral}"/>
+				<p:outputLabel for="extracaoMineral" value="Extracao Mineral" /> 
+				
+				<p:selectBooleanCheckbox id="obrasDrenagem" value="#{outoganteEdicaoBean.outorgante.obrasDrenagem}"/>
+				<p:outputLabel for="obrasDrenagem" value="Obras de Drenagem" /> 
+				
+				<p:selectBooleanCheckbox id="revestimentoCanal" value="#{outoganteEdicaoBean.outorgante.revestimentoCanal}"/>
+				<p:outputLabel for="revestimentoCanal" value="Revestimento de Canal" /> 
+				
+				<p:selectBooleanCheckbox id="dique" value="#{outoganteEdicaoBean.outorgante.dique}"/>
+				<p:outputLabel for="dique" value="Dique" /> 		
+							
+               </h:panelGrid>
+           </p:tab>  
+           
+           
+           <p:tab id="outrasModalidades" title="Outras Modalidades">          
+           
+           
+           	<h:panelGrid columns="2">	 				
+					
+				<h:outputText for="id" value="Outros:" />
+				<p:inputText id="outros" label="outros" size="15" maxlength="20" value="#{outoganteEdicaoBean.outorgante.outrasModalidades}" />
+					
+			    <p:outputLabel for="barragem" value="Barragem:" />
+				<p:selectOneMenu id="barragem" value="#{outorganteEdicaoBean.outorgante.barragem}">
+                         <f:selectItem itemValue="0" itemLabel="0"/>				        
+				         <f:selectItem itemValue="1" itemLabel="Maior 500.000m³"/>
+				         <f:selectItem itemValue="2" itemLabel="Menor 500.000m³"/>				       			      
+				</p:selectOneMenu>									
+					</h:panelGrid>
+				</p:tab>           
+           
+            </p:tabView>
+	</p:panel>		
+		</h:form>
  
        
 </ui:define>

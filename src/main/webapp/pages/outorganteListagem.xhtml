@@ -8,30 +8,23 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	template="/templates/modelo.xhtml">
 	
-<f:metadata>
+<f:metadata>   
 
-  <f:viewAction action="#{outorganteListagemBean.listar}"/>
+     <!-- Carregar lista -->
+     <f:viewAction action="#{outorganteListagemBean.listar}"/>   
 
 </f:metadata>	
 
  <ui:define name="conteudo">
      
-    <h:form id="formListagem">
-    
-      <p:toolbar style="margin-top: 20px">
-                <p:toolbarGroup align="right">
-                
-                 <p:commandButton value="Novo" icon="ui-icon-star"/>             
-                 
-                 <p:commandButton value="Imprimir" icon="ui-icon-print"/>
-                </p:toolbarGroup>                           
-          </p:toolbar> 
+    <h:form id="formListagem">    
+     
 
 		<p:panel header="Outorgante - Listagem"> 			 		
             
 			<p:dataTable  id="tabela" emptyMessage="Nenhum registro encontrado." paginator="true" value="#{outorganteListagemBean.listaOutorgante}" var="listaOutorgantes" rows="10">
 		
-				<p:column headerText="Nome/Razao" sortBy="#{listaOutorgantes.nomeRazao}">
+				<p:column headerText="Nome/Razao" sortBy="#{listaOutorgantes.nomeRazao}" filterBy="#{listaOutorgantes.nomeRazao}">
 					<h:outputText value="#{listaOutorgantes.nomeRazao}" />
 				</p:column>
 				
@@ -50,7 +43,11 @@
 				<p:column headerText="Opções">
 
 					<p:commandButton icon="ui-icon-trash"/>
-					<p:commandButton icon="ui-icon-pencil"/>
+					<p:button icon="ui-icon-pencil" outcome="/pages/outorganteEdicao.xhtml">
+					   <f:param name="codigo" value="#{listaOutorgantes.codigo}" />
+					</p:button>
+					
+					<p:commandButton icon="ui-icon-search"/>
 						
 					
 				</p:column>

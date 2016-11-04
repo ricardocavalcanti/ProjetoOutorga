@@ -1,7 +1,6 @@
 package br.com.pgo.bean;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -15,19 +14,28 @@ import br.com.pgo.domain.Outorgante;
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
-public class OutorganteListagemBean implements Serializable {
+public class OutoganteEdicaoBean implements Serializable {
 
-	private List<Outorgante> listaOutorgante;	
+	private Long codigoOutorgante;
 	private OutorganteDAO outorganteDAO;
+	private Outorgante outorgante;
 
-	public List<Outorgante> getListaOutorgante() {
-		return listaOutorgante;
+	public Long getCodigoOutorgante() {
+		return codigoOutorgante;
 	}
 
-	public void setListaOutorgante(List<Outorgante> listaOutorgante) {
-		this.listaOutorgante = listaOutorgante;
+	public void setCodigoOutorgante(Long codigoOutorgante) {
+		this.codigoOutorgante = codigoOutorgante;
 	}
-	
+
+	public Outorgante getOutorgante() {
+		return outorgante;
+	}
+
+	public void setOutorgante(Outorgante outorgante) {
+		this.outorgante = outorgante;
+	}
+
 	@PostConstruct
 	public void iniciar() {
 
@@ -35,11 +43,12 @@ public class OutorganteListagemBean implements Serializable {
 
 	}
 
-	public void listar() {
+	public void carregarEdicao(){
 
 		try {
 
-			listaOutorgante = outorganteDAO.listar();
+			outorgante = outorganteDAO.buscar(codigoOutorgante);
+			System.out.println(outorgante.getNomeRazao());
 
 		} catch (RuntimeException erro) {
 
@@ -47,4 +56,5 @@ public class OutorganteListagemBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
+
 }
