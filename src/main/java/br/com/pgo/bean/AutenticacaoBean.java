@@ -1,6 +1,7 @@
 package br.com.pgo.bean;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -72,5 +73,24 @@ public class AutenticacaoBean {
 		}
 
 	}
+
+	/**
+	 * Controle de permissões das paginas, onde o usuário pode ou não acessar
+	 */
+	public boolean temPermissoes(List<Character> permissoes) {
+		
+		
+		System.out.println("Permissoes: " + permissoes);
+
+		for (Character permissao : permissoes) {
+
+			if (usuarioLogin.getTipo() == permissao) {
+				return true;
+			}
+
+		}
+		return false;
+	}
+	
 
 }

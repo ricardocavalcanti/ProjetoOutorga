@@ -7,22 +7,26 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>APAC-Autenticação</title>
 	<link rel="shortcut icon" type="image/x-icon"
-		href="#{request.contextPath}/resources/images/favicon.ico"/>
+		href="#{request.contextPath}/resources/images/favicon.ico" />
+	<h:outputStylesheet library="css" name="login.css" />
 </h:head>
 
 <h:body>
-  
-  <h:graphicImage value="/resources/images/fundo.gif"></h:graphicImage>
+
+	<h:graphicImage value="/resources/images/fundo.gif"></h:graphicImage>
 
 	<p:growl id="mensagem" />
 
-	<p:dialog header="Acesso ao sistema de outorgas" closable="false" draggable="false"
-		resizable="false" modal="true" visible="true">
-		<h:form>
-			<h:panelGrid columns="2">
+	<div id="login-dialog">
+
+		<h:form id="frm" prependId="false">
+
+
+			<h:panelGrid columns="2" rowClasses="3" styleClass="grid-login">
+
 
 				<p:outputLabel for="login" value="Login:" />
 				<p:inputText id="login" required="true"
@@ -32,13 +36,22 @@
 				<p:password id="senha" maxlength="10" required="true"
 					requiredMessage="Campo 'Senha' é obrigatório" value="#{autenticacaoBean.usuario.senha}" />
 
-			</h:panelGrid>
 
-			<h:panelGrid columns="1">
 				<p:commandButton value="Entrar" update=":mensagem" actionListener="#{autenticacaoBean.autenticar}"/>
 			</h:panelGrid>
+
+			<center>
+				<h:panelGrid columns="2" rowClasses="5">
+
+
+
+				</h:panelGrid>
+			</center>
+
 		</h:form>
-	</p:dialog>
+
+	</div>
+
 
 </h:body>
 </html>
