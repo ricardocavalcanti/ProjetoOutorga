@@ -42,12 +42,14 @@
 
 				<p:column headerText="Opções">
 
-					<p:commandButton icon="ui-icon-trash"/>
-					<p:button icon="ui-icon-pencil" outcome="/pages/outorganteEdicao.xhtml">
+					<p:commandButton icon="ui-icon-trash" rendered="#{autenticacaoBean.usuarioLogin.tipo == A}"/>
+					<p:button icon="ui-icon-pencil" outcome="/pages/outorganteEdicao.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == A}">
 					   <f:param name="codigo" value="#{listaOutorgantes.codigo}" />
 					</p:button>
 					
-					<p:commandButton icon="ui-icon-search"/>
+					<p:button icon="ui-icon-search"  outcome="/pages/outorganteEdicao.xhtml">
+					     <f:param name="codigo" value="#{listaOutorgantes.codigo}" />
+					</p:button>
 						
 					
 				</p:column>

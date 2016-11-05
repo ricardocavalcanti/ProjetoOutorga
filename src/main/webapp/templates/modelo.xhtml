@@ -27,27 +27,27 @@
 					</p:submenu>
 
 					<p:submenu label="Cadastro">
-						<p:menuitem value="Unidade Análise" url="/pages/ua.xhtml"/>
+						<p:menuitem value="Unidade Análise" url="/pages/ua.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == A}"/>
 						<p:menuitem value="Outorgante" url="/pages/outorganteCadastro.xhtml" />
-						<p:menuitem value="Pessoa" url="/pages/pessoa.xhtml"/> 
-						<p:menuitem value="Usuário" url="/pages/usuario.xhtml"/>
+						<p:menuitem value="Pessoa" url="/pages/pessoa.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == A}"/> 
+						<p:menuitem value="Usuário" url="/pages/usuario.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == A}"/>
 					</p:submenu>
 					
 					<p:submenu label="Listar">
 						<p:menuitem value="Outorgante" url="/pages/outorganteListagem.xhtml"/>
-						<p:menuitem value="Usuário" url="/pages/outorganteListagem.xhtml"/>
-						<p:menuitem value="Pessoa" url="/pages/outorganteListagem.xhtml"/>
-						<p:menuitem value="Outorgas" url="/pages/outorganteListagem.xhtml"/>
+						<p:menuitem value="Usuário" url="/pages/outorganteListagem.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == A}"/>
+						<p:menuitem value="Pessoa" url="/pages/outorganteListagem.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == A}"/>
+						<p:menuitem value="Outorgas" url="/pages/outorganteListagem.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == A}"/>
 							
 					</p:submenu>
 
-					<p:submenu label="Relatório">
+					<p:submenu label="Relatório" rendered="#{autenticacaoBean.usuarioLogin.tipo == A}">
 						<p:menuitem value="Imprimir"
 							actionListener="#{imprimirBean.imprimir}" />
 					</p:submenu>
 
 					<p:submenu label="Ajuda">
-						<p:menuitem value="Sobre" />
+						<p:menuitem value="Suporte TI - Ramal 2289" />
 					</p:submenu>
 
 				</p:menubar>
