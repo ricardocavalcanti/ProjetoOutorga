@@ -91,6 +91,22 @@ public class AutenticacaoBean {
 		}
 		return false;
 	}
+	/**
+	 * Metódo para sair da aplicação, o usuario recebe null
+	 *  Uma vez que nenhum  usuario nulo pode ficar autenticado na aplicação
+	 * 
+	 */
+	public String sair(){
+		
+		usuarioLogin = null;
+		
+		return "/pages/autenticacao.xhtml?faces-redirect==true";
+		/**
+		 * ?faces-redirect==true serve para mudar a url do navegador apos fazer o redirecionamento
+		 * para a nova página (No caso é uma redirect)
+		 * 
+		 */
+	}
 	
 
 }
