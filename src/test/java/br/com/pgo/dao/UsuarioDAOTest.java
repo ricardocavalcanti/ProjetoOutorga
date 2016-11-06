@@ -14,13 +14,13 @@ public class UsuarioDAOTest {
 	public void salvar() {
 
 		PessoaDAO pessoaDAO = new PessoaDAO();
-		Pessoa pessoa = pessoaDAO.buscar(55L);
+		Pessoa pessoa = pessoaDAO.buscar(1L);
 		Usuario usuario = new Usuario();
 
 		
 		
 		usuario.setAtivo(true);
-		usuario.setLogin("antonio.silva");
+		usuario.setLogin("administrador");
 		usuario.setPessoa(pessoa);
 		usuario.setSenhaSemCriptografia("12345678");
 		
@@ -31,7 +31,7 @@ public class UsuarioDAOTest {
 		usuario.setTipo('A');
 
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		usuarioDAO.salvar(usuario);
+		usuarioDAO.merge(usuario);
 
 		System.out.println("Usuário salvo com sucesso!");
 	}
