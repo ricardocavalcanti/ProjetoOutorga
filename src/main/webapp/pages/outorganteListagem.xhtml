@@ -42,8 +42,8 @@
 
 				<p:column headerText="Opções">
 
-					<p:commandButton icon="ui-icon-trash" rendered="#{autenticacaoBean.usuarioLogin.tipo == A}"/>
-					<p:button icon="ui-icon-pencil" outcome="/pages/outorganteEdicao.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == A}">
+					<p:commandButton icon="ui-icon-trash" rendered="#{autenticacaoBean.usuarioLogin.tipo =='A'.charAt(0)}"/>
+					<p:button icon="ui-icon-pencil" outcome="/pages/outorganteEdicao.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}">
 					   <f:param name="codigo" value="#{listaOutorgantes.codigo}" />
 					</p:button>
 					

@@ -31,7 +31,7 @@
                 <p:toolbarGroup align="right">
                 
                 <p:button value="Voltar" icon="ui-icon-trash" outcome="/pages/outorganteListagem.xhtml"/>                 
-                <p:commandButton value="Editar" icon="ui-icon-disk" update=":mensagem" actionListener="#{outoganteEdicaoBean.salvarEdicao}" rendered="#{autenticacaoBean.usuarioLogin.tipo == A}"/>
+                <p:commandButton value="Editar" icon="ui-icon-disk" update=":mensagem" actionListener="#{outoganteEdicaoBean.salvarEdicao}" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}"/>
                  
                 </p:toolbarGroup>                           
           </p:toolbar> 
