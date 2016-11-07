@@ -27,7 +27,7 @@
 					</p:submenu>
 
 					<p:submenu label="Cadastro">
-						<p:menuitem value="Unidade Análise" url="/pages/ua.xhtml" rendered="${autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}"/>
+						<p:menuitem value="Unidade Análise" url="/pages/uaCadastro.xhtml" rendered="${autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}"/>
 						<p:menuitem value="Outorgante" url="/pages/outorganteCadastro.xhtml" />
 						<p:menuitem value="Pessoa" url="/pages/pessoa.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}"/> 
 						<p:menuitem value="Usuário" url="/pages/usuario.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}"/>
