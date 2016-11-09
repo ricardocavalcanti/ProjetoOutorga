@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/templates/modelo.xhtml">
+	
+ <ui:define name="conteudo">	
+ 
+	<p:growl id="mensagem" />
+	
+	  <h:form id="formCadastro">	      
+                   
+	 <p:panel header="Pessoa - Cadastro">
+	 
+	 <p:toolbar style="margin-top: 20px">	   
+                <p:toolbarGroup align="right">                                
+                   <p:commandButton value="Salvar" icon="ui-icon-disk"/>                 
+                </p:toolbarGroup>
+        </p:toolbar>
+       <h:panelGrid id="painel" columns="6" cellpadding="8" cellspacing="1">
+
+				<p:outputLabel for="nome" value="Nome" />
+				<p:inputText id="nome" maxlength="50" size="40" value="#{pessoaBean.pessoa.nome}" required="true" requiredMessage="Campo 'Nome' obrigatório" />
+
+				<p:outputLabel for="email" value="Email" />
+				<p:inputText id="email" maxlength="50" size="30" value="#{pessoaBean.pessoa.email}" required="true" requiredMessage="Campo 'Email' obrigatório"/>
+
+				<p:outputLabel for="setor" value="Setor" />
+				<p:inputText id="setor" maxlength="50" size="10" value="#{pessoaBean.pessoa.setor}" required="true" requiredMessage="Campo 'Setor' obrigatório" />
+
+				<p:outputLabel for="telefone" value="Telefone" />
+				<p:inputMask id="telefone" mask="(99) 9 9999-9999" maxlength="80" size="15" value="#{pessoaBean.pessoa.telefone}" required="true" requiredMessage="Campo 'Telefone' obrigatório"/>				
+
+				<p:outputLabel for="matricula" value="Matricula" />
+				<p:inputText id="matricula" maxlength="50" size="15" value="#{pessoaBean.pessoa.matricula}" required="true" requiredMessage="Campo 'Matricula' obrigatório"/>
+			</h:panelGrid>
+
+			</p:panel> 
+	  </h:form>
+	  
+	  </ui:define>
+</ui:composition>

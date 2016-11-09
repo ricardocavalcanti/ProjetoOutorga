@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/templates/modelo.xhtml">
+	
+ <ui:define name="conteudo">	
+ 
+	<p:growl id="mensagem" />
+	
+	  <h:form id="formCadastro">	      
+                   
+	 <p:panel header="Unidade de análise - Cadastro">
+	 
+	 <p:toolbar style="margin-top: 20px">	   
+                <p:toolbarGroup align="right">                                
+                   <p:commandButton value="Salvar" icon="ui-icon-disk"/>                 
+                </p:toolbarGroup>
+        </p:toolbar>
+       			<h:panelGrid id="painel" columns="2">
+			
+				<p:outputLabel for="login" value="Login" />
+				<p:inputText id="login" maxlength="32" size="20" value="#{usuarioBean.usuario.login}" required="true" requiredMessage="O campo 'Login' é obrigatório" />
+
+				<p:outputLabel for="senha" value="Senha" />
+				<p:password id="senha" maxlength="32" size="20" value="#{usuarioBean.usuario.senha}"
+				required="true" requiredMessage="O campo 'Senha' é obrigatório" validatorMessage="Informe uma senha de 8 a 10 caracteres">
+				<f:validateLength minimum="6" maximum="10"/>				
+				</p:password>
+				
+				<!-- Criar chave estrangeira na tela -->
+				<!-- SelectItemsConverter converter valores chaves estrangeira
+				para corrigir erro de conversão da tela, "SEMPRE QUE USAR SelectOneMenu-->				
+				<p:selectOneMenu filter="true" id="pessoa" value="#{usuarioBean.usuario.pessoa}" converter="omnifaces.SelectItemsConverter" 
+				requiredMessage="O campo 'Pessoa' é obrigatório!" required="true">				
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione uma Pessoa"/>
+					<f:selectItems value="#{usuarioBean.listaPessoa}" var="listaPessoas" itemValue="#{listaPessoas}"
+					itemLabel="#{listaPessoas.nome}"/> <!--value= É a amarra com o campo do Bean/ var= cursor/ itemValue= onde vai salvar/ itemLabel= O que vai mostrar-->					
+				</p:selectOneMenu>
+
+				<p:outputLabel for="tipo" value="Tipo:" />
+				<p:selectOneRadio id="tipo" value="#{usuarioBean.usuario.tipo}" required="true" requiredMessage="O campo 'Tipo' é obrigatório">
+				   <f:selectItem itemValue="A" itemLabel="Administrador"/>
+				   <f:selectItem itemValue="G" itemLabel="Gerente" />
+				   <f:selectItem itemValue="U" itemLabel="Usuário"/>
+				</p:selectOneRadio>
+								
+				<p:outputLabel for="ativo" value="Ativo:" /> 
+				<p:selectBooleanCheckbox id="ativo" value="#{usuarioBean.usuario.ativo}" required="true" requiredMessage="O campo 'Ativo' é obrigatório" />
+				
+			</h:panelGrid> 
+	  
+			</p:panel> 
+	  </h:form>
+	  
+	  </ui:define>
+</ui:composition>

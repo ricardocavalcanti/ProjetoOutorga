@@ -22,22 +22,23 @@
 			<h:form id="formMenu">
 				<p:menubar>
 					<p:submenu label="Arquivo">
-						<p:menuitem value="Simulação" url="/pages/venda.xhtml" />
+						<p:menuitem value="Simulação" url="/pages/simulacao.xhtml" />
 						<p:menuitem value="Sair" action="#{autenticacaoBean.sair()}"/>
 					</p:submenu>
 
 					<p:submenu label="Cadastro">
 						<p:menuitem value="Unidade Análise" url="/pages/uaCadastro.xhtml" rendered="${autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}"/>
 						<p:menuitem value="Outorgante" url="/pages/outorganteCadastro.xhtml" />
-						<p:menuitem value="Pessoa" url="/pages/pessoa.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}"/> 
-						<p:menuitem value="Usuário" url="/pages/usuario.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}"/>
+						<p:menuitem value="Pessoa" url="/pages/pessoaCadastro.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}"/> 
+						<p:menuitem value="Usuário" url="/pages/usuarioCadastro.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}"/>
 					</p:submenu>
 					
 					<p:submenu label="Listar">
 						<p:menuitem value="Outorgante" url="/pages/outorganteListagem.xhtml"/>
-						<p:menuitem value="Usuário" url="/pages/usuario.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}"/>
-						<p:menuitem value="Pessoa" url="/pages/pessoa.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}"/>
+						<p:menuitem value="Usuário" url="/pages/usuarioListagem.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}"/>
+						<p:menuitem value="Pessoa" url="/pages/pessoaListagem.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}"/>
 						<p:menuitem value="Outorgas" url="/pages/outorganteListagem.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}"/>
+						<p:menuitem value="Unidade de análise" url="/pages/uaListagem.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}"/>
 							
 					</p:submenu>
 

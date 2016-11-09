@@ -40,14 +40,14 @@
 					<h:outputText value="#{listaOutorgantes.email}" />
 				</p:column>				
 
-				<p:column headerText="Opções">
+				<p:column style="width:100px" headerText="Opções">
 
 					<p:commandButton icon="ui-icon-trash" rendered="#{autenticacaoBean.usuarioLogin.tipo =='A'.charAt(0)}"/>
 					<p:button icon="ui-icon-pencil" outcome="/pages/outorganteEdicao.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}">
 					   <f:param name="codigo" value="#{listaOutorgantes.codigo}" />
 					</p:button>
 					
-					<p:button icon="ui-icon-search"  outcome="/pages/outorganteEdicao.xhtml">
+					<p:button icon="ui-icon-search" outcome="/pages/outorganteEdicao.xhtml">
 					     <f:param name="codigo" value="#{listaOutorgantes.codigo}" />
 					</p:button>
 						

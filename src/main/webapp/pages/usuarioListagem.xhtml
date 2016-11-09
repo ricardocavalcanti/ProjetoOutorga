@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/templates/modelo.xhtml">
+
+ <ui:define name="conteudo">
+
+    <p:growl id="mensagem"/>  
+   
+	<h:form id="formListagem"> 
+	
+		<p:panel header="Usuário - Listagem">
+		
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado." paginator="true" value="#{usuarioBean.listaUsuario}" var="listaUsuarios" rows="10">
+				
+
+				<p:column headerText="Pessoa" sortBy="#{listaUsuarios.pessoa}" filterBy="#{listaUsuarios.pessoa}">
+				   <h:outputText value="#{listaUsuarios.pessoa.nome}"/>
+				</p:column>
+				
+				<p:column headerText="Login">
+				   <h:outputText value="#{listaUsuarios.login}"/>
+				</p:column>
+								
+				<p:column headerText="Senha">
+				  <h:outputText value="#{listaUsuarios.senha}"/>
+				</p:column>		
+						
+				<p:column headerText="Tipo">
+				  <h:outputText value="#{listaUsuarios.tipoFormatado}"/>
+				</p:column>
+				
+				<p:column headerText="Ativo">
+				  <h:outputText value="#{listaUsuarios.ativoFormatado}"/>
+				</p:column>	
+				
+				<p:column headerText="Opções" style="width:100px">				    
+		              <p:commandButton icon="ui-icon-trash"/> 
+		              <p:button icon="ui-icon-pencil" outcome="/pages/usuarioEdicao.xhtml"/>			       
+				      <p:button icon="ui-icon-search" outcome="/pages/usuarioEdicao.xhtml"/>				
+				</p:column>							
+			</p:dataTable>	
+		</p:panel>	
+	 </h:form> 
+  </ui:define>
+</ui:composition>
