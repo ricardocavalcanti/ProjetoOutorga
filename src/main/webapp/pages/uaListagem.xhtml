@@ -8,6 +8,13 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	template="/templates/modelo.xhtml">
 	
+<f:metadata>   
+
+     <!-- Carregar lista -->
+     <f:viewAction action="#{uaListagemBean.listar()}"/>   
+
+</f:metadata>		
+	
  <ui:define name="conteudo">	
  
 	<p:growl id="mensagem" />
@@ -17,7 +24,7 @@
 		<p:panel header="UA - Listagem">
 		
 			<p:dataTable  id="tabela" emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{uaBean.listaUa}" var="listaUas" rows="10"> <!-- rows: Informa a paginação -->
+				paginator="true" value="#{uaListagemBean.listaUa}" var="listaUas" rows="10"> <!-- rows: Informa a paginação -->
 
 				
 				<p:column style="width:100px" headerText="UA" sortBy="#{listaUas.numeroUa}" filterBy="#{listaUas.numeroUa}"> <!-- sortBy: Ordenação dos dados -->
@@ -103,9 +110,11 @@
 				</p:column>
 				
 				<p:column headerText="Opções" style="width:100px">				
-					<p:commandButton icon="ui-icon-trash" actionListener="#{uaBean.excluir}"/>					
-					<p:button icon="ui-icon-pencil" outcome="/pages/usuarioEdicao.xhtml"/>
-					<p:button icon="ui-icon-search" outcome="/pages/usuarioEdicao.xhtml"/>					
+					<p:commandButton icon="ui-icon-trash" rendered="${autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}"/>					
+					<p:button icon="ui-icon-pencil" outcome="/pages/uaEdicao.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}">
+					   <f:param name="codigo" value="#{listaUas.codigo}"/>
+					</p:button>
+					<p:button icon="ui-icon-search" outcome="/pages/uaEdicao.xhtml"/>					
 				</p:column>
 			</p:dataTable>			
 			</p:panel>

@@ -68,6 +68,7 @@ public class OutoganteEdicaoBean implements Serializable {
 		} catch (RuntimeException erro) {
 
 			Messages.addGlobalError("Erro ao editar Outorgante");
+			erro.printStackTrace();
 
 		}
 
