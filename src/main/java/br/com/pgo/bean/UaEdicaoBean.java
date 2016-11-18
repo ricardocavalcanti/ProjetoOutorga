@@ -51,7 +51,8 @@ public class UaEdicaoBean implements Serializable {
 
 		} catch (RuntimeException erro) {
 
-			Messages.addGlobalInfo("Ua editada com sucesso");
+			Messages.addGlobalInfo("Erro ao carregar edição da Unidade de análise");
+
 		}
 
 	}

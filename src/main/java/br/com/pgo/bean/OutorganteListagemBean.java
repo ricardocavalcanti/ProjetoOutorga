@@ -43,7 +43,7 @@ public class OutorganteListagemBean implements Serializable {
 
 		} catch (RuntimeException erro) {
 
-			Messages.addGlobalInfo("Erro ao listar Processo !");
+			Messages.addGlobalInfo("Erro ao listar Outorgante");
 			erro.printStackTrace();
 		}
 	}

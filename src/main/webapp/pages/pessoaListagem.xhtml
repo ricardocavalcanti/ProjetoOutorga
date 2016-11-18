@@ -9,6 +9,15 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	template="/templates/modelo.xhtml">
 	
+	
+<f:metadata>
+    
+    <!-- Carregar lista -->
+    <f:viewAction action="#{pessoaListagemBean.listar()}"></f:viewAction>
+
+
+</f:metadata>	
+	
  <ui:define name="conteudo">	
 	
 
@@ -18,7 +27,7 @@
 	
 		<p:panel header="Pessoa - Listagem">
 		
-			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado." paginator="true" value="#{pessoaBean.listaPessoa}" var="listaPessoas" rows="10">
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado." paginator="true" value="#{pessoaListagemBean.listaPessoa}" var="listaPessoas" rows="10">
 						
 				<p:column headerText="Nome" sortBy="#{listaPessoas.nome}" filterBy="#{listaPessoas.nome}">
 				  <h:outputText value="#{listaPessoas.nome}"/>
@@ -42,9 +51,15 @@
 				
 				<p:column headerText="Opções" style="width:100px">			
 									
-					<p:commandButton icon="ui-icon-trash"/>
-					<p:button icon="ui-icon-pencil" outcome="/pages/pessoaEdicao.xhtml"/>
-					<p:button icon="ui-icon-search" outcome="/pages/pessoaEdicao.xhtml"/>
+					<p:commandButton icon="ui-icon-trash" rendered="#{autenticacaoBean.usuarioLogin.tipo =='A'.charAt(0)}"/>
+					
+					<p:button icon="ui-icon-pencil" outcome="/pages/pessoaEdicao.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}">
+					   <f:param name="codigo" value="#{listaPessoas.codigo}" />
+					</p:button>
+					
+					<p:button icon="ui-icon-search" outcome="/pages/pessoaEdicao.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo != 'A'.charAt(0)}">
+					   <f:param name="codigo" value="#{listaPessoas.codigo}" />
+					</p:button>
 					
 				</p:column>
 				

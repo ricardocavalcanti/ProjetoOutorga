@@ -48,11 +48,11 @@ public class OutoganteEdicaoBean implements Serializable {
 		try {
 
 			outorgante = outorganteDAO.buscar(codigoOutorgante);
-			System.out.println(outorgante.getNomeRazao());
+			
 
 		} catch (RuntimeException erro) {
 
-			Messages.addGlobalInfo("Erro ao listar Processo !");
+			Messages.addGlobalInfo("Erro ao carregar edição do outorgante");
 			erro.printStackTrace();
 		}
 	}
@@ -67,7 +67,7 @@ public class OutoganteEdicaoBean implements Serializable {
 
 		} catch (RuntimeException erro) {
 
-			Messages.addGlobalError("Erro ao editar Outorgante");
+			Messages.addGlobalError("Erro ao editar outorgante");
 			erro.printStackTrace();
 
 		}

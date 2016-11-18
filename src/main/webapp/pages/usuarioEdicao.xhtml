@@ -8,6 +8,18 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	template="/templates/modelo.xhtml">
 	
+<f:metadata>
+
+   <!-- Recebe dados para outra tela para fazer a edicao -->
+   <f:viewParam name="codigo" value="#{usuarioEdicaoBean.codigoUsuario}" required="true" 
+    requiredMessage="Campo código é obrigatório"/>
+   
+   <!-- Acao/metodo que pagina chama do bean  -->
+   <f:viewAction action="#{usuarioEdicaoBean.carregarEdicao}"/>     
+   
+
+</f:metadata>	
+	
  <ui:define name="conteudo">	
  
 	<p:growl id="mensagem" />
@@ -19,16 +31,16 @@
 	 <p:toolbar style="margin-top: 20px">	   
                 <p:toolbarGroup align="right">                                
                 <p:button value="Voltar" icon="ui-icon-trash"  outcome="/pages/usuarioListagem.xhtml" />                 
-                <p:commandButton value="Editar" icon="ui-icon-disk"/>               
+                <p:commandButton value="Editar" icon="ui-icon-disk" update=":mensagem"/>               
                 </p:toolbarGroup>
         </p:toolbar>
        			<h:panelGrid id="painel" columns="2">
 			
 				<p:outputLabel for="login" value="Login" />
-				<p:inputText id="login" maxlength="32" size="20" value="#{usuarioBean.usuario.login}" required="true" requiredMessage="O campo 'Login' é obrigatório" />
+				<p:inputText id="login" maxlength="32" size="20" value="#{usuarioEdicaoBean.usuario.login}" required="true" requiredMessage="O campo 'Login' é obrigatório" />
 
 				<p:outputLabel for="senha" value="Senha" />
-				<p:password id="senha" maxlength="32" size="20" value="#{usuarioBean.usuario.senha}"
+				<p:password id="senha" maxlength="32" size="20" value="#{usuarioEdicaoBean.usuario.senha}"
 				required="true" requiredMessage="O campo 'Senha' é obrigatório" validatorMessage="Informe uma senha de 8 a 10 caracteres">
 				<f:validateLength minimum="6" maximum="10"/>				
 				</p:password>
@@ -36,22 +48,22 @@
 				<!-- Criar chave estrangeira na tela -->
 				<!-- SelectItemsConverter converter valores chaves estrangeira
 				para corrigir erro de conversão da tela, "SEMPRE QUE USAR SelectOneMenu-->				
-				<p:selectOneMenu filter="true" id="pessoa" value="#{usuarioBean.usuario.pessoa}" converter="omnifaces.SelectItemsConverter" 
+				<p:selectOneMenu filter="true" id="pessoa" value="#{usuarioEdicaoBean.usuario.pessoa}" converter="omnifaces.SelectItemsConverter" 
 				requiredMessage="O campo 'Pessoa' é obrigatório!" required="true">				
 					<f:selectItem noSelectionOption="true" itemLabel="Selecione uma Pessoa"/>
-					<f:selectItems value="#{usuarioBean.listaPessoa}" var="listaPessoas" itemValue="#{listaPessoas}"
+					<f:selectItems value="#{usuarioEdicaoBean.listaPessoa}" var="listaPessoas" itemValue="#{listaPessoas}"
 					itemLabel="#{listaPessoas.nome}"/> <!--value= É a amarra com o campo do Bean/ var= cursor/ itemValue= onde vai salvar/ itemLabel= O que vai mostrar-->					
 				</p:selectOneMenu>
 
 				<p:outputLabel for="tipo" value="Tipo:" />
-				<p:selectOneRadio id="tipo" value="#{usuarioBean.usuario.tipo}" required="true" requiredMessage="O campo 'Tipo' é obrigatório">
+				<p:selectOneRadio id="tipo" value="#{usuarioEdicaoBean.usuario.tipo}" required="true" requiredMessage="O campo 'Tipo' é obrigatório">
 				   <f:selectItem itemValue="A" itemLabel="Administrador"/>
 				   <f:selectItem itemValue="G" itemLabel="Gerente" />
 				   <f:selectItem itemValue="U" itemLabel="Usuário"/>
 				</p:selectOneRadio>
 								
 				<p:outputLabel for="ativo" value="Ativo:" /> 
-				<p:selectBooleanCheckbox id="ativo" value="#{usuarioBean.usuario.ativo}" required="true" requiredMessage="O campo 'Ativo' é obrigatório" />
+				<p:selectBooleanCheckbox id="ativo" value="#{usuarioEdicaoBean.usuario.ativo}" required="true" requiredMessage="O campo 'Ativo' é obrigatório" />
 				
 			</h:panelGrid> 
 	  
