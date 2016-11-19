@@ -8,6 +8,14 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	template="/templates/modelo.xhtml">
 	
+<f:metadata>
+
+ <!-- Acao/metodo que pagina chama do bean  -->
+ <f:viewAction action="#{usuarioCadastroBean.carregarLista}"/>    
+  
+
+</f:metadata>
+	
  <ui:define name="conteudo">	
  
 	<p:growl id="mensagem" />
