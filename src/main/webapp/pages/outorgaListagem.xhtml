@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/templates/modelo.xhtml">
+	
+<f:metadata>   
+
+     <!-- Carregar lista -->
+     <f:viewAction action="#{uaListagemBean.listar()}"/>   
+
+</f:metadata>		
+	
+ <ui:define name="conteudo">	
+ 
+	<p:growl id="mensagem" />
+
+	<h:form id="formListagem">
+	
+		<p:panel header="Outorgas - Listagem">
+		
+			<p:dataTable  id="tabela" emptyMessage="Nenhum registro encontrado."
+				paginator="true" value="#{uaListagemBean.listaUa}" var="listaUas" rows="10"> <!-- rows: Informa a paginação -->
+
+				
+				<p:column style="width:100px" headerText="Processo APAC" sortBy="#{listaUas.numeroUa}" filterBy="#{listaUas.numeroUa}"> <!-- sortBy: Ordenação dos dados -->
+					<h:outputText value="#{listaUas.numeroUa}" />                                        <!-- filterBy: Filtar dados      -->   
+				</p:column>
+				
+				<p:column headerText="Montante" style="width:30px" >
+					<h:outputText value="#{listaUas.ano}" />
+				</p:column>	
+
+				<p:column headerText="Jusante" style="width:30px" >
+					<h:outputText value="#{listaUas.ano}" />
+				</p:column>	
+				
+				<p:column headerText="Outorgante" style="width:150px" >
+					<h:outputText value="#{listaUas.ano}" />
+				</p:column>					
+							
+
+				<p:column headerText="Usuário" style="width:100px">
+					<h:outputText value="#{listaUas.jan}">
+					<!-- convertNumber serve para mudar para o padrão BR a emprego de virgula no padrão númerico -->
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>					
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Captação" style="width:30px">
+					<h:outputText value="#{listaUas.fev}">
+						<!-- convertNumber serve para mudar para o padrão BR a emprego de virgula no padrão númerico -->
+				<f:convertNumber locale="pt_BR" minFractionDigits="2"/>					
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Área de drenagem" style="width:30px">
+					<h:outputText value="#{listaUas.mar}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>					
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Número Ua" style="width:30px">
+					<h:outputText value="#{listaUas.mar}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>					
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Vencimento" style="width:50px">
+					<h:outputText value="#{listaUas.abr}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>					
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Opções" style="width:100px">
+				
+				  <p:commandButton icon="ui-icon-trash" rendered="#{autenticacaoBean.usuarioLogin.tipo =='A'.charAt(0)}"/>
+					
+					<p:button icon="ui-icon-pencil" outcome="/pages/pessoaEdicao.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}">
+					   <f:param name="codigo" value="#{listaPessoas.codigo}" />
+					</p:button>
+					
+					<p:button icon="ui-icon-search" outcome="/pages/pessoaEdicao.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo != 'A'.charAt(0)}">
+					   <f:param name="codigo" value="#{listaPessoas.codigo}" />
+					</p:button>					
+									
+				</p:column>
+			</p:dataTable>			
+			</p:panel>
+		</h:form>
+	
+</ui:define>
+</ui:composition>
