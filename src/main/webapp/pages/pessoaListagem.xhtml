@@ -9,15 +9,13 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	template="/templates/modelo.xhtml">
 	
-	
-<f:metadata>
-    
-    <!-- Carregar lista -->
-    <f:viewAction action="#{pessoaListagemBean.listar()}"></f:viewAction>
+<ui:define name="metadata">
+     <f:metadata>    
+          <!-- Carregar lista -->
+          <f:viewAction action="#{pessoaListagemBean.listar()}"></f:viewAction>
+      </f:metadata>	
+</ui:define>		
 
-
-</f:metadata>	
-	
  <ui:define name="conteudo">	
 	
 

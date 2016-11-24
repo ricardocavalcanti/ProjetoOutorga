@@ -8,15 +8,15 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	template="/templates/modelo.xhtml">
 	
-<f:metadata>
-
-    <!-- Recebe dados para outra tela para fazer a edicao -->
-   <f:viewParam name="codigo" value="#{uaEdicaoBean.codigoUa}" required="true" requiredMessage="Campo código é obrigatório"/>
+<ui:define name="metadata">
+  <f:metadata>
+      <!-- Recebe dados para outra tela para fazer a edicao -->
+      <f:viewParam name="codigo" value="#{uaEdicaoBean.codigoUa}" required="true" requiredMessage="Campo código é obrigatório"/>
    
-   <!-- Acao/metodo que pagina chama do bean  -->
-   <f:viewAction action="#{uaEdicaoBean.carregarEdicao()}"/>
-
-</f:metadata>	
+      <!-- Acao/metodo que pagina chama do bean  -->
+     <f:viewAction action="#{uaEdicaoBean.carregarEdicao()}"/>
+  </f:metadata>	
+</ui:define>	
 	
  <ui:define name="conteudo">	
  

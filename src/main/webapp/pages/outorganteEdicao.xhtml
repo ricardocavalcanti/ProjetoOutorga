@@ -8,24 +8,23 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	template="/templates/modelo.xhtml">
 	
-<f:metadata>
-
-   <!-- Recebe dados para outra tela para fazer a edicao -->
-   <f:viewParam name="codigo" value="#{outoganteEdicaoBean.codigoOutorgante}" required="true" 
-    requiredMessage="Campo código é obrigatório"/>
+<ui:define name="metadata">
+  <f:metadata>
+     <!-- Recebe dados para outra tela para fazer a edicao -->
+     <f:viewParam name="codigo" value="#{outoganteEdicaoBean.codigoOutorgante}" required="true" 
+      requiredMessage="Campo código é obrigatório"/>
    
-   <!-- Acao/metodo que pagina chama do bean  -->
-   <f:viewAction action="#{outoganteEdicaoBean.carregarEdicao}"/>     
-   
-</f:metadata>	
+     <!-- Acao/metodo que pagina chama do bean  -->
+     <f:viewAction action="#{outoganteEdicaoBean.carregarEdicao}"/>  
+  </f:metadata>	
+</ui:define>	
 
  <ui:define name="conteudo">
  
    <p:growl id="mensagem"/>
      
      <h:form id="formCadastro">			
-      <p:panel header="Outorgante - Edição">  
-      
+      <p:panel header="Outorgante - Edição">        
       
         <p:toolbar style="margin-top: 20px">
                 <p:toolbarGroup align="right">
