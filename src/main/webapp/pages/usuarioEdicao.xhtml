@@ -28,8 +28,12 @@
 	 <p:panel header="Unidade de análise - Cadastro">
 	 
 	 <p:toolbar style="margin-top: 20px">	   
-                <p:toolbarGroup align="right">                                
-                <p:button value="Voltar" icon="ui-icon-trash"  outcome="/pages/usuarioListagem.xhtml" />                 
+                <p:toolbarGroup align="right">  
+                                              
+                <p:button value="Voltar" icon="ui-icon-arrowreturnthick-1-w" outcome="/pages/usuarioListagem.xhtml" />
+                
+                <p:button value="Apagar" icon="ui-icon-trash" outcome="/pages/outorganteListagem.xhtml"/>   
+                               
                 <p:commandButton value="Editar" icon="ui-icon-disk" update=":mensagem"/>               
                 </p:toolbarGroup>
         </p:toolbar>

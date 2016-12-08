@@ -13,6 +13,9 @@
      <!-- Recebe dados para outra tela para fazer a edicao -->
      <f:viewParam name="codigo" value="#{outoganteEdicaoBean.codigoOutorgante}" required="true" 
       requiredMessage="Campo código é obrigatório"/>
+      
+      <f:viewParam name="codigo" value="#{outorganteApagarBean.codigoOutorgante}" required="true" 
+      requiredMessage="Campo código é obrigatório"/>
    
      <!-- Acao/metodo que pagina chama do bean  -->
      <f:viewAction action="#{outoganteEdicaoBean.carregarEdicao}"/>  
@@ -29,8 +32,18 @@
         <p:toolbar style="margin-top: 20px">
                 <p:toolbarGroup align="right">
                 
-                <p:button value="Voltar" icon="ui-icon-trash" outcome="/pages/outorganteListagem.xhtml"/>                 
-                <p:commandButton value="Editar" icon="ui-icon-disk" update=":mensagem" actionListener="#{outoganteEdicaoBean.salvarEdicao}" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}" />
+                <p:button value="Voltar" icon="ui-icon-arrowreturnthick-1-w" outcome="/pages/outorganteListagem.xhtml"/> 
+                
+                <p:commandButton value="Apagar" icon="ui-icon-trash"  update=":mensagem" actionListener="#{outorganteApagarBean.excluirOutorgante}" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}">                    
+                    <p:confirm header="Confirmation" message="Você tem certeza?" icon="ui-icon-alert" />                
+                </p:commandButton>
+                
+             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+             </p:confirmDialog>
+                               
+                <p:commandButton value="Editar" icon="ui-icon-pencil" update=":mensagem" actionListener="#{outoganteEdicaoBean.salvarEdicao}" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}" />
                  
                 </p:toolbarGroup>                           
           </p:toolbar> 

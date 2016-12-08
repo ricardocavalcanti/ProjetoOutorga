@@ -30,8 +30,10 @@
 	    
                 <p:toolbarGroup align="right">    
                                             
-                   <p:button value="Voltar" icon="ui-icon-trash" outcome="/pages/pessoaListagem.xhtml" />
-                                    
+                   <p:button value="Voltar" icon="ui-icon-arrowreturnthick-1-w" outcome="/pages/pessoaListagem.xhtml" />
+                   
+                   <p:button value="Apagar" icon="ui-icon-trash" outcome="/pages/outorganteListagem.xhtml"/>  
+                                   
                    <p:commandButton value="Editar" update=":mensagem" icon="ui-icon-disk" actionListener="#{pessoaEdicaoBean.salvarEdicao()}" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}" />
                                     
                 </p:toolbarGroup>

@@ -18,12 +18,14 @@
          <p:panel header="Outorga - Edição">  
         
          <p:toolbar style="margin-top: 20px">
+         
                 <p:toolbarGroup align="right">                
                                            
-                   <p:button value="Voltar" icon="ui-icon-trash" outcome="/pages/outorgaListagem.xhtml" />
-                                    
-                   <p:commandButton value="Editar" update=":mensagem" icon="ui-icon-disk" 
-                   actionListener="#{pessoaEdicaoBean.salvarEdicao()}" 
+                   <p:button value="Voltar" icon="ui-icon-arrowreturnthick-1-w" outcome="/pages/outorgaListagem.xhtml" />
+                   
+                   <p:button value="Apagar" icon="ui-icon-trash" outcome="/pages/outorganteListagem.xhtml"/> 
+                                                       
+                   <p:commandButton value="Editar" update=":mensagem" icon="ui-icon-pencil" actionListener="#{pessoaEdicaoBean.salvarEdicao()}" 
                    rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}" />
                    
                 </p:toolbarGroup>                           
