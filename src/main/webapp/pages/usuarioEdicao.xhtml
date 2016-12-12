@@ -13,6 +13,9 @@
      <!-- Recebe dados para outra tela para fazer a edicao -->
      <f:viewParam name="codigo" value="#{usuarioEdicaoBean.codigoUsuario}" required="true" 
      requiredMessage="Campo código é obrigatório"/>
+     
+      <f:viewParam name="codigo" value="#{usuarioApagarBean.codigoUsuario}" required="true" 
+     requiredMessage="Campo código é obrigatório"/>
    
      <!-- Acao/metodo que pagina chama do bean  -->
      <f:viewAction action="#{usuarioEdicaoBean.carregarEdicao}"/>
@@ -32,7 +35,14 @@
                                               
                 <p:button value="Voltar" icon="ui-icon-arrowreturnthick-1-w" outcome="/pages/usuarioListagem.xhtml" />
                 
-                <p:button value="Apagar" icon="ui-icon-trash" outcome="/pages/outorganteListagem.xhtml"/>   
+                <p:commandButton value="Apagar" icon="ui-icon-trash" update=":mensagem" actionListener="#{usuarioApagarBean.excluirUsuario()}" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}" > 
+                   <p:confirm header="Confirmação" message="Você tem certeza?" icon="ui-icon-alert" />                 
+                </p:commandButton>  
+                
+             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+             </p:confirmDialog>   
                                
                 <p:commandButton value="Editar" icon="ui-icon-disk" update=":mensagem"/>               
                 </p:toolbarGroup>

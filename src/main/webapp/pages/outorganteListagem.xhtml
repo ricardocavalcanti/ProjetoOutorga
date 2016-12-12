@@ -40,9 +40,7 @@
 					<h:outputText value="#{listaOutorgantes.email}" />
 				</p:column>				
 
-				<p:column style="width:100px" headerText="Opções">
-
-					<p:commandButton icon="ui-icon-trash" rendered="#{autenticacaoBean.usuarioLogin.tipo =='A'.charAt(0)}"/>
+				<p:column style="width:30px" headerText="Opções">					
 					
 					<p:button icon="ui-icon-pencil" outcome="/pages/outorganteEdicao.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo == 'A'.charAt(0)}">
 					   <f:param name="codigo" value="#{listaOutorgantes.codigo}" />

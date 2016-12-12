@@ -378,7 +378,8 @@ public class VendaBean implements Serializable {
 
 		if (listaUas.isEmpty()) {
 
-			System.out.println("Nenhum registro encontrado");
+			Messages.addGlobalInfo("Numero da UA não localizada!");
+			
 
 		} else {
 			int i = 0;
@@ -420,6 +421,7 @@ public class VendaBean implements Serializable {
 		for (Ua ua : listaUas) {
 			ListaJan.add(ua.getJan());
 		}
+		
 		// Receber List de Janeiro que foi setada dentro do listUas
 		InterpolarUaCalc interpolarJan = new InterpolarUaCalc();
 		venda.setJan(interpolarJan.vendaInterpolar(ListaJan, areaUa, garantiaJan, venda.getAreaDrenagem()));
@@ -638,7 +640,7 @@ public class VendaBean implements Serializable {
 					atual.setProcessoJusante(venda.getOutorgante().getProcessoApac());
 					condicao2 = true;
 				}
-				
+				// Erro na lógica, pois sempre vão ser falso! Dentro do While
 				if (condicao1 == true && condicao2 == true) {
 					break;
 				}				
@@ -677,17 +679,17 @@ public class VendaBean implements Serializable {
 		}
 		
 		System.out.println("LISTA AUX: "+ listaAux.size());
-		
+		//Primeiro rio da listaAux, Rio com montante igual a ZERO!
 		for(Venda rio : listaAux){
 			
-			if (rio.getProcessoMontante() == 0){
+			if (rio.getProcessoMontante() == 0) {
 				 ordenacaoRio.add(rio);
 				 System.out.println("PRIMEIRO RIO: "+rio.getProcessoMontante());
 			}
 		}
 		
 		System.out.println("INICIO LISTA: "+ordenacaoRio.size());
-		
+	   //Ordenando a lista dos rios com relação aos processos	
 	   Venda rio = ordenacaoRio.get(0);
 	   Venda rio2 = null;
 	   
@@ -698,16 +700,21 @@ public class VendaBean implements Serializable {
 		   for(int z = 0; z< listaAux.size(); ++z){	
 		 
 			rio2 = listaAux.get(z);   
-			
+			/**rio é o primeiro rio da lista e rio2 é o rio da posição corrente, será comparado
+			 * caso sejam iguais o processo montante com o jusante, será adicionado a lista 'ordenacaoRio.add(rio2)'
+			 * e o valor do rio2 será passado para o rio onde faço nova comparação.
+			 * 
+			 */
 			if (rio.getProcessoJusante() == rio2.getOutorgante().getProcessoApac()){ 
 				
 				ordenacaoRio.add(rio2);
 				System.out.println(z);
 				System.out.println("ORDENAÇÃO: "+rio2.getProcessoMontante());
+				//Se forem iguais variável rio recebe valor da variável rio2
 				rio = rio2;	
 				System.out.println("RIO RECEBENDO RIO 2"+rio.getProcessoMontante());
 			  }
-    	    }	   	   
+    	    }	//lista ordenaçãoRio são todos os rios em ordem que estão no banco de dados   
 	   }		 
 		 
         int i=0;	
@@ -716,7 +723,10 @@ public class VendaBean implements Serializable {
 			System.out.println("Processo: "+i+": "+ordem.getProcessoMontante());
 			
 		}	
-		
+		/**
+		 * Calculo das vazões acumuladas dos rios anteriores
+		 * 
+		 */
 		if(venda.getProcessoMontante() == 0){
 	
           //Calculo da disponibilidade do primeiro rio onde processo montante é igual a zero
@@ -778,18 +788,22 @@ public class VendaBean implements Serializable {
 	   	//Dos outros processos menos o primeiro processo que o montante é igual a zero
         for(int z = 0; z<ordenacaoRio.size(); ++z){ 
      
-        	
+       // Os rios estão em ordem, portanto sei que ordenacaoRio.get(z) irá de  0 até fim da lista na ordem 	
         Venda processoRio = ordenacaoRio.get(z);
         	
         if(processoRio.getProcessoMontante()!=0){
         	
+        	//Captação acumulada do processo anterior com o processo corrente
         	BigDecimal captacao0 = processoRio.getCaptacao();
 			BigDecimal captacao1 = ordenacaoRio.get(z-1).getCaptacao();
 			BigDecimal somaCaptacao = new BigDecimal(String.valueOf(captacao0))
 			.add(new BigDecimal(String.valueOf(captacao1)));
 			processoRio.setCaptacao(somaCaptacao);
         	
-        	
+        	/**
+        	 * O que me interessa é saber se irá sobrar água portanto soma-se a vazão anterior
+        	 * com a atual e subtrai do mês corrente
+        	 */
              BigDecimal calcDispJanIni2 = new BigDecimal(String.valueOf(processoRio.getJan()))
             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao()))); 
              processoRio.setJan(calcDispJanIni2);
