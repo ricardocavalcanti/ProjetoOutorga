@@ -17,8 +17,11 @@
   <p:panel header="Outorgante - Cadastro" id="painel1">
                     
         <p:toolbar style="margin-top: 20px">
-                <p:toolbarGroup align="right">                           
-                     <p:commandButton value="Salvar" icon="ui-icon-disk" actionListener="#{outoganteCadastroBean.salvar()}" update=":mensagem"/>                 
+                <p:toolbarGroup align="right"> 
+                     <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />                          
+                     <p:commandButton value="Salvar" icon="ui-icon-disk" actionListener="#{outoganteCadastroBean.salvar()}" update=":mensagem">
+                       
+                     </p:commandButton>                 
                 </p:toolbarGroup>                           
           </p:toolbar> 
 

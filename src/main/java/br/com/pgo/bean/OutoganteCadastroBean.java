@@ -1,11 +1,15 @@
 package br.com.pgo.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
+import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 
 import br.com.pgo.dao.OutorganteDAO;
@@ -33,14 +37,20 @@ public class OutoganteCadastroBean implements Serializable {
 		outorganteDAO = new OutorganteDAO();
 		outorgante = new Outorgante();
 	}
+	
+	public void message() {
 
-	public void salvar(){
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "PrimeFaces Rocks."));
+	}
+
+	public void salvar() throws IOException{
 
 		try {
 
 			outorganteDAO.merge(outorgante);
-
-			Messages.addFlashGlobalInfo("Outorgante salvo com sucesso!");			
+			message();
+			Faces.redirect("./pages/outorganteListagem.xhtml");
 			
 
 		} catch (RuntimeException erro) {

@@ -1,11 +1,15 @@
 package br.com.pgo.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
+import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 
 import br.com.pgo.dao.OutorganteDAO;
@@ -41,6 +45,17 @@ public class OutorganteApagarBean implements Serializable {
 
 		outorganteDAO = new OutorganteDAO();
 	}
+	
+	public void message() {
+
+		addMessage("Outorgante excluído com sucesso", null);
+
+	}
+
+	public void addMessage(String summary, String detail) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+		FacesContext.getCurrentInstance().addMessage(null, message);
+	}
 
 	public void buscarOutorgante() {
 
@@ -57,14 +72,15 @@ public class OutorganteApagarBean implements Serializable {
 
 	}
 
-	public void excluirOutorgante() {
+	public void excluirOutorgante() throws IOException {
 
 		buscarOutorgante();
 
 		try {
 
 			outorganteDAO.excluir(outorgante);
-			Messages.addGlobalInfo("Outorgante excluido com sucesso");
+			message();
+			Faces.redirect("./pages/outorganteListagem.xhtml");
 
 		} catch (RuntimeException erro) {
 

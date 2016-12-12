@@ -63,11 +63,9 @@
 					<h:outputText value="#{listaOutorgas.vencimento}"/>					
 				</p:column>
 				
-				<p:column headerText="Opções" style="width:100px">
-				
-				  <p:commandButton icon="ui-icon-trash" rendered="#{autenticacaoBean.usuarioLogin.tipo =='A'.charAt(0)}"/>
-					
-					<p:button icon="ui-icon-pencil" outcome="/pages/outorgaEdicao.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo != 'A'.charAt(0)}">
+				<p:column headerText="Opções" style="width:40px">
+								
+				  					<p:button icon="ui-icon-pencil" outcome="/pages/outorgaEdicao.xhtml" rendered="#{autenticacaoBean.usuarioLogin.tipo != 'A'.charAt(0)}">
 					   <f:param name="codigo" value="#{listaPessoas.codigo}" />
 					</p:button>
 					
