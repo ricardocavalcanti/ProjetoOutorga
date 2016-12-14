@@ -56,7 +56,8 @@ public class InterpolarUaCalc {
 				// O calculo é o mesmo para todos os meses a única coisa que
 				// muda é o valor garantia
 				mapChave.merge(String.valueOf(media), new BigDecimal(String.valueOf(ua)), BigDecimal::add);
-
+				System.out.println("--------------------------------------------");
+				System.out.println("DADOS DA LISTA ");
 				System.out.println("TAMANHO DA LISTA: " + qtdBigDec);
 				System.out.println("MEDIA : " + media + " POSICAO " + posicao);
 
@@ -85,7 +86,7 @@ public class InterpolarUaCalc {
 				if (mapChave.get(c) == mapChave.get(String.valueOf(x2))) {
 
 					y2 = mapChave.get(c);
-					System.out.println("TESTE_y2: " + y2);
+					
 
 				}
 
@@ -108,8 +109,7 @@ public class InterpolarUaCalc {
 			for (String c : chaves) {
 				if (mapChave.get(c) == mapChave.get(String.valueOf(x1))) {
 
-					y1 = mapChave.get(c);
-					System.out.println("TESTE_y1: " + y1);
+					y1 = mapChave.get(c);					
 
 				}
 
@@ -127,22 +127,17 @@ public class InterpolarUaCalc {
 			// Invocando o metodo InterpolarCalc do pacote br.com.pgo.Util
 
 			InterpolarCalc InterpolarJan = new InterpolarCalc();
-
-			System.out.println(" 0 INTERPOLACAO: " + InterpolarJan.calcular(x1, x2, garantia, y1, y2));
-			System.out.println("--------------------------------------------");
-
-			System.out.println("1 AREA UA: " + areaUa);
+			System.out.println("--------------------------------------------");	
+			
+			System.out.println(" RELATÓRIO DOS VALORES PARA O CALCULO FINAL! ");			
 
 			BigDecimal calc1 = InterpolarJan.calcular(x1, x2, garantia, y1, y2);
-
-			BigDecimal calc2 = new BigDecimal(String.valueOf(calc1)).divide(new BigDecimal(String.valueOf(areaUa)), 4,
-					RoundingMode.UP);
-			System.out.println("3 AREA UA : " + areaUa);
-
-			garantia = new BigDecimal(String.valueOf(calc2)).multiply(new BigDecimal(String.valueOf(areaDrenagem)));
-			System.out.println("4 AREA UA: " + areaUa);
-
-			System.out.println("GARANTIA FINAL" + garantia);
+            System.out.println("0 Calculo garantia final = (Resultado interpolação/areaUA) x areaDrenagem ");
+            System.out.println("0 INTERPOLAÇÃO= "+calc1+"* AREA UA= "+areaUa+"* AREA DRENAGEM= "+areaDrenagem);
+			BigDecimal calc2 = new BigDecimal(String.valueOf(calc1)).divide(new BigDecimal(String.valueOf(areaUa)), 4,RoundingMode.UP);
+			
+			garantia = new BigDecimal(String.valueOf(calc2)).multiply(new BigDecimal(String.valueOf(areaDrenagem)));		
+			System.out.println("(RESULTADO FINAL) GARANTIA FINAL" + garantia);
 
 		} else {
 
