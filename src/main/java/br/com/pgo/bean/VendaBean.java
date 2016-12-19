@@ -286,9 +286,7 @@ public class VendaBean implements Serializable {
 		this.listaUsuarios = listaUsuarios;
 	}
 
-	/** Instancia elementos para serem trabalhados na tela.
-	 * Limpa a tela zerando todas as listas e variaveis para nova simulação
-	 */
+	
 	@PostConstruct	
 	public void novo() {
 		
@@ -310,6 +308,15 @@ public class VendaBean implements Serializable {
 		resultDez = BigDecimal.ZERO;
 		
 		num = 0;
+		
+		/**
+		 * venda.getCaptcaoNoPonto() é quando o outorgante está usando
+		 * e esse valor será passado para venda.setCaptacao, e este será
+		 * a captação acumulada no ponto ex: ponto montante = 2 + ponto atual =6
+		 * logo a captação (acumulada) será = 8
+		 * 
+		 */
+		
 	}
 	// Listar usuários e outorgante para serem usando no
 	// venda.xhtml (<p:outputLabel>)
@@ -654,6 +661,10 @@ public class VendaBean implements Serializable {
 	//Calcular disponibilidade
 	public void cacularDisponibilidade() {
 		
+		/** Instancia elementos para serem trabalhados na tela.
+		 * Limpa a tela zerando todas as listas e variaveis para nova simulação
+		 */		
+		venda.setCaptacao(venda.getCaptacaoNoPonto());
 		
 		ordenacaoRio = new ArrayList<Venda>();
 		
@@ -800,6 +811,7 @@ public class VendaBean implements Serializable {
 			.add(new BigDecimal(String.valueOf(captacao1)));
 			processoRio.setCaptacao(somaCaptacao);
         	
+			System.out.println("-->>Captação acumulada: "+venda.getCaptacao());
         	/**
         	 * O que me interessa é saber se irá sobrar água portanto soma-se a vazão anterior
         	 * com a atual e subtrai do mês corrente
@@ -899,11 +911,11 @@ public void salvar() {
 		 System.out.println(venda.getNumeroUa());
 		 
      }
-	   Messages.addGlobalInfo("Usuário salvo com sucesso!");
+	   Messages.addGlobalInfo("Outorga relizada com sucesso!");
 	   
    } catch (RuntimeException erro) {
 
-		Messages.addGlobalInfo("Erro ao salvar usuário!");
+		Messages.addGlobalInfo("Erro relizar outorga!");
 		erro.printStackTrace();
 	}				
 

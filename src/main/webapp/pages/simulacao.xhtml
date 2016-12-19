@@ -20,13 +20,16 @@
          <p:toolbar style="margin-top: 20px">
                 <p:toolbarGroup align="right">
                 
-                 <p:commandButton value="Simular" icon="ui-icon-star" actionListener="#{vendaBean.simular}" update=":frmCadastro:painel3">
+                 <p:commandButton value="Simular" icon="ui-icon-star" actionListener="#{vendaBean.simular}" 
+                 update=":mensagem :frmCadastro:painel :frmCadastro:painel2 :frmCadastro:painel3">
                     <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
                  </p:commandButton>
                  
                  <p:commandButton value="Salvar" icon="ui-icon-disk" actionListener="#{vendaBean.salvar}" 
-                 update=":mensagem :frmCadastro:painel :frmCadastro:painel2 :frmCadastro:painel3"/>
-                 
+                 update=":mensagem :frmCadastro:painel :frmCadastro:painel2 :frmCadastro:painel3">
+                  <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+                </p:commandButton>
+                
                 </p:toolbarGroup>                           
           </p:toolbar> 
 
@@ -75,7 +78,8 @@
 				    requiredMessage="O campo 'Vencimento' é obrigatório" size="11" navigator="true"/>
 				    
 				    <p:outputLabel value="Captacao:" />
-                    <p:inputText  value="#{vendaBean.venda.captacao}" id="captacao" size="6" maxlength="11">				    			                  
+                    <p:inputText  value="#{vendaBean.venda.captacaoNoPonto}" id="captacao" size="6" maxlength="11" required="true"
+                    requiredMessage="O campo 'Captação é obrigatório">				    			                  
 	                </p:inputText>    	
 	                                                 
                 </h:panelGrid>

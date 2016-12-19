@@ -44,6 +44,9 @@ public class Venda extends GenericDomain {
 	private BigDecimal captacao;
 
 	@Column(nullable = false, precision = 6, scale = 2)
+	private BigDecimal captacaoNoPonto;
+
+	@Column(nullable = false, precision = 6, scale = 2)
 	private BigDecimal jan;
 
 	@Column(nullable = false, precision = 6, scale = 2)
@@ -81,6 +84,14 @@ public class Venda extends GenericDomain {
 
 	public Venda() {
 
+	}
+
+	public BigDecimal getCaptacaoNoPonto() {
+		return captacaoNoPonto;
+	}
+
+	public void setCaptacaoNoPonto(BigDecimal captacaoNoPonto) {
+		this.captacaoNoPonto = captacaoNoPonto;
 	}
 
 	public int getProcessoMontante() {
