@@ -308,14 +308,7 @@ public class VendaBean implements Serializable {
 		resultDez = BigDecimal.ZERO;
 		
 		num = 0;
-		
-		/**
-		 * venda.getCaptcaoNoPonto() é quando o outorgante está usando
-		 * e esse valor será passado para venda.setCaptacao, e este será
-		 * a captação acumulada no ponto ex: ponto montante = 2 + ponto atual =6
-		 * logo a captação (acumulada) será = 8
-		 * 
-		 */
+				
 		
 	}
 	// Listar usuários e outorgante para serem usando no
@@ -666,6 +659,15 @@ public class VendaBean implements Serializable {
 		 */		
 		venda.setCaptacao(venda.getCaptacaoNoPonto());
 		
+		/**
+		 * venda.getCaptcaoNoPonto() é quanto o outorgante está usando
+		 * e esse valor será passado para venda.setCaptacao, e este será
+		 * a captação acumulada no ponto ex: ponto montante = 2 + ponto atual =6
+		 * logo a captação (acumulada) será = 8
+		 * 
+		 * 
+		 */
+		
 		ordenacaoRio = new ArrayList<Venda>();
 		
 		//Transformando em percentual o valor da captação, divido o valor por 100		
@@ -793,76 +795,81 @@ public class VendaBean implements Serializable {
 	    .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(0).getCaptacao())));		 
 	   	ordenacaoRio.get(0).setDez(calcDispDezIni1);		 
 		 
-		}
+		} else{
 
 		//Calculo da vazao menos a disponibilidade do Rio
 	   	//Dos outros processos menos o primeiro processo que o montante é igual a zero
-        for(int z = 0; z<ordenacaoRio.size(); ++z){ 
-     
+        for(int z = 0; z<ordenacaoRio.size(); z++){ 
+        	System.out.println("1000getCAPTACAO"+ordenacaoRio.get(z).getCaptacao());
        // Os rios estão em ordem, portanto sei que ordenacaoRio.get(z) irá de  0 até fim da lista na ordem 	
-        Venda processoRio = ordenacaoRio.get(z);
+       // Venda processoRio = ordenacaoRio.get(z);
         	
-        if(processoRio.getProcessoMontante()!=0){
+       // if(processoRio.getProcessoMontante()!=0){
+        	if(ordenacaoRio.get(z).getProcessoMontante()!=0){
         	
         	//Captação acumulada do processo anterior com o processo corrente
-        	BigDecimal captacao0 = processoRio.getCaptacao();
-			BigDecimal captacao1 = ordenacaoRio.get(z-1).getCaptacao();
-			BigDecimal somaCaptacao = new BigDecimal(String.valueOf(captacao0))
-			.add(new BigDecimal(String.valueOf(captacao1)));
-			processoRio.setCaptacao(somaCaptacao);
-        	
-			System.out.println("-->>Captação acumulada: "+venda.getCaptacao());
+        	BigDecimal captacao0 = new BigDecimal(String.valueOf(ordenacaoRio.get(z).getCaptacao()));
+			BigDecimal captacao1 = new BigDecimal(String.valueOf(ordenacaoRio.get(z-1).getCaptacao()));
+			BigDecimal somaCaptacao = new BigDecimal(String.valueOf(captacao0)).add(new BigDecimal(String.valueOf(captacao1)));
+			ordenacaoRio.get(z).setCaptacao(somaCaptacao);
+			System.out.println("CONTADOR: "+z);
+			System.out.println("getCAPTACAO"+ordenacaoRio.get(z).getCaptacao());
+			System.out.println("-->>Captação acumulada: "+ordenacaoRio.get(z).getCaptacao());
         	/**
         	 * O que me interessa é saber se irá sobrar água portanto soma-se a vazão anterior
-        	 * com a atual e subtrai do mês corrente
+        	 * com a atual e subtrai captação do mês corrente
         	 */
-             BigDecimal calcDispJanIni2 = new BigDecimal(String.valueOf(processoRio.getJan()))
-            .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao()))); 
-             processoRio.setJan(calcDispJanIni2);
+             BigDecimal calcDispJanIni2 = new BigDecimal(String.valueOf(ordenacaoRio.get(z).getJan()))
+            .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(z).getCaptacao()))); 
+             ordenacaoRio.get(z).setJan(calcDispJanIni2);
              
-             BigDecimal calcDispFevIni2 = new BigDecimal(String.valueOf(processoRio.getFev()))
-             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
-             processoRio.setFev(calcDispFevIni2);
+             System.out.println("CAPTAÇÃO ACUMULADA: "+ordenacaoRio.get(z).getCaptacao());
+             System.out.println("VAZAO JANEIRO: "+ordenacaoRio.get(z).getJan());
+             System.out.println("RESULTADO DO CALC VAZAO: "+calcDispJanIni2);
              
-             BigDecimal calcDispMarIni2 = new BigDecimal(String.valueOf(processoRio.getMar()))
-             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
-             processoRio.setMar(calcDispMarIni2);
+             BigDecimal calcDispFevIni2 = new BigDecimal(String.valueOf(ordenacaoRio.get(z).getFev()))
+             .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(z).getCaptacao())));          
+             ordenacaoRio.get(z).setFev(calcDispFevIni2);
              
-             BigDecimal calcDispAbrIni2 = new BigDecimal(String.valueOf(processoRio.getAbr()))
-             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
-             processoRio.setAbr(calcDispAbrIni2);
+             BigDecimal calcDispMarIni2 = new BigDecimal(String.valueOf(ordenacaoRio.get(z).getMar()))
+             .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(z).getCaptacao())));          
+             ordenacaoRio.get(z).setMar(calcDispMarIni2);
              
-             BigDecimal calcDispMaiIni2 = new BigDecimal(String.valueOf(processoRio.getMai()))
-             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
-             processoRio.setMai(calcDispMaiIni2);
+             BigDecimal calcDispAbrIni2 = new BigDecimal(String.valueOf(ordenacaoRio.get(z).getAbr()))
+             .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(z).getCaptacao())));          
+             ordenacaoRio.get(z).setAbr(calcDispAbrIni2);
              
-             BigDecimal calcDispJunIni2 = new BigDecimal(String.valueOf(processoRio.getJun()))
-             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
-             processoRio.setJun(calcDispJunIni2);
+             BigDecimal calcDispMaiIni2 = new BigDecimal(String.valueOf(ordenacaoRio.get(z).getMai()))
+             .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(z).getCaptacao())));          
+             ordenacaoRio.get(z).setMai(calcDispMaiIni2);
              
-             BigDecimal calcDispJulIni2 = new BigDecimal(String.valueOf(processoRio.getJul()))
-             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
-             processoRio.setJul(calcDispJulIni2);
+             BigDecimal calcDispJunIni2 = new BigDecimal(String.valueOf(ordenacaoRio.get(z).getJun()))
+             .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(z).getCaptacao())));          
+             ordenacaoRio.get(z).setJun(calcDispJunIni2);
              
-             BigDecimal calcDispAgoIni2 = new BigDecimal(String.valueOf(processoRio.getAgo()))
-             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
-             processoRio.setAgo(calcDispAgoIni2);
+             BigDecimal calcDispJulIni2 = new BigDecimal(String.valueOf(ordenacaoRio.get(z).getJul()))
+             .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(z).getCaptacao())));          
+             ordenacaoRio.get(z).setJul(calcDispJulIni2);
              
-             BigDecimal calcDispSetIni2 = new BigDecimal(String.valueOf(processoRio.getSet()))
-             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
-             processoRio.setSet(calcDispSetIni2);
+             BigDecimal calcDispAgoIni2 = new BigDecimal(String.valueOf(ordenacaoRio.get(z).getAgo()))
+             .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(z).getCaptacao())));          
+             ordenacaoRio.get(z).setAgo(calcDispAgoIni2);
              
-             BigDecimal calcDispOutIni2 = new BigDecimal(String.valueOf(processoRio.getOut()))
-             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
-             processoRio.setOut(calcDispOutIni2);
+             BigDecimal calcDispSetIni2 = new BigDecimal(String.valueOf(ordenacaoRio.get(z).getSet()))
+             .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(z).getCaptacao())));          
+             ordenacaoRio.get(z).setSet(calcDispSetIni2);
              
-             BigDecimal calcDispNovIni2 = new BigDecimal(String.valueOf(processoRio.getNov()))
-             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
-             processoRio.setNov(calcDispNovIni2);
+             BigDecimal calcDispOutIni2 = new BigDecimal(String.valueOf(ordenacaoRio.get(z).getOut()))
+             .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(z).getCaptacao())));          
+             ordenacaoRio.get(z).setOut(calcDispOutIni2);
              
-             BigDecimal calcDispDezIni2 = new BigDecimal(String.valueOf(processoRio.getDez()))
-             .subtract(new BigDecimal(String.valueOf(processoRio.getCaptacao())));          
-             processoRio.setDez(calcDispDezIni2);           
+             BigDecimal calcDispNovIni2 = new BigDecimal(String.valueOf(ordenacaoRio.get(z).getNov()))
+             .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(z).getCaptacao())));          
+             ordenacaoRio.get(z).setNov(calcDispNovIni2);
+             
+             BigDecimal calcDispDezIni2 = new BigDecimal(String.valueOf(ordenacaoRio.get(z).getDez()))
+             .subtract(new BigDecimal(String.valueOf(ordenacaoRio.get(z).getCaptacao())));          
+             ordenacaoRio.get(z).setDez(calcDispDezIni2);           
   }		
 		}
         System.out.println("TAMANHO DA LISTA VENDA: "+listaVenda.size());
@@ -871,9 +878,16 @@ public class VendaBean implements Serializable {
         //Limpando a lista e colocando novamente dentro de uma lista SET
         listaVenda.clear(); 
         for(Venda rio10: ordenacaoRio){       	 
-       	 listaVenda.add(rio10);      	  
+       	 listaVenda.add(rio10);
+       	 
         }
-
+        
+      
+        for(Venda rio10: listaVenda){       	 
+          	System.out.println("Captacao: "+rio10.getCaptacao()); 
+          	
+           }
+		  }
 			
 }
 	
